@@ -1,0 +1,25 @@
+{
+  "name": "Voluntr",
+  "version": "0.0.0",
+  "description": "Service to connect NGOs with volunteers.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JoonasSalmela/Voluntr.git"
+  },
+  "author": "",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/JoonasSalmela/Voluntr/issues"
+  },
+  "homepage": "https://github.com/JoonasSalmela/Voluntr",
+  "dependencies": {
+    "angular": "^1.3.14",
+    "angular-ui-router": "^0.2.13",
+    "express": "^4.12.2"
+  }
+}
