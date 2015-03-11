@@ -86,11 +86,13 @@ gulp.task('karma', ['inject', 'lint'], function(done) {
 gulp.task('serve', ['nodemon'], function() {
  var port = process.env.PORT || 8080;
 
-  browserSync({
-    proxy: 'localhost:' + port,
-    port: 8000,
-    ui: false
-  });
+  setTimeout(function() {
+    browserSync({
+      proxy: 'localhost:' + port,
+      port: 8000,
+      ui: false
+    });
+  }, 500);
 });
 
 gulp.task('watch', ['serve'], function() {
