@@ -3,7 +3,7 @@
 var Example = require('./example.model');
 
 exports.index = function(req, res) {
-  Example.getAll(function(err, data) {
+  Example.find({}, function(err, data) {
     // Check if an error occured and send http error code
     // and the serialized error object. In reality we should
     // probably have the errors propagate forward, collected
@@ -26,10 +26,23 @@ exports.show = function(req, res) {
   // /api/example/:id
   var id = req.params.id;
 
-  Example.getById(id, function(err, item) {
+  Example.findById(id, function(err, item) {
     if (err) return res.status(500).json(err);
     if (!item) return res.status(404).end();
 
     res.json(item);
+  });
+};
+
+exports.create = function(req, res) {
+  // create new item with the data POSTed.
+  var newItem = new Example(req.body);
+
+  newItem.save(function(err, item) {
+    if (err) return res.status(500).json(err);
+
+    // 201 is the http code for "Created".
+    // The RESTful way is to always return what you've created.
+    res.status(201).json(item);
   });
 };
