@@ -13,15 +13,19 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
-    resolve: {
-      exampleRestfulItems: function(Restangular) {
-        return Restangular.all('api/example').getList();
-      }
-    }
   }).state('other', {
     url: '/other',
     templateUrl: 'app/test-folder/other.html',
     controller: 'otherController'
+  }).state('example', {
+    url: '/example',
+    templateUrl: 'app/test-folder/example.html',
+    controller: 'exampleController',
+    resolve: {
+      items: function(Restangular) {
+        return Restangular.all('api/example').getList();
+      }
+    }
   });
 
   // This allows the address bar urls to seem natural

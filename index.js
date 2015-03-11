@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var bodyParser = require('body-parser');
 
 // Default environment is development.
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -24,6 +25,14 @@ app.use(express.static(__dirname + '/public'));
 
 // Expose node_modules as /scripts. Might have some security issues.
 app.use('/scripts', express.static(__dirname + '/node_modules'));
+
+// Parsers to populate the request object with useful
+// attributes.
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+app.use(bodyParser.json());
 
 // Apply api routes
 // TODO: Find out what's the difference between __dirname and './'
