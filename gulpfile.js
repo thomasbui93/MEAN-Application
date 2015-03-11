@@ -1,5 +1,7 @@
 'use strict';
 
+// TODO Add different options for dev/production/test
+
 var gulp = require('gulp');
 var noop = function() {}
 var less = require('gulp-less');
@@ -14,6 +16,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
+var karma = require('karma').server;
 
 gulp.task('default', ['build']);
 
@@ -69,6 +72,13 @@ gulp.task('nodemon', ['inject'], function() {
         reload({stream: false});
       }, 500);
     });
+});
+
+gulp.task('test', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
 });
 
 gulp.task('serve', ['nodemon'], function() {
