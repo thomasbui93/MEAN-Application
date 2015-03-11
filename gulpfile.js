@@ -22,6 +22,8 @@ gulp.task('default', ['build']);
 
 gulp.task('build', ['less', 'lint', 'serve', 'watch']);
 
+gulp.task('test', ['lint', 'karma']);
+
 var paths = {
   js: {
     allFiles: ['index.js', 'public/**/*.js', 'server/**/*.js'],
@@ -74,7 +76,7 @@ gulp.task('nodemon', ['inject'], function() {
     });
 });
 
-gulp.task('test', function(done) {
+gulp.task('karma', ['inject', 'lint'], function(done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
