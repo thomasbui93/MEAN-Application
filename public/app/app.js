@@ -4,7 +4,7 @@ angular.module('voluntr', [
   // module dependencies go here
   'ui.router',
   'restangular'
-]).config(function($urlRouterProvider, $stateProvider) {
+]).config(function($urlRouterProvider, $stateProvider, $locationProvider) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
 
@@ -24,6 +24,11 @@ angular.module('voluntr', [
     controller: 'otherController'
   });
 
+  // This allows the address bar urls to seem natural
+  // even though no actual pages aren't requested. Without
+  // this settings urls would be /#/some/page instead of
+  // /some/page
+  $locationProvider.html5Mode(true);
 
 }).run(function() {
 
