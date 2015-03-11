@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('voluntr', [
-  // module dependencies go here
-  'ui.router'
-]).config(function($urlRouterProvider, $stateProvider) {
+// module dependencies go here
+'ui.router']).config(function ($urlRouterProvider, $stateProvider) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
 
@@ -19,6 +18,6 @@ angular.module('voluntr', [
   });
 
 
-}).run(function() {
+}).run(function () {
 
 });

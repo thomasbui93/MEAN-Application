@@ -2,17 +2,19 @@
 <html>
 <head>
     <title>Voluntr</title>
-
-    <script src="/scripts/angular/angular.js"></script>
-    <script src="/scripts/angular-ui-router/release/angular-ui-router.js"></script>
-
-    <script src="/app/app.js"></script>
-    <script src="/app/home/home.controller.js"></script>
-    <script src="/app/test-folder/other.controller.js"></script>
-  
+    <!-- inject:css -->
+    <!-- endinject -->  
 </head>
 <body ng-app="voluntr">
     <!-- This view will be filled by the ui-router. -->
     <div ui-view></div>
+
+    <script src="/scripts/angular/angular.js"></script>
+    <script src="/scripts/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- inject:js -->
+    <script src="/public/app/app.js"></script>
+    <script src="/public/app/test-folder/other.controller.js"></script>
+    <script src="/public/app/home/home.controller.js"></script>
+    <!-- endinject -->
 </body>
 </html>
