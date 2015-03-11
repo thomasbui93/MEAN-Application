@@ -1,7 +1,5 @@
 'use strict';
 
-// This should get refactored a litte bit especially the file paths and how the main tasks are organised
-
 var gulp = require('gulp');
 var noop = function() {}
 var less = require('gulp-less');
@@ -12,7 +10,6 @@ var nodemon = require('gulp-nodemon');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var stylish = require('gulp-jscs-stylish');
-var beautify = require('gulp-beautify');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var inject = require('gulp-inject');
@@ -22,30 +19,33 @@ gulp.task('default', ['build']);
 
 gulp.task('build', ['less', 'lint', 'serve', 'watch']);
 
-var allProjectFiles = ['index.js', 'public/**/**', 'server/**/**']
+var paths = {
+  js: {
+    allFiles: ['index.js', 'public/**/*.js', 'server/**/*.js'],
+    angular: './public/app/**/*.js',
+    server: "./server/**/*.js"
+  },
+  styles: {
+    allFiles: ['./public/styles/less/*.less', './public/styles/css'],
+    less: './public/styles/less/*.less',
+    css: './public/styles/css'
+  },
+
+  html: "./public/**/*.html"
+}
 
 gulp.task('less', function() {
-  return gulp.src('./public/styles/less/*.less')
+  return gulp.src(paths.styles.less)
     .pipe(less({
       paths: [cleancss]  
     }))
-    .pipe(concat('main.css'))
-    .pipe(gulp.dest('./public/styles/css'))
+    .pipe(concat('main.min.css'))
+    .pipe(gulp.dest(paths.styles.css))
     .pipe(reload({stream: true}));
-});
- 
-gulp.task('beautify', function() {
-  gulp.src('public/**/*.js')
-    .pipe(beautify({indentSize: 2}))
-    .pipe(gulp.dest('./public/'));
-
-  gulp.src('server/**/*.js')
-    .pipe(beautify({indentSize: 2}))
-    .pipe(gulp.dest('./server/'));
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['index.js', 'public/**/*.js', 'server/**/*.js'])
+  return gulp.src(paths.js.allFiles)
     .pipe(jshint('.jshintrc'))
     .pipe(jscs('.jscsrc'))
     .on('error', noop)
@@ -54,13 +54,12 @@ gulp.task('lint', function() {
 });
 
 gulp.task('inject' ,function () {
-  //del(['public/index.html']);
   gulp.src('./public/index.html')
     .pipe(inject(
-      gulp.src('./public/app/**/*.js')
+      gulp.src(paths.js.angular)
         .pipe(angularFilesort())
     ))
-    .pipe(gulp.dest('./public'));
+    .pipe(gulp.dest(''));
 });
 
 gulp.task('nodemon', ['inject'], function() {
@@ -83,8 +82,8 @@ gulp.task('serve', ['nodemon'], function() {
 });
 
 gulp.task('watch', ['serve'], function() {
-  gulp.watch("./public/styles/less/*.less", ['less']);
-  gulp.watch("./public/styles/css/*.css", reload);
-  gulp.watch("./public/**/*.html", reload);
-  gulp.watch(["./public/**.*.js", "./server/**/*.js"], ['lint']);
+  gulp.watch(paths.styles.less, ['less']);
+  gulp.watch(paths.styles.css, reload);
+  gulp.watch(paths.html, reload);
+  gulp.watch(paths.js.allFiles, ['lint']);
 });
