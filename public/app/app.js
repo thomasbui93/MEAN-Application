@@ -34,6 +34,8 @@ angular.module('voluntr', [
   // /some/page
   $locationProvider.html5Mode(true);
 
-}).run(function() {
-
+}).run(function($http) {
+  $http.get('api/organization').then(function(data) {
+    console.log(data);
+  });
 });

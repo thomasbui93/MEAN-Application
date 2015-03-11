@@ -9,4 +9,5 @@ module.exports = function(app) {
   // Any requirests to /api/examples will be redirected
   // to the examples module.
   app.use('/api/example', require('./example'));
+  app.use('/api/organization', require('./organization'));
 };
