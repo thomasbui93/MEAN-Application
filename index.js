@@ -2,9 +2,21 @@
 
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
 
-// Port can be assigned as a environment variable.
-var PORT = process.env.NODE_PORT || 8080;
+// Default environment is development.
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+var config = require('./server/config');
+
+// Connect to database.
+mongoose.connect(config.mongo.uri, config.mongo.options);
+
+// Run a script to clean out and populate the database
+// in development and test environments.
+if (config.seedDB) {
+  require('./server/config/seed');
+}
 
 // All assets in the public folder are served statically.
 app.use(express.static(__dirname + '/public'));
@@ -16,6 +28,6 @@ app.use('/scripts', express.static(__dirname + '/node_modules'));
 // TODO: Find out what's the difference between __dirname and './'
 require('./server/routes')(app);
 
-app.listen(PORT, 'localhost');
+app.listen(config.port, 'localhost');
 
 

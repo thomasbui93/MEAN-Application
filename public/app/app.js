@@ -2,7 +2,8 @@
 
 angular.module('voluntr', [
   // module dependencies go here
-  'ui.router'
+  'ui.router',
+  'restangular'
 ]).config(function($urlRouterProvider, $stateProvider) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
@@ -11,7 +12,12 @@ angular.module('voluntr', [
   $stateProvider.state('home', {
     url: '/',
     templateUrl: 'app/home/home.html',
-    controller: 'homeController'
+    controller: 'homeController',
+    resolve: {
+      exampleRestfulItems: function(Restangular) {
+        return Restangular.all('api/example').getList();
+      }
+    }
   }).state('other', {
     url: '/other',
     templateUrl: 'app/test-folder/other.html',
