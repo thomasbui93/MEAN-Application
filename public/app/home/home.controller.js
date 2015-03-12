@@ -3,4 +3,4 @@
 angular.module('voluntr')
   .controller('homeController', function($scope) {
 
- });
+  });

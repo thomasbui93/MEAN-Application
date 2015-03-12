@@ -17,18 +17,21 @@ var reload = browserSync.reload;
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var karma = require('karma').server;
+var prettify = require('gulp-js-prettify');
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['less', 'lint', 'inject','serve', 'watch']);
+gulp.task('build', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch']);
 
 gulp.task('test', ['lint', 'karma']);
 
 var paths = {
   js: {
     allFiles: ['index.js', 'public/**/*.js', 'server/**/*.js'],
-    angular: './public/app/**/*.js',
-    server: "./server/**/*.js"
+    angular: './public/',
+    angularFiles: './public/**/*.js',
+    serverFiles: "./server/**/*.js",
+    server: './server/'
   },
   styles: {
     allFiles: ['./public/styles/less/*.less', './public/styles/css/*.css'],
@@ -50,21 +53,39 @@ gulp.task('less', function() {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('prettify', function() {
+  var options = {
+    "wrap_attributes_indent_size": 4,
+    "indent_size": 2,
+    "space_before_conditional": true,
+    "brace_style": "collapse",
+    "space_after_anon_function": false
+  }
+
+  gulp.src(paths.js.angularFiles)
+    .pipe(prettify(options))
+    .pipe(gulp.dest(paths.js.angular));
+
+  gulp.src(paths.js.serverFiles)
+    .pipe(prettify(options))
+    .pipe(gulp.dest(paths.js.server));
+});
+
 gulp.task('lint', function() {
   return gulp.src(paths.js.allFiles)
     .pipe(jshint('.jshintrc'))
-    .pipe(jscs('.jscsrc'))
-    .on('error', noop)
-    .pipe(stylish.combineWithHintResults())
+    // .pipe(jscs('.jscsrc'))
+    // .on('error', noop)
+    // .pipe(stylish.combineWithHintResults())
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('inject' ,function () {
+gulp.task('inject', function () {
   var target = './public/index.html';
 
   gulp.src(target)
     .pipe(inject(
-      gulp.src(paths.js.angular)
+      gulp.src(paths.js.angularFiles)
         .pipe(angularFilesort()), {
           transform: function(filepath) {
             return "<script src=\"" + filepath.replace("/public", "") + "\"></script>";
@@ -115,5 +136,5 @@ gulp.task('watch', ['serve'], function() {
   gulp.watch(paths.styles.cssFiles, ['inject']);
   gulp.watch(paths.html, reload);
   gulp.watch(paths.js.allFiles, ['lint', reload]);
-  gulp.watch(paths.js.angular, ['inject']);
+  gulp.watch(paths.js.angularFiles, ['inject']);
 });
