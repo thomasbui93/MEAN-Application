@@ -114,5 +114,6 @@ gulp.task('watch', ['serve'], function() {
   gulp.watch(paths.styles.lessFiles, ['less']);
   gulp.watch(paths.styles.cssFiles, ['inject']);
   gulp.watch(paths.html, reload);
-  gulp.watch(paths.js.allFiles, ['lint', 'inject']);
+  gulp.watch(paths.js.allFiles, ['lint', reload]);
+  gulp.watch(paths.js.angular, ['inject']);
 });
