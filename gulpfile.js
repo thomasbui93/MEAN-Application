@@ -20,7 +20,7 @@ var karma = require('karma').server;
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['less', 'lint', 'serve', 'watch']);
+gulp.task('build', ['less', 'lint', 'inject','serve', 'watch']);
 
 gulp.task('test', ['lint', 'karma']);
 
@@ -31,16 +31,17 @@ var paths = {
     server: "./server/**/*.js"
   },
   styles: {
-    allFiles: ['./public/styles/less/*.less', './public/styles/css'],
-    less: './public/styles/less/*.less',
-    css: './public/styles/css'
+    allFiles: ['./public/styles/less/*.less', './public/styles/css/*.css'],
+    lessFiles: './public/styles/less/*.less',
+    css: './public/styles/css/',
+    cssFiles: './public/styles/css/*.css'
   },
 
   html: "./public/**/*.html"
 }
 
 gulp.task('less', function() {
-  return gulp.src(paths.styles.less)
+  return gulp.src(paths.styles.lessFiles)
     .pipe(less({
       paths: [cleancss]  
     }))
@@ -59,12 +60,25 @@ gulp.task('lint', function() {
 });
 
 gulp.task('inject' ,function () {
-  gulp.src('./public/index.html')
+  var target = './public/index.html';
+
+  gulp.src(target)
     .pipe(inject(
       gulp.src(paths.js.angular)
-        .pipe(angularFilesort())
+        .pipe(angularFilesort()), {
+          transform: function(filepath) {
+            return "<script src=\"" + filepath.replace("/public", "") + "\"></script>";
+          }
+        }
     ))
-    .pipe(gulp.dest(''));
+    .pipe(inject(
+      gulp.src(paths.styles.cssFiles), {
+        transform: function(filepath) {
+          return '<link type="text/css" rel="stylesheet" href="' + filepath.replace("/public", "") + '">';
+        }
+      }
+    ))
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('nodemon', ['inject'], function() {
@@ -99,5 +113,5 @@ gulp.task('watch', ['serve'], function() {
   gulp.watch(paths.styles.less, ['less']);
   gulp.watch(paths.styles.css, reload);
   gulp.watch(paths.html, reload);
-  gulp.watch(paths.js.allFiles, ['lint']);
+  gulp.watch(paths.js.allFiles, ['lint', 'inject']);
 });
