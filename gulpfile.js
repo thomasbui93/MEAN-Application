@@ -55,7 +55,7 @@ gulp.task('less', function() {
 
 gulp.task('prettify', function() {
   var options = {
-    "wrap_attributes_indent_size": 4,
+    "wrap_attributes_indent_size": 2,
     "indent_size": 2,
     "space_before_conditional": true,
     "brace_style": "collapse",
