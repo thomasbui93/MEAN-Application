@@ -34,7 +34,7 @@ var paths = {
     allFiles: ['./public/styles/less/*.less', './public/styles/css/*.css'],
     lessFiles: './public/styles/less/*.less',
     css: './public/styles/css/',
-    cssFiles: paths.styles.css + "*.css"
+    cssFiles: './public/styles/css/*.css'
   },
 
   html: "./public/**/*.html"
