@@ -78,7 +78,8 @@ gulp.task('inject' ,function () {
         }
       }
     ))
-    .pipe(gulp.dest('./public'));
+    .pipe(gulp.dest('./public'))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('nodemon', ['inject'], function() {
@@ -110,8 +111,8 @@ gulp.task('serve', ['nodemon'], function() {
 });
 
 gulp.task('watch', ['serve'], function() {
-  gulp.watch(paths.styles.less, ['less']);
-  gulp.watch(paths.styles.css, reload);
+  gulp.watch(paths.styles.lessFiles, ['less']);
+  gulp.watch(paths.styles.cssFiles, ['inject']);
   gulp.watch(paths.html, reload);
   gulp.watch(paths.js.allFiles, ['lint', 'inject']);
 });
