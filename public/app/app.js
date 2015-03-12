@@ -4,7 +4,7 @@ angular.module('voluntr', [
   // module dependencies go here
   'ui.router',
   'restangular'
-]).config(function($urlRouterProvider, $stateProvider) {
+]).config(function($urlRouterProvider, $stateProvider, $locationProvider) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
 
@@ -13,18 +13,25 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
+  }).state('example', {
+    url: '/example',
+    templateUrl: 'app/test-folder/example.html',
+    controller: 'exampleController',
     resolve: {
-      exampleRestfulItems: function(Restangular) {
+      items: function(Restangular) {
         return Restangular.all('api/example').getList();
       }
     }
-  }).state('other', {
-    url: '/other',
-    templateUrl: 'app/test-folder/other.html',
-    controller: 'otherController'
   });
 
+  // This allows the address bar urls to seem natural
+  // even though no actual pages aren't requested. Without
+  // this settings urls would be /#/some/page instead of
+  // /some/page
+  $locationProvider.html5Mode(true);
 
-}).run(function () {
-
+}).run(function($http) {
+  $http.get('api/organization').then(function(data) {
+    console.log(data);
+  });
 });

@@ -1,6 +1,8 @@
 'use strict';
 
 var Example = require('../../routes/example/example.model');
+var Event = require('../../routes/event/event.model');
+var Organization = require('../../routes/organization/organization.model');
 
 // Find all, remove them and create new ones.
 Example.find({}).remove(function() {
@@ -26,4 +28,21 @@ Example.find({}).remove(function() {
   }];
 
   Example.create(data);
+});
+
+Organization.find({}).remove(function() {
+  Event.find({}).remove(function() {
+    var org = new Organization({
+      name: 'Greenpeace'
+    });
+
+    var newEvent = new Event({
+      name: 'Awesome event'
+    });
+
+    org.events.push(newEvent);
+
+    org.save();
+    newEvent.save();
+  });
 });

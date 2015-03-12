@@ -12,5 +12,6 @@ var router = require('express').Router();
 // how they're named as long as we're consistent.
 router.get('/', controller.index);
 router.get('/:id', controller.show);
+router.post('/', controller.create);
 
 module.exports = router;
