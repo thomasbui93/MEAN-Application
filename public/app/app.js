@@ -13,10 +13,6 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
-  }).state('other', {
-    url: '/other',
-    templateUrl: 'app/test-folder/other.html',
-    controller: 'otherController'
   }).state('example', {
     url: '/example',
     templateUrl: 'app/test-folder/example.html',
