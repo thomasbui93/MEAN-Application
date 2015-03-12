@@ -9,20 +9,16 @@ Example.find({}).remove(function() {
   var data = [{
     id: 1,
     name: 'Joonas'
-  },
-  {
+  }, {
     id: 2,
     name: 'Richard'
-  },
-  {
+  }, {
     id: 3,
     name: 'Claudia'
-  },
-  {
+  }, {
     id: 4,
     name: 'Tri'
-  },
-  {
+  }, {
     id: 5,
     name: 'Khoa'
   }];
