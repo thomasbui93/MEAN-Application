@@ -1,0 +1,13 @@
+{
+	"disallowEmptyBlocks": true,
+	"disallowMixedSpacesAndTabs": true,
+	"disallowMultipleVarDecl": true,
+	"disallowNewlineBeforeBlockStatements": true,
+	"disallowSpaceBeforeBlockStatements": true,
+	"disallowTrailingComma": true,
+	"disallowTrailingWhitespace": true,
+	"requireAnonymousFunctions": true,
+	"requireSpaceAfterLineComment": { "allExcept": ["#", "="] },
+	"requireSpaceBetweenArguments": true,
+	"requireSpacesInForStatement": true
+}

@@ -25,6 +25,6 @@ angular.module('voluntr', [
   });
 
 
-}).run(function() {
+}).run(function () {
 
 });
