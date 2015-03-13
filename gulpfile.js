@@ -19,11 +19,21 @@ var angularFilesort = require('gulp-angular-filesort');
 var karma = require('karma').server;
 var prettify = require('gulp-js-prettify');
 
+var env = {
+  current: 'build',
+  modes: {
+    build: 'build',
+    test: 'test'
+  }
+}
+
 gulp.task('default', ['build']);
 
-gulp.task('build', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch']);
+gulp.task('build', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma']);
 
-gulp.task('test', ['lint', 'karma']);
+gulp.task('test', ['lint', 'nodemon', 'karma', 'watch'], function() {
+  env.current = 'test';
+});
 
 var paths = {
   js: {
@@ -34,10 +44,10 @@ var paths = {
     server: './server/'
   },
   styles: {
-    allFiles: ['./public/styles/less/*.less', './public/styles/css/*.css'],
-    lessFiles: './public/styles/less/*.less',
+    allFiles: ['./public/styles/less/**/*.less', './public/styles/css/**/*.css'],
+    lessFiles: './public/styles/less/**/*.less',
     css: './public/styles/css/',
-    cssFiles: './public/styles/css/*.css'
+    cssFiles: './public/styles/css/**/*.css'
   },
 
   html: "./public/**/*.html"
@@ -112,11 +122,15 @@ gulp.task('nodemon', ['inject'], function() {
     });
 });
 
-gulp.task('karma', ['inject', 'lint'], function(done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, done);
+gulp.task('karma', ['nodemon'], function(done) {
+  var runMode = env.current !== env.modes.test ? true : false;
+
+  setTimeout(function(){
+    karma.start({
+      configFile: __dirname + '/karma.conf.js',
+      singleRun: runMode
+    });
+  }, 500);
 });
 
 gulp.task('serve', ['nodemon'], function() {

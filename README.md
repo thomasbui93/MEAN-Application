@@ -3,9 +3,16 @@
 ## To run the app:
 
 - Have node.js installed
-- `npm install`
-- Run `node index.js` in the root folder.
-- Go to localhost:8080
+- Have gulp installed `npm install -g gulp`
+- Every time someone adds a npm depency, you have to run `npm install`
+- Run `gulp`
+  - Browser should fire up automatically and page should refresh when files are changed.
+  - You might need to rerun gulp (`Ctrl+C` to exit) if you add new client-side files to force injection.
+
+## Testing
+- Run gulp test
+- To add new tests create them in the tests folder.
+- The tests use the jasmin testing framework
 
 ## Developing guidelines
 
