@@ -10,7 +10,7 @@
   - You might need to rerun gulp (`Ctrl+C` to exit) if you add new client-side files to force injection.
 
 ## Testing
-- Run gulp test
+- Run `gulp test`
 - To add new tests create them in the tests folder.
 - The tests use the jasmin testing framework
 
