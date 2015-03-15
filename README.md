@@ -9,6 +9,11 @@
   - Browser should fire up automatically and page should refresh when files are changed.
   - You might need to rerun gulp (`Ctrl+C` to exit) if you add new client-side files to force injection.
 
+## Testing
+- Run `gulp test`
+- To add new tests create them in the tests folder.
+- The tests use the jasmin testing framework
+
 ## Developing guidelines
 
 - Don't push into master branch.

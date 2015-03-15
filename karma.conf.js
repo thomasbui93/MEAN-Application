@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: '.',
 
 
     // frameworks to use
@@ -15,9 +15,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/ng-midway-tester/src/ngMidwayTester.js',
+      'node_modules/angular/angular.js',
+      'node_modules/angular-ui-router/release/angular-ui-router.js',
+      'node_modules/lodash/index.js',
+      'node_modules/restangular/dist/restangular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
       'public/**/*.js',
-      'server/**/*.js',
-      'test/**/*.js'
+      'tests/**/*.js'
     ],
 
 
@@ -41,6 +46,11 @@ module.exports = function(config) {
     // web server port
     port: 9876,
 
+    // Gives test server access to served files
+    proxies: {
+        '/': 'http://localhost:8080'
+    },
+
 
     // enable / disable colors in the output (reporters and logs)
     colors: true,
@@ -57,7 +67,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode

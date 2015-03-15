@@ -18,12 +18,29 @@ var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var karma = require('karma').server;
 var prettify = require('gulp-js-prettify');
+var runSequence = require('run-sequence');
+
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch']);
+// We have to use runSequence to force setting the environment before
+// running any tasks. By default the tasks run in parallel, and I don't
+// think the 'karma' task can depend on two different 'set-env' tasks...
+gulp.task('build', function(cb) {
+  runSequence('set-development', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma'], cb);
+});
 
-gulp.task('test', ['lint', 'karma']);
+gulp.task('test', function(cb) {
+  runSequence('set-test', ['lint', 'karma']);
+});
+
+gulp.task('set-development', function() {
+  process.env.NODE_ENV = 'development';
+});
+
+gulp.task('set-test', function() {
+  process.env.NODE_ENV = 'test';
+});
 
 var paths = {
   js: {
@@ -34,10 +51,10 @@ var paths = {
     server: './server/'
   },
   styles: {
-    allFiles: ['./public/styles/less/*.less', './public/styles/css/*.css'],
-    lessFiles: './public/styles/less/*.less',
+    allFiles: ['./public/styles/less/**/*.less', './public/styles/css/**/*.css'],
+    lessFiles: './public/styles/less/**/*.less',
     css: './public/styles/css/',
-    cssFiles: './public/styles/css/*.css'
+    cssFiles: './public/styles/css/**/*.css'
   },
 
   html: "./public/**/*.html"
@@ -112,11 +129,16 @@ gulp.task('nodemon', ['inject'], function() {
     });
 });
 
-gulp.task('karma', ['inject', 'lint'], function(done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, done);
+gulp.task('karma', ['nodemon'], function(done) {
+  // 'gulp test' runs only once and exits.
+  var runMode = process.env.NODE_ENV === 'test' ? true : false;
+
+  setTimeout(function(){
+    karma.start({
+      configFile: __dirname + '/karma.conf.js',
+      singleRun: runMode
+    });
+  }, 500);
 });
 
 gulp.task('serve', ['nodemon'], function() {

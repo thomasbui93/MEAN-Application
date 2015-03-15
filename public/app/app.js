@@ -28,7 +28,11 @@ angular.module('voluntr', [
   // even though no actual pages aren't requested. Without
   // this settings urls would be /#/some/page instead of
   // /some/page
-  $locationProvider.html5Mode(true);
+  // Base is disabled to make route testing way easier
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 
 }).run(function($http) {
   $http.get('api/organization').then(function(data) {
