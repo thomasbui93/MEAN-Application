@@ -18,21 +18,28 @@ var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var karma = require('karma').server;
 var prettify = require('gulp-js-prettify');
+var runSequence = require('run-sequence');
 
-var env = {
-  current: 'build',
-  modes: {
-    build: 'build',
-    test: 'test'
-  }
-}
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma']);
+// We have to use runSequence to force setting the environment before
+// running any tasks. By default the tasks run in parallel, and I don't
+// think the 'karma' task can depend on two different 'set-env' tasks...
+gulp.task('build', function(cb) {
+  runSequence('set-development', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma'], cb);
+});
 
-gulp.task('test', ['lint', 'nodemon', 'karma', 'watch'], function() {
-  env.current = 'test';
+gulp.task('test', function(cb) {
+  runSequence('set-test', ['lint', 'karma']);
+});
+
+gulp.task('set-development', function() {
+  process.env.NODE_ENV = 'development';
+});
+
+gulp.task('set-test', function() {
+  process.env.NODE_ENV = 'test';
 });
 
 var paths = {
@@ -123,7 +130,8 @@ gulp.task('nodemon', ['inject'], function() {
 });
 
 gulp.task('karma', ['nodemon'], function(done) {
-  var runMode = env.current !== env.modes.test ? true : false;
+  // 'gulp test' runs only once and exits.
+  var runMode = process.env.NODE_ENV === 'test' ? true : false;
 
   setTimeout(function(){
     karma.start({
