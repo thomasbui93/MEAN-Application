@@ -21,7 +21,6 @@ module.exports = function(config) {
       'node_modules/lodash/index.js',
       'node_modules/restangular/dist/restangular.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/ng-midway-tester/src/ngMidwayTester.js',
       'public/**/*.js',
       'tests/**/*.js'
     ],
