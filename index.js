@@ -46,7 +46,11 @@ app.use('/*', function(req, res) {
   // experience, but without this check I've spent countless
   // hours wondering why a misspelled/configured endpoint returns
   // some odd text (being index.html).
-  if (_.includes(req.headers['accept'], 'application/json')) {
+  // NB: If this causes problems at some point or just seems stupid,
+  // please challenge my rationale or just delete the if block.
+  if (_.includes(req.headers.accept, 'application/json')) {
+    console.log('It seems like an ajax call was made to an unkown url.');
+    console.log('Please refer to index.js server script.');
     return res.status(404).end();
   }
 
