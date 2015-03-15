@@ -5,6 +5,8 @@ var app = express();
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var bodyParser = require('body-parser');
+var errorHandler = require('./server/lib/error-handler');
+var errorLogger = require('./server/lib/error-logger');
 
 // Default environment is development.
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -56,6 +58,14 @@ app.use('/*', function(req, res) {
 
   res.sendFile(__dirname + '/public/index.html');
 });
+
+// More verbose error logging for development.
+if (process.env.NODE_ENV !== 'production') {
+  app.use(errorLogger);
+}
+
+// Handle all the errors delegated by the previous steps.
+app.use(errorHandler);
 
 app.listen(config.port, 'localhost');
 

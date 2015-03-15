@@ -2,9 +2,9 @@
 
 var Event = require('./event.model');
 
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
   Event.find({}, function(err, events) {
-    if (err) return res.status(500).json(err);
+    if (err) return next(err);
 
     res.json(events);
   });
