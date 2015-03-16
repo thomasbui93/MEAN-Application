@@ -33,6 +33,7 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "^2.5.2",
     "gulp-inject": "^1.2.0",
+    "gulp-jasmine": "^2.0.0",
     "gulp-js-prettify": "^0.1.0",
     "gulp-jscs": "^1.4.0",
     "gulp-jscs-stylish": "^1.0.2",
@@ -47,6 +48,7 @@
     "karma-firefox-launcher": "^0.1.4",
     "karma-jasmine": "^0.3.5",
     "less-plugin-clean-css": "^1.5.0",
-    "run-sequence": "^1.0.2"
+    "run-sequence": "^1.0.2",
+    "supertest": "^0.15.0"
   }
 }

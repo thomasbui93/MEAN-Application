@@ -15,7 +15,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/ng-midway-tester/src/ngMidwayTester.js',
       'node_modules/angular/angular.js',
       'node_modules/angular-ui-router/release/angular-ui-router.js',
       'node_modules/lodash/index.js',
@@ -48,7 +47,7 @@ module.exports = function(config) {
 
     // Gives test server access to served files
     proxies: {
-        '/': 'http://localhost:8080'
+        '/': 'http://localhost:8080/'
     },
 
 

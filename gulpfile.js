@@ -19,7 +19,7 @@ var angularFilesort = require('gulp-angular-filesort');
 var karma = require('karma').server;
 var prettify = require('gulp-js-prettify');
 var runSequence = require('run-sequence');
-
+var jasmine = require('gulp-jasmine');
 
 gulp.task('default', ['build']);
 
@@ -27,11 +27,11 @@ gulp.task('default', ['build']);
 // running any tasks. By default the tasks run in parallel, and I don't
 // think the 'karma' task can depend on two different 'set-env' tasks...
 gulp.task('build', function(cb) {
-  runSequence('set-development', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma'], cb);
+  runSequence('set-development', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma', 'jasmine'], cb);
 });
 
 gulp.task('test', function(cb) {
-  runSequence('set-test', ['lint', 'karma']);
+  runSequence('set-test', ['lint', 'karma', 'jasmine']);
 });
 
 gulp.task('set-development', function() {
@@ -57,7 +57,14 @@ var paths = {
     cssFiles: './public/styles/css/**/*.css'
   },
 
-  html: "./public/**/*.html"
+  html: "./public/**/*.html",
+
+  tests: {
+    clientUnitSpecs: 'tests/unit/client/**/*.test.js',
+    clientUnitPath: 'tests/unit/client/',
+    serverUnitSpecs: 'tests/unit/server/**/*.test.js',
+    serverUnitPath: 'tests/unit/server/'
+  }
 }
 
 gulp.task('less', function() {
@@ -151,6 +158,11 @@ gulp.task('serve', ['nodemon'], function() {
       ui: false
     });
   }, 500);
+});
+
+gulp.task('jasmine', ['nodemon'], function() {
+  gulp.src(paths.tests.serverUnitSpecs)
+    .pipe(jasmine());
 });
 
 gulp.task('watch', ['serve'], function() {
