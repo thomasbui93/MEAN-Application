@@ -161,8 +161,10 @@ gulp.task('serve', ['nodemon'], function() {
 });
 
 gulp.task('jasmine', ['nodemon'], function() {
-  gulp.src(paths.tests.serverUnitSpecs)
-    .pipe(jasmine());
+  setTimeout(function() {
+    gulp.src(paths.tests.serverUnitSpecs)
+      .pipe(jasmine());
+    }, 1000);
 });
 
 gulp.task('watch', ['serve'], function() {
