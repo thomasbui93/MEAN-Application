@@ -12,7 +12,7 @@ angular.module('voluntr', [
   $stateProvider.state('home', {
     url: '/',
     templateUrl: 'app/home/home.html',
-    controller: 'homeController',
+    controller: 'homeController'
   }).state('example', {
     url: '/example',
     templateUrl: 'app/test-folder/example.html',
