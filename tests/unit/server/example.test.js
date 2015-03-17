@@ -1,0 +1,1 @@
+var example = require('../../../server/routes/example/index.js');
