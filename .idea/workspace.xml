@@ -2,32 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="336a804f-84ab-4e8a-bfb7-a6177e06837d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/app.js" afterPath="$PROJECT_DIR$/public/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/development.js" afterPath="$PROJECT_DIR$/server/config/development.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/seed/development.js" afterPath="$PROJECT_DIR$/server/config/seed/development.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/lib/error-handler.js" afterPath="$PROJECT_DIR$/server/lib/error-handler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/lib/error-logger.js" afterPath="$PROJECT_DIR$/server/lib/error-logger.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/lib/errors.js" afterPath="$PROJECT_DIR$/server/lib/errors.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/event/event.controller.js" afterPath="$PROJECT_DIR$/server/routes/event/event.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/event/event.model.js" afterPath="$PROJECT_DIR$/server/routes/event/event.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/test-folder/example.controller.js" afterPath="$PROJECT_DIR$/public/app/test-folder/example.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/example/example.controller.js" afterPath="$PROJECT_DIR$/server/routes/example/example.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/example/example.model.js" afterPath="$PROJECT_DIR$/server/routes/example/example.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/home/home.controller.js" afterPath="$PROJECT_DIR$/public/app/home/home.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/home/home.html" afterPath="$PROJECT_DIR$/public/app/home/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/index.js" afterPath="$PROJECT_DIR$/server/config/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/seed/index.js" afterPath="$PROJECT_DIR$/server/config/seed/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/index.js" afterPath="$PROJECT_DIR$/server/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/event/index.js" afterPath="$PROJECT_DIR$/server/routes/event/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/example/index.js" afterPath="$PROJECT_DIR$/server/routes/example/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/organization/index.js" afterPath="$PROJECT_DIR$/server/routes/organization/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/organization/organization.controller.js" afterPath="$PROJECT_DIR$/server/routes/organization/organization.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/organization/organization.model.js" afterPath="$PROJECT_DIR$/server/routes/organization/organization.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/production.js" afterPath="$PROJECT_DIR$/server/config/production.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/seed/production.js" afterPath="$PROJECT_DIR$/server/config/seed/production.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/test.js" afterPath="$PROJECT_DIR$/server/config/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/seed/test.js" afterPath="$PROJECT_DIR$/server/config/seed/test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Voluntr.iws" />
     <ignored path=".idea/workspace.xml" />
