@@ -21,7 +21,7 @@ module.exports = function(config) {
       'node_modules/restangular/dist/restangular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'public/**/*.js',
-      'tests/**/*.js'
+      'tests/unit/client/**/*.js'
     ],
 
 
