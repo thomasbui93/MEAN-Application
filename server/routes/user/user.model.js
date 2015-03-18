@@ -9,6 +9,8 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
+  firstName: String,
+  lastName: String,
   hashedPassword: String,
   salt: String
 });

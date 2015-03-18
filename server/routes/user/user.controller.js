@@ -2,6 +2,7 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var _ = require('lodash');
 
 exports.index = function(req, res, next) {
   User.find({}, function(err, users) {
@@ -24,11 +25,10 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findById(id, function(err, user) {
+  // FIXME: This update could use some validations.
+  User.findByIdAndUpdate(id, req.body, function(err, user) {
     if (err) return next(err);
     if (!user) return next(new NotFoundError('No user with that id.'));
-
-    // TODO: Safely merge the needed fields from req.body to user
 
     res.json(user);
   });
@@ -40,5 +40,15 @@ exports.create = function(req, res, next) {
     if (err) return next(err);
 
     res.status(201).json(user);
+  });
+};
+
+exports.remove = function(req, res, next) {
+  var id = req.params.userId;
+
+  User.findByIdAndRemove(id, function(err) {
+    if (err) return next(err);
+
+    res.status(204).end();
   });
 };
