@@ -19,7 +19,6 @@ var angularFilesort = require('gulp-angular-filesort');
 var karma = require('karma').server;
 var prettify = require('gulp-js-prettify');
 var runSequence = require('run-sequence');
-var jasmine = require('gulp-jasmine');
 var mocha = require('gulp-mocha');
 
 gulp.task('default', ['build']);
@@ -171,13 +170,6 @@ gulp.task('mocha', function() {
       .pipe(mocha());
     }, 1000);
 });
-
-gulp.task('jasmine', ['nodemon'], function() {
-  setTimeout(function() {
-    gulp.src(paths.tests.clientUnitSpecs)
-      .pipe(jasmine());
-    }, 1000);
-  });
 
 gulp.task('watch-server', function() {
   gulp.watch(paths.js.serverFiles, ['mocha']);
