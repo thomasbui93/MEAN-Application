@@ -20,6 +20,7 @@ var karma = require('karma').server;
 var prettify = require('gulp-js-prettify');
 var runSequence = require('run-sequence');
 var jasmine = require('gulp-jasmine');
+var mocha = require('gulp-mocha');
 
 gulp.task('default', ['build']);
 
@@ -27,11 +28,15 @@ gulp.task('default', ['build']);
 // running any tasks. By default the tasks run in parallel, and I don't
 // think the 'karma' task can depend on two different 'set-env' tasks...
 gulp.task('build', function(cb) {
-  runSequence('set-development', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch', 'karma', 'jasmine'], cb);
+  runSequence('set-development', ['less', 'prettify', 'lint', 'inject', 'serve', 'watch'], cb);
 });
 
 gulp.task('test', function(cb) {
   runSequence('set-test', ['lint', 'karma', 'jasmine']);
+});
+
+gulp.task('test-server', function() {
+  runSequence('set-test', ['lint', 'mocha']);
 });
 
 gulp.task('set-development', function() {
@@ -160,12 +165,19 @@ gulp.task('serve', ['nodemon'], function() {
   }, 500);
 });
 
-gulp.task('jasmine', ['nodemon'], function() {
+gulp.task('mocha', ['nodemon'], function() {
   setTimeout(function() {
-    gulp.src(paths.tests.serverUnitSpecs)
-      .pipe(jasmine());
+    gulp.src(paths.tests.serverUnitSpecs, { read: false })
+      .pipe(mocha());
     }, 1000);
 });
+
+gulp.task('jasmine', ['nodemon'], function() {
+  setTimeout(function() {
+    gulp.src(paths.tests.clientUnitSpecs)
+      .pipe(jasmine());
+    }, 1000);
+  });
 
 gulp.task('watch', ['serve'], function() {
   gulp.watch(paths.styles.lessFiles, ['less']);

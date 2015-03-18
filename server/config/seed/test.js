@@ -1,3 +1,3 @@
 'use strict';
 
-// Not doing anything for now.
+// At least at the moment each test sets up and cleans the database.
