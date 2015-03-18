@@ -1,12 +1,14 @@
 'use strict';
 
 var express = require('express');
+var session = require('express-session');
 var app = express();
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var bodyParser = require('body-parser');
 var errorHandler = require('./server/lib/error-handler');
 var errorLogger = require('./server/lib/error-logger');
+var auth = require('./server/auth/auth.service');
 
 var config = require('./server/config');
 
@@ -18,6 +20,27 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 if (config.seedDB) {
   require('./server/config/seed');
 }
+
+app.use(session({
+  secret: config.sessionSecret
+}));
+
+// TODO: How to refresh this req.session.user when user
+// data changes?
+app.get('/login', function(req, res, next) {
+  auth.authenticate(req.body, function(err, user) {
+    if (err) return next(err);
+    // Save the authenticated user to req.session
+    req.session.user = user;
+  });
+});
+
+app.get('/logout', function(req, res, next) {
+  // TODO: Is this enough? No dangling session stuff?
+  if (req.session.user) {
+    req.session.user = null;
+  }
+});
 
 // All assets in the public folder are served statically.
 app.use(express.static(__dirname + '/public'));
