@@ -36,7 +36,7 @@ gulp.task('test', function(cb) {
 });
 
 gulp.task('test-server', function() {
-  runSequence('set-test', ['lint', 'mocha']);
+  runSequence('set-test', ['lint', 'nodemon', 'mocha', 'watch-server']);
 });
 
 gulp.task('set-development', function() {
@@ -165,7 +165,7 @@ gulp.task('serve', ['nodemon'], function() {
   }, 500);
 });
 
-gulp.task('mocha', ['nodemon'], function() {
+gulp.task('mocha', function() {
   setTimeout(function() {
     gulp.src(paths.tests.serverUnitSpecs, { read: false })
       .pipe(mocha());
@@ -178,6 +178,11 @@ gulp.task('jasmine', ['nodemon'], function() {
       .pipe(jasmine());
     }, 1000);
   });
+
+gulp.task('watch-server', function() {
+  gulp.watch(paths.js.serverFiles, ['mocha']);
+  gulp.watch(paths.tests.serverUnitSpecs, ['mocha']);
+});
 
 gulp.task('watch', ['serve'], function() {
   gulp.watch(paths.styles.lessFiles, ['less']);
