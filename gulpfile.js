@@ -32,7 +32,7 @@ gulp.task('build', function(cb) {
 });
 
 gulp.task('test', function(cb) {
-  runSequence('set-test', ['lint', 'karma', 'jasmine']);
+  runSequence('set-test', ['lint', 'karma']);
 });
 
 gulp.task('test-server', function() {
@@ -143,7 +143,7 @@ gulp.task('nodemon', ['inject'], function() {
 
 gulp.task('karma', ['nodemon'], function(done) {
   // 'gulp test' runs only once and exits.
-  var runMode = process.env.NODE_ENV === 'test' ? true : false;
+  var runMode = process.env.NODE_ENV === 'test' ? false : true;
 
   setTimeout(function(){
     karma.start({
