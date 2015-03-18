@@ -34,7 +34,6 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "^2.5.2",
     "gulp-inject": "^1.2.0",
-    "gulp-jasmine": "^2.0.0",
     "gulp-js-prettify": "^0.1.0",
     "gulp-jscs": "^1.4.0",
     "gulp-jscs-stylish": "^1.0.2",
