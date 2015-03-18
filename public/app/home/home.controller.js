@@ -2,5 +2,5 @@
 
 angular.module('voluntr')
   .controller('homeController', function($scope) {
-
- });
+    $scope.title = 'Home';
+  });

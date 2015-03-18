@@ -1,0 +1,14 @@
+{
+	"node": true,
+	"esnext": true,
+	"bitwise": true,
+	"camelcase": true,
+	"curly": false,
+	"noarg": true,
+	"undef": true,
+	"unused": "vars",
+	"strict": true,
+  "globals": {
+    "angular": true
+  }
+}
