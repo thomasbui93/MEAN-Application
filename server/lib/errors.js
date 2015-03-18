@@ -19,3 +19,8 @@ exports.Unknown = function(message) {
   this.status = 500;
   this.message = message || 'Internal server error.';
 };
+
+exports.BadRequest = function(message) {
+  this.status = 400;
+  this.message = message || 'Bad request.';
+};
