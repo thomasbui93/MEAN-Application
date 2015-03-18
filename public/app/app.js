@@ -28,6 +28,10 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
+  }).state('login', {
+    url: '/login',
+    templateUrl: 'app/authentication/login.html',
+    controller: 'LoginController'
   });
 
   // This allows the address bar urls to seem natural
