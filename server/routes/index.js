@@ -10,4 +10,5 @@ module.exports = function(app) {
   // to the examples module.
   app.use('/api/example', require('./example'));
   app.use('/api/organization', require('./organization'));
+  app.use('/api/users', require('./user'));
 };
