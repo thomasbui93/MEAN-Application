@@ -4,7 +4,7 @@ angular.module('voluntr', [
   // module dependencies go here
   'ui.router',
   'restangular'
-]).config(function($urlRouterProvider, $stateProvider, $locationProvider) {
+]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
 
@@ -13,6 +13,9 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
   }).state('example', {
     url: '/example',
     templateUrl: 'app/test-folder/example.html',
@@ -21,6 +24,9 @@ angular.module('voluntr', [
       items: function(Restangular) {
         return Restangular.all('api/example').getList();
       }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
     }
   });
 
