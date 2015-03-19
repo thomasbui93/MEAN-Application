@@ -27,23 +27,6 @@ app.use(session({
   resave: false,
 }));
 
-// TODO: How to refresh this req.session.user when user
-// data changes?
-app.get('/login', function(req, res, next) {
-  auth.authenticate(req.body, function(err, user) {
-    if (err) return next(err);
-    // Save the authenticated user to req.session
-    req.session.user = user;
-  });
-});
-
-app.get('/logout', function(req, res, next) {
-  // TODO: Is this enough? No dangling session stuff?
-  if (req.session.user) {
-    req.session.user = null;
-  }
-});
-
 // All assets in the public folder are served statically.
 app.use(express.static(__dirname + '/public'));
 
@@ -57,6 +40,24 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+// TODO: How to refresh this req.session.user when user
+// data changes?
+app.post('/login', function(req, res, next) {
+  auth.authenticate(req.body, function(err, user) {
+    if (err) return next(err);
+    // Save the authenticated user to req.session
+    req.session.user = user;
+    res.json(user);
+  });
+});
+
+app.post('/logout', function(req, res, next) {
+  // TODO: Is this enough? No dangling session stuff?
+  if (req.session.user) {
+    req.session.user = null;
+  }
+});
 
 // Apply api routes
 // TODO: Find out what's the difference between __dirname and './'
@@ -77,12 +78,11 @@ app.use('/*', function(req, res) {
   //   console.log('Please refer to index.js server script.');
   //   return res.status(404).end();
   // }
-
   res.sendFile(__dirname + '/public/index.html');
 });
 
 // More verbose error logging for development.
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   app.use(errorLogger);
 }
 
