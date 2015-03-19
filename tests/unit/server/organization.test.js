@@ -4,7 +4,7 @@ var User = require('../../../server/routes/organization/organization.model');
 var should = require('should');
 
 
-// This example user is inserted into the database in seed/test file.
+// This example Organization is inserted into the database in seed/test file.
 var exampleOrganization = {
   name: "Greenpeace",
   managers: [],
@@ -110,7 +110,6 @@ describe('/organization', function() {
       });
   });
 
-  // TODO: Find out why this is throwing 'Error: Headers already sent'
   it("should find no otherOrganization in that database", function(done) {
     request(app)
       .get('/api/organization/' + otherOrganization._id)
