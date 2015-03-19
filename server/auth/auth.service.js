@@ -31,6 +31,6 @@ module.exports = {
       return next(new Errors.Unauthorized());
     }
 
-    next()
+    next();
   }
 };
