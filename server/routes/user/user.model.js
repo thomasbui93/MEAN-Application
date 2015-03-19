@@ -9,6 +9,8 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
+  firstName: String,
+  lastName: String,
   hashedPassword: String,
   salt: String
 });
@@ -86,8 +88,6 @@ var validatePresenceOf = function(input) {
 UserSchema.methods = {
   authenticate: function(plainText) {
     if (this.encryptPassword(plainText) === this.hashedPassword) {
-      // Is there a better place to update? Is this where login only happens?
-      this.updateLastLoginAndSave();
       return true;
     }
     return false;
@@ -102,6 +102,12 @@ UserSchema.methods = {
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
   }
+};
+
+UserSchema.statics.findByEmail = function(email, cb) {
+  this.findOne({
+    email: email
+  }, cb);
 };
 
 module.exports = mongoose.model('User', UserSchema);

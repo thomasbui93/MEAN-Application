@@ -29,7 +29,8 @@ var Organization = require('../../routes/organization/organization.model');
 Organization.find({}).remove(function() {
   Event.find({}).remove(function() {
     var org = new Organization({
-      name: 'Greenpeace'
+      name: 'Greenpeace',
+      locations: ['Oulu', 'Helsinki']
     });
 
     var newEvent = new Event({

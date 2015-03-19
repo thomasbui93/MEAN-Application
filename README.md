@@ -12,10 +12,11 @@
   - This also runs all the tests continuously.
 
 ## Testing
-- Run `gulp test`
-- This runs all the tests once.
+- Run `gulp test` to run the front-end tests.
+- Run `gulp test-server` to run the back-end tests. 
 - To add new tests create them in the tests folder.
-- The tests use the jasmin testing framework
+- The front-end tests use the jasmin testing framework
+- The back-end tests use mocha.
 
 ## Developing guidelines
 
