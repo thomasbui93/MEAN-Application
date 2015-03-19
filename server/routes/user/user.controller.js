@@ -2,7 +2,6 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
-var _ = require('lodash');
 
 exports.index = function(req, res, next) {
   User.find({}, function(err, users) {

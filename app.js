@@ -22,7 +22,9 @@ if (config.seedDB) {
 }
 
 app.use(session({
-  secret: config.sessionSecret
+  secret: config.sessionSecret,
+  saveUninitialized: true,
+  resave: false,
 }));
 
 // TODO: How to refresh this req.session.user when user
