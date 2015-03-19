@@ -111,14 +111,14 @@ describe('/organization', function() {
   });
 
   // TODO: Find out why this is throwing 'Error: Headers already sent'
-  // it("should find no otherOrganization in that database", function(done) {
-  //   request(app)
-  //     .get('/api/organization/' + otherOrganization._id)
-  //     .expect(404, function(err, res) {
-  //       if (err) done(err);
+  it("should find no otherOrganization in that database", function(done) {
+    request(app)
+      .get('/api/organization/' + otherOrganization._id)
+      .expect(404, function(err, res) {
+        if (err) done(err);
 
-  //       res.body.message.should.equal('No Organization with this id.');
-  //       done();
-  //     });
-  // });
+        res.body.message.should.equal('No Organization with this id.');
+        done();
+      });
+  });
 });
