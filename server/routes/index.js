@@ -11,4 +11,14 @@ module.exports = function(app) {
   app.use('/api/example', require('./example'));
   app.use('/api/organization', require('./organization'));
   app.use('/api/users', require('./user'));
+
+  // For testing authentication.
+  // TODO: Maybe get rid of once a real endpoint is behind auth
+  // and the functionality of auth.isAuthenticated is confirmed.
+  if (process.env.NODE_ENV === 'test') {
+    var auth = require('../auth/auth.service');
+    app.get('/behindauth', auth.isAuthenticated, function(req, res) {
+      res.status(200).end();
+    });
+  }
 };
