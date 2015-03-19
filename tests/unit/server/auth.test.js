@@ -27,24 +27,24 @@ after(function(done) {
 describe('/login', function() {
   it('should respond with 200 to correct credentials', function(done) {
     request(app)
-      .post('/login')
-      .send({
-        email: exampleUser.email,
-        password: exampleUser.password
-      }).expect(200, function(err, res) {
-        if (err) return done(err);
+    .post('/login')
+    .send({
+      email: exampleUser.email,
+      password: exampleUser.password
+    }).expect(200, function(err, res) {
+      if (err) return done(err);
 
-        done();
-      });
+      done();
+    });
   });
 
   it('should respond 401 to incorrect credentials', function(done) {
     request(app)
-      .post('/login')
-      .send({
-        email: 'not@there.com',
-        password: 'asd'
-      }).expect(401, done);
+    .post('/login')
+    .send({
+      email: 'not@there.com',
+      password: 'asd'
+    }).expect(401, done);
   });
 });
 
@@ -52,32 +52,45 @@ describe('authentication', function() {
 
   // There's a dummy route /behindauth defined in routes/index.
 
-  describe('auth.isAuthenticated', function() {
-    it('should respond 401 when not logged in', function(done) {
-      request(app)
-        .get('/behindauth')
-        .expect(401, done);
+  var authCookie;
+
+  before(function(done) {
+    request(app)
+    .post('/login')
+    .send(exampleUser)
+    .end(function(err, res) {
+      authCookie = res.headers['set-cookie'][0].split(';')[0];
+      done();
     });
   });
 
-  describe('auth.isAuthenticated', function() {
-    var authCookie;
+  it('should respond 401 when not logged in', function(done) {
+    request(app)
+    .get('/behindauth')
+    .expect(401, done);
+  });
 
-    before(function(done) {
+  it('should respond 200 when logged in', function(done) {
+    request(app)
+    .get('/behindauth')
+    .set('Cookie', authCookie)
+    .expect(200, done);
+  });
+
+  describe('/logout', function() {
+    // Not using 'done' here to ensure running order.
+    it('should respond 200', function() {
       request(app)
-        .post('/login')
-        .send(exampleUser)
-        .end(function(err, res) {
-          authCookie = res.headers['set-cookie'][0].split(';')[0];
-          done();
-        });
+      .post('/logout')
+      .set('Cookie', authCookie)
+      .expect(200);
     });
 
-    it('should respond 200 when logged in', function(done) {
+    it('should cause /behindauth to be unaccessible', function() {
       request(app)
-        .get('/behindauth')
-        .set('Cookie', authCookie)
-        .expect(200, done);
+      .get('/behindauth')
+      .set('Cookie', authCookie)
+      .expect(401);
     });
   });
 });

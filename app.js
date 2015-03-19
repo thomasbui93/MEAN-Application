@@ -57,6 +57,7 @@ app.post('/logout', function(req, res, next) {
   if (req.session.user) {
     req.session.user = null;
   }
+  res.status(200).end();
 });
 
 // Apply api routes
