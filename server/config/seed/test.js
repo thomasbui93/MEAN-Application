@@ -23,11 +23,11 @@ var exampleOrganization = {
   _id: '22095c4e2d316055823fe46c'
 };
 
-User.find({}).remove(function() {
-  User.create(exampleUser, function(err) {
-    if (err) throw err;
-  });
-});
+// User.find({}).remove(function() {
+//   User.create(exampleUser, function(err) {
+//     if (err) throw err;
+//   });
+// });
 
 Organization.find({}).remove(function() {
   Organization.create(exampleOrganization, function(err) {

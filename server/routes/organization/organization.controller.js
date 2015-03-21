@@ -4,20 +4,15 @@ var Organization = require('./organization.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
-  Organization.find(req.query, function(err, organizations) {
-    if (err) return next(err);
-    if (!organizations) return next(new NotFoundError("No organizations found."));
+  Organization.find(req.query)
+    .populate('events managers representatives recruitments')
+    .exec(function(err, organizations) {
+      if (err) return next(err);
+      if (!organizations) return next(new NotFoundError("No organizations found."));
 
-    res.json(organizations);
-  });
+      res.json(organizations);
+    });
 };
-//     .populate('events')
-//     .exec(function(err, organizations) {
-//       if (err) return next(err);
-
-//       res.json(organizations);
-//     });
-// };
 
 exports.show = function(req, res, next) {
   var id = req.params.orgId;
@@ -25,8 +20,8 @@ exports.show = function(req, res, next) {
   Organization.findById(id, function(err, organization) {
     if (err) return next(err);
 
-    if (!organization) return next(new NotFoundError('No Organization with this id.'));
-      
+    if (!organization) return next(new NotFoundError('No Organization with that id.'));
+
     res.json(organization);
   });
 };

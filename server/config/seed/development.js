@@ -34,7 +34,8 @@ Organization.find({}).remove(function() {
     });
 
     var newEvent = new Event({
-      name: 'Awesome event'
+      name: 'Awesome event',
+      description: "Awesome"
     });
 
     org.events.push(newEvent);

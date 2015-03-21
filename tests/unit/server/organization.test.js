@@ -2,6 +2,7 @@ var request = require('supertest');
 var app = require('../../../app.js');
 var User = require('../../../server/routes/organization/organization.model');
 var should = require('should');
+var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 
 
 // This example Organization is inserted into the database in seed/test file.
@@ -51,7 +52,7 @@ describe('/organization', function() {
       status: "active",
       description: "Blue",
       locations: ["Tampere"],
-      _id: '32095c4e2d316055823fe46c'
+      _id: '33395c4e2d316055823fe46c'
     };
 
     request(app)
@@ -114,9 +115,9 @@ describe('/organization', function() {
     request(app)
       .get('/api/organization/' + otherOrganization._id)
       .expect(404, function(err, res) {
-        if (err) done(err);
+        if (err) return done(err);
 
-        res.body.message.should.equal('No Organization with this id.');
+        res.body.message.should.equal("No Organization with that id.");
         done();
       });
   });
