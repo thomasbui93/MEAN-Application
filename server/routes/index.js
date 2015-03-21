@@ -6,9 +6,7 @@
 // or index.js inside a folder named 'routes'.
 
 module.exports = function(app) {
-  // Any requirests to /api/examples will be redirected
-  // to the examples module.
-  app.use('/api/example', require('./example'));
+
   app.use('/api/organization', require('./organization'));
   app.use('/api/users', require('./user'));
   app.use('/api/event', require('./event'));
