@@ -14,8 +14,8 @@ var exampleUser = {
 
 // Insert test user.
 before(function(done) {
-  User.find({}).remove(function(err) {
-    if (err) done(err);
+  User.remove(function(err) {
+    if (err) return done(err);
     User.create(exampleUser, done);
   });
 });

@@ -16,8 +16,6 @@ var exampleUser = {
 var otherUser;
 
 describe('/users', function() {
-  beforeEach(function() {
-  });
 
   it('should return json', function(done) {
     request(app)
