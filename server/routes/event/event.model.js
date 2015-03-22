@@ -20,6 +20,10 @@ var EventSchema = new Schema({
     type: Date,
     "default": Date.now
   },
+  startDate: {
+    type: Date,
+    "default": Date.now
+  },
   endDate: {
     type: Date
   },

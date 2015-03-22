@@ -5,7 +5,7 @@ var NotFoundError = require('../../lib/errors').NotFound;
 
 // TODO Add comments
 exports.index = function(req, res, next) {
-  Event.find(req.body)
+  Event.find(req.query)
     .populate('organisation participants')
     .exec(function(err, events) {
       if (err) return next(err);
@@ -19,8 +19,8 @@ exports.show = function(req, res, next) {
   var id = req.params.eventId;
 
   Event.findById(id, function(err, evt) {
-    if (err) next(err);
-    if (!evt) next(new NotFoundError('No event with that id.'));
+    if (err) return next(err);
+    if (!evt) return next(new NotFoundError('No event with that id.'));
 
     res.json(evt);
   });

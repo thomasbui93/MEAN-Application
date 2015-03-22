@@ -19,7 +19,6 @@ exports.show = function(req, res, next) {
 
   Organisation.findById(id, function(err, organisation) {
     if (err) return next(err);
-
     if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
 
     res.json(organisation);

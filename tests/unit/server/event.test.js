@@ -1,125 +1,107 @@
-// var request = require('supertest');
-// var app = require('../../../app.js');
-// var User = require('../../../server/routes/organisation/organisation.model');
-// var should = require('should');
-// var NotFoundError = require('../../../server/lib/errors.js').NotFound;
+var request = require('supertest');
+var app = require('../../../app.js');
+var should = require('should');
+var NotFoundError = require('../../../server/lib/errors.js').NotFound;
+var exampleEvent = require('../../../server/config/seed/test').exampleEvent;
 
+var otherEvent;
+var apiUrl = '/api/events';
 
-// // This example Organisation is inserted into the database in seed/test file.
-// var exampleEvent = {
-//   name: "Greenpeace",
-//   managers: [],
-//   representatives: [],
-//   events: [],
-//   recruitments: [],
-//   status: "active",
-//   description: "Hello world",
-//   locations: ["Oulu", "Helsinki"],
-//   _id: '22095c4e2d316055823fe46c'
-// };
+describe('/events', function() {
+  beforeEach(function() {
+  });
 
-// var otherOrganisation;
-// var apiUrl = '/api/events';
+  it('should return json', function(done) {
+    request(app)
+      .get(apiUrl)
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
 
-// describe('/organisation', function() {
-//   beforeEach(function() {
-//   });
+  it('should return example Event', function(done) {
+    request(app)
+      .get(apiUrl)
+      .expect(200, function(err, res) {
+        if (err) return done(err);
 
-//   it('should return json', function(done) {
-//     request(app)
-//       .get(apiUrl)
-//       .expect('Content-Type', /json/)
-//       .expect(200, done);
-//   });
+        res.body[0].name.should.equal(exampleEvent.name);
+        done();
+      });
+  });
 
-//   it('should return example organisation', function(done) {
-//     request(app)
-//       .get(apiUrl)
-//       .expect(200, function(err, res) {
-//         if (err) return done(err);
+  it('should create a new Event', function(done) {
+    otherEvent = {
+      name: 'Homeless help',
+      startDate: new Date(),
+      endDate: new Date(),
+      description: "Help homeless!",
+      _id: '55095c4e2d313735807fe46c'
+    };
 
-//         res.body[0].name.should.equal(exampleOrganisation.name);
-//         done();
-//       });
-//   });
+    request(app)
+      .post(apiUrl)
+      .send(otherEvent)
+      .expect(201, function(err, res) {
+        if (err) return done(err);
 
-//   it('should create a new organisation', function(done) {
-//     otherOrganisation = {
-//       name: "Red Cross",
-//       managers: [],
-//       representatives: [],
-//       events: [],
-//       recruitments: [],
-//       status: "active",
-//       description: "Blue",
-//       locations: ["Tampere"],
-//       _id: '33395c4e2d316055823fe46c'
-//     };
+        res.body.name.should.equal('Homeless help');
+        done();
+      });
+  });
 
-//     request(app)
-//       .post(apiUrl)
-//       .send(otherOrganisation)
-//       .expect(201, function(err, res) {
-//         if (err) return done(err);
+  it('should update the Event', function(done) {
+    request(app)
+      .put(apiUrl + '/' + otherEvent._id)
+      .send({ description: 'Help others!' })
+      .expect(200, function(err, res) {
+        if (err) return done(err);
 
-//         res.body.name.should.equal('Red Cross');
-//         done();
-//       });
-//   });
+        res.body.description.should.equal('Help others!');
+        done();
+      });
+  });
 
-//   it('should update the organisation', function(done) {
-//     request(app)
-//       .put(apiUrl + '/' + exampleOrganisation._id)
-//       .send({ description: 'Red damnit' })
-//       .expect(200, function(err, res) {
-//         if (err) return done(err);
+  it("should find 2 Events", function(done) {
+    request(app)
+      .get(apiUrl)
+      .expect(200, function(err, res) {
+        if (err) return done(err);
 
-//         res.body.description.should.equal('Red damnit');
-//         done();
-//       });
-//   });
+        res.body.length.should.equal(2);
+        done();
+      });
+  });
 
-//   it("should find 2 organisations", function(done) {
-//     request(app)
-//       .get(apiUrl)
-//       .expect(200, function(err, res) {
-//         if (err) return done(err);
+  it("should find Event with name Homeless help", function(done) {
+    request(app)
+      .get(apiUrl + '?name=Homeless+help')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
 
-//         res.body.length.should.equal(2);
-//         done();
-//       });
-//   });
+        res.body.length.should.equal(1);
+        res.body[0].name.should.equal('Homeless help');
+        done();
+      });
+  });
 
-//   it("should find organisation with location Tampere", function(done) {
-//     request(app)
-//       .get(apiUrl + '?locations=Tampere')
-//       .expect(200, function(err, res) {
-//         if (err) return done(err);
+  it("should delete the Event without error", function(done) {
+    request(app)
+      .del(apiUrl + '/' + otherEvent._id)
+      .expect(204, function(err) {
+        if (err) return done(err);
 
-//         res.body.length.should.equal(1);
-//         res.body[0].name.should.equal('Red Cross');
-//         done();
-//       });
-//   });
+        done();
+      });
+  });
 
-//   it("should delete the organisation without error", function(done) {
-//     request(app)
-//       .del(apiUrl + '/' + otherOrganisation._id)
-//       .expect(204, function(err) {
-//         if (err) return done(err);
+  it("should find no otherEvent in that database", function(done) {
+    request(app)
+      .get(apiUrl + '/' + otherEvent._id)
+      .expect(404, function(err, res) {
+        if (err) return done(err);
 
-//         done();
-//       });
-//   });
-
-//   it("should find no otherOrganisation in that database", function(done) {
-//     request(app)
-//       .get(apiUrl + '/' + otherOrganisation._id)
-//       .expect(404, function(err, res) {
-//         if (err) return done(err);
-
-//         res.body.message.should.equal("No Organisation with that id.");
-//         done();
-//       });
-//   });
-// });
+        res.body.message.should.equal("No event with that id.");
+        done();
+      });
+  });
+});

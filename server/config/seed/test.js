@@ -2,6 +2,7 @@
 
 var User = require('../../routes/user/user.model');
 var Organisation = require('../../routes/organisation/organisation.model');
+var Event = require('../../routes/event/event.model');
 
 var exampleUser = {
   email: 'user@ex.com',
@@ -23,13 +24,30 @@ var exampleOrganisation = {
   _id: '22095c4e2d316055823fe46c'
 };
 
+var exampleEvent = {
+  name: 'Help',
+  organisation: [exampleOrganisation._id],
+  createdBy: exampleUser._id,
+  startDate: new Date(),
+  endDate: new Date(),
+  participants: [exampleUser._id],
+  description: "Help all the peoople!"
+};
+
 Organisation.remove(function() {
   Organisation.create(exampleOrganisation, function(err) {
     if (err) throw err;
   });
 });
 
+Event.remove(function() {
+  Event.create(exampleEvent, function(err) {
+    if (err) throw err;
+  });
+});
+
 module.exports = {
   exampleUser: exampleUser,
-  exampleOrganisation: exampleOrganisation
+  exampleOrganisation: exampleOrganisation,
+  exampleEvent: exampleEvent
 };
