@@ -1,12 +1,12 @@
 var request = require('supertest');
 var app = require('../../../app.js');
-var User = require('../../../server/routes/organization/organization.model');
+var User = require('../../../server/routes/organisation/organisation.model');
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 
 
-// This example Organization is inserted into the database in seed/test file.
-var exampleOrganization = {
+// This example Organisation is inserted into the database in seed/test file.
+var exampleOrganisation = {
   name: "Greenpeace",
   managers: [],
   representatives: [],
@@ -18,32 +18,33 @@ var exampleOrganization = {
   _id: '22095c4e2d316055823fe46c'
 };
 
-var otherOrganization;
+var otherOrganisation;
+var apiUrl = '/api/organisations';
 
-describe('/organization', function() {
+describe('/organisation', function() {
   beforeEach(function() {
   });
 
   it('should return json', function(done) {
     request(app)
-      .get('/api/organization')
+      .get(apiUrl)
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
 
-  it('should return example organization', function(done) {
+  it('should return example organisation', function(done) {
     request(app)
-      .get('/api/organization')
+      .get(apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
-        res.body[0].name.should.equal(exampleOrganization.name);
+        res.body[0].name.should.equal(exampleOrganisation.name);
         done();
       });
   });
 
-  it('should create a new organization', function(done) {
-    otherOrganization = {
+  it('should create a new organisation', function(done) {
+    otherOrganisation = {
       name: "Red Cross",
       managers: [],
       representatives: [],
@@ -56,8 +57,8 @@ describe('/organization', function() {
     };
 
     request(app)
-      .post('/api/organization')
-      .send(otherOrganization)
+      .post(apiUrl)
+      .send(otherOrganisation)
       .expect(201, function(err, res) {
         if (err) return done(err);
 
@@ -66,9 +67,9 @@ describe('/organization', function() {
       });
   });
 
-  it('should update the organization', function(done) {
+  it('should update the organisation', function(done) {
     request(app)
-      .put('/api/organization/' + exampleOrganization._id)
+      .put(apiUrl + '/' + exampleOrganisation._id)
       .send({ description: 'Red damnit' })
       .expect(200, function(err, res) {
         if (err) return done(err);
@@ -78,9 +79,9 @@ describe('/organization', function() {
       });
   });
 
-  it("should find 2 organizations", function(done) {
+  it("should find 2 organisations", function(done) {
     request(app)
-      .get('/api/organization')
+      .get(apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -89,9 +90,9 @@ describe('/organization', function() {
       });
   });
 
-  it("should find organization with location Tampere", function(done) {
+  it("should find organisation with location Tampere", function(done) {
     request(app)
-      .get('/api/organization?locations=Tampere')
+      .get(apiUrl + '?locations=Tampere')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -101,9 +102,9 @@ describe('/organization', function() {
       });
   });
 
-  it("should delete the organization without error", function(done) {
+  it("should delete the organisation without error", function(done) {
     request(app)
-      .del('/api/organization/' + otherOrganization._id)
+      .del(apiUrl + '/' + otherOrganisation._id)
       .expect(204, function(err) {
         if (err) return done(err);
 
@@ -111,13 +112,13 @@ describe('/organization', function() {
       });
   });
 
-  it("should find no otherOrganization in that database", function(done) {
+  it("should find no otherOrganisation in that database", function(done) {
     request(app)
-      .get('/api/organization/' + otherOrganization._id)
+      .get(apiUrl + '/' + otherOrganisation._id)
       .expect(404, function(err, res) {
         if (err) return done(err);
 
-        res.body.message.should.equal("No Organization with that id.");
+        res.body.message.should.equal("No Organisation with that id.");
         done();
       });
   });

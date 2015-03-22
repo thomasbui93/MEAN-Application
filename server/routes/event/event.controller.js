@@ -4,8 +4,11 @@ var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
-  Event.find({}, function(err, events) {
+  Event.find(req.body)
+    .populate('organization participants')
+    .exec(function(err, events) {
     if (err) return next(err);
+    if (!events) return next(new NotFoundError("No events found"));
 
     res.json(events);
   });
@@ -16,20 +19,18 @@ exports.show = function(req, res, next) {
 
   Event.findById(id, function(err, evt) {
     if (err) next(err);
-    if (!evt) next(new NotFoundError('No evt with this id.'));
+    if (!evt) next(new NotFoundError('No event with that id.'));
 
     res.json(evt);
   });
 };
 
 exports.update = function(req, res, next) {
-  var id = req.params.orgId;
+  var id = req.params.eventId;
 
-  Event.findById(id, function(err, evt) {
+  Event.findByIdAndUpdate(id, req.body, function(err, evt) {
     if (err) return next(err);
-    if (!evt) return next(new NotFoundError('No evt with that id.'));
-
-    // TODO: Safely merge the needed fields from req.body to user
+    if (!evt) return next(new NotFoundError('No event with that id.'));
 
     res.json(evt);
   });
@@ -41,5 +42,15 @@ exports.create = function(req, res, next) {
     if (err) return next(err);
 
     res.status(201).json(evt);
+  });
+};
+
+exports.remove = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.remove(function(err, evt) {
+    if (err) return next(err);
+
+    res.status(204).end();
   });
 };

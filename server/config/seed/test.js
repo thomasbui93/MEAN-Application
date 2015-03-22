@@ -1,7 +1,7 @@
 'use strict';
 
 var User = require('../../routes/user/user.model');
-var Organization = require('../../routes/organization/organization.model');
+var Organisation = require('../../routes/organisation/organisation.model');
 
 var exampleUser = {
   email: 'user@ex.com',
@@ -11,7 +11,7 @@ var exampleUser = {
   _id: '55095c4e2d316055807fe46c'
 };
 
-var exampleOrganization = {
+var exampleOrganisation = {
   name: "Greenpeace",
   managers: [exampleUser._id],
   representatives: [exampleUser._id],
@@ -23,8 +23,8 @@ var exampleOrganization = {
   _id: '22095c4e2d316055823fe46c'
 };
 
-Organization.remove(function() {
-  Organization.create(exampleOrganization, function(err) {
+Organisation.remove(function() {
+  Organisation.create(exampleOrganisation, function(err) {
     if (err) throw err;
   });
 });

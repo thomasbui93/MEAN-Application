@@ -7,10 +7,10 @@
 
 module.exports = function(app) {
 
-  app.use('/api/organization', require('./organization'));
+  app.use('/api/organisations', require('./organisation'));
   app.use('/api/users', require('./user'));
-  app.use('/api/event', require('./event'));
-  app.use('/api/recruitment', require('./recruitment'));
+  app.use('/api/events', require('./event'));
+  app.use('/api/recruitments', require('./recruitment'));
 
   // For testing authentication.
   // TODO: Maybe get rid of once a real endpoint is behind auth
