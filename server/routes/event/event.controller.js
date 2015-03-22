@@ -3,15 +3,16 @@
 var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
+// TODO Add comments
 exports.index = function(req, res, next) {
   Event.find(req.body)
-    .populate('organization participants')
+    .populate('organisation participants')
     .exec(function(err, events) {
-    if (err) return next(err);
-    if (!events) return next(new NotFoundError("No events found"));
+      if (err) return next(err);
+      if (!events) return next(new NotFoundError("No events found"));
 
-    res.json(events);
-  });
+      res.json(events);
+    });
 };
 
 exports.show = function(req, res, next) {

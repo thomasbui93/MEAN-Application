@@ -28,3 +28,8 @@ Organisation.remove(function() {
     if (err) throw err;
   });
 });
+
+module.exports = {
+  exampleUser: exampleUser,
+  exampleOrganisation: exampleOrganisation
+};

@@ -1,22 +1,8 @@
 var request = require('supertest');
 var app = require('../../../app.js');
-var User = require('../../../server/routes/organisation/organisation.model');
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
-
-
-// This example Organisation is inserted into the database in seed/test file.
-var exampleOrganisation = {
-  name: "Greenpeace",
-  managers: [],
-  representatives: [],
-  events: [],
-  recruitments: [],
-  status: "active",
-  description: "Hello world",
-  locations: ["Oulu", "Helsinki"],
-  _id: '22095c4e2d316055823fe46c'
-};
+var exampleOrganisation = require('../../../server/config/seed/test').exampleOrganisation;
 
 var otherOrganisation;
 var apiUrl = '/api/organisations';
