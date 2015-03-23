@@ -5,16 +5,16 @@ var Schema = mongoose.Schema;
 
 var CommentSchema = new mongoose.Schema({
   createdBy: {
-    type: Schema.Types.ObjectId, 
-    ref: "User" 
+    type: Schema.Types.ObjectId,
+    ref: "User"
   },
   event: {
-    type: Schema.Types.ObjectId, 
-    ref: "Event" 
+    type: Schema.Types.ObjectId,
+    ref: "Event"
   }, //the id of event this comment belongs to
   content: {
-    type:String, 
-    required:true
+    type: String,
+    required: true
   }
 
 });

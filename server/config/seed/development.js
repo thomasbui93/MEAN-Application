@@ -4,6 +4,7 @@ var User = require('../../routes/user/user.model');
 var Event = require('../../routes/event/event.model');
 var Organisation = require('../../routes/organisation/organisation.model');
 var Recruitment = require('../../routes/recruitment/recruitment.model');
+var Comment = require('../../routes/comment/comment.model');
 
 var user;
 
@@ -13,7 +14,23 @@ User.remove(function() {
     firstName: 'First',
     lastName: 'Last',
     password: 'ex',
-    _id: '55095c4e2d316055807fe46c'
+    address:{
+      city: 'Oulu',
+      country: 'Finland'
+    },
+    birthDate:{
+      date:'20',
+      month:'10',
+      year:'2000'
+    },
+    avatar: 'images/bbc.png',
+    description: 'beautiful',
+    loginStatus: {
+      ip: '192.168.1.1',
+      status: 'active'
+    },
+    _id: '55095c4e2d316055807fe46c',
+
   });
   user.save();
 });
@@ -34,15 +51,16 @@ Organisation.find({}).remove(function() {
     var org = new Organisation({
       _id: '55095c4e2d316055807f0000',
       name: 'Greenpeace',
-      locations: ['Oulu', 'Helsinki'],
+      locations: ['Oulu', 'Helsinki']
     });
 
     var newEvent = new Event({
       name: 'Awesome event',
-      description: "Awesome",
+      description: "Awesome"
     });
 
-    newEvent.organisation.push(org._id);
+    //newEvent.organisation.push(org._id);
+    newEvent.organisation = org._id;
     org.events.push(newEvent);
     org.managers.push(user);
 
@@ -50,4 +68,12 @@ Organisation.find({}).remove(function() {
     org.save();
     newEvent.save();
   });
+});
+
+Comment.find({}).remove(function(){
+  var comment = new Comment({
+    content: "beautiful sunday"
+  });
+  
+  comment.save();
 });

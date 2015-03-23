@@ -17,49 +17,49 @@ var UserSchema = new Schema({
     city: String,
     country: String,
   },
-  birthDate:{
+  birthDate: {
     date: Number,
     month: Number,
-    year: Number,   
+    year: Number,
   },
-  avatar: String,//image link
+  avatar: String, //image link
   description: String,
   createdOn: {
-    type:Date, 
+    type: Date,
     default: Date.now
   },
   loginStatus: {
     lastLogin: {
-      type:Date
+      type: Date
     },
-    ip:{
-      type:String
+    ip: {
+      type: String
     },
-   status: {
-    type:String,
-    default:"active"
-    },//status: 1.active, 2.block
+    status: {
+      type: String,
+      default: "active"
+    }, //status: 1.active, 2.block
   },
   managedOrganisations: [{
-    type: Schema.Types.ObjectId, 
-    ref: "Organisation" 
-  }],//an array of organisation id which user is manager
-  representOrganisations:  [{
     type: Schema.Types.ObjectId,
-    ref: "Organisation" 
-  }],//an array of organisation id which user is representative
+    ref: "Organisation"
+  }], //an array of organisation id which user is manager
+  representOrganisations: [{
+    type: Schema.Types.ObjectId,
+    ref: "Organisation"
+  }], //an array of organisation id which user is representative
   admin: {
-    type:Boolean,
-    "default":false
-  },  
+    type: Boolean,
+    "default": false
+  },
   events: [{
     type: Schema.Types.ObjectId,
-    ref: "Event" 
+    ref: "Event"
   }], //an array of events id which user participated in 
   recruiments: [{
-    type: Schema.Types.ObjectId, 
-    ref: "Recruitment" 
-  }]//an array of recruit
+    type: Schema.Types.ObjectId,
+    ref: "Recruitment"
+  }] //an array of recruit
 });
 
 /**
