@@ -1,3 +1,5 @@
+'use strict';
+
 // Karma configuration
 // Generated on Wed Mar 11 2015 14:04:13 GMT+0200 (EET)
 
@@ -21,19 +23,17 @@ module.exports = function(config) {
       'node_modules/restangular/dist/restangular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'public/**/*.js',
-      'tests/**/*.js'
+      'tests/unit/client/**/*.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use
@@ -47,7 +47,7 @@ module.exports = function(config) {
 
     // Gives test server access to served files
     proxies: {
-        '/': 'http://localhost:8080/'
+      '/': 'http://localhost:8080/'
     },
 
 

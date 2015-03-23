@@ -3,6 +3,7 @@
 ## To run the app:
 
 - Have node.js installed
+- Have MongoDB installed and running.
 - Have gulp installed `npm install -g gulp`
 - Every time someone adds a npm depency, you have to run `npm install`
 - Run `gulp`
@@ -11,16 +12,18 @@
   - This also runs all the tests continuously.
 
 ## Testing
-- Run `gulp test`
-- This runs all the tests once.
+- Run `gulp test` to run the front-end tests.
+- Run `gulp test-server` to run the back-end tests. 
 - To add new tests create them in the tests folder.
-- The tests use the jasmin testing framework
+- The front-end tests use the jasmin testing framework
+- The back-end tests use mocha.
 
 ## Developing guidelines
 
 - Don't push into master branch.
 - Test before committing.
 - Include the issue ID in the commit message.
+- There are seed scripts to populate the database in development and testing environment in `/server/config/seed`. By using them everyone can have the same dummy data. Always clean up the db.
 
 ## Git guides
 
