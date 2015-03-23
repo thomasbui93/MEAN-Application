@@ -27,6 +27,12 @@ describe("Unit: Testing Modules", function() {
       it("should have the ui.router dependency", function() {
         expect(hasModule('ui.router')).toBe(true);
       });
+<<<<<<< HEAD
+        it("should have the ng-animate dependency", function(){
+         expect(hasModule('ngAnimate')).toBe(true);
+        })
+=======
+>>>>>>> origin/master
     });
   });
 });
