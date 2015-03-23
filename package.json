@@ -22,6 +22,7 @@
     "angular-ui-router": "^0.2.13",
     "body-parser": "^1.12.0",
     "express": "^4.12.2",
+    "express-session": "^1.10.4",
     "lodash": "^3.5.0",
     "mongoose": "^3.8.24",
     "restangular": "^1.4.0"
@@ -33,13 +34,13 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "^2.5.2",
     "gulp-inject": "^1.2.0",
-    "gulp-jasmine": "^2.0.0",
     "gulp-js-prettify": "^0.1.0",
     "gulp-jscs": "^1.4.0",
     "gulp-jscs-stylish": "^1.0.2",
     "gulp-jshint": "^1.9.2",
     "gulp-less": "^3.0.1",
     "gulp-livereload": "^3.8.0",
+    "gulp-mocha": "^2.0.0",
     "gulp-nodemon": "^1.0.5",
     "jasmine-core": "^2.2.0",
     "jshint-stylish": "^1.0.1",
@@ -47,8 +48,11 @@
     "karma-chrome-launcher": "^0.1.7",
     "karma-firefox-launcher": "^0.1.4",
     "karma-jasmine": "^0.3.5",
+    "karma-mocha": "^0.1.10",
     "less-plugin-clean-css": "^1.5.0",
+    "mocha": "^2.2.1",
     "run-sequence": "^1.0.2",
+    "should": "^5.2.0",
     "supertest": "^0.15.0"
   }
 }
