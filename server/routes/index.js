@@ -6,11 +6,11 @@
 // or index.js inside a folder named 'routes'.
 
 module.exports = function(app) {
-  // Any requirests to /api/examples will be redirected
-  // to the examples module.
-  app.use('/api/example', require('./example'));
-  app.use('/api/organization', require('./organization'));
+
+  app.use('/api/organisations', require('./organisation'));
   app.use('/api/users', require('./user'));
+  app.use('/api/events', require('./event'));
+  app.use('/api/recruitments', require('./recruitment'));
 
   // For testing authentication.
   // TODO: Maybe get rid of once a real endpoint is behind auth

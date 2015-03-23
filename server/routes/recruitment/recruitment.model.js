@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var EventSchema = new Schema({
+var RecruitmentSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -20,10 +20,6 @@ var EventSchema = new Schema({
     type: Date,
     "default": Date.now
   },
-  startDate: {
-    type: Date,
-    "default": Date.now
-  },
   endDate: {
     type: Date
   },
@@ -35,14 +31,11 @@ var EventSchema = new Schema({
     type: String,
     required: true
   },
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-  }], //could be seperate in another schema
   status: {
     type: String,
     "default": "active"
   }, //status. 1.active, 2.block(when reach due date)
+
 });
 
-module.exports = mongoose.model('Event', EventSchema);
+module.exports = mongoose.model("Recruitment", RecruitmentSchema);

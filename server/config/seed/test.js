@@ -1,7 +1,8 @@
 'use strict';
 
 var User = require('../../routes/user/user.model');
-var Organization = require('../../routes/organization/organization.model');
+var Organisation = require('../../routes/organisation/organisation.model');
+var Event = require('../../routes/event/event.model');
 
 var exampleUser = {
   email: 'user@ex.com',
@@ -11,7 +12,7 @@ var exampleUser = {
   _id: '55095c4e2d316055807fe46c'
 };
 
-var exampleOrganization = {
+var exampleOrganisation = {
   name: "Greenpeace",
   managers: [exampleUser._id],
   representatives: [exampleUser._id],
@@ -23,14 +24,30 @@ var exampleOrganization = {
   _id: '22095c4e2d316055823fe46c'
 };
 
-User.find({}).remove(function() {
-  User.create(exampleUser, function(err) {
+var exampleEvent = {
+  name: 'Help',
+  organisation: [exampleOrganisation._id],
+  createdBy: exampleUser._id,
+  startDate: new Date(),
+  endDate: new Date(),
+  participants: [exampleUser._id],
+  description: "Help all the peoople!"
+};
+
+Organisation.remove(function() {
+  Organisation.create(exampleOrganisation, function(err) {
     if (err) throw err;
   });
 });
 
-Organization.find({}).remove(function() {
-  Organization.create(exampleOrganization, function(err) {
+Event.remove(function() {
+  Event.create(exampleEvent, function(err) {
     if (err) throw err;
   });
 });
+
+module.exports = {
+  exampleUser: exampleUser,
+  exampleOrganisation: exampleOrganisation,
+  exampleEvent: exampleEvent
+};

@@ -38,4 +38,4 @@ var OrganisationSchema = new mongoose.Schema({
   }],
 });
 
-module.exports = mongoose.model('Organization', OrganisationSchema);
+module.exports = mongoose.model('Organisation', OrganisationSchema);
