@@ -20,6 +20,9 @@ var RecruitmentSchema = new mongoose.Schema({
     type: Date,
     "default": Date.now
   },
+  startDate: {
+    type: Date
+  },
   endDate: {
     type: Date
   },

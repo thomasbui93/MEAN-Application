@@ -3,6 +3,7 @@
 var User = require('../../routes/user/user.model');
 var Event = require('../../routes/event/event.model');
 var Organisation = require('../../routes/organisation/organisation.model');
+var Recruitment = require('../../routes/recruitment/recruitment.model');
 
 var user;
 
@@ -15,6 +16,17 @@ User.remove(function() {
     _id: '55095c4e2d316055807fe46c'
   });
   user.save();
+});
+
+var exampleRecruitment = {
+  name: "Volunteers wanted!",
+  description: "Looking for group."
+};
+
+Recruitment.remove(function() {
+  Recruitment.create(exampleRecruitment, function(err) {
+    if (err) throw err;
+  });
 });
 
 Organisation.find({}).remove(function() {
