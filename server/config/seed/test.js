@@ -53,7 +53,7 @@ Organisation.remove(function() {
 
   Organisation.create(exampleOrganisation, function(err) {
     if (err) throw err;
-  }); 
+  });
 });
 
 Event.remove(function() {
