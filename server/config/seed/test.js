@@ -30,13 +30,15 @@ var exampleEvent = {
   endDate: new Date(),
   participants: [],
   organisation: [],
-  description: "Help all the peoople!"
+  description: "Help all the peoople!",
+  _id: '33095c4e2d311234823fcda2'
 };
 
 var exampleRecruitment = {
   name: "Volunteers wanted!",
   organisation: [],
-  description: "Looking for group."
+  description: "Looking for group.",
+  _id: '22095c4e2d311234823fbca2'
 };
 
 var exampleComment = {
@@ -50,7 +52,7 @@ Organisation.remove(function() {
   exampleOrganisation.events.push(exampleEvent._id);
   exampleOrganisation.recruitments.push(exampleRecruitment._id);
 
-  Organisation.create(exampleOrganisation, function(err) {
+  Organisation.create(exampleOrganisation, function(err, org) {
     if (err) throw err;
   });
 });

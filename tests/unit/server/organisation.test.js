@@ -131,4 +131,40 @@ describe('/organisation', function() {
         done();
       });
   });
+
+  it("should retrieve a list of managers", function(done) {
+    request(app)
+      .get(apiUrl + '/' + exampleOrganisation._id + '/managers')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.length.should.equal(1);
+        res.body[0]._id.should.equal(exampleOrganisation.managers[0]);
+        done();
+      });
+  });
+
+  it("should retrieve a list of events", function(done) {
+    request(app)
+      .get(apiUrl + '/' + exampleOrganisation._id + '/events')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.length.should.equal(1);
+        res.body[0]._id.should.equal(exampleOrganisation.events[0]);
+        done();
+      });
+  });
+
+  it("should retrieve a list of recruitments", function(done) {
+    request(app)
+      .get(apiUrl + '/' + exampleOrganisation._id + '/recruitments')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.length.should.equal(1);
+        res.body[0]._id.should.equal(exampleOrganisation.recruitments[0]);
+        done();
+      });
+  });
 });

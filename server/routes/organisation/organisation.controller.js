@@ -8,7 +8,6 @@ exports.index = function(req, res, next) {
     .populate('events managers representatives recruitments')
     .exec(function(err, organisations) {
       if (err) return next(err);
-      if (!organisations) return next(new NotFoundError("No organisations found."));
 
       res.json(organisations);
     });
@@ -42,6 +41,7 @@ exports.update = function(req, res, next) {
 
 exports.create = function(req, res, next) {
   var newOrganisation = req.body;
+
   Organisation.create(newOrganisation, function(err, organisation) {
     if (err) return next(err);
 
@@ -51,6 +51,7 @@ exports.create = function(req, res, next) {
 
 exports.remove = function(req, res, next) {
   var id = req.params.orgId;
+
   Organisation.findByIdAndRemove(id, function(err) {
     if (err) return next(err);
 
@@ -60,6 +61,7 @@ exports.remove = function(req, res, next) {
 
 exports.managers = function(req, res, next) {
   var id = req.params.orgId;
+
   Organisation.findById(id)
     .populate('managers')
     .exec(function(err, organisation) {
@@ -72,6 +74,7 @@ exports.managers = function(req, res, next) {
 
 exports.representatives = function(req, res, next) {
   var id = req.params.orgId;
+
   Organisation.findById(id)
     .populate('representatives')
     .exec(function(err, organisation) {
@@ -84,6 +87,7 @@ exports.representatives = function(req, res, next) {
 
 exports.events = function(req, res, next) {
   var id = req.params.orgId;
+
   Organisation.findById(id)
     .populate('events')
     .exec(function(err, organisation) {
@@ -95,7 +99,8 @@ exports.events = function(req, res, next) {
 };
 
 exports.recruitments = function(req, res, next) {
-  var id = req.param.orgId;
+  var id = req.params.orgId;
+
   Organisation.findById(id)
     .populate('recruitments')
     .exec(function(err, organisation) {
