@@ -10,4 +10,9 @@ router.post('/', controller.create);
 router.put('/:orgId', controller.update);
 router.delete('/:orgId', controller.remove);
 
+router.get('/:orgId/managers');
+router.get('/:orgId/representatives');
+router.get('/:orgId/events');
+router.get('/:orgId/recruitments');
+
 module.exports = router;
