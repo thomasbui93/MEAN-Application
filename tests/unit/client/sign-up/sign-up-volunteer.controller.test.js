@@ -1,14 +1,14 @@
 /**
  * Created by Bui Dang Khoa on 3/21/2015.
  */
-describe('vSignUpController unit test', function(){
+describe('volunteerSignUpController unit test', function(){
     var scope,
         controller;
     //
     beforeEach(angular.mock.module('voluntr'));
     beforeEach(inject(function ($injector, $controller, $rootScope) {
         scope= $rootScope.$new();
-        controller = $controller('vSignUpController', {
+        controller = $controller('volunteerSignUpController', {
             $scope: scope
         })
     }));

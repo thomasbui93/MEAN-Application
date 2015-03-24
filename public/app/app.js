@@ -46,21 +46,21 @@ angular.module('voluntr', [
       authorizedRoles: [USER_ROLES.guest]
     },
     controller: 'signUpController',
-    templateUrl: 'app/signUp/signUp.html'
+    templateUrl: 'app/sign-up/sign-up.html'
   }).state('register.volunteer', {
     url: '/volunteer',
-    controller: 'vSignUpController',
-    templateUrl: 'app/signUp/signUp.volunteer.html',
+    controller: 'volunteerSignUpController',
+    templateUrl: 'app/sign-up/volunteer-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
   }).state('register.ngo', {
     url: '/ngo/:slug',
-    templateUrl: 'app/signUp/signUp.NGO.html',
+    templateUrl: 'app/sign-up/ngo-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
     },
-    controller: 'nSignUpController'
+    controller: 'ngoSignUpController'
   });
 
   // This allows the address bar urls to seem natural
