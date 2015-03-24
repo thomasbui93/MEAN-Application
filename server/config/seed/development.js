@@ -4,8 +4,10 @@ var User = require('../../routes/user/user.model');
 var Event = require('../../routes/event/event.model');
 var Organisation = require('../../routes/organisation/organisation.model');
 var Recruitment = require('../../routes/recruitment/recruitment.model');
+var Comment = require('../../routes/comment/comment.model');
 
 var user;
+var newEvent;
 
 User.remove(function() {
   user = new User({
@@ -29,15 +31,15 @@ Recruitment.remove(function() {
   });
 });
 
-Organisation.find({}).remove(function() {
-  Event.find({}).remove(function() {
+Organisation.remove(function() {
+  Event.remove(function() {
     var org = new Organisation({
       _id: '55095c4e2d316055807f0000',
       name: 'Greenpeace',
       locations: ['Oulu', 'Helsinki'],
     });
 
-    var newEvent = new Event({
+    newEvent = new Event({
       name: 'Awesome event',
       description: "Awesome",
     });
@@ -49,5 +51,17 @@ Organisation.find({}).remove(function() {
 
     org.save();
     newEvent.save();
+  });
+});
+
+Comment.remove(function() {
+  var newComment = {
+    createdBy: user,
+    event: newEvent,
+    content: "I'm da bes"
+  };
+
+  Comment.create(newComment, function(err) {
+    if (err) return err;
   });
 });

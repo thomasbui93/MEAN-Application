@@ -27,7 +27,7 @@ exports.show = function(req, res, next) {
 
 exports.update = function(req, res, next) {
   var id = req.params.recrId;
-  
+
   Recruitment.findByIdAndUpdate(id, req.body, function(err, recruitment) {
     if (err) return next(err);
     if (!recruitment) return next(new NotFoundError('No Recruitment with that id.'));
