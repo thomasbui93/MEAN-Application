@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('../../routes/user/user.model');
+// var User = require('../../routes/user/user.model');
 var Organisation = require('../../routes/organisation/organisation.model');
 var Event = require('../../routes/event/event.model');
 var Recruitment = require('../../routes/recruitment/recruitment.model');
