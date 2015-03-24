@@ -3,8 +3,9 @@
 angular.module('voluntr', [
   // module dependencies go here
   'ui.router',
-  'restangular'
-]).config(function($urlRouterProvider, $stateProvider, $locationProvider) {
+  'restangular',
+  'ngAnimate'
+]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
 
@@ -13,6 +14,53 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
+  }).state('example', {
+    url: '/example',
+    templateUrl: 'app/test-folder/example.html',
+    controller: 'exampleController',
+    resolve: {
+      items: function(Restangular) {
+        return Restangular.all('api/example').getList();
+      }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
+  }).state('login', {
+    url: '/login',
+    templateUrl: 'app/authentication/login.html',
+    controller: 'LoginController'
+  }).state('search', {
+    url: '/search',
+    templateUrl: 'app/search/search.html',
+    controller: 'searchController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
+  }).state('register', {
+    url: '/register',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    controller: 'signUpController',
+    templateUrl: 'app/sign-up/sign-up.html'
+  }).state('register.volunteer', {
+    url: '/volunteer',
+    controller: 'volunteerSignUpController',
+    templateUrl: 'app/sign-up/volunteer-sign-up.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
+  }).state('register.ngo', {
+    url: '/ngo/:slug',
+    templateUrl: 'app/sign-up/ngo-sign-up.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    controller: 'ngoSignUpController'
   });
 
   // This allows the address bar urls to seem natural

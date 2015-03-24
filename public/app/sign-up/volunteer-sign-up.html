@@ -1,0 +1,110 @@
+<div class="container signup-form" >
+    <h1>Register Information</h1>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <p ng-show="error.email.violate" class="text-red">{{error.email.message}}*</p>
+            <p ng-show="error.name.violate" class="text-red">{{error.name.message}}*</p>
+            <p ng-show="error.passwordNotMatch.violate" class="text-red">{{error.passwordNotMatch.message}}*</p>
+            <p ng-show="error.passwordNotStrong.violate" class="text-red">{{error.passwordNotStrong.message}}*</p>
+            <p ng-show="error.phone.violate" class="text-red">{{error.phone.message}}*</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input type="text" ng-model="user.name" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Full Name</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input  type="email" ng-model="user.email" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Email:</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input type="password" ng-model="user.pwd" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Password:</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input type="password" ng-model="user.repwd" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Retype Password:</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input type="password" ng-model="user.address" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Address:</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input  type="text" ng-model="user.phone" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Phone number:</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <h4 class="normal-label">Date of Birth:</h4>
+            <div class="group">
+                <input  type="date" ng-model="user.birthday" required />
+                <span class="highlight"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <label class="normal-label">Skills: </label>
+            <div class="group">
+                <div class="skill-sets">
+                    <div class="tag" ng-repeat="skill in user.skillSet">{{skill}}</div>
+                    <input class="invisible-input" type="text" ng-keydown="createSkill($event)" ng-model="input.skill"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <label class="normal-label">Interests: </label>
+            <div class="group">
+                <div class="skill-sets">
+                    <div class="tag" ng-repeat="interest in user.interestSet">{{interest}}</div>
+                    <input class="invisible-input" type="text" ng-keydown="createInterest($event)" ng-model="input.interest"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <button class="btn btn-form pull-right" ng-click="register()">Register</button>
+        </div>
+    </div>
+
+</div>
