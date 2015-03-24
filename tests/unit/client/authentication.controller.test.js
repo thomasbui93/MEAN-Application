@@ -93,7 +93,7 @@ describe('LoginController unit testing', function(){
                 username: 'testUsername',
                 password: 'testPassword'
             })
-            //expect(rootScope.$broadcast).toHaveBeenCalledWith(auth_events.loginSuccess); // Commented out because it was replaced by better code in another branch. When merging, drop this line.
+           // expect(rootScope.$broadcast).toHaveBeenCalledWith(auth_events.loginSuccess);
         })
         it('should emit the event of login failure to scope', function(){
             scope.login({

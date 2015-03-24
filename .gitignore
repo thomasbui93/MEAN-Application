@@ -38,3 +38,6 @@ node_modules
 
 #Compiled style sheets
 public/styles/css
+
+#webstorm ide files
+.idea

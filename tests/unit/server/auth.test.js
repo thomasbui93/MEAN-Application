@@ -3,19 +3,12 @@ var app = require('../../../app.js');
 var should = require('should');
 var auth = require('../../../server/auth/auth.service');
 var User = require('../../../server/routes/user/user.model');
-
-var exampleUser = {
-  email: 'user@ex.com',
-  firstName: 'First',
-  lastName: 'Last',
-  password: 'ex',
-  _id: '55095c4e2d316055807fe46c'
-};
+var exampleUser = require('../../../server/config/seed/test').exampleUser;
 
 // Insert test user.
 before(function(done) {
-  User.find({}).remove(function(err) {
-    if (err) done(err);
+  User.remove(function(err) {
+    if (err) return done(err);
     User.create(exampleUser, done);
   });
 });
