@@ -29,7 +29,8 @@ Example.find({}).remove(function() {
 Organization.find({}).remove(function() {
   Event.find({}).remove(function() {
     var org = new Organization({
-      name: 'Greenpeace'
+      name: 'Greenpeace',
+      locations: ['Oulu', 'Helsinki']
     });
 
     var newEvent = new Event({

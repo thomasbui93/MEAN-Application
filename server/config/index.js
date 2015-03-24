@@ -7,6 +7,8 @@ var _ = require('lodash');
 var config = {
   env: process.env.NODE_ENV,
   port: process.env.NODE_PORT || 8080,
+  // super random
+  sessionSecret: 'asd38ad20asdjADSJJ--asdj',
   mongo: {
     uri: 'mongodb://db/voluntr',
     options: {

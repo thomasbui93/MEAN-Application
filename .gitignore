@@ -33,5 +33,8 @@ node_modules
 #Kate files
 *.kate-swp
 
+#Khoas ide
+.idea
+
 #Compiled style sheets
 public/styles/css
