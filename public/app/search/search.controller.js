@@ -103,7 +103,7 @@ angular.module('voluntr')
       };
       //get result goes here
       $scope.showResult = function() {
-       // event.preventDefault();
+        // event.preventDefault();
         console.log($scope.search.searchInterests.toString());
       };
 
