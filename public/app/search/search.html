@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="search-field">
+        <h4>Find more NGO: </h4>
+        <input type="text" ng-model="search.textField" ng-animate="animate" class="form-control" placeholder="Enter search here"/>
+        <br/>
+        <h4>Topic that you're interested:</h4>
+        <button class="btn-small btn-form pull-right" ng-click="checkAll()">Check</button>
+        <button class="btn-small btn-form pull-right" ng-click="unCheck()">Uncheck</button>
+        <br/>
+        <div class="chosen-tags" >
+            <div class="tag" ng-repeat="interest in search.searchInterests" ng-click="removeInterest(interest)">
+                {{interest}}
+            </div>
+        </div>
+        <hr/>
+        <h5>All Categories: </h5>
+        <div class="all-tags" >
+            <div class="tag" ng-repeat="interest in search.Interests" ng-click="addInterest(interest)">
+                {{interest}}
+            </div>
+        </div>
+        <button ng-click="showResult()" type="submit" class="btn btn-form center-block">Search</button>
+    </div>
+    <hr/>
+    <div class="result-field " >
+        <ul class="result-sort">
+            <li class="sliding-middle-out black" ng-click="sortTrending()">Trending</li>
+            <li class="sliding-middle-out black" ng-click="sortNew()">Newest</li>
+            <li class="sliding-middle-out black" ng-click="sortAlphabet()">Alphabet</li>
+        </ul>
+        <hr/>
+        <div class="container">
+            <div class="ngo-profile row" ui-sref="ngo({ngoID: result.ngoID})" ng-repeat="result in results" >
+                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                    <img src="http://placehold.it/200x200" class="img-responsive">
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6">
+                    <strong>{{result.name}}</strong>
+                    <div class="btn-small btn-follow pull-right">Follow</div>
+                    <p>{{result.locations[0]}}</p>
+                    <p>{{result.description}}</p>
+                    <p>
+                        <strong>Interests:</strong>
+                        <div class="tag" ng-repeat="tag in result.interests">{{tag}}</div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
