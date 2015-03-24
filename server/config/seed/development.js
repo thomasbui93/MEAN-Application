@@ -6,61 +6,53 @@ var Organisation = require('../../routes/organisation/organisation.model');
 var Recruitment = require('../../routes/recruitment/recruitment.model');
 var Comment = require('../../routes/comment/comment.model');
 
-var user;
+var user = new User({
+  email: 'user@ex.com',
+  firstName: 'First',
+  lastName: 'Last',
+  password: 'ex',
+  _id: '55095c4e2d316055807fe46c'
+});
+
+
+var newComment = new Comment({
+  createdBy: user,
+  content: "I'm da bes",
+  _id: '55095c4e2d316055807fa21c'
+
+});
+
+var org = new Organisation({
+  _id: '55095c4e2d316055807f0000',
+  name: 'Greenpeace',
+  locations: ['Oulu', 'Helsinki'],
+});
+
+var newEvent = new Event({
+  name: 'Awesome event',
+  description: "Awesome",
+  _id: '59195c4e2d316055807f0000'
+});
+
+var exampleRecruitment = new Recruitment({
+  name: "Volunteers wanted!",
+  description: "Looking for group."
+});
+
 
 User.remove(function() {
-  user = new User({
-    email: 'user@ex.com',
-    firstName: 'First',
-    lastName: 'Last',
-    password: 'ex',
-    address:{
-      city: 'Oulu',
-      country: 'Finland'
-    },
-    birthDate:{
-      date:'20',
-      month:'10',
-      year:'2000'
-    },
-    avatar: 'images/bbc.png',
-    description: 'beautiful',
-    loginStatus: {
-      ip: '192.168.1.1',
-      status: 'active'
-    },
-    _id: '55095c4e2d316055807fe46c',
-
-  });
   user.save();
 });
 
-var exampleRecruitment = {
-  name: "Volunteers wanted!",
-  description: "Looking for group."
-};
-
 Recruitment.remove(function() {
-  Recruitment.create(exampleRecruitment, function(err) {
-    if (err) throw err;
-  });
+  exampleRecruitment.save();
 });
 
-Organisation.find({}).remove(function() {
-  Event.find({}).remove(function() {
-    var org = new Organisation({
-      _id: '55095c4e2d316055807f0000',
-      name: 'Greenpeace',
-      locations: ['Oulu', 'Helsinki']
-    });
+Organisation.remove(function() {
+  Event.remove(function() {
+    newEvent.organisation.push(org._id);
+    newEvent.comments.push(newComment._id);
 
-    var newEvent = new Event({
-      name: 'Awesome event',
-      description: "Awesome"
-    });
-
-    //newEvent.organisation.push(org._id);
-    newEvent.organisation = org._id;
     org.events.push(newEvent);
     org.managers.push(user);
 
@@ -70,10 +62,9 @@ Organisation.find({}).remove(function() {
   });
 });
 
-Comment.find({}).remove(function(){
-  var comment = new Comment({
-    content: "beautiful sunday"
-  });
-  
-  comment.save();
+
+Comment.remove(function() {
+  newComment.event = newEvent._id;
+  newComment.save();
+
 });

@@ -3,10 +3,9 @@
 var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
-// TODO Add comments
 exports.index = function(req, res, next) {
   Event.find(req.query)
-    .populate('organisation participants')
+    .populate('organisation participants comments')
     .exec(function(err, events) {
       if (err) return next(err);
       if (!events) return next(new NotFoundError("No events found"));
@@ -49,7 +48,7 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.eventId;
 
-  Event.remove(function(err, evt) {
+  Event.remove(id, function(err, evt) {
     if (err) return next(err);
 
     res.status(204).end();
