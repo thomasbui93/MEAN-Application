@@ -8,10 +8,10 @@ var EventSchema = new Schema({
     type: String,
     required: true
   },
-  organisation: [{
+  organisation: {
     type: Schema.Types.ObjectId,
     ref: "Organisation"
-  }], //id of own organisation
+  }, //id of own organisation
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: "User"

@@ -14,10 +14,12 @@ var user = new User({
   _id: '55095c4e2d316055807fe46c'
 });
 
+
 var newComment = new Comment({
   createdBy: user,
   content: "I'm da bes",
   _id: '55095c4e2d316055807fa21c'
+
 });
 
 var org = new Organisation({
@@ -37,6 +39,7 @@ var exampleRecruitment = new Recruitment({
   description: "Looking for group."
 });
 
+
 User.remove(function() {
   user.save();
 });
@@ -47,16 +50,17 @@ Recruitment.remove(function() {
 
 Organisation.remove(function() {
   Event.remove(function() {
-    newEvent.organisation.push(org._id);
+    newEvent.organisation = org._id;
     newEvent.comments.push(newComment._id);
+
     org.events.push(newEvent);
     org.managers.push(user);
-
 
     org.save();
     newEvent.save();
   });
 });
+
 
 Comment.remove(function() {
   newComment.event = newEvent._id;

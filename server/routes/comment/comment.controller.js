@@ -4,6 +4,7 @@ var Comment = require('./comment.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
+
   Comment.find(req.query)
     .populate('event createdBy')
     .exec(function(err, comments) {
@@ -51,5 +52,6 @@ exports.remove = function(req, res, next) {
     if (err) return next(err);
 
     res.status(204).end();
+
   });
 };
