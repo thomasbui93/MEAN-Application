@@ -30,3 +30,5 @@ node_modules
 
 #Compiled style sheets
 public/styles/css
+
+.idea
