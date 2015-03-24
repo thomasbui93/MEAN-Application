@@ -75,4 +75,3 @@ angular.module('voluntr', [
     console.log(data);
   });
 });
-

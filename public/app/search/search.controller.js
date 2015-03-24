@@ -9,8 +9,10 @@ angular.module('voluntr')
         searchText: '',
         searchInterests: [],
         Interests: ['helping children', 'food', 'drink']
-      }
+      };
+
       $scope.currentResultState = '';
+
       $scope.results = [{
         id: '1',
         name: 'First NGO',
@@ -36,6 +38,7 @@ angular.module('voluntr')
         interests: ['food', 'animals'],
         locations: ['Helsinki, Finland']
       }];
+
       $scope.addInterest = function(interest) {
         $scope.search.searchInterests.push(interest);
         var index = $scope.search.Interests.indexOf(interest);
@@ -43,25 +46,29 @@ angular.module('voluntr')
           $scope.search.Interests.splice(index, 1);
         }
       };
+
       $scope.removeInterest = function(interest) {
         $scope.search.Interests.push(interest);
         var index = $scope.search.searchInterests.indexOf(interest);
         if (index !== -1) {
           $scope.search.searchInterests.splice(index, 1);
         }
-      }
+      };
+
       $scope.checkAll = function() {
         //merge two array to avoid loss of data
         $scope.search.searchInterests = $scope.search.searchInterests.concat($scope.search.Interests);
         //empty the other one
         $scope.search.Interests = [];
-      }
+      };
+
       $scope.unCheck = function() {
         if ($scope.search.searchInterests.length !== 0) {
           $scope.search.Interests = $scope.search.Interests.concat($scope.search.searchInterests);
           $scope.search.searchInterests = [];
         }
-      }
+      };
+
       $scope.sortTrending = function() {
         $scope.results.sort(function(a, b) {
           if (a.trend < b.trend) {
@@ -71,7 +78,8 @@ angular.module('voluntr')
             return -1;
           } else return 0;
         })
-      }
+      };
+
       $scope.sortNew = function() {
         $scope.results.sort(function(a, b) {
           if (a.establish < b.establish) {
@@ -80,9 +88,9 @@ angular.module('voluntr')
           if (a.establish > b.establish) {
             return -1;
           } else return 0;
-        })
+        });
+      };
 
-      }
       $scope.sortAlphabet = function() {
         $scope.results.sort(function(a, b) {
           if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -91,16 +99,16 @@ angular.module('voluntr')
           if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return 1;
           } else return 0;
-        })
-      }
+        });
+      };
       //get result goes here
       $scope.showResult = function() {
-        event.preventDefault();
+       // event.preventDefault();
         console.log($scope.search.searchInterests.toString());
+      };
 
-      }
       $scope.fetchInterests = function() {
 
-      }
+      };
     }
   ]);
