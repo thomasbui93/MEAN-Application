@@ -17,7 +17,7 @@ var exampleOrganisation = {
   name: "Greenpeace",
   description: "Hello world",
   locations: ["Oulu", "Helsinki"],
-  participants: [],
+  representatives: [],
   managers: [],
   events: [],
   recruitments: [],
@@ -46,7 +46,7 @@ var exampleComment = {
 
 Organisation.remove(function() {
   exampleOrganisation.managers.push(exampleUser._id);
-  exampleOrganisation.participants.push(exampleUser._id);
+  exampleOrganisation.representatives.push(exampleUser._id);
   exampleOrganisation.events.push(exampleEvent._id);
   exampleOrganisation.recruitments.push(exampleRecruitment._id);
 

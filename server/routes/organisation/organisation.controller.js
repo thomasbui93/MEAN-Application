@@ -24,7 +24,7 @@ exports.show = function(req, res, next) {
       if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
 
       res.json(organisation);
-  });
+    });
 };
 
 exports.update = function(req, res, next) {
@@ -37,7 +37,7 @@ exports.update = function(req, res, next) {
       if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
 
       res.json(organisation);
-  });
+    });
 };
 
 exports.create = function(req, res, next) {
@@ -50,8 +50,8 @@ exports.create = function(req, res, next) {
 };
 
 exports.remove = function(req, res, next) {
-  var id = req.param.orgId;
-  Organisation.remove(id, function(err) {
+  var id = req.params.orgId;
+  Organisation.findByIdAndRemove(id, function(err) {
     if (err) return next(err);
 
     res.status(204).end();
@@ -59,7 +59,7 @@ exports.remove = function(req, res, next) {
 };
 
 exports.managers = function(req, res, next) {
-  var id = req.param.orgId;
+  var id = req.params.orgId;
   Organisation.findById(id)
     .populate('managers')
     .exec(function(err, organisation) {
@@ -67,5 +67,41 @@ exports.managers = function(req, res, next) {
       if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
 
       res.json(organisation.managers);
-  });
+    });
+};
+
+exports.representatives = function(req, res, next) {
+  var id = req.params.orgId;
+  Organisation.findById(id)
+    .populate('representatives')
+    .exec(function(err, organisation) {
+      if (err) return next(err);
+      if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
+
+      res.json(organisation.representatives);
+    });
+};
+
+exports.events = function(req, res, next) {
+  var id = req.params.orgId;
+  Organisation.findById(id)
+    .populate('events')
+    .exec(function(err, organisation) {
+      if (err) return next(err);
+      if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
+
+      res.json(organisation.events);
+    });
+};
+
+exports.recruitments = function(req, res, next) {
+  var id = req.param.orgId;
+  Organisation.findById(id)
+    .populate('recruitments')
+    .exec(function(err, organisation) {
+      if (err) return next(err);
+      if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
+
+      res.json(organisation.recruitments);
+    });
 };

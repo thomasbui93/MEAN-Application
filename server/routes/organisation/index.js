@@ -10,9 +10,9 @@ router.post('/', controller.create);
 router.put('/:orgId', controller.update);
 router.delete('/:orgId', controller.remove);
 
-router.get('/:orgId/managers');
-router.get('/:orgId/representatives');
-router.get('/:orgId/events');
-router.get('/:orgId/recruitments');
+router.get('/:orgId/managers', controller.managers);
+router.get('/:orgId/representatives', controller.representatives);
+router.get('/:orgId/events', controller.events);
+router.get('/:orgId/recruitments', controller.recruitments);
 
 module.exports = router;

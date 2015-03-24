@@ -108,4 +108,27 @@ describe('/organisation', function() {
         done();
       });
   });
+
+  it("shold find exampleOrganisation still in the database", function(done) {
+    request(app)
+      .get(apiUrl + '/' + exampleOrganisation._id)
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body._id.should.equal(exampleOrganisation._id);
+        done();
+     });
+  });
+
+  it("should retrieve a list of representatives", function(done) {
+    request(app)
+      .get(apiUrl + '/' + exampleOrganisation._id + '/representatives')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.length.should.equal(1);
+        res.body[0]._id.should.equal(exampleOrganisation.representatives[0]);
+        done();
+      });
+  });
 });
