@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = require('./organization.controller');
+var controller = require('./organisation.controller');
 
 var router = require('express').Router();
 

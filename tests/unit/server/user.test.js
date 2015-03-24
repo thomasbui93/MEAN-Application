@@ -2,22 +2,11 @@ var request = require('supertest');
 var app = require('../../../app.js');
 var User = require('../../../server/routes/user/user.model');
 var should = require('should');
-
-
-// This example user is inserted into the database in seed/test file.
-var exampleUser = {
-  email: 'user@ex.com',
-  firstName: 'First',
-  lastName: 'Last',
-  password: 'ex',
-  _id: '55095c4e2d316055807fe46c'
-};
+var exampleUser = require('../../../server/config/seed/test').exampleUser;
 
 var otherUser;
 
 describe('/users', function() {
-  beforeEach(function() {
-  });
 
   it('should return json', function(done) {
     request(app)
