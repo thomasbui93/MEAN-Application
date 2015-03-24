@@ -4,7 +4,8 @@ angular.module('voluntr')
     $scope.credentials = {
       username: '',
       password: ''
-    }
+    };
+
     $scope.login = function(credentials) {
       AuthService.login(credentials)
         .then(
@@ -14,19 +15,21 @@ angular.module('voluntr')
           },
           function() {
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-          })
-    }
+          });
+    };
+
     $scope.setCurrentUser = function(user) {
       $rootScope.user.id = user.id;
       $rootScope.user.role = user.role;
       $rootScope.user.userName = user.userName;
-    }
+    };
+
     $scope.logout = function() {
       $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
       $rootScope.user.id = null;
       $rootScope.user.role = 'guest';
       $rootScope.user.userName = null;
-    }
+    };
   }).constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',

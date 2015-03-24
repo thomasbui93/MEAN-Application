@@ -6,4 +6,4 @@ angular.module('voluntr').controller('signUpController', ['$scope', '$state',
   function($scope, $state) {
 
   }
-])
+]);

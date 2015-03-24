@@ -10,15 +10,18 @@ angular.module('voluntr')
           return res.data.user;
         });
     };
+
     authService.isAuthenticated = function() {
       return !!Session.userId;
-    }
+    };
+
     authService.isAuthorized = function(authorizedRoles) {
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
       }
       return (authorizedRoles.indexOf(Session.userRole) !== -1);
-    }
+    };
+
     return authService;
   }).factory('AuthInterceptor', function($rootScope, $q, AUTH_EVENTS) {
     return {
@@ -31,7 +34,7 @@ angular.module('voluntr')
         }[response.status], response);
         return $q.reject(response);
       }
-    }
+    };
   }).service('Session', function(USER_ROLES) {
     this.userRole = USER_ROLES.guest;
     this.create = function(sessionId, userId, userRole, userName) {
@@ -40,12 +43,13 @@ angular.module('voluntr')
       this.userRole = userRole;
       this.userName = userName;
     };
+
     this.destroy = function() {
       this.id = null;
       this.userId = null;
       this.userRole = USER_ROLES.guest;
       this.userName = null;
-    }
+    };
   }).config(function($httpProvider) {
     //interceptor configuration
     $httpProvider.interceptors.push([
@@ -60,10 +64,12 @@ angular.module('voluntr')
       role: 'guest',
       userName: null
     };
+
     $rootScope.$on('$stateChangeStart', function(event, next) {
       var authorizedRoles = next.data.authorizedRoles;
       if (!AuthService.isAuthorized(authorizedRoles)) {
-        event.preventDefault()
+        event.preventDefault();
+
         if (AuthService.isAuthenticated()) {
           $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
           //user is not allowed
@@ -72,5 +78,5 @@ angular.module('voluntr')
           $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
         }
       }
-    })
+    });
   });

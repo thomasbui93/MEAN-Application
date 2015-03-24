@@ -77,7 +77,7 @@ angular.module('voluntr')
           if (a.trend > b.trend) {
             return -1;
           } else return 0;
-        })
+        });
       };
 
       $scope.sortNew = function() {
