@@ -10,19 +10,21 @@ var EventSchema = new Schema({
   },
   organisation: {
     type: Schema.Types.ObjectId,
-    ref: "Organisation"
+    ref: "Organisation",
+    required: true
   }, //id of own organisation
   createdBy: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   }, //id of creator
   createdDate: {
     type: Date,
-    "default": Date.now
+    default: Date.now
   },
   startDate: {
     type: Date,
-    "default": Date.now
+    default: Date.now
   },
   endDate: {
     type: Date
@@ -41,7 +43,7 @@ var EventSchema = new Schema({
   }], //could be seperate in another schema
   status: {
     type: String,
-    "default": "active"
+    default: "active"
   }, //status. 1.active, 2.block(when reach due date)
 });
 
