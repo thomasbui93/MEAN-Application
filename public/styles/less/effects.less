@@ -51,44 +51,36 @@ add more color into the box to customize bottom bar
     width: 100%;
 }
 @keyframes slide {
-    0% {
-        opacity: 0;
-        animation-timing-function: ease-in;
-    }
-    8% {
-        opacity: 1;
-        transform: scale(1.05);
-        animation-timing-function: ease-out;
-    }
-    17% {
-        opacity: 1;
-        transform: scale(1.1) rotate(3deg);
-    }
-    25% {
-        opacity: 0;
-        transform: scale(1.1) rotate(3deg);
-    }
-    100% { opacity: 0 }
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.05);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% { opacity: 0 }
 }
 @-webkit-keyframes slide {
-    0% {
-        opacity: 0;
-        animation-timing-function: ease-in;
-    }
-    8% {
-        opacity: 1;
-        transform: scale(1.05);
-        animation-timing-function: ease-out;
-    }
-    17% {
-        opacity: 1;
-        transform: scale(1.1) rotate(3deg);
-    }
-    25% {
-        opacity: 0;
-        transform: scale(1.1) rotate(3deg);
-    }
-    100% { opacity: 0 }
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.05);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% { opacity: 0 }
 }
 
 /***
@@ -195,6 +187,13 @@ Circle menu
     opacity: 1;
     transform: scale3d(1, 1, 1);
     overflow: visible;
+}
+.current-state .additional-information{
+  height: auto;
+  width: auto;
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
+  overflow: visible;
 }
 .burger-box{
     width: 50px;
