@@ -106,7 +106,7 @@ UserSchema
       // If there exists a different user with the same email,
       // the validation is failed.
       if (user) {
-        if (self._id === user._id) return respond(true);
+        if (self._id.toString() === user._id.toString()) return respond(true);
         return respond(false);
       }
 
