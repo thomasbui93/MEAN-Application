@@ -134,7 +134,7 @@ describe('/events', function() {
       });
   });
 
-  it("should find  the comments of the event", function(done) {
+  it("should find the comments of the event", function(done) {
     request('get', apiUrl + '/' + exampleEvent._id + '/comments')
       .expect(200, function(err, res) {
         if (err) return next(err);
