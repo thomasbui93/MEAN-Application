@@ -17,7 +17,7 @@ var exampleOrganisation = {
   name: "Greenpeace",
   description: "Hello world",
   locations: ["Oulu", "Helsinki"],
-  participants: [],
+  representatives: [],
   managers: [],
   events: [],
   recruitments: [],
@@ -30,13 +30,14 @@ var exampleEvent = {
   endDate: new Date(),
   participants: [],
   organisation: [],
-  description: "Help all the peoople!"
+  description: "Help all the peoople!",
+  _id: '33095c4e2d311234823fcda2'
 };
 
 var exampleRecruitment = {
   name: "Volunteers wanted!",
-  organisation: [],
-  description: "Looking for group."
+  description: "Looking for group.",
+  _id: '22095c4e2d311234823fbca2'
 };
 
 var exampleComment = {
@@ -46,17 +47,17 @@ var exampleComment = {
 
 Organisation.remove(function() {
   exampleOrganisation.managers.push(exampleUser._id);
-  exampleOrganisation.participants.push(exampleUser._id);
+  exampleOrganisation.representatives.push(exampleUser._id);
   exampleOrganisation.events.push(exampleEvent._id);
   exampleOrganisation.recruitments.push(exampleRecruitment._id);
 
-  Organisation.create(exampleOrganisation, function(err) {
+  Organisation.create(exampleOrganisation, function(err, org) {
     if (err) throw err;
   });
 });
 
 Event.remove(function() {
-  exampleEvent.organisation.push(exampleOrganisation._id);
+  exampleEvent.organisation = exampleOrganisation._id;
   exampleEvent.createdBy = exampleUser._id;
   exampleEvent.participants.push(exampleUser._id);
 
@@ -66,7 +67,7 @@ Event.remove(function() {
 });
 
 Recruitment.remove(function() {
-  exampleRecruitment.organisation.push(exampleOrganisation._id);
+  exampleRecruitment.organisation =exampleOrganisation._id;
   exampleRecruitment.createdBy = exampleUser._id;
 
   Recruitment.create(exampleRecruitment, function(err) {

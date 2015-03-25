@@ -46,8 +46,8 @@ exports.create = function(req, res, next) {
 };
 
 exports.remove = function(req, res, next) {
-  var id = req.param.recrId;
-  Recruitment.remove(id, function(err) {
+  var id = req.params.recrId;
+  Recruitment.findByIdAndRemove(id, function(err) {
     if (err) return next(err);
 
     res.status(204).end();
