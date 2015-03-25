@@ -31,7 +31,8 @@ describe('/comments', function() {
 
   it('should create a new Comment', function(done) {
     otherComment = {
-      content: "Yes"
+      content: "Yes",
+      _id: '87095c4e2d316055807fe46c'
     };
 
     request(app)
@@ -70,7 +71,7 @@ describe('/comments', function() {
 
   it("should delete the Comment without error", function(done) {
     request(app)
-      .del(apiUrl + '/' + exampleComment._id)
+      .del(apiUrl + '/' + otherComment._id)
       .expect(204, function(err) {
         if (err) return done(err);
 
@@ -80,7 +81,7 @@ describe('/comments', function() {
 
   it("should find no exampleComment in that database", function(done) {
     request(app)
-      .get(apiUrl + '/' + exampleComment._id)
+      .get(apiUrl + '/' + otherComment._id)
       .expect(404, function(err, res) {
         if (err) return done(err);
 

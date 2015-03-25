@@ -104,14 +104,43 @@ describe('/events', function() {
       });
   });
 
-  // it("should find the creator of the event", function(done) {
-  //   request('put')
-  //   request('get', apiUrl + '/' + exampleEvent_id + '/createdBy')
-  //     .expect(200, function(err, res) {
-  //       if (err) return next(err);
+  it("should find the creator of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/createdBy')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
 
-  //       res.body.firstName.should.equal("First");
-  //       done();
-  //     });
-  // });
+        res.body.firstName.should.equal("First");
+        done();
+      });
+  });
+
+  it("should find the organisation of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/organisation')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+
+        res.body.name.should.equal("Greenpeace");
+        done();
+      });
+  });
+
+  it("should find the participants of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/participants')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+
+        res.body[0].firstName.should.equal("First");
+        done();
+      });
+  });
+
+  it("should find  the comments of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/comments')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+        
+        res.body[0].content.should.equal("Oops!");
+        done();
+      });
+  });
 });

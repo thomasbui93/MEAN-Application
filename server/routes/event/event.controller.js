@@ -18,9 +18,8 @@ exports.show = function(req, res, next) {
   var id = req.params.eventId;
 
   Event.findById(id)
-    .populate('organisation description createdBy participants')
+    .populate('organisation participants comments createdBy')
     .exec(function(err, evt) {
-      console.log(err);
       if (err) return next(err);
       if (!evt) return next(new NotFoundError('No event with that id.'));
 
@@ -64,17 +63,10 @@ exports.remove = function(req, res, next) {
   Event.findById(id, function(err, evt) {
     if (err) return next(err);
     if (!evt) return next(new NotFoundError('No event with that id.'));
-<<<<<<< HEAD
 
     evt.remove(function(err) {
       if (err) return next(err);
 
-=======
-
-    evt.remove(function(err) {
-      if (err) return next(err);
-
->>>>>>> d438db757b0e591d81b4c5334d93efca4701d1e4
       res.status(204).end();
     });
   });
