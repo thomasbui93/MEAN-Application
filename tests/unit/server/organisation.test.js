@@ -1,8 +1,9 @@
-var request = require('supertest');
-var app = require('../../../app.js');
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 var exampleOrganisation = require('../../../server/config/seed/test').exampleOrganisation;
+var exampleUser = require('../../../server/config/seed/test').exampleUser;
+
+var request = require('../../util/ajaxUtil.js');
 
 var otherOrganisation;
 var apiUrl = '/api/organisations';
@@ -12,15 +13,13 @@ describe('/organisation', function() {
   });
 
   it('should return json', function(done) {
-    request(app)
-      .get(apiUrl)
+    request('get', apiUrl)
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
 
   it('should return example organisation', function(done) {
-    request(app)
-      .get(apiUrl)
+    request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -42,9 +41,7 @@ describe('/organisation', function() {
       _id: '33395c4e2d316055823fe46c'
     };
 
-    request(app)
-      .post(apiUrl)
-      .send(otherOrganisation)
+    request('post', apiUrl, otherOrganisation)
       .expect(201, function(err, res) {
         if (err) return done(err);
 
@@ -54,9 +51,8 @@ describe('/organisation', function() {
   });
 
   it('should update the organisation', function(done) {
-    request(app)
-      .put(apiUrl + '/' + exampleOrganisation._id)
-      .send({ description: 'Red damnit' })
+    var url = apiUrl + '/' + exampleOrganisation._id;
+    request('put', url, { description: 'Red damnit' })
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -66,8 +62,7 @@ describe('/organisation', function() {
   });
 
   it("should find 2 organisations", function(done) {
-    request(app)
-      .get(apiUrl)
+    request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -77,8 +72,7 @@ describe('/organisation', function() {
   });
 
   it("should find organisation with location Tampere", function(done) {
-    request(app)
-      .get(apiUrl + '?locations=Tampere')
+    request('get', apiUrl + '?locations=Tampere')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -89,8 +83,7 @@ describe('/organisation', function() {
   });
 
   it("should delete the organisation without error", function(done) {
-    request(app)
-      .del(apiUrl + '/' + otherOrganisation._id)
+    request('del', apiUrl + '/' + otherOrganisation._id)
       .expect(204, function(err) {
         if (err) return done(err);
 
@@ -99,8 +92,7 @@ describe('/organisation', function() {
   });
 
   it("should find no otherOrganisation in that database", function(done) {
-    request(app)
-      .get(apiUrl + '/' + otherOrganisation._id)
+    request('get', apiUrl + '/' + otherOrganisation._id)
       .expect(404, function(err, res) {
         if (err) return done(err);
 
@@ -110,8 +102,7 @@ describe('/organisation', function() {
   });
 
   it("shold find exampleOrganisation still in the database", function(done) {
-    request(app)
-      .get(apiUrl + '/' + exampleOrganisation._id)
+    request('get', apiUrl + '/' + exampleOrganisation._id)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -121,8 +112,7 @@ describe('/organisation', function() {
   });
 
   it("should retrieve a list of representatives", function(done) {
-    request(app)
-      .get(apiUrl + '/' + exampleOrganisation._id + '/representatives')
+    request('get', apiUrl + '/' + exampleOrganisation._id + '/representatives')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -133,8 +123,7 @@ describe('/organisation', function() {
   });
 
   it("should retrieve a list of managers", function(done) {
-    request(app)
-      .get(apiUrl + '/' + exampleOrganisation._id + '/managers')
+    request('get', apiUrl + '/' + exampleOrganisation._id + '/managers')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -145,8 +134,7 @@ describe('/organisation', function() {
   });
 
   it("should retrieve a list of events", function(done) {
-    request(app)
-      .get(apiUrl + '/' + exampleOrganisation._id + '/events')
+    request('get', apiUrl + '/' + exampleOrganisation._id + '/events')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -157,14 +145,36 @@ describe('/organisation', function() {
   });
 
   it("should retrieve a list of recruitments", function(done) {
-    request(app)
-      .get(apiUrl + '/' + exampleOrganisation._id + '/recruitments')
+    request('get', apiUrl + '/' + exampleOrganisation._id + '/recruitments')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
         res.body.length.should.equal(1);
         res.body[0]._id.should.equal(exampleOrganisation.recruitments[0]);
         done();
+      });
+  });
+
+  it("should return an empty array", function(done) {
+    // Remove the user from the database
+    request('del', '/api/users/' + exampleUser._id)
+      .expect(204, function(err, res) {
+        if (err) return done(err);
+
+        // Check that the manager is no longer in the mangers array
+        request('get', apiUrl + '/' + exampleOrganisation._id + '/managers')
+          .expect(200, function(err, res) {
+            if (err) return done(err);
+
+            res.body.length.should.equal(0);
+
+            // Reinsert the user into the database
+            request('post', '/api/users', exampleUser)
+              .expect(201, function(err) {
+                if (err) return done(err);
+                done();
+              });
+          });
       });
   });
 });

@@ -28,11 +28,21 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
   var id = req.params.eventId;
 
-  Event.findByIdAndUpdate(id, req.body, function(err, evt) {
+  Event.findById(id, function(err, evt) {
     if (err) return next(err);
     if (!evt) return next(new NotFoundError('No event with that id.'));
 
-    res.json(evt);
+    for (var field in req.body) {
+      if (field in evt) {
+        evt[field] = req.body[field];
+      }
+    }
+
+    evt.save(function(err) {
+      if (err) return next(err);
+
+      res.json(evt);
+    });
   });
 };
 
@@ -48,9 +58,66 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.eventId;
 
-  Event.findByIdAndRemove(id, function(err, evt) {
+  Event.findById(id, function(err, evt) {
     if (err) return next(err);
+    if (!evt) return next(new NotFoundError('No event with that id.'));
 
-    res.status(204).end();
+    evt.remove(function(err) {
+      if (err) return next(err);
+
+      res.status(204).end();
+    });
   });
+};
+
+exports.getCreatedBy = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('createdBy')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError('No event with that id.'));
+
+      res.json(evt.createdBy);
+    });
+};
+
+exports.getOrganisation = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('organisation')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError("No event with that id."));
+
+      res.json(evt.organisation);
+    });
+};
+
+exports.getParticipants = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('participants')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError("No event with that id."));
+
+      res.json(evt.participants);
+    });
+};
+
+exports.getComments = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('comments')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError("No event with that id."));
+
+      res.json(evt.comments);
+    });
 };
