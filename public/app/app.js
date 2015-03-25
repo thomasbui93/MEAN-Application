@@ -61,6 +61,13 @@ angular.module('voluntr', [
       authorizedRoles: [USER_ROLES.guest]
     },
     controller: 'ngoSignUpController'
+  }).state('user-dashboard', {
+    url: '/user/dash-board/',
+    templateUrl: 'app/user-dashboard/dashboard.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    controller: 'userDashboardController'
   });
 
   // This allows the address bar urls to seem natural

@@ -8,11 +8,12 @@ describe("Unit: Test homeController", function() {
     $controller = _$controller_;
   }));
 
-  describe("$home.title", function() {
-    it("checks that the title is set to home", function() {
-      $scope = {};
-      var controller = $controller('homeController', {$scope: $scope});
-      expect($scope.title).toBe("Home");
-    })
-  });
+  describe('home hashs', function(){
+     it('check the $scope.hashs to be defined and set to be an array', function(){
+         $scope = {};
+         var hashArray = ['header-container-page', 'about-page', 'contact-page', 'honor-page'];
+         var controller = $controller('homeController', {$scope: $scope});
+         expect($scope.hashs).toEqual(hashArray);
+     })
+  })  ;
 });
