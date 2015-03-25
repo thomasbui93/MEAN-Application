@@ -104,15 +104,9 @@ angular.module('voluntr')
 
       //get result goes here
       $scope.showResult = function() {
-        // event.preventDefault();
-        // console.log($scope.search.searchInterests.toString());
-        if (!$scope.search.textField.length) {
-          // TODO: show some error
-          return;
-        }
-        //if($scope.search.searchInterests.length)
+        
         Restangular.all('api/organisations').getList({
-          q: $scope.search.textField,
+          name: $scope.search.textField,
           interests: $scope.search.searchInterests
         })
           .then(function(results) {

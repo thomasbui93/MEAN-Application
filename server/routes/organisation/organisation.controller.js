@@ -7,40 +7,36 @@ exports.index = function(req, res, next) {
 
   var query = Organisation.find({});
   //-------query--------------
-  if(req.query.id){
+  if (req.query.id) {
     query = Organisation.findById(req.query.id);
-  }
-  else if(req.query.name){
+  } else if (req.query.name) {
     var regExpQuery = new RegExp(req.query.name, 'i');
 
     query = Organisation.find({
-      name : regExpQuery
+      name: regExpQuery
     });
-  }
-  else if(req.query.locations){
+  } else if (req.query.locations) {
     var location = [req.query.locations];
     console.log(typeof location);
     console.log(location);
-    query =  Organisation.find({})
-                         .where('locations')
-                         .in(location);
-  }
-  else if(req.query.interests){
+    query = Organisation.find({})
+      .where('locations')
+      . in (location);
+  } else if (req.query.interests) {
     var interests;
 
-     //check when type is string or object since the value in mongo 
+    //check when type is string or object since the value in mongo 
     //in required an array
     if (typeof req.query.interests == 'string') {
       interests = [req.query.interests];
-    } 
-    else {
+    } else {
 
       interests = req.query.interests;
     }
 
-    query =  Organisation.find({})
-                         .where('interests')
-                         . in (interests);
+    query = Organisation.find({})
+      .where('interests')
+      . in (interests);
   }
   //--------------------------*
 
@@ -164,32 +160,3 @@ exports.recruitments = function(req, res, next) {
     });
 };
 
-/*exports.showByLocation = function(req, res, next){
-  var location = [req.params.locations];
-
-  console.log("showByLocation called");
-  
-  Organisation.findOne({})
-    .where('locations')
-    .in(location)
-    .exec(function(err, organisation) {
-      if (err) return next(err);
-      if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
-
-      res.json(organisation);
-    });
-};
-/*exports.showByName = function(req, res, next) {
-  //search by name
-   var name = req.params.orgName;
-  var query = Organisation.find({'name':name})
-    .select('_id name createdDate description interests locations');
-
-  query.exec(function(err, organisations) {
-
-    if (err) return next(err);
-    if (organisations.length === 0) return next(new NotFoundError('No Organisation'));
-
-    res.json(organisations);
-  });
-};*/
