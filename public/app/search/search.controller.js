@@ -6,7 +6,7 @@ angular.module('voluntr')
   .controller('searchController', ['$scope', '$http', 'Restangular',
     function($scope, $http, Restangular) {
       $scope.search = {
-        searchText: '',
+        textField: '',
         searchInterests: [],
         Interests: ['helping children', 'food', 'drink']
       };
@@ -101,13 +101,26 @@ angular.module('voluntr')
           } else return 0;
         });
       };
+
       //get result goes here
       $scope.showResult = function() {
         // event.preventDefault();
         // console.log($scope.search.searchInterests.toString());
-        Restangular.all('api/organisations').getList().then(function(results) {
-          console.log(results);
-        });
+        if (!$scope.search.textField.length) {
+          // TODO: show some error
+          return;
+        }
+        //if($scope.search.searchInterests.length)
+        Restangular.all('api/organisations').getList({
+          q: $scope.search.textField,
+          interests: $scope.search.searchInterests
+        })
+          .then(function(results) {
+
+            $scope.results = results;
+          });
+
+        console.log($scope.results);
 
       };
 

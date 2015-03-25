@@ -26,6 +26,21 @@ var org = new Organisation({
   _id: '55095c4e2d316055807f0000',
   name: 'Greenpeace',
   locations: ['Oulu', 'Helsinki'],
+  interests: ['food', 'drink']
+});
+
+var org1 = new Organisation({
+  _id: '55095c4e2d316055807f00dd',
+  name: 'WWW',
+  locations: ['Oulu', 'Helsinki', 'New York'],
+  interests: ['food', 'helping children']
+});
+
+var org2 = new Organisation({
+  _id: '55095c4e2d316055807f00fd',
+  name: 'Lovely',
+  locations: ['Bangkok'],
+  interests: ['drink']
 });
 
 var newEvent = new Event({
@@ -59,6 +74,8 @@ Organisation.remove(function() {
     org.save();
     newEvent.save();
   });
+  org1.save();
+  org2.save();
 });
 
 

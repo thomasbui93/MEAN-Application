@@ -36,14 +36,14 @@ var OrganisationSchema = new mongoose.Schema({
     type: String,
     required: true
   }],
-  interests:[{
-    type:String
+  interests: [{
+    type: String
   }],
-  createdDate:{
-    type:Date,
-    default:Date.now
-  }
-  owner:{
+  createdDate: {
+    type: Date,
+    default: Date.now
+  },
+  owner: {
     type: Schema.Types.ObjectId,
     ref: "User"
   }

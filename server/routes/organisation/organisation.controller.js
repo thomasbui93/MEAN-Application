@@ -4,13 +4,42 @@ var Organisation = require('./organisation.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
-  Organisation.find(req.query)
-    .populate('events managers representatives recruitments')
-    .exec(function(err, organisations) {
-      if (err) return next(err);
 
-      res.json(organisations);
-    });
+
+  var regExpQuery = new RegExp(req.query.q, 'i');
+  var interests = ["default"];
+
+  //check when type is string or object since the value in mongo 
+  //in required an array
+  if (typeof req.query.interests == 'string') {
+    interests.push(req.query.interests);
+  } else {
+    for (var value in req.query.interests) {
+      interests.push(req.query.interests[value]);
+    }
+  }
+  //-------query--------------
+  if (interests.length == 1) {
+    Organisation.find({
+      name: regExpQuery
+    })
+      .populate('events managers representatives recruitments')
+      .exec(function(err, organisations) {
+        if (err) return next(err);
+
+        res.json(organisations);
+      });
+  } else {
+    console.log(interests);
+    Organisation.find({})
+      .where('interests')
+      . in (interests)
+      .exec(function(err, organisations) {
+        if (err) return next(err);
+
+        res.json(organisations);
+      });
+  }
 };
 
 exports.show = function(req, res, next) {
@@ -110,3 +139,18 @@ exports.recruitments = function(req, res, next) {
       res.json(organisation.recruitments);
     });
 };
+
+/*exports.showByName = function(req, res, next) {
+  //search by name
+   var name = req.params.orgName;
+  var query = Organisation.find({'name':name})
+    .select('_id name createdDate description interests locations');
+
+  query.exec(function(err, organisations) {
+
+    if (err) return next(err);
+    if (organisations.length === 0) return next(new NotFoundError('No Organisation'));
+
+    res.json(organisations);
+  });
+};*/
