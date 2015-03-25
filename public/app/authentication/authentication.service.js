@@ -1,26 +1,31 @@
 'use strict';
 angular.module('voluntr')
-  .factory('AuthService', function($http, Session) {
+  .factory('AuthService', function($http, $rootScope, AUTH_EVENTS) {
     var authService = {};
 
     authService.login = function(credentials) {
-      return $http
-        .post('/api/login', credentials)
+      $http.post('/api/login', credentials)
         .then(function(res) {
-          Session.create(res.data.id, res.data.user.id, res.data.user.role, res.data.user.name);
-          return res.data.user;
-        });
+            $rootScope.user = res.data;
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+          },
+          function() {
+            $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+          });
+    };
+
+    authService.logout = function() {
+      $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+      $rootScope.user = null;
     };
 
     authService.isAuthenticated = function() {
-      return !!Session.userId;
+      return !!$rootScope.user;
     };
 
     authService.isAuthorized = function(authorizedRoles) {
-      if (!angular.isArray(authorizedRoles)) {
-        authorizedRoles = [authorizedRoles];
-      }
-      return (authorizedRoles.indexOf(Session.userRole) !== -1);
+      console.log('AuthService.isAuthorized is not implemented!');
+      return true;
     };
 
     return authService;
@@ -36,21 +41,6 @@ angular.module('voluntr')
         return $q.reject(response);
       }
     };
-  }).service('Session', function(USER_ROLES) {
-    this.userRole = USER_ROLES.guest;
-    this.create = function(sessionId, userId, userRole, userName) {
-      this.id = sessionId;
-      this.userId = userId;
-      this.userRole = userRole;
-      this.userName = userName;
-    };
-
-    this.destroy = function() {
-      this.id = null;
-      this.userId = null;
-      this.userRole = USER_ROLES.guest;
-      this.userName = null;
-    };
   }).config(function($httpProvider) {
     //interceptor configuration
     $httpProvider.interceptors.push([
@@ -59,13 +49,7 @@ angular.module('voluntr')
         return $injector.get('AuthInterceptor');
       }
     ]);
-  }).run(function($http, AUTH_EVENTS, AuthService, $rootScope, Session) {
-    $rootScope.user = {
-      id: null,
-      role: 'guest',
-      userName: null
-    };
-
+  }).run(function($location, AUTH_EVENTS, AuthService, $rootScope) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
       var authorizedRoles = next.data.authorizedRoles;
       if (!AuthService.isAuthorized(authorizedRoles)) {
@@ -79,5 +63,13 @@ angular.module('voluntr')
           $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
         }
       }
+    });
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $location.url('/');
+    });
+
+    $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
+      $location.url('/');
     });
   });
