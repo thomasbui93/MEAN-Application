@@ -3,8 +3,8 @@
  */
 'use strict';
 angular.module('voluntr')
-  .controller('searchController', ['$scope', '$http',
-    function($scope, $http) {
+  .controller('searchController', ['$scope', '$http', 'Restangular',
+    function($scope, $http, Restangular) {
       $scope.search = {
         searchText: '',
         searchInterests: [],
@@ -104,7 +104,11 @@ angular.module('voluntr')
       //get result goes here
       $scope.showResult = function() {
         // event.preventDefault();
-        console.log($scope.search.searchInterests.toString());
+        // console.log($scope.search.searchInterests.toString());
+        Restangular.all('api/organisations').getList().then(function(results) {
+          console.log(results);
+        });
+
       };
 
       $scope.fetchInterests = function() {

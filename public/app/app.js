@@ -81,7 +81,5 @@ angular.module('voluntr', [
   });
 
 }).run(function($http) {
-  $http.get('api/organization').then(function(data) {
-    console.log(data);
-  });
+
 });
