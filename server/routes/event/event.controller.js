@@ -64,10 +64,17 @@ exports.remove = function(req, res, next) {
   Event.findById(id, function(err, evt) {
     if (err) return next(err);
     if (!evt) return next(new NotFoundError('No event with that id.'));
+<<<<<<< HEAD
 
     evt.remove(function(err) {
       if (err) return next(err);
 
+=======
+
+    evt.remove(function(err) {
+      if (err) return next(err);
+
+>>>>>>> d438db757b0e591d81b4c5334d93efca4701d1e4
       res.status(204).end();
     });
   });
@@ -82,7 +89,6 @@ exports.getCreatedBy = function(req, res, next) {
       if (err) return next(err);
       if (!evt) return next(new NotFoundError('No event with that id.'));
 
-      console.log(evt);
       res.json(evt.createdBy);
     });
 };
