@@ -25,11 +25,21 @@ exports.update = function(req, res, next) {
   var id = req.params.userId;
 
   // FIXME: This update could use some validations.
-  User.findByIdAndUpdate(id, req.body, function(err, user) {
+  User.findById(id, function(err, user) {
     if (err) return next(err);
     if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user);
+    for (var field in req.body) {
+      if (field in user) {
+        user[field] = req.body[field];
+      }
+    }
+
+    user.save(function(err) {
+      if (err) return next(err);
+
+      res.json(user);
+    });
   });
 };
 
@@ -45,9 +55,14 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findByIdAndRemove(id, function(err) {
+  User.findById(id, function(err, user) {
     if (err) return next(err);
+    if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.status(204).end();
+    user.remove(function(err) {
+      if (err) return next(err);
+
+      res.status(204).end();
+    });
   });
 };

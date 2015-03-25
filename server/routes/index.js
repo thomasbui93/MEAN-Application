@@ -16,7 +16,7 @@ module.exports = function(app) {
   // For testing authentication.
   // TODO: Maybe get rid of once a real endpoint is behind auth
   // and the functionality of auth.isAuthenticated is confirmed.
-  if (process.env.NODE_ENV === 'test') {
+  if (process.env.NODE_ENV !== 'production') {
     var auth = require('../auth/auth.service');
     app.get('/behindauth', auth.isAuthenticated, function(req, res) {
       res.status(200).end();
