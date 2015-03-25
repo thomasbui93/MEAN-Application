@@ -48,7 +48,7 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.eventId;
 
-  Event.remove(id, function(err, evt) {
+  Event.findByIdAndRemove(id, function(err, evt) {
     if (err) return next(err);
 
     res.status(204).end();

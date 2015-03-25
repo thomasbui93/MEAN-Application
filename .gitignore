@@ -27,6 +27,14 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+# Kdevelop project files
+*.kdev4
+
+#Kate files
+*.kate-swp
+
+#Khoas ide
+.idea
 
 #Compiled style sheets
 public/styles/css

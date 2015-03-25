@@ -31,7 +31,7 @@ app.use(session({
 app.use(express.static(__dirname + '/public'));
 
 // Expose node_modules as /scripts. Might have some security issues.
-app.use('/scripts', express.static(__dirname + '/node_modules'));
+app.use('/vendor', express.static(__dirname + '/node_modules'));
 
 // Parsers to populate the request object with useful
 // attributes.

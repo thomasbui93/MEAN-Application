@@ -17,7 +17,6 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
-
   }).state('example', {
     url: '/example',
     templateUrl: 'app/test-folder/example.html',
@@ -30,6 +29,10 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
+  }).state('login', {
+    url: '/login',
+    templateUrl: 'app/authentication/login.html',
+    controller: 'LoginController'
   }).state('search', {
     url: '/search',
     templateUrl: 'app/search/search.html',
@@ -43,21 +46,21 @@ angular.module('voluntr', [
       authorizedRoles: [USER_ROLES.guest]
     },
     controller: 'signUpController',
-    templateUrl: 'app/signUp/signUp.html'
+    templateUrl: 'app/sign-up/sign-up.html'
   }).state('register.volunteer', {
     url: '/volunteer',
-    controller: 'vSignUpController',
-    templateUrl: 'app/signUp/signUp.volunteer.html',
+    controller: 'volunteerSignUpController',
+    templateUrl: 'app/sign-up/volunteer-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
   }).state('register.ngo', {
     url: '/ngo/:slug',
-    templateUrl: 'app/signUp/signUp.NGO.html',
+    templateUrl: 'app/sign-up/ngo-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
     },
-    controller: 'nSignUpController'
+    controller: 'ngoSignUpController'
   }).state('user-dashboard', {
     url: '/user/dash-board/',
     templateUrl: 'app/user-dashboard/dashboard.html',

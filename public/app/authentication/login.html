@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="col-md-6">
+    <img src="/img/front-end/logo-m.png">
+  </div><!--left-->
+
+  <div class="col-md-6">
+    <form novalidate>
+      <label for="username">Username/Email:</label>
+      <br>
+      <input type="text" name="username" ng-model="credentials.username">
+      <br>
+      <label for="password">Password:</label>
+      <br>
+      <input type="password" name="password" ng-model="credentials.password">
+      <br>
+      <button type="button" class="" ng-click="login(credentials)">Sign in</button>
+    </form>
+    <a href="#">Sign up</a>
+   </div><!--right-->
+</div><!--container-->

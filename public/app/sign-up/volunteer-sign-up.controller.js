@@ -2,7 +2,7 @@
  * Created by Bui Dang Khoa on 3/20/2015.
  */
 'use strict';
-angular.module('voluntr').controller('vSignUpController', function($scope, $state) {
+angular.module('voluntr').controller('volunteerSignUpController', function($scope, $state) {
   $scope.user = {
     name: null,
     email: null,

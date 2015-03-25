@@ -15,6 +15,7 @@ angular.module('voluntr')
     authService.isAuthenticated = function() {
       return !!Session.userId;
     };
+
     authService.isAuthorized = function(authorizedRoles) {
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
@@ -43,6 +44,7 @@ angular.module('voluntr')
       this.userRole = userRole;
       this.userName = userName;
     };
+
     this.destroy = function() {
       this.id = null;
       this.userId = null;
@@ -63,10 +65,12 @@ angular.module('voluntr')
       role: 'guest',
       userName: null
     };
+
     $rootScope.$on('$stateChangeStart', function(event, next) {
       var authorizedRoles = next.data.authorizedRoles;
       if (!AuthService.isAuthorized(authorizedRoles)) {
         event.preventDefault();
+
         if (AuthService.isAuthenticated()) {
           $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
           //user is not allowed
