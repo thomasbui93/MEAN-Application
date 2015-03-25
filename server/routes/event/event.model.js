@@ -11,12 +11,10 @@ var EventSchema = new Schema({
   organisation: {
     type: Schema.Types.ObjectId,
     ref: "Organisation",
-    required: true
   }, //id of own organisation
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true
   }, //id of creator
   createdDate: {
     type: Date,
