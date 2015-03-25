@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 
 // TODO: How to refresh this req.session.user when user
 // data changes?
-app.post('/login', function(req, res, next) {
+app.post('/api/login', function(req, res, next) {
   auth.authenticate(req.body, function(err, user) {
     if (err) return next(err);
     // Save the authenticated user to req.session
@@ -52,7 +52,7 @@ app.post('/login', function(req, res, next) {
   });
 });
 
-app.post('/logout', function(req, res, next) {
+app.post('/api/logout', function(req, res, next) {
   // TODO: Is this enough? No dangling session stuff?
   if (req.session.user) {
     req.session.user = null;

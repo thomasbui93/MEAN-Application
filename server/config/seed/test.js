@@ -67,7 +67,7 @@ Event.remove(function() {
 });
 
 Recruitment.remove(function() {
-  exampleRecruitment.organisation =exampleOrganisation._id;
+  exampleRecruitment.organisation = exampleOrganisation._id;
   exampleRecruitment.createdBy = exampleUser._id;
 
   Recruitment.create(exampleRecruitment, function(err) {
