@@ -93,4 +93,25 @@ describe('/events', function() {
         done();
       });
   });
+
+  it("should find the exampleEvent", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id)
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.name.should.equal(exampleEvent.name);
+        done();
+      });
+  });
+
+  // it("should find the creator of the event", function(done) {
+  //   request('put')
+  //   request('get', apiUrl + '/' + exampleEvent_id + '/createdBy')
+  //     .expect(200, function(err, res) {
+  //       if (err) return next(err);
+
+  //       res.body.firstName.should.equal("First");
+  //       done();
+  //     });
+  // });
 });

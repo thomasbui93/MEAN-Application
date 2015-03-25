@@ -30,8 +30,8 @@ var exampleEvent = {
   endDate: new Date(),
   participants: [],
   organisation: [],
-  description: "Help all the peoople!",
-  _id: '33095c4e2d311234823fcda2'
+  description: 'Help all the people!',
+  _id: '22095c4e2d311234823fe46d'
 };
 
 var exampleRecruitment = {
@@ -67,7 +67,7 @@ Event.remove(function() {
 });
 
 Recruitment.remove(function() {
-  exampleRecruitment.organisation =exampleOrganisation._id;
+  exampleRecruitment.organisation = exampleOrganisation._id;
   exampleRecruitment.createdBy = exampleUser._id;
 
   Recruitment.create(exampleRecruitment, function(err) {
