@@ -30,6 +30,7 @@ angular.module('voluntr')
       $rootScope.user.role = 'guest';
       $rootScope.user.userName = null;
     };
+
   }).constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',

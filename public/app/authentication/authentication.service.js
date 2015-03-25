@@ -2,6 +2,7 @@
 angular.module('voluntr')
   .factory('AuthService', function($http, Session) {
     var authService = {};
+
     authService.login = function(credentials) {
       return $http
         .post('/api/login', credentials)
