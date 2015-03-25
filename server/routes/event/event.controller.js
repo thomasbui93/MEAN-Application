@@ -54,3 +54,55 @@ exports.remove = function(req, res, next) {
     res.status(204).end();
   });
 };
+
+exports.getCreatedBy = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('createdBy')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError('No event with that id.'));
+
+      res.json(evt.createdBy);
+    });
+};
+
+exports.getOrganisation = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('organisation')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError("No event with that id."));
+
+      res.json(evt.organisation);
+    });
+};
+
+exports.getParticipants = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('participants')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError("No event with that id."));
+
+      res.json(evt.participants);
+    });
+};
+
+exports.getComments = function(req, res, next) {
+  var id = req.params.eventId;
+
+  Event.findById(id)
+    .populate('comments')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError("No event with that id."));
+
+      res.json(evt.comments);
+    });
+};
