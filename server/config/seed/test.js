@@ -36,7 +36,6 @@ var exampleEvent = {
 
 var exampleRecruitment = {
   name: "Volunteers wanted!",
-  organisation: [],
   description: "Looking for group.",
   _id: '22095c4e2d311234823fbca2'
 };
@@ -58,7 +57,7 @@ Organisation.remove(function() {
 });
 
 Event.remove(function() {
-  exampleEvent.organisation.push(exampleOrganisation._id);
+  exampleEvent.organisation = exampleOrganisation._id;
   exampleEvent.createdBy = exampleUser._id;
   exampleEvent.participants.push(exampleUser._id);
 
