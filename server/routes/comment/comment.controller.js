@@ -47,11 +47,10 @@ exports.create = function(req, res, next) {
 };
 
 exports.remove = function(req, res, next) {
-  var id = req.param.commentId;
-  Comment.remove(id, function(err) {
+  var id = req.params.commentId;
+  Comment.findByIdAndRemove(id, function(err) {
     if (err) return next(err);
 
     res.status(204).end();
-
   });
 };
