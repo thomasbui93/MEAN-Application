@@ -31,12 +31,12 @@ angular.module('voluntr')
         }
       }
     };
-
+    /*
     $scope.$watch(
-        function(){
+      function() {
         return $location.hash();
-    }, function(scope){
+      }, function(scope) {
         $scope.currentLocation = $location.hash();
-        });
-   
+      });
+    */
   });
