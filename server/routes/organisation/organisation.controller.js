@@ -5,41 +5,51 @@ var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
 
-
-  var regExpQuery = new RegExp(req.query.q, 'i');
-  var interests = ["default"];
-
-  //check when type is string or object since the value in mongo 
-  //in required an array
-  if (typeof req.query.interests == 'string') {
-    interests.push(req.query.interests);
-  } else {
-    for (var value in req.query.interests) {
-      interests.push(req.query.interests[value]);
-    }
-  }
+  var query = Organisation.find({});
   //-------query--------------
-  if (interests.length == 1) {
-    Organisation.find({
-      name: regExpQuery
-    })
-      .populate('events managers representatives recruitments')
-      .exec(function(err, organisations) {
-        if (err) return next(err);
-
-        res.json(organisations);
-      });
-  } else {
-    console.log(interests);
-    Organisation.find({})
-      .where('interests')
-      . in (interests)
-      .exec(function(err, organisations) {
-        if (err) return next(err);
-
-        res.json(organisations);
-      });
+  if(req.query.id){
+    query = Organisation.findById(req.query.id);
   }
+  else if(req.query.name){
+    var regExpQuery = new RegExp(req.query.name, 'i');
+
+    query = Organisation.find({
+      name : regExpQuery
+    });
+  }
+  else if(req.query.locations){
+    var location = [req.query.locations];
+    console.log(typeof location);
+    console.log(location);
+    query =  Organisation.find({})
+                         .where('locations')
+                         .in(location);
+  }
+  else if(req.query.interests){
+    var interests;
+
+     //check when type is string or object since the value in mongo 
+    //in required an array
+    if (typeof req.query.interests == 'string') {
+      interests = [req.query.interests];
+    } 
+    else {
+
+      interests = req.query.interests;
+    }
+
+    query =  Organisation.find({})
+                         .where('interests')
+                         . in (interests);
+  }
+  //--------------------------*
+
+  query.exec(function(err, organisations) {
+
+    if (err) return next(err);
+    res.json(organisations);
+  });
+
 };
 
 exports.show = function(req, res, next) {
@@ -154,6 +164,21 @@ exports.recruitments = function(req, res, next) {
     });
 };
 
+/*exports.showByLocation = function(req, res, next){
+  var location = [req.params.locations];
+
+  console.log("showByLocation called");
+  
+  Organisation.findOne({})
+    .where('locations')
+    .in(location)
+    .exec(function(err, organisation) {
+      if (err) return next(err);
+      if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
+
+      res.json(organisation);
+    });
+};
 /*exports.showByName = function(req, res, next) {
   //search by name
    var name = req.params.orgName;
