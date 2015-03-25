@@ -10,9 +10,9 @@ router.post('/', controller.create);
 router.put('/:eventId', controller.update);
 router.delete('/:eventId', controller.remove);
 
-// router.get('/:eventId/getCreatedBy', controller.createdBy);
-// router.get('/:eventId/getOrganisation');
-// router.get('/:eventId/getParticipants');
-// router.get('/:eventId/getComments');
+router.get('/:eventId/CreatedBy', controller.getCreatedBy);
+router.get('/:eventId/Organisation', controller.getOrganisation);
+router.get('/:eventId/Participants', controller.getParticipants);
+router.get('/:eventId/Comments', controller.getComments);
 
 module.exports = router;

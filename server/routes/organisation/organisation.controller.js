@@ -73,7 +73,7 @@ exports.remove = function(req, res, next) {
   });
 };
 
-exports.managers = function(req, res, next) {
+exports.getManagers = function(req, res, next) {
   var id = req.params.orgId;
 
   Organisation.findById(id)
@@ -86,7 +86,7 @@ exports.managers = function(req, res, next) {
     });
 };
 
-exports.representatives = function(req, res, next) {
+exports.getRepresentatives = function(req, res, next) {
   var id = req.params.orgId;
 
   Organisation.findById(id)
@@ -99,7 +99,7 @@ exports.representatives = function(req, res, next) {
     });
 };
 
-exports.events = function(req, res, next) {
+exports.getEvents = function(req, res, next) {
   var id = req.params.orgId;
 
   Organisation.findById(id)
@@ -112,7 +112,7 @@ exports.events = function(req, res, next) {
     });
 };
 
-exports.recruitments = function(req, res, next) {
+exports.getRecruitments = function(req, res, next) {
   var id = req.params.orgId;
 
   Organisation.findById(id)
