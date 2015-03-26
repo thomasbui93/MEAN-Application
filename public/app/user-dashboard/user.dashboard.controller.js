@@ -43,23 +43,6 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
       date: new Date("July 11, 2014"),
       name: 'Other event'
     }];
-
-    $scope.past = function(pro, val) {
-      return function(activity) {
-        if (activity[pro] >= new Date()) {
-          if (val == true) {
-            return true;
-          }
-          return false;
-        } else {
-          if (val == false) {
-            return true;
-          }
-          return false;
-        }
-      }
-    };
-
     $scope.createSkill = function($event) {
       if ($event.keyCode == 13) {
         if ($scope.user.skillSet.indexOf($scope.input.skill) == -1)
@@ -67,7 +50,6 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
         $scope.input.skill = '';
       }
     };
-
     $scope.createInterest = function($event) {
       if ($event.keyCode == 13) {
         if ($scope.user.interestSet.indexOf($scope.input.interest) == -1)
@@ -106,7 +88,7 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
         show: true,
         state: 'Save'
       };
-    }
+    };
 
     $scope.saveInformation = function() {
       /* if (!Validation.checkPhone($scope.user)) {
@@ -122,19 +104,19 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
 
       if (Validation.check($scope.errors)) {
         $scope.edit = {
-            show: true,
-            state: 'Successfully saved!'
-        }
-      $timeout(function() {
+          show: true,
+          state: 'Successfully saved!'
+        };
+        $timeout(function() {
           $scope.edit = {
             show: false,
             state: 'Edit'
-          }
+          };
         }, 1000);
         ////Todo: Saving staff goes here
       }
 
-    }
+    };
 
   }
 ]);
