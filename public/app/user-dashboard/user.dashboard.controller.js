@@ -18,7 +18,6 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
       interestSet: ['Dummy Interest', 'wimpy interest ']
     };
     $scope.errors = ERRORS;
-    $scope.success = false;
     $scope.notifications = [{
       ngoId: 'asdasasd',
       name: 'Test NGO',
@@ -30,6 +29,7 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
       ngoAvatar: '.....',
       status: 'just update their dummy stuff 10 seconds ago.'
     }];
+
     $scope.activities = [{
       date: new Date("October 20, 2015"),
       name: 'Food catering free'
@@ -43,6 +43,7 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
       date: new Date("July 11, 2014"),
       name: 'Other event'
     }];
+
     $scope.past = function(pro, val) {
       return function(activity) {
         if (activity[pro] >= new Date()) {
@@ -88,7 +89,7 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
         $scope.user.skillSet.splice(index, 1);
       }
     };
-
+    /**
     $scope.parseTime = function(date) {
       if (date.instanceOf(Date)) {
         var elapse = new Date() - date;
@@ -99,7 +100,7 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
         }
       } else return null;
     };
-
+    */
     $scope.editInformation = function() {
       $scope.edit = {
         show: true,
@@ -121,10 +122,10 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
 
       if (Validation.check($scope.errors)) {
         $scope.edit = {
-          show: true,
-          state: 'Successfully saved!'
+            show: true,
+            state: 'Successfully saved!'
         }
-        $timeout(function() {
+      $timeout(function() {
           $scope.edit = {
             show: false,
             state: 'Edit'
