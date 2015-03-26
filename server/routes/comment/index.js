@@ -10,5 +10,7 @@ router.post('/', controller.create);
 router.put('/:commentId', controller.update);
 router.delete('/:commentId', controller.remove);
 
+router.get('/:commentId/createdBy', controller.getCreatedBy);
+router.get('/:commentId/event', controller.getEvent);
 
 module.exports = router;

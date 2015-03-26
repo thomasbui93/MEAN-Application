@@ -1,5 +1,4 @@
-var request = require('supertest');
-var app = require('../../../app.js');
+var request = require('../../util/ajaxUtil.js');
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 var exampleEvent = require('../../../server/config/seed/test').exampleEvent;
@@ -12,15 +11,13 @@ describe('/events', function() {
   });
 
   it('should return json', function(done) {
-    request(app)
-      .get(apiUrl)
+    request('get', apiUrl)
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
 
   it('should return example Event', function(done) {
-    request(app)
-      .get(apiUrl)
+    request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -38,9 +35,7 @@ describe('/events', function() {
       _id: '55095c4e2d313735807fe46c'
     };
 
-    request(app)
-      .post(apiUrl)
-      .send(otherEvent)
+    request('post', apiUrl, otherEvent)
       .expect(201, function(err, res) {
         if (err) return done(err);
 
@@ -50,9 +45,7 @@ describe('/events', function() {
   });
 
   it('should update the Event', function(done) {
-    request(app)
-      .put(apiUrl + '/' + otherEvent._id)
-      .send({ description: 'Help others!' })
+    request('put', apiUrl + '/' + otherEvent._id, { description: 'Help others!' })
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -62,8 +55,7 @@ describe('/events', function() {
   });
 
   it("should find 2 Events", function(done) {
-    request(app)
-      .get(apiUrl)
+    request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -73,8 +65,7 @@ describe('/events', function() {
   });
 
   it("should find Event with name Homeless help", function(done) {
-    request(app)
-      .get(apiUrl + '?name=Homeless+help')
+    request('get', apiUrl + '?name=Homeless+help')
       .expect(200, function(err, res) {
         if (err) return done(err);
 
@@ -85,8 +76,7 @@ describe('/events', function() {
   });
 
   it("should delete the Event without error", function(done) {
-    request(app)
-      .del(apiUrl + '/' + otherEvent._id)
+    request('del', apiUrl + '/' + otherEvent._id)
       .expect(204, function(err) {
         if (err) return done(err);
 
@@ -95,12 +85,61 @@ describe('/events', function() {
   });
 
   it("should find no otherEvent in that database", function(done) {
-    request(app)
-      .get(apiUrl + '/' + otherEvent._id)
+    request('get', apiUrl + '/' + otherEvent._id)
       .expect(404, function(err, res) {
         if (err) return done(err);
 
         res.body.message.should.equal("No event with that id.");
+        done();
+      });
+  });
+
+  it("should find the exampleEvent", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id)
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.name.should.equal(exampleEvent.name);
+        done();
+      });
+  });
+
+  it("should find the creator of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/createdBy')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+
+        res.body.firstName.should.equal("First");
+        done();
+      });
+  });
+
+  it("should find the organisation of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/organisation')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+
+        res.body.name.should.equal("Greenpeace");
+        done();
+      });
+  });
+
+  it("should find the participants of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/participants')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+
+        res.body[0].firstName.should.equal("First");
+        done();
+      });
+  });
+
+  it("should find the comments of the event", function(done) {
+    request('get', apiUrl + '/' + exampleEvent._id + '/comments')
+      .expect(200, function(err, res) {
+        if (err) return next(err);
+        
+        res.body[0].content.should.equal("Oops!");
         done();
       });
   });

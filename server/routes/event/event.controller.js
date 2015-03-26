@@ -5,7 +5,7 @@ var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
   Event.find(req.query)
-    .populate('organisation participants comments')
+    .populate('organisation participants comments createdBy')
     .exec(function(err, events) {
       if (err) return next(err);
       if (!events) return next(new NotFoundError("No events found"));
@@ -17,11 +17,13 @@ exports.index = function(req, res, next) {
 exports.show = function(req, res, next) {
   var id = req.params.eventId;
 
-  Event.findById(id, function(err, evt) {
-    if (err) return next(err);
-    if (!evt) return next(new NotFoundError('No event with that id.'));
+  Event.findById(id)
+    .populate('organisation participants comments createdBy')
+    .exec(function(err, evt) {
+      if (err) return next(err);
+      if (!evt) return next(new NotFoundError('No event with that id.'));
 
-    res.json(evt);
+      res.json(evt);
   });
 };
 
