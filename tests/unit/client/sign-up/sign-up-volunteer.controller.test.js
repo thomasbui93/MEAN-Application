@@ -81,5 +81,5 @@ describe('volunteerSignUpController unit test', function(){
             expect(scope.error.phone.violate).toEqual(true);
         });
     })
-    
+
 })
