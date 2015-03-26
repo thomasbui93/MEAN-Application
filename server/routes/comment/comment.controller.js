@@ -29,11 +29,21 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
   var id = req.params.commentId;
 
-  Comment.findByIdAndUpdate(id, req.body, function(err, comment) {
+  Comment.findById(id, function(err, comment) {
     if (err) return next(err);
     if (!comment) return next(new NotFoundError('No Comment with that id.'));
 
-    res.json(comment);
+    for (var field in req.body) {
+      if (field in comment) {
+        comment[field] = req.body[field];
+      }
+    }
+
+    comment.save(function(err) {
+      if (err) return next(err);
+
+      res.json(comment);
+    });
   });
 };
 
@@ -48,9 +58,14 @@ exports.create = function(req, res, next) {
 
 exports.remove = function(req, res, next) {
   var id = req.params.commentId;
-  Comment.findByIdAndRemove(id, function(err) {
+  Comment.findById(id, function(err, comment) {
     if (err) return next(err);
+    if (!comment) return next(new NotFoundError("No Comments found."));
 
-    res.status(204).end();
+    comment.remove(function(err) {
+      if (err) return next(err);
+
+      res.status(204).end();
+    });
   });
 };

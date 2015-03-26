@@ -17,10 +17,10 @@ after(function(done) {
   User.find({}).remove(done);
 });
 
-describe('/login', function() {
+describe('/api/login', function() {
   it('should respond with 200 to correct credentials', function(done) {
     request(app)
-    .post('/login')
+    .post('/api/login')
     .send({
       email: exampleUser.email,
       password: exampleUser.password
@@ -33,7 +33,7 @@ describe('/login', function() {
 
   it('should respond 401 to incorrect credentials', function(done) {
     request(app)
-    .post('/login')
+    .post('/api/login')
     .send({
       email: 'not@there.com',
       password: 'asd'
@@ -49,7 +49,7 @@ describe('authentication', function() {
 
   before(function(done) {
     request(app)
-    .post('/login')
+    .post('/api/login')
     .send(exampleUser)
     .end(function(err, res) {
       authCookie = res.headers['set-cookie'][0].split(';')[0];
@@ -70,11 +70,11 @@ describe('authentication', function() {
     .expect(200, done);
   });
 
-  describe('/logout', function() {
+  describe('/api/logout', function() {
     // Not using 'done' here to ensure running order.
     it('should respond 200', function() {
       request(app)
-      .post('/logout')
+      .post('/api/logout')
       .set('Cookie', authCookie)
       .expect(200);
     });

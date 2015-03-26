@@ -36,6 +36,17 @@ var OrganisationSchema = new mongoose.Schema({
     type: String,
     required: true
   }],
+  interests: [{
+    type: String
+  }],
+  createdDate: {
+    type: Date,
+    default: Date.now
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 module.exports = mongoose.model('Organisation', OrganisationSchema);

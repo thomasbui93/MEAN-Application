@@ -3,10 +3,10 @@
  */
 'use strict';
 angular.module('voluntr')
-  .controller('searchController', ['$scope', '$http',
-    function($scope, $http) {
+  .controller('searchController', ['$scope', '$http', 'Restangular',
+    function($scope, $http, Restangular) {
       $scope.search = {
-        searchText: '',
+        textField: '',
         searchInterests: [],
         Interests: ['helping children', 'food', 'drink']
       };
@@ -101,10 +101,22 @@ angular.module('voluntr')
           } else return 0;
         });
       };
+
       //get result goes here
       $scope.showResult = function() {
-        // event.preventDefault();
-        console.log($scope.search.searchInterests.toString());
+
+        Restangular.all('api/organisations').getList({
+          name: $scope.search.textField,
+          interests: $scope.search.searchInterests
+        })
+          .then(function(results) {
+
+            $scope.results = results;
+          });
+
+        $scope.search.textField = "";
+        console.log($scope.results);
+
       };
 
       $scope.fetchInterests = function() {

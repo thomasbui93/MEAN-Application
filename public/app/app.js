@@ -32,7 +32,10 @@ angular.module('voluntr', [
   }).state('login', {
     url: '/login',
     templateUrl: 'app/authentication/login.html',
-    controller: 'LoginController'
+    controller: 'LoginController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
   }).state('search', {
     url: '/search',
     templateUrl: 'app/search/search.html',
@@ -80,8 +83,5 @@ angular.module('voluntr', [
     requireBase: false
   });
 
-}).run(function($http) {
-  $http.get('api/organization').then(function(data) {
-    console.log(data);
-  });
-});
+
+}).run(function($http) {});
