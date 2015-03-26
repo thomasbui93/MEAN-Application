@@ -33,7 +33,7 @@ angular.module('voluntr').factory('Validation', function() {
     } else {
       return false;
     }
-  }
+  };
   return validation;
 }).constant(
   'ERRORS', {
