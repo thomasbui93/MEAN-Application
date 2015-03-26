@@ -114,6 +114,7 @@ angular.module('voluntr')
             $scope.results = results;
           });
 
+        $scope.search.textField = "";
         console.log($scope.results);
 
       };
