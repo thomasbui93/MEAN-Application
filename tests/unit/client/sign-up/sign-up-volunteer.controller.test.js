@@ -29,63 +29,6 @@ describe('volunteerSignUpController unit test', function(){
 
         });
     });
-    describe('scope: checkEmail', function(){
-        it('should return true if the email is match', function(){
-            scope.user.email = 'abc@xyz.mnq';
-            expect(scope.checkEmail()).toEqual(true);
-        });
-
-        it('should return false if the email is not match', function(){
-            scope.user.email = 'abc@some';
-            expect(scope.checkEmail()).toEqual(false);
-        });
-
-        it('should return false if the email is not match', function(){
-            scope.user.email = 'abc.xyz';
-            expect(scope.checkEmail()).toEqual(false);
-        });
-
-        it('should return false if the email is not match', function(){
-            scope.user.email = 'abcxyz';
-            expect(scope.checkEmail()).toEqual(false);
-        });
-    });
-
-    describe('scope: checkPassword', function(){
-        it('should return true if the password is match', function(){
-            scope.user.password = 'ABCabc12300324';
-            expect(scope.checkPassword()).toEqual(true);
-        });
-        it('should return false if the password is not match', function(){
-            scope.user.password = 'ABCabc';
-            expect(scope.checkPassword()).toEqual(false);
-        });
-        it('should return false if the password is not match', function(){
-            scope.user.password = 'ABC12300324';
-            expect(scope.checkPassword()).toEqual(false);
-        });
-        it('should return false if the password is not match', function(){
-            scope.user.password = 'abc12300324';
-            expect(scope.checkPassword()).toEqual(false);
-        });
-
-        it('should return false if the password is not match', function(){
-            scope.user.password = 'ABCabc1';
-            expect(scope.checkPassword()).toEqual(false);
-        });
-    });
-    describe('scope: checkPhone', function(){
-        it('should return true if a phone number is match', function () {
-            scope.user.phone = '090 090 1001';
-            expect(scope.checkPhone()).toEqual(true);
-        });
-
-        it('should return false if a phone number is not match', function(){
-            scope.user.phone = 'a 0009090ds0909';
-            expect(scope.checkPhone()).toEqual(false);
-        });
-
-    })
     describe('scope: checkAll: ', function(){
         it('should set violate state of all properties in error objects to be false', function(){
             scope.user = {
@@ -138,19 +81,5 @@ describe('volunteerSignUpController unit test', function(){
             expect(scope.error.phone.violate).toEqual(true);
         });
     })
-
-    describe('scope: check', function(){
-        it('should return true if all the state violate of error is set to be false', function(){
-            scope.error.name.violate = false;
-            scope.error.email.violate = false;
-            scope.error.passwordNotMatch.violate = false;
-            scope.error.passwordNotStrong.violate = false;
-            scope.error.phone.violate = false;
-            expect(scope.check()).toEqual(true);
-        });
-        it('should return false if one of the state violate of error is set to be true', function(){
-            scope.error.name.violate = true;
-            expect(scope.check()).toEqual(false);
-        });
-    })
+    
 })
