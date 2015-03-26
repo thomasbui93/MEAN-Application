@@ -159,4 +159,3 @@ exports.recruitments = function(req, res, next) {
       res.json(organisation.recruitments);
     });
 };
-

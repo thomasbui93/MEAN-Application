@@ -104,7 +104,7 @@ angular.module('voluntr')
 
       //get result goes here
       $scope.showResult = function() {
-        
+
         Restangular.all('api/organisations').getList({
           name: $scope.search.textField,
           interests: $scope.search.searchInterests
