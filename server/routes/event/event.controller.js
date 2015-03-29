@@ -24,7 +24,7 @@ exports.show = function(req, res, next) {
       if (!evt) return next(new NotFoundError('No event with that id.'));
 
       res.json(evt);
-  });
+    });
 };
 
 exports.update = function(req, res, next) {
