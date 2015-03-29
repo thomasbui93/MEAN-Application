@@ -66,3 +66,47 @@ exports.remove = function(req, res, next) {
     });
   });
 };
+
+exports.getManagedOrganisations = function(req, res, next) {
+  var id = req.params.userId;
+
+  User.findById(id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new NotFoundError('No user with that id.'));
+
+    res.json(user.managedOrganisations);
+  });
+};
+
+exports.getRepresentOrganisations = function(req, res, next) {
+  var id = req.params.userId;
+
+  User.findById(id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new NotFoundError('No user with that id.'));
+
+    res.json(user.representOrganisations);
+  });
+};
+
+exports.getEvents = function(req, res, next) {
+  var id = req.params.userId;
+
+  User.findById(id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new NotFoundError('No user with that id.'));
+
+    res.json(user.events);
+  });
+};
+
+exports.getRecruitments = function(req, res, next) {
+  var id = req.params.userId;
+
+  User.findById(id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new NotFoundError('No user with that id.'));
+
+    res.json(user.recruitments);
+  });
+};
