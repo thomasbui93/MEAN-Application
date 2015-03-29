@@ -4,20 +4,24 @@ var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
-  User.find({}, function(err, users) {
-    if (err) return next(err);
-    res.json(users);
+  User.find({})
+    .populate('managedOrganisations representOrganisations events recruiments')
+    .exec(function(err, users) {
+      if (err) return next(err);
+      res.json(users);
   });
 };
 
 exports.show = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
+  User.findById(id)
+    .populate('managedOrganisations representOrganisations events recruiments')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user);
+      res.json(user);
   });
 };
 
@@ -25,21 +29,23 @@ exports.update = function(req, res, next) {
   var id = req.params.userId;
 
   // FIXME: This update could use some validations.
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
-
-    for (var field in req.body) {
-      if (field in user) {
-        user[field] = req.body[field];
-      }
-    }
-
-    user.save(function(err) {
+  User.findById(id)
+    .populate('managedOrganisations representOrganisations events recruiments')
+    .exec(function(err, user) {
       if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-      res.json(user);
-    });
+      for (var field in req.body) {
+        if (field in user) {
+          user[field] = req.body[field];
+        }
+      }
+
+      user.save(function(err) {
+        if (err) return next(err);
+
+        res.json(user);
+      });
   });
 };
 
@@ -70,43 +76,51 @@ exports.remove = function(req, res, next) {
 exports.getManagedOrganisations = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
+  User.findById(id)
+    .populate('managedOrganisations')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user.managedOrganisations);
-  });
+      res.json(user.managedOrganisations);
+    });
 };
 
 exports.getRepresentOrganisations = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
+  User.findById(id)
+    .populate('representOrganisations')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user.representOrganisations);
-  });
+      res.json(user.representOrganisations);
+    });
 };
 
 exports.getEvents = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
+  User.findById(id)
+    .populate('events')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user.events);
+      res.json(user.events);
   });
 };
 
 exports.getRecruitments = function(req, res, next) {
   var id = req.params.userId;
 
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
+  User.findById(id)
+    .populate('recruiments')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user.recruitments);
+      res.json(user.recruitments);
   });
 };
