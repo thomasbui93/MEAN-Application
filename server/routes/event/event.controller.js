@@ -2,9 +2,12 @@
 
 var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
-  Event.find(req.query)
+  var query = new QueryBuilder(req.query);
+
+  Event.find(query)
     .populate('organisation participants comments createdBy')
     .exec(function(err, events) {
       if (err) return next(err);
@@ -24,7 +27,7 @@ exports.show = function(req, res, next) {
       if (!evt) return next(new NotFoundError('No event with that id.'));
 
       res.json(evt);
-  });
+    });
 };
 
 exports.update = function(req, res, next) {

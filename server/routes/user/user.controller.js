@@ -9,7 +9,7 @@ exports.index = function(req, res, next) {
     .exec(function(err, users) {
       if (err) return next(err);
       res.json(users);
-  });
+    });
 };
 
 exports.show = function(req, res, next) {
@@ -22,7 +22,7 @@ exports.show = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       res.json(user);
-  });
+    });
 };
 
 exports.update = function(req, res, next) {
@@ -46,7 +46,7 @@ exports.update = function(req, res, next) {
 
         res.json(user);
       });
-  });
+    });
 };
 
 exports.create = function(req, res, next) {
@@ -109,7 +109,7 @@ exports.getEvents = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       res.json(user.events);
-  });
+    });
 };
 
 exports.getRecruitments = function(req, res, next) {
@@ -122,5 +122,5 @@ exports.getRecruitments = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       res.json(user.recruitments);
-  });
+    });
 };
