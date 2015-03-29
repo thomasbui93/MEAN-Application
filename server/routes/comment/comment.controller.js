@@ -2,15 +2,19 @@
 
 var Comment = require('./comment.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
 
-  Comment.find(req.query)
+  var query = new QueryBuilder(req.query).query;
+
+  Comment.find(query)
     .populate('event createdBy')
     .exec(function(err, comments) {
       if (err) return next(err);
       if (!comments) return next(new NotFoundError("No Comments found."));
 
+      console.log(query);
       res.json(comments);
     });
 };
@@ -25,7 +29,7 @@ exports.show = function(req, res, next) {
       if (!comment) return next(new NotFoundError('No Comment with that id.'));
 
       res.json(comment);
-  });
+    });
 };
 
 exports.update = function(req, res, next) {
@@ -48,7 +52,7 @@ exports.update = function(req, res, next) {
 
         res.json(comment);
       });
-  });
+    });
 };
 
 exports.create = function(req, res, next) {
@@ -86,7 +90,7 @@ exports.getCreatedBy = function(req, res, next) {
       if (!comment) return next(new NotFoundError("No Comment found."));
 
       res.json(comment.createdBy);
-  });
+    });
 };
 
 exports.getEvent = function(req, res, next) {
@@ -94,10 +98,10 @@ exports.getEvent = function(req, res, next) {
 
   Comment.findById(id)
     .populate('event')
-      .exec(function(err, comment) {
+    .exec(function(err, comment) {
       if (err) return next(err);
       if (!comment) return next(new NotFoundError("No Comment found."));
 
       res.json(comment.event);
-  });
+    });
 };
