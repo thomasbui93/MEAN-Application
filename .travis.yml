@@ -1,7 +1,10 @@
- language: node_js
- node_js:
-   - "0.10"
+language: node_js
+node_js:
+  - "0.10"
 
-"scripts": {
-  "test": "gulp test"
-},
+before_install:
+  - npm install -g gulp
+
+script:
+  - gulp test
+
