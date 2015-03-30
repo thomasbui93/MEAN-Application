@@ -117,7 +117,7 @@ describe('/organisation', function() {
         if (err) return done(err);
 
         res.body.length.should.equal(1);
-        res.body[0]._id.should.equal(exampleOrganisation.representatives[0].valueOf());
+        res.body[0]._id.valueOf().should.equal(exampleOrganisation.representatives[0]);
         done();
       });
   });
@@ -128,7 +128,7 @@ describe('/organisation', function() {
         if (err) return done(err);
 
         res.body.length.should.equal(1);
-        res.body[0]._id.should.equal(exampleOrganisation.managers[0].valueOf());
+        res.body[0]._id.valueOf().should.equal(exampleOrganisation.managers[0]);
         done();
       });
   });
@@ -139,7 +139,7 @@ describe('/organisation', function() {
         if (err) return done(err);
 
         res.body.length.should.equal(1);
-        res.body[0]._id.should.equal(exampleOrganisation.events[0].valueOf());
+        res.body[0]._id.valueOf().should.equal(exampleOrganisation.events[0]);
         done();
       });
   });
@@ -150,7 +150,7 @@ describe('/organisation', function() {
         if (err) return done(err);
 
         res.body.length.should.equal(1);
-        res.body[0]._id.should.equal(exampleOrganisation.recruitments[0].valueOf());
+        res.body[0]._id.valueOf().should.equal(exampleOrganisation.recruitments[0]);
         done();
       });
   });
