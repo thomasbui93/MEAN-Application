@@ -8,6 +8,10 @@ angular.module('voluntr').controller('userDashboardController', ['$scope', 'ERRO
       show: false,
       state: 'Save'
     };
+    $scope.input = {
+      skill: '',
+      interest: ''
+    };
     $scope.user = {
       name: 'Bui Dang Khoa',
       email: 'test@email.com',
