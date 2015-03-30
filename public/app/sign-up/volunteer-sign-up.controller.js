@@ -41,29 +41,19 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     $scope.checkAll = function() {
       if ($scope.user.name === '' || $scope.user.name === null) {
         $scope.error.name.violate = true;
+      } else {
+        $scope.error.name.violate = false;
       }
-      if (!Validation.checkEmail($scope.user)) {
-        $scope.error.email.violate = true;
-      }
+      $scope.error.email.violate = !Validation.checkEmail($scope.user);
+
       if ($scope.user.pwd !== $scope.user.repwd) {
         $scope.error.passwordNotMatch.violate = true;
-      }
-      if (!Validation.checkPassword($scope.user)) {
-        $scope.error.passwordNotStrong.violate = true;
-      }
-      if (!Validation.checkPhone($scope.user)) {
-        $scope.error.phone.violate = true;
-      }
-    };
-
-    $scope.check = function() {
-      if (!$scope.error.email.violate && !$scope.error.name.violate && !$scope.error.passwordNotMatch.violate && !$scope.error.passwordNotStrong.violate && !$scope.error.phone.violate) {
-        return true;
       } else {
-        return false;
+        $scope.error.passwordNotMatch.violate = false;
       }
+      $scope.error.passwordNotStrong.violate = !Validation.checkPassword($scope.user);
+      $scope.error.phone.violate = !Validation.checkPhone($scope.user);
     };
-
     $scope.checkIdenticalEmail = function() {
 
     };
@@ -71,7 +61,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     $scope.register = function() {
       //event.preventDefault();
       $scope.checkAll();
-      if ($scope.check()) {
+      if (Validation.check()) {
         $state.go('home');
       }
     };
