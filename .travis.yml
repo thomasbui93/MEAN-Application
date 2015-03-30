@@ -12,5 +12,5 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - gulp test
+  - gulp ci
 
