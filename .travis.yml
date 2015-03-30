@@ -5,6 +5,9 @@ node_js:
 before_install:
   - npm install -g gulp
 
+services:
+  - mongodb
+
 before_script:
   # Special config for Chrome on Travis-CI
   - export CHROME_BIN=chromium-browser
@@ -13,4 +16,5 @@ before_script:
 
 script:
   - gulp ci
+
 
