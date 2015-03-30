@@ -21,6 +21,8 @@ var prettify = require('gulp-js-prettify');
 var runSequence = require('run-sequence');
 var mocha = require('gulp-mocha');
 
+var continuous = false;
+
 gulp.task('default', ['build']);
 
 // We have to use runSequence to force setting the environment before
@@ -31,11 +33,15 @@ gulp.task('build', function(cb) {
 });
 
 gulp.task('test', function(cb) {
-  runSequence('set-test', ['lint', 'karma']);
+  runSequence('set-test-continuous', ['lint', 'karma']);
+});
+
+gulp.task('ci', function(cb) {
+  runSequence('set-test', 'mocha', 'karma', 'lint', cb);
 });
 
 gulp.task('test-server', function() {
-  runSequence('set-test', ['lint', 'nodemon', 'mocha', 'watch-server']);
+  runSequence('set-test-continuous', ['lint', 'nodemon', 'mocha', 'watch-server']);
 });
 
 gulp.task('set-development', function() {
@@ -44,6 +50,11 @@ gulp.task('set-development', function() {
 
 gulp.task('set-test', function() {
   process.env.NODE_ENV = 'test';
+});
+
+gulp.task('set-test-continuous', function() {
+  process.env.NODE_ENV = 'test';
+  continuous = true;
 });
 
 var paths = {
@@ -141,13 +152,10 @@ gulp.task('nodemon', ['inject'], function() {
 });
 
 gulp.task('karma', ['nodemon'], function(done) {
-  // 'gulp test' runs only once and exits.
-  var runMode = process.env.NODE_ENV === 'test' ? false : true;
-
   setTimeout(function(){
     karma.start({
       configFile: __dirname + '/karma.conf.js',
-      singleRun: runMode
+      singleRun: !continuous
     });
   }, 500);
 });
@@ -167,7 +175,15 @@ gulp.task('serve', ['nodemon'], function() {
 gulp.task('mocha', function() {
   setTimeout(function() {
     gulp.src(paths.tests.serverUnitSpecs, { read: false })
-      .pipe(mocha());
+      .pipe(mocha())
+      .once('error', function () {
+          if(!continuous)
+              process.exit(1);
+      })
+      .once('end', function () {
+          if(!continuous)
+              process.exit();
+      });
     }, 1000);
 });
 
