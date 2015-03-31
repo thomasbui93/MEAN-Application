@@ -42,7 +42,6 @@ Query format: q=
 - `"grapes"` : not matching exactly grapes
 - `-mold` : Not containing mold
 - `cheese OR bread` : containing cheese or bread
-- `cookies AND milk` : containing cookies and milk
 - `money < 12` : money is less than 12
 - `volunteers > 134` : volunteers is greater than 134
 - `beans >= 12` : coke is greater than or equal to 12
