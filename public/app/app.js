@@ -65,7 +65,7 @@ angular.module('voluntr', [
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
-    url: '/user/dash-board/',
+    url: '/user/dashboard/',
     templateUrl: 'app/user-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
@@ -73,7 +73,7 @@ angular.module('voluntr', [
     controller: 'userDashboardController'
   }).state('ngoDashboard', {
     abstract: true,
-    url: '/ngo/dash-board/',
+    url: '/ngo/dashboard/',
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
