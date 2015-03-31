@@ -32,3 +32,18 @@
 - And `git status`
 - Then `git add -A`
 - Then `git commit -a` and enter your commit message.
+
+## Querying the database
+### This feature is not done yet!!!! Do not use
+
+Query format: q=
+
+- `cheese` : containing cheese
+- `"grapes"` : not matching exactly grapes
+- `-mold` : Not containing mold
+- `cheese OR bread` : containing cheese or bread
+- `cookies AND milk` : containing cookies and milk
+- `money < 12` : money is less than 12
+- `volunteers > 134` : volunteers is greater than 134
+- `beans >= 12` : coke is greater than or equal to 12
+- `cake <= 5` : cake is less than or equal to 5
