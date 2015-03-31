@@ -30,8 +30,9 @@ var exampleEvent = {
   endDate: new Date(),
   participants: [],
   organisation: [],
-  description: "Help all the peoople!",
-  _id: '33095c4e2d311234823fcda2'
+  comments: [],
+  description: 'Help all the people!',
+  _id: '44095c4e2d311234823fe46d'
 };
 
 var exampleRecruitment = {
@@ -60,6 +61,7 @@ Event.remove(function() {
   exampleEvent.organisation = exampleOrganisation._id;
   exampleEvent.createdBy = exampleUser._id;
   exampleEvent.participants.push(exampleUser._id);
+  exampleEvent.comments.push(exampleComment._id);
 
   Event.create(exampleEvent, function(err) {
     if (err) throw err;
