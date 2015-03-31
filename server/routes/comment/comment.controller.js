@@ -25,7 +25,7 @@ exports.show = function(req, res, next) {
       if (!comment) return next(new NotFoundError('No Comment with that id.'));
 
       res.json(comment);
-  });
+    });
 };
 
 exports.update = function(req, res, next) {
@@ -48,7 +48,7 @@ exports.update = function(req, res, next) {
 
         res.json(comment);
       });
-  });
+    });
 };
 
 exports.create = function(req, res, next) {
@@ -86,7 +86,7 @@ exports.getCreatedBy = function(req, res, next) {
       if (!comment) return next(new NotFoundError("No Comment found."));
 
       res.json(comment.createdBy);
-  });
+    });
 };
 
 exports.getEvent = function(req, res, next) {
@@ -94,10 +94,10 @@ exports.getEvent = function(req, res, next) {
 
   Comment.findById(id)
     .populate('event')
-      .exec(function(err, comment) {
+    .exec(function(err, comment) {
       if (err) return next(err);
       if (!comment) return next(new NotFoundError("No Comment found."));
 
       res.json(comment.event);
-  });
+    });
 };
