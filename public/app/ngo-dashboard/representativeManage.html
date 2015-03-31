@@ -1,0 +1,33 @@
+<div class="container representative-container" ng-show="!state.dialog">
+    <h3 class="text-center">Representatives </h3>
+
+    <div class="row padding10">
+        <button class="btn btn-small btn-red pull-left" ng-click="removeInvoke()">Remove</button>
+        <button class="btn btn-small btn-form pull-right" ng-click="checkRemoveAll()" ng-show="state.check">Check All</button>
+        <button class="btn btn-small btn-form pull-right" ng-click="unCheck()" ng-show="!state.check">Uncheck</button>
+
+    </div>
+    <hr/>
+    <div class="row padding10 ">
+        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3" ng-repeat="rep in reps" ng-click="addUser(rep)">
+            <div class="representative transition" ng-class="{'selected': rep.selected} ">
+                <img src="http://placehold.it/150x150" class="img-responsive">
+            </div>
+            <div class="representative-name">
+                <strong>{{rep.name}}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row delete-dialog-container margin-top-20" ng-show="state.dialog">
+    <div class="delete-dialog center-block">
+        <div class="small-banner"><strong>Delete Dialog</strong></div>
+        <br/>
+        <p class="center-block text-center">Do you really want to delete the events ?</p>
+        <div class="row text-center">
+            <button class="btn-small btn-inline btn-red " ng-click="removeRepresentative()">Yes</button>
+            <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
+        </div>
+
+    </div>
+</div>

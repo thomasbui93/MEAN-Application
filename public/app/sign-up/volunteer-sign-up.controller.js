@@ -59,9 +59,8 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     };
 
     $scope.register = function() {
-      //event.preventDefault();
       $scope.checkAll();
-      if (Validation.check()) {
+      if (Validation.check($scope.error)) {
         $state.go('home');
       }
     };
