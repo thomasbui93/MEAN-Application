@@ -6,7 +6,6 @@ var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query);
-  console.log(query);
 
   Event.find(query)
     .populate('organisation participants comments createdBy')

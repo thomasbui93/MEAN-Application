@@ -4,8 +4,8 @@ var _ = require('lodash');
 
 var excludedFields = ['hashedPassword', 'salt', '__v'];
 var arrayFields = [
-  'interests', 'participants', 'comments',
-  'managers', 'representatives', 'events',
+  'interests', 'participants', 'comments', 
+  'managers', 'representatives', 'events', 
   'recruitments', 'locations', 'managedOrganisations',
   'representOrganisations'
 ];
@@ -26,9 +26,7 @@ var build = function(query) {
     }
 
     if (isArray(query[field])) {
-      query[field] = {
-        $in: createRegexArray(query[field])
-      };
+      query[field] = { $in: createRegexArray(query[field])};
     } else {
       query[field] = new RegExp(query[field], 'ig');
     }
