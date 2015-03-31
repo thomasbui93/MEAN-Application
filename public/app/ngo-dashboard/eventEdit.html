@@ -1,0 +1,28 @@
+
+<h4 class="text-center">Edit Event {{currentEvent.name}}</h4>
+<div class="edit-information padding10">
+    <div class="row center-block">
+        <img src="http://placehold.it/200x200" class="img-responsive center-block">
+    </div>
+    <div class="input-container">
+        <label class="normal-label"><strong>Name: </strong></label>
+        <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+        <input ng-model="currentEvent.name" type="text" placeholder="{{currentEvent.name}}" class="normal-input"/>
+    </div>
+    <div class="input-container">
+        <label class="normal-label"><strong>Location: </strong></label>
+        <input ng-model="currentEvent.location" type="text" placeholder="{{currentEvent.location}}" class="normal-input margin-top-5"/>
+    </div>
+    <div class="input-container">
+        <label class="normal-label"><strong>Phone: </strong></label>
+        <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
+        <input ng-model="currentEvent.phone" type="text" placeholder="{{currentEvent.phone}}" class="normal-input margin-top-5"/>
+    </div>
+    <div class="input-container">
+        <label class="normal-label"><strong>Description: </strong></label>
+        <p ng-show="errors.description.violate" class="text-red">{{errors.description.message}}</p>
+        <textarea ng-model="currentEvent.description" type="text" placeholder="{{currentEvent.description}}" class="normal-input margin-top-5 scroll"></textarea>
+    </div>
+    <button class="btn btn-follow center-block margin-top-20" ng-click="saveEvent()" ng-show="!success">Save Event</button>
+    <button class="btn btn-form center-block margin-top-20" ng-show="success">Successfully Saved</button>
+</div>

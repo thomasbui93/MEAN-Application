@@ -1,0 +1,38 @@
+    <h4 class="text-center">Events Managements</h4>
+    <hr/>
+
+    <div class="event-brief row padding10 margin-top-5" ng-repeat="event in currentNGO.events" ng-show="!delete.state">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <img src="http://placehold.it/150x150" class="img-responsive">
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="padding10">
+                <strong>{{event.name}}</strong><br>
+                <p class="text-muted">{{event.location}}</p>
+                <p><strong class="">Time: </strong>{{event.date | date: 'HH:mm d, MMM yyyy'}}</p>
+                <div>
+                    <button class="btn-small btn-follow" ng-click="editTransit(event.id)">Edit</button>
+                    <button class="btn-small btn-follow" ng-click="invokeDelete(event)">Remove</button>
+                    <button class="btn-small btn-follow" ng-click="viewVolunteers(event)">Volunteers</button>
+                </div>
+                <div ng-repeat="volunteer in event.volunteers" class="margin-top-5 cross-background volunteer" ng-show="event.showVolunteer">
+                   <div class="margin-left-30">
+                       <img src="http://placehold.it/30x30" class="img-circle img-responsive border-10">
+                      {{volunteer.name}}
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row delete-dialog-container margin-top-20" ng-show="delete.state">
+        <div class="delete-dialog center-block">
+            <div class="small-banner"><strong>Delete Dialog</strong></div>
+            <br/>
+            <p class="center-block text-center">Do you really want to delete the events ?</p>
+            <div class="row text-center">
+                <button class="btn-small btn-inline btn-red " ng-click="deleteEvent(delete.events)">Yes</button>
+                <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
+            </div>
+
+        </div>
+    </div>
