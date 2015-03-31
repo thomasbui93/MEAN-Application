@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+            <div>
+                <img src="http://placehold.it/200x200" class="img-responsive center-block">
+            </div>
+            <div class="ngo-profile" >
+                <div class="show-information padding10" ng-show="!edit.show">
+                    <p class="name text-center"><strong>{{currentNGO.name}}</strong></p>
+                    <p class="location text-center">{{currentNGO.address[0]}}</p>
+                    <ul class="skill-sets">
+                        <li class="tag" ng-repeat="cause in currentNGO.causes">
+                            {{cause}}
+                        </li>
+                    </ul>
+                </div>
+                <div ng-show="edit.show" class="edit-information padding10">
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Name: </strong></label>
+                        <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+                        <input ng-model="currentNGO.name" type="text" placeholder="{{currentNGO.name}}" class="normal-input"/>
+                    </div>
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Address: </strong></label>
+                        <input ng-model="currentNGO.address" type="text" placeholder="{{currentNGO.address}}" class="normal-input margin-top-5"/>
+                    </div>
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Email: </strong></label>
+                        <p ng-show="errors.email.violate" class="text-red">{{errors.email.message}}</p>
+                        <input ng-model="currentNGO.email" type="text" placeholder="{{currentNGO.email}}" class="normal-input margin-top-5"/>
+                    </div>
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Phone: </strong></label>
+                        <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
+                        <input ng-model="currentNGO.phone" type="text" placeholder="{{currentNGO.phone}}" class="normal-input margin-top-5"/>
+                    </div>
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Description: </strong></label>
+                        <p ng-show="errors.description.violate" class="text-red">{{errors.description.message}}</p>
+                        <textarea ng-model="currentNGO.description" type="text" placeholder="{{currentNGO.description}}" class="normal-input margin-top-5 scroll"></textarea>
+                    </div>
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Cause: </strong></label>
+                        <div class="skill-sets">
+                            <div class="tag" ng-repeat="cause in currentNGO.causes" ng-click="removeCause(cause)">{{cause}}</div>
+                            <input class="hide-input" type="text" ng-keydown="createCause($event)" ng-model="inputCause"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding10 border-top">
+                    <div class="center-block">
+                        <button ng-show="edit.show" class="btn btn-follow center-block" ng-click="saveInformation()">{{edit.state}}</button>
+                    </div>
+                    <button ng-show="!edit.show"  class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
+
+                </div>
+            </div>
+            <div class="ngo-control-panel">
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-8 col-lg-8" ui-view="main">
+
+        </div>
+    </div>
+</div>

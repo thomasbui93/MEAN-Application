@@ -1,0 +1,30 @@
+<div class="container">
+    <h4>Report</h4>
+    <div class="row margin-top-5">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-5">
+            <button class="btn-small btn-follow pull-right" ng-click="saveWork()">Save</button>
+        </div>
+    </div>
+    <div class="row margin-top-5 block-user" ng-repeat="user in reportUsers | orderBy: 'date': true" ng-show="!dialogShow">
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 subtle-background padding10">
+            <img src="http://placehold.it/70x70" class="img-responsive"/>
+        </div>
+        <div class="col-sm-9 col-xs-9 col-md-5 col-lg-3 subtle-background padding10">
+            <strong>{{user.user.name}}</strong> was reported: "{{user.reason}}", by
+            <strong>{{user.reporter.name}}</strong>
+            <div class="text-muted">
+                {{user.date | date: 'dd MMM yyyy'}}
+                <button class="pull-right btn-small "
+                        ng-class="{'btn-form': !user.state.ignore.state, 'btn-red': user.state.ignore.state}"
+                        ng-click="ignoreTrigger(user)"
+                        ng-show="!user.state.block.state"
+                        >{{user.state.ignore.text}}</button>
+                <button class="pull-right btn-small "
+                        ng-class="{'btn-form': !user.state.block.state, 'btn-red': user.state.block.state}"
+                        ng-click="blockTrigger(user)"
+                        ng-show="!user.state.ignore.state"
+                        >{{user.state.block.text}}</button>
+            </div>
+        </div>
+    </div>
+</div>
