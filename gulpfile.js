@@ -36,8 +36,12 @@ gulp.task('test', function(cb) {
   runSequence('set-test-continuous', ['lint', 'karma']);
 });
 
-gulp.task('ci', function(cb) {
-  runSequence('set-test', 'mocha', 'karma', 'lint', cb);
+gulp.task('ci-client', function(cb) {
+  runSequence('set-test', 'karma', 'lint', cb);
+});
+
+gulp.task('ci-server', function(cb) {
+  runSequence('set-test', 'mocha', cb);
 });
 
 gulp.task('test-server', function() {
