@@ -1,0 +1,19 @@
+<div class="container">
+  <div id="header">
+    <img src="img/front-end/4_volunteer.jpg" class="full-width img-responsive shadow">
+  </div><!-- header -->
+  <div id="main-info">
+    <img src="http://placehold.it/200x200" class="img-responsive center-block">
+    <div id="ngo-info" class="show-information padding10" ng-show="!edit.show">
+      <p class="name text-center"><strong>{{currentNGO.name}}</strong></p>
+      <p class="location text-center">{{currentNGO.address[0]}}</p>
+      <ul class="skill-sets">
+          <li class="tag" ng-repeat="cause in currentNGO.causes">
+              {{cause}}
+          </li>
+      </ul>
+    </div><!-- ngo-info -->
+  </div><!-- main-info -->
+  <div id="bottom-container" class="">
+  </div><!-- bottom container -->
+</div><!--container-->

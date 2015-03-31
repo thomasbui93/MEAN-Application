@@ -135,7 +135,17 @@ angular.module('voluntr', [
         templateUrl: 'app/admin/admin.content.html'
       }
     }
+  }).state('ngoHomePage', {
+    //     abstract: true,
+    url: '/ngo/home/:id',
+    controller: 'ngoHomePageController',
+    templateUrl: 'app/ngo-homepage/homepage.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
   });
+
+
 
   // This allows the address bar urls to seem natural
   // even though no actual pages aren't requested. Without
