@@ -1,0 +1,36 @@
+<h4 class="text-center">Jobs Managements</h4>
+<a ui-sref="ngoDashboard.jobCreate"><button class="btn-small btn-follow pull-right">New</button></a>
+<hr/>
+<div class="job row padding10 margin-top-5" ng-repeat="job in currentNGO.jobs" ng-show="!delete.state">
+    <strong class="text-uppercase">{{job.position}}</strong>
+    <p class="text-muted">{{job.address}}</p>
+    <p class="text-info">
+        <strong>From: </strong>{{job.postDate | date: 'MMM dd yyyy' }}<br/>
+        <strong>To: </strong>{{job.expireDate | date: 'MMM dd yyyy' }}
+    </p>
+    <p>{{job.description}}</p>
+    <div>
+        <button class="btn-small btn-follow" ng-click="editTransit(job.id)">Edit</button>
+        <button class="btn-small btn-follow" ng-click="invokeDelete(job)">Remove</button>
+        <button class="btn-small btn-follow" ng-click="viewVolunteers(job)">Volunteers<strong>({{job.volunteers.length}})</strong></button>
+    </div>
+    <div ng-repeat="volunteer in job.volunteers" class="margin-top-5 cross-background volunteer" ng-show="job.state.candidate">
+        <div class="margin-left-30">
+            <img src="http://placehold.it/30x30" class="img-circle img-responsive border-10">
+            {{volunteer.name}}
+        </div>
+    </div>
+    <hr/>
+</div>
+<div class="row delete-dialog-container margin-top-20" ng-show="delete.state">
+    <div class="delete-dialog center-block">
+        <div class="small-banner"><strong>Delete Dialog</strong></div>
+        <br/>
+        <p class="center-block text-center">Do you really want to delete the events ?</p>
+        <div class="row text-center">
+            <button class="btn-small btn-inline btn-red " ng-click="deleteJob(delete.jobs)">Yes</button>
+            <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
+        </div>
+
+    </div>
+</div>

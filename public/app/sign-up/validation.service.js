@@ -48,13 +48,21 @@ angular.module('voluntr').factory('Validation', function() {
     } else return false;
   };
   validation.check = function(error) {
-    //  console.log(error.email);
     if (!error.email.violate && !error.name.violate && !error.passwordNotMatch.violate && !error.passwordNotStrong.violate && !error.phone.violate) {
       return true;
     } else {
       return false;
     }
   };
+  validation.checkFinal = function(error) {
+    var state = true;
+    angular.forEach(error, function(property) {
+      if (property.violate === true) {
+        state = false;
+      }
+    })
+    return state;
+  }
   validation.checkWithoutPassword = function(error) {
     if (!error.email.violate && !error.name.violate && !error.phone.violate && !error.description.violate) {
       return true;

@@ -81,14 +81,9 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     };
 
     $scope.register = function() {
-      //event.preventDefault();
       $scope.checkAll();
+
       $scope.checkIdenticalEmail();
-
-
-      /* if (Validation.check()) {
-        $state.go('home');
-      }*/
     };
 
   }
