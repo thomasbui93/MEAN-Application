@@ -10,13 +10,16 @@ var arrayFields = [
   'representOrganisations'
 ];
 
+var generalSearchFields = [
+  'name', 'firstName', 'lastName',
+  'interests', 'description'
+];
+
 var QueryBuilder = function(query) {
-  console.log(query);
   this.query = query ? build(query) : {};
-  console.log(this.query);
 };
 
-var build = function(query) {
+var buildParameters = function(query) {
   if (!query.q) return {};
 
   var queryParams = query.q.split(" ");
@@ -25,42 +28,48 @@ var build = function(query) {
     return new RegExp(param, 'ig');
   });
 
-  console.log("params", queryParams);
-
-  var built = {
-    $or: [
-      { name: queryParams[0] },
-      { description: queryParams[0] },
-      { interests: queryParams[0] },
-      { locations: queryParams[0] }
-    ]
-  };
-
-  return built;
+  return prepareQuery(queryParams);
 };
 
-// var build = function(query) {
-//   for (var field in query) {
-//     if (isExcluded(field)) {
-//       delete query[field];
-//       continue;
-//     }
+var prepareQuery = function(parameters) {
+  var builtQuery = {
+    $or: []
+  };
 
-//     if (!isArray(query[field]) && isArrayField(field)) {
-//       query[field] = [query[field]];
-//     }
+  parameters.forEach(function(parameter) {
+    generalSearchFields.forEach(function(field) {
+      var temp = {};
+      temp[field] = parameter;
 
-//     if (isArray(query[field])) {
-//       query[field] = { $in: createRegexArray(query[field])};
-//     } else {
-//       query[field] = new RegExp(query[field], 'ig');
-//     }
-//   }
+      builtQuery.$or.push(temp);
+    });
+  });
 
-//   // There is a chance that the query fields are all in the excluded filter.
-//   // So we have to ensure that atleast an empty object is returned if that happens.
-//   return query || {};
-// };
+  return builtQuery;
+};
+
+var build = function(query) {
+  for (var field in query) {
+    if (isExcluded(field)) {
+      delete query[field];
+      continue;
+    }
+
+    if (!isArray(query[field]) && isArrayField(field)) {
+      query[field] = [query[field]];
+    }
+
+    if (isArray(query[field])) {
+      query[field] = { $in: createRegexArray(query[field])};
+    } else {
+      query[field] = new RegExp(query[field], 'ig');
+    }
+  }
+
+  // There is a chance that the query fields are all in the excluded filter.
+  // So we have to ensure that atleast an empty object is returned if that happens.
+  return query || {};
+};
 
 var parseQuotedText = function(query) {
   var indicesOfQuotes = findQuoteIndeces(query);
