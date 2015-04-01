@@ -2,8 +2,8 @@
  * Created by Bui Dang Khoa on 3/20/2015.
  */
 'use strict';
-angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation',
-  function($scope, $state, ERRORS, Validation) {
+angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular',
+  function($scope, $state, ERRORS, Validation, Restangular) {
     $scope.user = {
       firstname: null,
       lastname: null,
@@ -60,16 +60,37 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       $scope.error.passwordNotStrong.violate = !Validation.checkPassword($scope.user);
       $scope.error.phone.violate = !Validation.checkPhone($scope.user);
     };
+
     $scope.checkIdenticalEmail = function() {
 
+      Restangular.all('api/users').getList({
+        email: $scope.user.email
+      })
+        .then(function(results) {
+
+          if (results.length !== 0) console.log("email is already used");
+          else {
+            Restangular.all('api/users').post({
+              firstname: $scope.user.firstname,
+              lastname: $scope.user.lastname,
+              email: $scope.user.email,
+              password: $scope.user.pwd
+
+            })
+              .then(function(results) {
+
+                console.log("user is created");
+              });
+          }
+
+        });
     };
 
     $scope.register = function() {
       $scope.checkAll();
       if (Validation.check($scope.error)) {
-        $state.go('home');
+        $scope.checkIdenticalEmail();
       }
     };
-
   }
 ]);

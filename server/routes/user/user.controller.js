@@ -4,15 +4,29 @@ var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
 exports.index = function(req, res, next) {
-  User.find({}, function(err, users) {
+  console.log("called index");
+  var query = User.find({});
+  console.log(req.query);
+  //-------query--------------
+  if (req.query.email) {
+    var regExpQuery = new RegExp(req.query.email, 'i');
+    query = User.find({
+      email: regExpQuery
+    });
+  }
+
+  //--------------------------*
+
+  query.exec(function(err, user) {
+
     if (err) return next(err);
-    res.json(users);
+    res.json(user);
   });
 };
 
 exports.show = function(req, res, next) {
   var id = req.params.userId;
-
+  console.log("called show");
   User.findById(id, function(err, user) {
     if (err) return next(err);
     if (!user) return next(new NotFoundError('No user with that id.'));
@@ -44,7 +58,11 @@ exports.update = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
+
+  console.log(req.body);
   var newUser = req.body;
+  //check if email already exist
+
   User.create(newUser, function(err, user) {
     if (err) return next(err);
 
