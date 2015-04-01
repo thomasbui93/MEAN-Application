@@ -149,6 +149,10 @@ angular.module('voluntr', [
       events: function(Restangular, $stateParams) {
         return Restangular.one('api/organisations', $stateParams.id)
           .getList('events');
+      },
+      recruitments: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id)
+          .getList('recruitments');
       }
     }
   });
