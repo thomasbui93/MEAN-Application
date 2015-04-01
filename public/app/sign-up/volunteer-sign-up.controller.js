@@ -66,15 +66,15 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
           else {
             Restangular.all('api/users').post({
               firstname: $scope.user.firstname,
-              lastname:  $scope.user.lastname,
+              lastname: $scope.user.lastname,
               email: $scope.user.email,
               password: $scope.user.pwd
-              
+
             })
               .then(function(results) {
 
                 console.log("user is created");
-            });
+              });
           }
 
         });
