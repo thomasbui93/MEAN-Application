@@ -77,6 +77,9 @@ angular.module('voluntr').controller('adminBlacklistController', ['$scope',
       users: true,
       orgs: true
     };
+    $scope.removedUsers = [];
+    $scope.userShow = true;
+    $scope.dialogShow = false;
     $scope.check = function(param) {
       if (param == 'user') {
         $scope.option.users = !$scope.option.users;
@@ -91,9 +94,6 @@ angular.module('voluntr').controller('adminBlacklistController', ['$scope',
         }
       });
     };
-    $scope.removedUsers = [];
-    $scope.userShow = true;
-    $scope.dialogShow = false;
     $scope.showDialog = function(user) {
       $scope.userShow = false;
       $scope.dialogShow = true;

@@ -1,6 +1,6 @@
     <h4 class="text-center">Events Managements</h4>
+    <a ui-sref="ngoDashboard.eventCreate"><button class="btn-small btn-follow pull-right">New</button></a>
     <hr/>
-
     <div class="event-brief row padding10 margin-top-5" ng-repeat="event in currentNGO.events" ng-show="!delete.state">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <img src="http://placehold.it/150x150" class="img-responsive">
@@ -13,7 +13,7 @@
                 <div>
                     <button class="btn-small btn-follow" ng-click="editTransit(event.id)">Edit</button>
                     <button class="btn-small btn-follow" ng-click="invokeDelete(event)">Remove</button>
-                    <button class="btn-small btn-follow" ng-click="viewVolunteers(event)">Volunteers</button>
+                    <button class="" ng-click="viewVolunteers(event)">Volunteers</button>
                 </div>
                 <div ng-repeat="volunteer in event.volunteers" class="margin-top-5 cross-background volunteer" ng-show="event.showVolunteer">
                    <div class="margin-left-30">

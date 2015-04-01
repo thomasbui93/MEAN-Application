@@ -4,6 +4,7 @@
 'use strict';
 angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$state',
   function($scope, $state) {
+    $scope.currentNGO = $scope.$parent.currentNGO || {};
     $scope.currentNGO.events = [{
       id: '1',
       date: new Date("October 20, 2015"),
@@ -85,7 +86,6 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       state: false,
       events: []
     };
-
     //methods
     $scope.invokeDelete = function(event) {
       $scope.delete = {
@@ -106,7 +106,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
     };
     $scope.deleteEvent = function(events) {
       events.forEach(function(event) {
-        //backEnd delete goes here
+        //TODO: backEnd delete goes here
         //simulation:
         var index = $scope.currentNGO.events.indexOf(event);
         if (index > -1) {
@@ -151,6 +151,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
 
       if (!$scope.errors.name.violate && !$scope.errors.violate && !$scope.errors.description.violate && !$scope.errors.location.violate) {
         $scope.success = true;
+        //TODO: server saving ngo profile
         $timeout(function() {
           $state.transitionTo('ngoDashboard.eventManage');
         }, 1500);
@@ -189,7 +190,6 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
           $state.transitionTo('ngoDashboard.eventManage');
         }, 1500);
       }
-
     };
   }
 ]);
