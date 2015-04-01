@@ -120,7 +120,7 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
       } else {
         $scope.errors.time.violate = false;
       }
-    }
+    };
     $scope.saveJob = function() {
       $scope.checkError();
       if (Validation.checkFinal($scope.errors)) {
@@ -129,46 +129,46 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
         $timeout(function() {
           $state.transitionTo('ngoDashboard.jobManage');
         }, 1500);
-      };
+      }
     };
   }
 ]).controller('ngoJobCreateController', ['$scope', '$state', 'JOB_ERRORS', 'Validation', '$timeout',
-   function($scope, $state, $stateParams, JOB_ERRORS, Validation, $timeout) {
-        $scope.currentJob = {
-            id: null,
-            position: null,
-            address: null,
-            description:null,
-            postDate: null,
-            expireDate: null,
-            phone: null
-            };
-        $scope.errors = JOB_ERRORS;
-        $scope.success = false;
-        $scope.checkError = function() {
-            $scope.errors.name.violate = Validation.checkName($scope.currentJob);
-            $scope.errors.description.violate = !Validation.checkDescription($scope.currentJob, 20);
-            $scope.errors.phone.violate = !Validation.checkPhone($scope.currentJob);
-             if ($scope.currentJob.location === '' || $scope.currentJob.location === null) {
-                    $scope.errors.location.violate = true;
-             } else {
-                    $scope.errors.location.violate = false;
-             }
-              if ($scope.currentJob.postDate >= $scope.currentJob.expireDate) {
-                    $scope.errors.time.violate = true;
-                } else {
-                    $scope.errors.time.violate = false;
-              }
-            }
-            $scope.saveJob = function() {
-                $scope.checkError();
-                if (Validation.checkFinal($scope.errors)) {
-                    //TODO: save job server work
-                    $scope.success = true;
-                    $timeout(function() {
-                        $state.transitionTo('ngoDashboard.jobManage');
-                    }, 1500);
-                };
-            };
-        }
+  function($scope, $state, $stateParams, JOB_ERRORS, Validation, $timeout) {
+    $scope.currentJob = {
+      id: null,
+      position: null,
+      address: null,
+      description: null,
+      postDate: null,
+      expireDate: null,
+      phone: null
+    };
+    $scope.errors = JOB_ERRORS;
+    $scope.success = false;
+    $scope.checkError = function() {
+      $scope.errors.name.violate = Validation.checkName($scope.currentJob);
+      $scope.errors.description.violate = !Validation.checkDescription($scope.currentJob, 20);
+      $scope.errors.phone.violate = !Validation.checkPhone($scope.currentJob);
+      if ($scope.currentJob.location === '' || $scope.currentJob.location === null) {
+        $scope.errors.location.violate = true;
+      } else {
+        $scope.errors.location.violate = false;
+      }
+      if ($scope.currentJob.postDate >= $scope.currentJob.expireDate) {
+        $scope.errors.time.violate = true;
+      } else {
+        $scope.errors.time.violate = false;
+      }
+    };
+    $scope.saveJob = function() {
+      $scope.checkError();
+      if (Validation.checkFinal($scope.errors)) {
+        //TODO: save job server work
+        $scope.success = true;
+        $timeout(function() {
+          $state.transitionTo('ngoDashboard.jobManage');
+        }, 1500);
+      }
+    };
+  }
 ]);
