@@ -39,6 +39,9 @@ var EventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Comment"
   }], //could be seperate in another schema
+  interests: [{
+    type: String
+  }],
   status: {
     type: String,
     default: "active"

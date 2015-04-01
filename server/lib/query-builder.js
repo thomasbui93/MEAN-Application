@@ -11,17 +11,32 @@ var arrayFields = [
 ];
 
 var QueryBuilder = function(query) {
+  console.log(query);
   this.query = query ? build(query) : {};
+  console.log(this.query);
 };
 
 var build = function(query) {
-  var queryParams = query.q;
-  
-  var exactMatchIndices = parseQuotedText(queryParams);
+  if (!query.q) return {};
 
-  
-  
+  var queryParams = query.q.split(" ");
 
+  queryParams = queryParams.map(function(param) {
+    return new RegExp(param, 'ig');
+  });
+
+  console.log("params", queryParams);
+
+  var built = {
+    $or: [
+      { name: queryParams[0] },
+      { description: queryParams[0] },
+      { interests: queryParams[0] },
+      { locations: queryParams[0] }
+    ]
+  };
+
+  return built;
 };
 
 // var build = function(query) {
@@ -47,34 +62,23 @@ var build = function(query) {
 //   return query || {};
 // };
 
-// var parseQuotedText = function(query) {
-//   var indicesOfQuotes = findQuoteIndeces(query);
-//   var quotedText = [];
+var parseQuotedText = function(query) {
+  var indicesOfQuotes = findQuoteIndeces(query);
+  var quotedText = [];
 
-//   for (var i = 0; i < indicesOfQuotes.length; i += 2) {
-//     // We add 1 to the starting index as that is a quotation mark
-//     var text = query.substring(indicesOfQuotes[i] + 1, indicesOfQuotes[i + 1]);
+  for (var i = 0; i < indicesOfQuotes.length; i += 2) {
+    // We add 1 to the starting index as that is a quotation mark
+    var text = query.substring(indicesOfQuotes[i] + 1, indicesOfQuotes[i + 1]);
 
-//     // If empty strings get pushed in in quotes, just ignore them
-//     if (text.length === 0) continue;
+    // If empty strings get pushed in in quotes, just ignore them
+    if (text.length === 0) continue;
 
-//     quotedText.push(text);
-//   }
-
-//   return quotedText;
-// };
-
-var findQuoteIndeces = function(query) {
-  var indices = [];
-
-  for (var i = 0; i < query.length; i++) {
-    if (query[i] === "\"") {
-      indices.push(i);
-    }
+    quotedText.push(text);
   }
 
-  return indices;
+  return quotedText;
 };
+
 
 var isExcluded = function(item) {
   return _.contains(excludedFields, item);
