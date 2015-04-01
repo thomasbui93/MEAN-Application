@@ -136,7 +136,7 @@ exports.getRepresentatives = function(req, res, next) {
 
 exports.getEvents = function(req, res, next) {
   var id = req.params.orgId;
-
+  console.log("called getEvents");
   Organisation.findById(id)
     .populate('events')
     .exec(function(err, organisation) {
@@ -149,7 +149,7 @@ exports.getEvents = function(req, res, next) {
 
 exports.getRecruitments = function(req, res, next) {
   var id = req.params.orgId;
-
+  console.log("called getRecruitments");
   Organisation.findById(id)
     .populate('recruitments')
     .exec(function(err, organisation) {

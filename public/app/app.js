@@ -167,7 +167,28 @@ angular.module('voluntr', [
         templateUrl: 'app/admin/admin.content.html'
       }
     }
+  }).state('ngoHomePage', {
+    url: '/ngo/home/:id',
+    controller: 'ngoHomePageController',
+    templateUrl: 'app/ngo-homepage/homepage.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      organisation: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id).get();
+      },
+      events: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id)
+          .getList('events');
+      },
+      recruitments: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id)
+          .getList('recruitments');
+      }
+    }
   });
+
   // This allows the address bar urls to seem natural
   // even though no actual pages aren't requested. Without
   // this settings urls would be /#/some/page instead of
