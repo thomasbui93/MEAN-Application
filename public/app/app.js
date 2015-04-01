@@ -141,6 +141,15 @@ angular.module('voluntr', [
     templateUrl: 'app/ngo-homepage/homepage.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      organisation: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id).get();
+      },
+      events: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id)
+          .getList('events');
+      }
     }
   });
 

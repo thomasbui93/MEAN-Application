@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('voluntr').controller('ngoHomePageController', ['$scope', '$state', '$routeParams', 'Restangular',
-  function($scope, $state, $routeParams, $Restangular) {
-    $scope.currentNGO = {
-      name: "aaa" /* + $routeParams.id*/
-    };
+angular.module('voluntr').controller('ngoHomePageController',
+  function($scope, $state, $stateParams, Restangular, organisation, events) {
+    $scope.currentNGO = organisation;
+    $scope.events = events;
+    console.log(events);
   }
-]);
+);
