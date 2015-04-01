@@ -43,7 +43,6 @@ angular.module('voluntr').controller('ngoDashBoardMainController', ['$scope', 'N
       $scope.errors.email.violate = !Validation.checkEmail($scope.currentNGO);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentNGO);
       $scope.errors.description.violate = !Validation.checkDescription($scope.currentNGO, 30);
-      console.log($scope.errors);
       if (Validation.checkWithoutPassword($scope.errors)) {
         $scope.edit = {
           show: true,

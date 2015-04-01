@@ -103,6 +103,38 @@ angular.module('voluntr', [
         templateUrl: 'app/ngo-dashboard/eventCreate.html'
       }
     }
+  }).state('ngoDashboard.jobManage', {
+    url: 'job/',
+    views: {
+      'main': {
+        controller: 'ngoJobManageController',
+        templateUrl: 'app/ngo-dashboard/jobManage.html'
+      }
+    }
+  }).state('ngoDashboard.jobCreate', {
+    url: 'job/create',
+    views: {
+      'main': {
+        controller: 'ngoJobCreateController',
+        templateUrl: 'app/ngo-dashboard/jobCreate.html'
+      }
+    }
+  }).state('ngoDashboard.jobEdit', {
+    url: 'job/edit/{id}',
+    views: {
+      'main': {
+        controller: 'ngoJobEditController',
+        templateUrl: 'app/ngo-dashboard/jobEdit.html'
+      }
+    }
+  }).state('ngoDashboard.representativeManage', {
+    url: 'representative',
+    views: {
+      'main': {
+        controller: 'ngoRepresentativeManageController',
+        templateUrl: 'app/ngo-dashboard/representativeManage.html'
+      }
+    }
   }).state('adminDashboard', {
     abstract: true,
     url: '/admin/',
@@ -136,7 +168,6 @@ angular.module('voluntr', [
       }
     }
   });
-
   // This allows the address bar urls to seem natural
   // even though no actual pages aren't requested. Without
   // this settings urls would be /#/some/page instead of

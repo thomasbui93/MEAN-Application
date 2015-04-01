@@ -5,7 +5,6 @@ angular.module('voluntr')
       email: '',
       password: ''
     };
-
     $scope.login = AuthService.login;
     $scope.logout = AuthService.logout;
 
