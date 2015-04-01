@@ -65,12 +65,76 @@ angular.module('voluntr', [
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
-    url: '/user/dash-board/',
+    url: '/user/dashboard/',
     templateUrl: 'app/user-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
     },
     controller: 'userDashboardController'
+  }).state('ngoDashboard', {
+    abstract: true,
+    url: '/ngo/dashboard/',
+    controller: 'ngoDashBoardMainController',
+    templateUrl: 'app/ngo-dashboard/dashboard.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
+  }).state('ngoDashboard.eventManage', {
+    url: '',
+    views: {
+      'main': {
+        controller: 'ngoEventManageController',
+        templateUrl: 'app/ngo-dashboard/eventManage.html'
+      }
+    }
+  }).state('ngoDashboard.eventEdit', {
+    url: 'event/edit/{id}',
+    views: {
+      'main': {
+        controller: 'ngoEventEditController',
+        templateUrl: 'app/ngo-dashboard/eventEdit.html'
+      }
+    }
+  }).state('ngoDashboard.eventCreate', {
+    url: 'event/create',
+    views: {
+      'main': {
+        controller: 'ngoEventCreateController',
+        templateUrl: 'app/ngo-dashboard/eventCreate.html'
+      }
+    }
+  }).state('adminDashboard', {
+    abstract: true,
+    url: '/admin/',
+    controller: 'adminController',
+    templateUrl: 'app/admin/admin.main.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
+  }).state('adminDashboard.blacklist', {
+    url: '',
+    views: {
+      'main': {
+        controller: 'adminBlacklistController',
+        templateUrl: 'app/admin/admin.blacklist.html'
+      }
+    }
+  }).state('adminDashboard.report', {
+    url: 'report/',
+    views: {
+      'main': {
+        controller: 'adminReportController',
+        templateUrl: 'app/admin/admin.report.html'
+      }
+    }
+  }).state('adminDashboard.content', {
+    url: 'content/',
+    views: {
+      'main': {
+        controller: 'adminContentController',
+        templateUrl: 'app/admin/admin.content.html'
+      }
+    }
   });
 
   // This allows the address bar urls to seem natural

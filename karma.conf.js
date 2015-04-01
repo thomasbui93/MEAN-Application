@@ -23,7 +23,8 @@ module.exports = function(config) {
       'node_modules/lodash/index.js',
       'node_modules/restangular/dist/restangular.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'public/**/*.js',
+      'public/app/app.js',
+      'public/app/**/*.js',
       'tests/unit/client/**/*.js'
     ],
 

@@ -27,8 +27,36 @@ angular.module('voluntr').factory('Validation', function() {
     var re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     return re.test(user.phone);
   };
+  validation.checkDescription = function(user, length) {
+    if (user.description === undefined) {
+      //not found
+      return true;
+    } else {
+      var array = user.description.split(" ");
+      if (array.length < length) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
+  validation.checkPast = function(user) {
+    if (user.date <= new Date()) {
+      return true;
+    } else if (user.date === null) {
+      return true;
+    } else return false;
+  };
   validation.check = function(error) {
+    //  console.log(error.email);
     if (!error.email.violate && !error.name.violate && !error.passwordNotMatch.violate && !error.passwordNotStrong.violate && !error.phone.violate) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  validation.checkWithoutPassword = function(error) {
+    if (!error.email.violate && !error.name.violate && !error.phone.violate && !error.description.violate) {
       return true;
     } else {
       return false;
