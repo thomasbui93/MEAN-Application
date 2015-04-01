@@ -1,19 +1,40 @@
 <div class="container">
-  <div id="header">
-    <img src="img/front-end/4_volunteer.jpg" class="full-width img-responsive shadow">
-  </div><!-- header -->
-  <div id="main-info">
-    <img src="http://placehold.it/200x200" class="img-responsive center-block">
-    <div id="ngo-info" class="show-information padding10" ng-show="!edit.show">
-      <p class="name text-center"><strong>{{currentNGO.name}}</strong></p>
-      <p class="location text-center">{{currentNGO.address[0]}}</p>
-      <ul class="skill-sets">
-          <li class="tag" ng-repeat="cause in currentNGO.causes">
-              {{cause}}
-          </li>
-      </ul>
-    </div><!-- ngo-info -->
-  </div><!-- main-info -->
-  <div id="bottom-container" class="">
-  </div><!-- bottom container -->
+    <div id="header" class="">
+        <img src="img/front-end/4_volunteer.jpg" class="full-width img-responsive shadow">
+    </div><!-- header -->
+    <div id="main-info">
+        <img src="http://placehold.it/200x200" class="img-responsive center-block">
+        <div id="ngo-info" class="show-information padding10" ng-show="!edit.show">
+            <p class="name text-center"><strong>{{currentNGO.name}}</strong></p>
+            <p class="location text-center">{{currentNGO.locations[0]}}</p>
+            <p>{{currentNGO.description}}</p>
+            <ul class="skill-sets">
+                <li class="tag" ng-repeat="cause in currentNGO.interests">
+                    {{cause}}
+                </li>
+            </ul>
+        </div><!-- ngo-info -->
+    </div><!-- main-info -->
+    <div id="bottom-container" class="show-information" ng-show="!edit.show">
+        <div id="left-column" class="col-sm-6">
+            <h4>Volunteering jobs</h4>
+        </div><!-- left column -->
+
+        <div id="right-column" class="col-sm-6">
+            <h4>Events</h4>
+            <div class="event-brief row padding10 margin-top-5" ng-repeat="event in currentNGO.events" ng-show="">
+                <div class="col-xs-3">
+                    <img src="http://placehold.it/150x150" class="img-responsive">
+                </div>
+                <div class="col-xs-9">
+                    <div class="padding10">
+                        <strong>{{event.name}}</strong><br>
+                        <p class="text-muted">{{event.location}}</p>
+                        <p><strong class="">Time: </strong>{{event.date | date: 'HH:mm d, MMM yyyy'}}</p>
+                    </div><!-- padding10 -->
+                </div><!-- column? -->
+            </div><!-- event-brief -->
+        </div><!-- right column -->
+
+    </div><!-- bottom container -->
 </div><!--container-->

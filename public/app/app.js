@@ -136,7 +136,6 @@ angular.module('voluntr', [
       }
     }
   }).state('ngoHomePage', {
-    //     abstract: true,
     url: '/ngo/home/:id',
     controller: 'ngoHomePageController',
     templateUrl: 'app/ngo-homepage/homepage.html',
