@@ -1,20 +1,20 @@
 <div class="container-fluid">
-  <div class="col-md-6">
+  <div class="col-md-6 col-xs-12">
     <img src="/img/front-end/logo-m.png">
   </div><!--left-->
 
-  <div class="col-md-6">
-    <form novalidate>
-      <label for="email">Username/Email:</label>
-      <br>
-      <input type="text" name="email" ng-model="credentials.email">
-      <br>
-      <label for="password">Password:</label>
-      <br>
-      <input type="password" name="password" ng-model="credentials.password">
-      <br>
-      <button type="button" class="" ng-click="login(credentials)">Sign in</button>
+  <div class="col-md-6 col-xs-12 margin-top-20">
+    <form novalidate class="padding10">
+      <div class="input-container">
+          <label for="email" class="normal-label"><strong><h4>Username/Email:</h4></strong></label>
+          <input type="text" name="email" ng-model="credentials.email" id="email" class="normal-input margin-top-5" placeholder="Your email">
+      </div>
+      <div class="input-container">
+          <label for="password" class="normal-label"><strong><h4>Password:</h4> </strong></label>
+          <input type="password" name="password" ng-model="credentials.password" id="password" class="normal-input margin-top-5">
+      </div>
+      <button type="button" class="btn btn-form margin-top-20" ng-click="login(credentials)">Sign in</button>
+      <a ui-sref="register"> <button type="button" class="btn btn-form margin-top-20" >Register</button></a>
     </form>
-    <a href="#">Sign up</a>
    </div><!--right-->
 </div><!--container-->

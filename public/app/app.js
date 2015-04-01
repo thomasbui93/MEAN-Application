@@ -168,7 +168,6 @@ angular.module('voluntr', [
       }
     }
   });
-
   // This allows the address bar urls to seem natural
   // even though no actual pages aren't requested. Without
   // this settings urls would be /#/some/page instead of
