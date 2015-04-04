@@ -3,13 +3,16 @@
 var _ = require('lodash');
 
 var generalSearchFields = [
-  'name', 'firstName', 'lastName',
-  'interests', 'description'
+  'name', 'interests', 'description', 'locations'
 ];
 
 var WeightedQueryBuilder = function(query) {
   this.query = buildParameters(query);
   this.weightedResults;
+};
+
+WeightedQueryBuilder.prototype.getWeightedResults = function(queryReults) {
+  return;
 };
 
 var buildParameters = function(query) {
