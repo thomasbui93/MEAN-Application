@@ -53,8 +53,8 @@ var newEvent = new Event({
 var exampleRecruitment = new Recruitment({
   name: "Volunteers wanted!",
   description: "Looking for group.",
-   startDate: Date.now(),
-   endDate: Date.now(),
+  startDate: Date.now(),
+  endDate: Date.now(),
   _id: '59195c4e2d316055807f0050'
 });
 
