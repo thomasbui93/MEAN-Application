@@ -46,12 +46,16 @@ var org2 = new Organisation({
 var newEvent = new Event({
   name: 'Awesome event',
   description: "Awesome",
+  //   endDate: Date.now,
   _id: '59195c4e2d316055807f0000'
 });
 
 var exampleRecruitment = new Recruitment({
   name: "Volunteers wanted!",
-  description: "Looking for group."
+  description: "Looking for group.",
+   startDate: Date.now(),
+   endDate: Date.now(),
+  _id: '59195c4e2d316055807f0050'
 });
 
 
@@ -68,12 +72,23 @@ Organisation.remove(function() {
     newEvent.organisation = org._id;
     newEvent.comments.push(newComment._id);
 
+    // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent);
     org.managers.push(user);
 
     org.save();
     newEvent.save();
   });
+
+  Recruitment.remove(function() {
+    exampleRecruitment.organisation = org._id;
+
+    org.recruitments.push(exampleRecruitment);
+
+    org.save();
+    exampleRecruitment.save();
+  });
+
   org1.save();
   org2.save();
 });

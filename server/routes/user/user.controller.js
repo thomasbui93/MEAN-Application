@@ -2,9 +2,12 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var QueryBuilder = require('../../lib/query-builder');
 
 exports.index = function(req, res, next) {
-  User.find({})
+  var query = new QueryBuilder(req.query).query;
+
+  User.find(query)
     .populate('managedOrganisations representOrganisations events recruiments')
     .exec(function(err, users) {
       if (err) return next(err);
@@ -50,7 +53,11 @@ exports.update = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
+
+  console.log(req.body);
   var newUser = req.body;
+  //check if email already exist
+
   User.create(newUser, function(err, user) {
     if (err) return next(err);
 
