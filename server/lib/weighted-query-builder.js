@@ -8,7 +8,8 @@ var generalSearchFields = [
 ];
 
 var WeightedQueryBuilder = function(query) {
-  this.query = query;
+  this.query = buildParameters(query);
+  this.weightedResults;
 };
 
 var buildParameters = function(query) {
