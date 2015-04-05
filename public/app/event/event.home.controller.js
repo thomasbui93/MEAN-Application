@@ -3,6 +3,8 @@
  */
 
 'use strict';
-angular.module('voluntr').controller('eventHomeController', ['$scope', '$stateParams', function($scope, $stateParams){
+angular.module('voluntr').controller('eventHomeController', ['$scope', '$stateParams',
+  function($scope, $stateParams) {
 
-}]);
+  }
+]);
