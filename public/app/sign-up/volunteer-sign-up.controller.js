@@ -88,9 +88,9 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
 
     $scope.register = function() {
       $scope.checkAll();
-
-      $scope.checkIdenticalEmail();
+      if (Validation.check($scope.error)) {
+        $scope.checkIdenticalEmail();
+      }
     };
-
   }
 ]);
