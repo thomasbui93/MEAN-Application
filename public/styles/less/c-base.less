@@ -16,6 +16,9 @@ ul{
 .subtle-background{
   background: rgba(189, 195, 199,0.3);
 }
+.text-blue{
+  color: rgba(52, 152, 219,1.0);;
+}
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -66,10 +69,13 @@ ul{
     border: 1px solid #ffffff;
     border-radius: 3px;
     background-color: transparent;
+    color: white;
 }
-.btn-transparent:hover{
-    background-color: white;
-    color: #000000;
+.btn-transparent:focus{
+    outline: 0;
+}
+button:focus{
+  outline: 0;
 }
 .btn-form{
     background-color: rgba(46, 204, 113,1.0);
@@ -235,4 +241,33 @@ input:focus ~ label, input:valid ~ label{
   background: rgba(52, 152, 219,1.0);
   color: white;
   padding-top: 10px;
+}
+.square-date{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  color: white;
+  padding-top: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.square-date p{
+  line-height: 30px;
+  margin-top: -10px;
+}
+.comment-input-container{
+  position: relative;
+  width: 100%;
+  border-top: 1px solid #cccccc;
+  margin-top: 20px;
+}
+.comment-label{
+  position: absolute;
+  color: rgba(46, 204, 113,1.0);
+  left: 95%;
+  width: 50px;
+  top: 30px;
+}
+textarea:focus{
+  outline: 0;
 }

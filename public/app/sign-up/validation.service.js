@@ -34,9 +34,9 @@ angular.module('voluntr').factory('Validation', function() {
     } else {
       var array = user.description.split(" ");
       if (array.length < length) {
-        return false;
-      } else {
         return true;
+      } else {
+        return false;
       }
     }
   };
@@ -56,8 +56,8 @@ angular.module('voluntr').factory('Validation', function() {
   };
   validation.checkFinal = function(error) {
     var state = true;
-    angular.forEach(error, function(property) {
-      if (property.violate === true) {
+    angular.forEach(error, function(value, property) {
+      if (value.violate) {
         state = false;
       }
     });

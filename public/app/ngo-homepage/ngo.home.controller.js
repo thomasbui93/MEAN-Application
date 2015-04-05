@@ -40,10 +40,10 @@ angular.module('voluntr').controller('ngoHomePageController',
         };
       }
     };
-    $scope.deleteJob = function(job){
+    $scope.deleteJob = function(job) {
 
     };
-    $scope.deleteEvent = function(event){
+    $scope.deleteEvent = function(event) {
 
     };
   }

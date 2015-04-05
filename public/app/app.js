@@ -187,6 +187,21 @@ angular.module('voluntr', [
           .getList('recruitments');
       }
     }
+  }).state('events', {
+    url: '/events/{id}',
+    controller: 'eventMainController',
+    templateUrl: 'app/event/event.main.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      event: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          return Restangular.one('api/events', $stateParams.id).get();
+        }
+      ]
+    }
+
   });
 
   // This allows the address bar urls to seem natural
