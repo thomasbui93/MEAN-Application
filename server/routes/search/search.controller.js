@@ -6,7 +6,7 @@ var WeightedQueryBuilder = require('../../lib/weighted-query-builder');
 
 exports.index = function(req, res, next) {
   var queryBuilder = new WeightedQueryBuilder(req.query);
-  
+
   var query = queryBuilder.query;
 
   Organisation.find(query, function(err, organisation) {
@@ -17,7 +17,7 @@ exports.index = function(req, res, next) {
 
       var searchResults = evt.concat(organisation);
 
-      var sortedResults = queryBuilder.getWeightedResults();
+      var sortedResults = queryBuilder.getWeightedResults(searchResults);
 
       res.send(sortedResults);
     });
