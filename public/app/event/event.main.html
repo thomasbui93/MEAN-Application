@@ -41,7 +41,8 @@
                     <i class="fa fa-clock-o"></i>
                     17:30PM. Mar 3, 2014
                 </p>
-                <button class="btn btn-follow">Follow</button>
+                <!--comment <button class="btn btn-follow" ng-show="!checkFollowed()">Follow</button>
+                <button class="btn btn-follow" ng-show="checkFollowed()">Following</button>-->
             </div>
             <div ng-show="edit.show" class="info-show">
                 <div class="input-container small-input center-block">
@@ -56,6 +57,9 @@
                 <div class="input-container small-input center-block">
                     <label class="normal-label"><strong>Time: </strong></label>
                     <input type="datetime-local" ng-model="currentEvent.time"/>
+                </div>
+                <div class="padding10">
+                    <button class=" btn btn-follow" ng-show="edit.show" ng-click="saveInformation()">Save</button>
                 </div>
             </div>
         </div>

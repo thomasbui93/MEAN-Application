@@ -55,7 +55,8 @@ var org2 = new Organisation({
 var newEvent = new Event({
   name: 'Awesome event',
   description: "Awesome",
-  //endDate: Date.now,
+  startDate: new Date(2015, 4,1, 17, 0),
+  endDate: Date.now(),
   _id: '59195c4e2d316055807f0000'
 });
 

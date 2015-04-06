@@ -7,5 +7,4 @@ angular.module('voluntr')
     };
     $scope.login = AuthService.login;
     $scope.logout = AuthService.logout;
-
   });

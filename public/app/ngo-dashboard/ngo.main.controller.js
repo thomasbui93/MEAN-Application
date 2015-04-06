@@ -42,8 +42,8 @@ angular.module('voluntr').controller('ngoDashBoardMainController', ['$scope', 'N
       $scope.errors.name.violate = Validation.checkName($scope.currentNGO);
       $scope.errors.email.violate = !Validation.checkEmail($scope.currentNGO);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentNGO);
-      $scope.errors.description.violate = !Validation.checkDescription($scope.currentNGO, 30);
-      if (Validation.checkWithoutPassword($scope.errors)) {
+      $scope.errors.description.violate = Validation.checkDescription($scope.currentNGO, 30);
+      if (Validation.checkFinal($scope.errors)) {
         $scope.edit = {
           show: true,
           state: 'Successfully saved!'

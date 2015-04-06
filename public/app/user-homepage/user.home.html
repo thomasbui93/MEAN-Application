@@ -40,6 +40,7 @@
                 </div><!--end input-container-->
                 <div class="input-container small-input center-block">
                     <label class="normal-label"><strong>Last Name: </strong></label>
+                    <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
                     <input ng-model="pageUser.lastName" type="text" placeholder="{{pageUser.lastName}}" class="text-center normal-input"/>
                 </div><!--end input-container-->
                 <div class="input-container small-input center-block">
@@ -48,10 +49,12 @@
                 </div><!--end input-container-->
                 <div class="input-container small-input center-block">
                     <label class="normal-label"><strong>Email: </strong></label>
+                    <p ng-show="errors.email.violate" class="text-red"> {{errors.email.message}}</p>
                     <input ng-model="pageUser.email" type="text" placeholder="{{pageUser.email}}" class="text-center normal-input"/>
                 </div><!--end input-container-->
                 <div class="input-container">
                     <label class="normal-label"><i class="fa fa-birthday-cake pull-left"></i></label>
+                    <p ng-show="errors.birthday.violate" class="text-red"> {{errors.birthday.message}}</p>
                     <div class="date-input-block">
                         <input class="block-input" type="text" ng-model="pageUser.birthDate.date"/> -
                         <input class="block-input" type="text" ng-model="pageUser.birthDate.month"/> -
@@ -59,8 +62,9 @@
                     </div>
                 </div> <!--end input-container-->
                 <div class="input-container small-input center-block">
+                    <p ng-show="errors.passwordNotMatch.violate" class="text-red"> {{errors.passwordNotMatch.message}}</p>
                     <label class="normal-label"><strong>Confirm password: </strong></label>
-                    <input ng-model="pageUser.password" type="password" class="text-center normal-input"/>
+                    <input ng-model="pageUser.pwd" type="password" class="text-center normal-input"/>
                 </div><!--end input-container-->
                 <div class="padding10">
                     <button class="btn btn-follow center-block" ng-click="saveInformation()">

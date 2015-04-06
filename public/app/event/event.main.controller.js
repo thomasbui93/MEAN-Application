@@ -1,21 +1,22 @@
 'use strict';
-angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation) {
+angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation','$rootScope',
+  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope) {
+    $scope.currentUser = $rootScope.user;
     $scope.currentEvent = event;
     $scope.currentEvent.date = new Date('Feb 26, 2015');
-    $scope.comments = [{
-      user: {
-        id: '1233',
-        name: 'Khoa Bui'
-      },
-      content: {
-        msg: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        time: new Date('Apr 3 2015')
-      }
-    }];
+    $scope.comments = event.comments;
+      console.log($scope.comments);
     $scope.errors = EVENT_ERRORS;
     $scope.edit = {
       show: false
+    };
+    $scope.checkFollowed = function(){
+      var index = $scope.currentUser.events.indexOf(event);
+      if(index = -1){
+          return false;
+      }else{
+          return true;
+      }
     };
     $scope.editInformation = function() {
       $scope.edit = {
@@ -30,6 +31,12 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
           show: false
         };
       }
+    };
+    $scope.follow= function(){
+        //TODO: logined user can follow the event.
+       //
+       // $scope.user.events.push(event._id);
+       // $scope.user.put();
     };
   }
 ]).filter('timeParse', function() {
