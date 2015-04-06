@@ -6,9 +6,10 @@ var generalSearchFields = [
   'name', 'interests', 'description', 'locations'
 ];
 
+// Lower is better
 var matchScore = {
-  name: 100,
-  description: 50,
+  name: 50,
+  description: 100,
   locations: 75,
   interests: 75
 };
@@ -25,12 +26,12 @@ WeightedQueryBuilder.prototype.buildParameters = function(query) {
   if (!query.q) return {};
 
   var queryParams = query.q.split(" ");
+  this._query = queryParams;
 
   queryParams = queryParams.map(function(param) {
     return new RegExp(param, 'ig');
   });
 
-  this._query = queryParams;
   return prepareQuery(queryParams);
 };
 
@@ -39,20 +40,23 @@ WeightedQueryBuilder.prototype.buildParameters = function(query) {
 // Different fields are assigned different value. The values can be found in the 
 // matchScore object.
 WeightedQueryBuilder.prototype.getWeightedResults = function(queryResults) {
+  var self = this;
+
+  // Return early if query is empty
+  if (!this._query) return queryResults;
 
   queryResults.map(function(result) {
-    result.score = generateMatchScore(result);
+    result.score = self._generateMatchScore(result);
 
-    console.log(result, result.score);
+    // console.log(result, result.score);
   });
 
   return sortByScore(queryResults);
 };
 
-var generateMatchScore = function(data) {
-  for (var matchType in matchScore) {
-    var matchPercentage = calculateMatchPercentage(data[matchType]);
-  }
+WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
+  console.log(this._query[0], data['name']);
+  console.log(levenshteinDistance(data['name'], this._query[0]));
 };
 
 var sortByScore = function(data) {
@@ -60,9 +64,39 @@ var sortByScore = function(data) {
 };
 
 // Calculates how closely the text matches the search data
-// Returns a value between 0 and 1 where 1 is an exact match
-var calculateMatchPercentage = function(data) {
-  return 1;
+// http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#JavaScript
+var levenshteinDistance = function(a, b) {
+  if(a.length === 0) return b.length; 
+  if(b.length === 0) return a.length; 
+ 
+  var matrix = [];
+ 
+  // increment along the first column of each row
+  var i;
+  for(i = 0; i <= b.length; i++){
+    matrix[i] = [i];
+  }
+ 
+  // increment each column in the first row
+  var j;
+  for(j = 0; j <= a.length; j++){
+    matrix[0][j] = j;
+  }
+ 
+  // Fill in the rest of the matrix
+  for(i = 1; i <= b.length; i++){
+    for(j = 1; j <= a.length; j++){
+      if(b.charAt(i-1) == a.charAt(j-1)){
+        matrix[i][j] = matrix[i-1][j-1];
+      } else {
+        matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
+                                Math.min(matrix[i][j-1] + 1, // insertion
+                                         matrix[i-1][j] + 1)); // deletion
+      }
+    }
+  }
+ 
+  return matrix[b.length][a.length];
 };
 
 // Puts all the search parameters into an or to find general results

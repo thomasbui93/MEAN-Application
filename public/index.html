@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>Voluntr</title>
+    <base href="/">
+    <!-- Vendor styles -->
+    <link type="text/css" rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/vendor/font-awesome/font-awesome.css">
+    <!-- /Vendor styles -->
+    <!-- inject:css -->
+
+   <link type="text/css" rel="stylesheet" href="/styles/css/main.min.css">
+
+   <!-- endinject -->
+</head>
+<body ng-app="voluntr">
+<!-- This view will be filled by the ui-router. -->
+<div ui-view></div>
+
+<script src="/vendor/angular/angular.js"></script>
+<script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="/vendor/angular-animate/angular-animate.js"></script>
+<script src="/vendor/lodash/index.js"></script>
+<script src="/vendor/restangular/dist/restangular.js"></script>
+
+<!-- inject:js -->
+<script src="/app/app.js"></script>
+<script src="/app/user-dashboard/user.filter.js"></script>
+<script src="/app/user-dashboard/user.dashboard.controller.js"></script>
+<script src="/app/sign-up/volunteer-sign-up.controller.js"></script>
+<script src="/app/sign-up/validation.service.js"></script>
+<script src="/app/sign-up/sign-up.controller.js"></script>
+<script src="/app/search/search.controller.js"></script>
+<script src="/app/ngo-homepage/ngo.home.controller.js"></script>
+<script src="/app/ngo-dashboard/ngo.representative.controller.js"></script>
+<script src="/app/ngo-dashboard/ngo.mainview.controller.js"></script>
+<script src="/app/ngo-dashboard/ngo.main.controller.js"></script>
+<script src="/app/ngo-dashboard/ngo.job.controller.js"></script>
+<script src="/app/ngo-dashboard/ngo.filter.js"></script>
+<script src="/app/ngo-dashboard/ngo.contants.js"></script>
+<script src="/app/home/home.directive.js"></script>
+<script src="/app/home/home.controller.js"></script>
+<script src="/app/authentication/user-roles.constants.js"></script>
+<script src="/app/authentication/login.controller.js"></script>
+<script src="/app/authentication/authentication.service.js"></script>
+<script src="/app/authentication/auth-events.constants.js"></script>
+<script src="/app/admin/admin.report.controller.js"></script>
+<script src="/app/admin/admin.main.controller.js"></script>
+<script src="/app/admin/admin.content.controller.js"></script>
+<script src="/app/admin/admin.blacklist.controller.js"></script>
+<!-- endinject -->
+</body>
+</html>
