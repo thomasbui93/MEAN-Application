@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 var generalSearchFields = [
   'name', 'interests', 'description', 'locations'
 ];
@@ -47,20 +45,58 @@ WeightedQueryBuilder.prototype.getWeightedResults = function(queryResults) {
 
   queryResults.map(function(result) {
     result.score = self._generateMatchScore(result);
-
-    // console.log(result, result.score);
   });
 
   return sortByScore(queryResults);
 };
 
 WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
-  console.log(this._query[0], data['name']);
-  console.log(levenshteinDistance(data['name'], this._query[0]));
+  var score = 0;
+
+  this._query.forEach(function(term) {
+    for (var match in matchScore) {
+      if (data[match]) {
+        if (isArray(data[match])) {
+          data[match].forEach(function(item) {
+            score += matchScore[match] * levenshteinDistance(item, term);
+          });
+        } else {
+          score += matchScore[match] * levenshteinDistance(data[match], term);
+        }
+      }
+    }
+  });
+
+  return score;
 };
 
+// Sorts data by lowest score
 var sortByScore = function(data) {
-  return data;
+  return data.sort(function(a, b) {
+    return a.score <= b.score;
+  });
+};
+
+// Puts all the search parameters into an or to find general results
+var prepareQuery = function(parameters) {
+  var builtQuery = {
+    $or: []
+  };
+
+  parameters.forEach(function(parameter) {
+    generalSearchFields.forEach(function(field) {
+      var temp = {};
+      temp[field] = parameter;
+
+      builtQuery.$or.push(temp);
+    });
+  });
+
+  return builtQuery;
+};
+
+var isEmptyObj = function(obj) {
+  return Object.keys(obj).length === 0;
 };
 
 // Calculates how closely the text matches the search data
@@ -99,27 +135,8 @@ var levenshteinDistance = function(a, b) {
   return matrix[b.length][a.length];
 };
 
-// Puts all the search parameters into an or to find general results
-var prepareQuery = function(parameters) {
-  var builtQuery = {
-    $or: []
-  };
-
-  parameters.forEach(function(parameter) {
-    generalSearchFields.forEach(function(field) {
-      var temp = {};
-      temp[field] = parameter;
-
-      builtQuery.$or.push(temp);
-    });
-  });
-
-  return builtQuery;
+var isArray = function(a) {
+  return a.constructor === Array;
 };
-
-var isEmptyObj = function(obj) {
-  return Object.keys(obj).length === 0;
-};
-
 
 module.exports = WeightedQueryBuilder;
