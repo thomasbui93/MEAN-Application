@@ -1,6 +1,8 @@
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 var exampleOrganisation = require('../../../server/config/seed/test').exampleOrganisation;
+var exampleOrganisation1 = require('../../../server/config/seed/test').exampleOrganisation;
+
 var exampleUser = require('../../../server/config/seed/test').exampleUser;
 
 var request = require('../../util/ajaxUtil.js');
@@ -61,12 +63,12 @@ describe('/organisation', function() {
       });
   });
 
-  it("should find 2 organisations", function(done) {
+  it("should find 3 organisations", function(done) {
     request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
-        res.body.length.should.equal(2);
+        res.body.length.should.equal(3);
         done();
       });
   });
@@ -96,6 +98,24 @@ describe('/organisation', function() {
       .expect(404, function(err, res) {
         if (err) return done(err);
 
+        res.body.message.should.equal("No Organisation with that id.");
+        done();
+      });
+  });
+
+  it("should delete the exampleOrganisation1 without error", function(done) {
+    request('del', apiUrl + '/' + exampleOrganisation1._id)
+      .expect(204, function(err) {
+        if (err) return done(err);
+
+        done();
+      });
+  });
+
+  it("should find no exampleOrganisation1 in that database", function(done) {
+    request('get', apiUrl + '/' + exampleOrganisation1._id)
+      .expect(404, function(err, res) {
+        if (err) return done(err);
         res.body.message.should.equal("No Organisation with that id.");
         done();
       });

@@ -17,10 +17,11 @@ exports.index = function(req, res, next) {
 
   //--------------------------*
 
-  query.exec(function(err, user) {
+  query.populate("events")
+    .exec(function(err, user) {
 
-    if (err) return next(err);
-    res.json(user);
+      if (err) return next(err);
+      res.json(user);
   });
 };
 

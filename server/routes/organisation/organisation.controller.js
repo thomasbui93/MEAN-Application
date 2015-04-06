@@ -96,16 +96,27 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.orgId;
 
-  Organisation.findById(id, function(err, organisation) {
-    if (err) return next(err);
-    if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
+  Organisation.findById(id)
+    .populate("events")
+    .exec(function(err, organisation) {
 
-    organisation.remove(function(err) {
       if (err) return next(err);
+      if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
 
-      res.status(204).end();
-    });
+      console.log("called remove organisation");
+      console.log(organisation);
+
+      organisation.remove(function(err) {
+        if (err) return next(err);
+
+        res.status(204).end();
+      });
+
+      //removed function called dell in events
+
+      
   });
+ 
 };
 
 exports.getManagers = function(req, res, next) {

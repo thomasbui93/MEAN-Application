@@ -1,10 +1,15 @@
+
 var request = require('../../util/ajaxUtil.js');
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 var exampleEvent = require('../../../server/config/seed/test').exampleEvent;
+var exampleEvent1 = require('../../../server/config/seed/test').exampleEvent1;
+var exampleComment1 = require('../../../server/config/seed/test').exampleComment1;
+
 
 var otherEvent;
 var apiUrl = '/api/events';
+var apiComment = '/api/comments';
 
 describe('/events', function() {
   beforeEach(function() {
@@ -54,12 +59,12 @@ describe('/events', function() {
       });
   });
 
-  it("should find 2 Events", function(done) {
+  it("should find 3 Events", function(done) {
     request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
 
-        res.body.length.should.equal(2);
+        res.body.length.should.equal(3);
         done();
       });
   });
@@ -75,11 +80,41 @@ describe('/events', function() {
       });
   });
 
+   it("should find Event with name TomEvent help", function(done) {
+    request('get', apiUrl + '?name=TomEvent')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+
+        res.body.length.should.equal(1);
+        res.body[0].name.should.equal('TomEvent');
+        done();
+      });
+  });
+
   it("should delete the Event without error", function(done) {
     request('del', apiUrl + '/' + otherEvent._id)
       .expect(204, function(err) {
         if (err) return done(err);
 
+        done();
+      });
+  });
+
+  it("should delete TomEvent without error", function(done) {
+    request('del', apiUrl + '/' + exampleEvent1._id)
+      .expect(204, function(err) {
+        if (err) return done(err);
+
+        done();
+      });
+  });
+
+  it("should find no exampleComment1 in that database", function(done) {
+    request('get', apiComment + '/' + exampleComment1._id)
+      .expect(404, function(err, res) {
+        if (err) return done(err);
+
+        res.body.message.should.equal("No Comment with that id.");
         done();
       });
   });
@@ -143,4 +178,6 @@ describe('/events', function() {
         done();
       });
   });
+
+
 });

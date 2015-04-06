@@ -51,12 +51,12 @@ describe('/comments', function() {
       });
   });
 
-  it("should find 2 Comments", function(done) {
+  it("should find 3 Comments", function(done) {
     request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
-
-        res.body.length.should.equal(2);
+        console.log(res.body);
+        res.body.length.should.equal(3);
         done();
       });
   });

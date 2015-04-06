@@ -59,16 +59,33 @@ exports.create = function(req, res, next) {
 
 exports.remove = function(req, res, next) {
   var id = req.params.eventId;
+  console.log("called removed event");
 
-  Event.findById(id, function(err, evt) {
-    if (err) return next(err);
-    if (!evt) return next(new NotFoundError('No event with that id.'));
+  Event.findById(id)
+    .populate('comments')
+    .exec(function(err, evt) {
 
-    evt.remove(function(err) {
       if (err) return next(err);
+      if (!evt) return next(new NotFoundError('No event with that id.'));
+      
+      evt.remove(function(err) {
+        if (err) return next(err);
+        res.status(204).end();
+      });
 
-      res.status(204).end();
-    });
+     //remove all of comments in the event
+      if(evt.comments)
+      {
+        for(var i=0; i< evt.comments.length;++i)
+        {
+          evt.comments[i].remove(function(err) {
+            if (err) return next(err);
+            res.status(204).end();
+          });
+       }
+      }
+     
+
   });
 };
 
