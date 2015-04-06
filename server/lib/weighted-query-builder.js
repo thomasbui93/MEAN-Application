@@ -50,6 +50,8 @@ WeightedQueryBuilder.prototype.getWeightedResults = function(queryResults) {
   return sortByScore(queryResults);
 };
 
+// TODO: refactor
+// Generates levenshtein score for every query result and adds them to create a score
 WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
   var score = 0;
 
