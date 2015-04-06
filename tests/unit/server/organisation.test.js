@@ -1,7 +1,7 @@
 var should = require('should');
 var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 var exampleOrganisation = require('../../../server/config/seed/test').exampleOrganisation;
-var exampleOrganisation1 = require('../../../server/config/seed/test').exampleOrganisation;
+var exampleOrganisation1 = require('../../../server/config/seed/test').exampleOrganisation1;
 
 var exampleUser = require('../../../server/config/seed/test').exampleUser;
 
@@ -103,7 +103,7 @@ describe('/organisation', function() {
       });
   });
 
-  it("should delete the exampleOrganisation1 without error", function(done) {
+ it("should delete the exampleOrganisation1 without error", function(done) {
     request('del', apiUrl + '/' + exampleOrganisation1._id)
       .expect(204, function(err) {
         if (err) return done(err);

@@ -55,9 +55,8 @@ describe('/comments', function() {
     request('get', apiUrl)
       .expect(200, function(err, res) {
         if (err) return done(err);
-        console.log(res.body);
-        res.body.length.should.equal(3);
-        done();
+          res.body.length.should.equal(3);
+          done();
       });
   });
 

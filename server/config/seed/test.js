@@ -32,7 +32,7 @@ var exampleOrganisation1 = {
   managers: [],
   events: [],
   recruitments: [],
-  _id: '22095c4e2d316045823fe46c'
+  _id: '22095c4e2e316025823fe46c'
 };
 
 var exampleEvent = {
@@ -82,7 +82,6 @@ Organisation.remove(function() {
   exampleOrganisation1.managers.push(exampleUser._id);
   exampleOrganisation1.representatives.push(exampleUser._id);
   exampleOrganisation1.events.push(exampleEvent1._id);
-  exampleOrganisation1.recruitments.push(exampleRecruitment._id);
 
   Organisation.create(exampleOrganisation, function(err, org) {
     if (err) throw err;
@@ -142,6 +141,7 @@ Comment.remove(function() {
 module.exports = {
   exampleUser: exampleUser,
   exampleOrganisation: exampleOrganisation,
+  exampleOrganisation1: exampleOrganisation1,
   exampleEvent: exampleEvent,
   exampleEvent1: exampleEvent1,
   exampleRecruitment: exampleRecruitment,

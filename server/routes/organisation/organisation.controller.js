@@ -17,8 +17,6 @@ exports.index = function(req, res, next) {
     });
   } else if (req.query.locations) {
     var location = [req.query.locations];
-    console.log(typeof location);
-    console.log(location);
     query = Organisation.find({})
       .where('locations')
       . in (location);
@@ -102,9 +100,6 @@ exports.remove = function(req, res, next) {
 
       if (err) return next(err);
       if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
-
-      console.log("called remove organisation");
-      console.log(organisation);
 
       organisation.remove(function(err) {
         if (err) return next(err);
