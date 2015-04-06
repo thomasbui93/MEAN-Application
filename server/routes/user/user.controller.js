@@ -2,6 +2,7 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var UnauthorizedError = require('../../lib/errors').Unauthorized;
 
 exports.index = function(req, res, next) {
   console.log("called index");
@@ -22,6 +23,15 @@ exports.index = function(req, res, next) {
     if (err) return next(err);
     res.json(user);
   });
+};
+
+exports.self = function(req, res, next) {
+  if (!req.session || !req.session.user) {
+    return next(new UnauthorizedError());
+  }
+
+  // TODO: Omit hashedPassword etc.
+  res.json(req.session.user);
 };
 
 exports.show = function(req, res, next) {

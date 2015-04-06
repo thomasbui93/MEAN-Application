@@ -205,4 +205,15 @@ angular.module('voluntr', [
   });
 
 
-}).run(function($http) {});
+}).run(function($http, $rootScope) {
+  // Every time the app runs, we're GETting the "current user",
+  // which the server returns depending on the session cookie.
+  // The asynchronous nature of this approach may cause some trouble
+  // and needs more thought and testing.
+  $http.get('api/users/self').success(function(user) {
+    console.log('This is the current user:', user);
+    $rootScope.user = user;
+  }).error(function() {
+    console.log('No login session. Should we redirect to front page or what?');
+  });
+});
