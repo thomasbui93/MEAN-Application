@@ -11,6 +11,15 @@ var user = new User({
   firstName: 'First',
   lastName: 'Last',
   password: 'ex',
+  birthDate: {
+    date: 11,
+    month: 4,
+    year: 1993
+  },
+  address: {
+    city: 'Oulu',
+    country: 'Finland'
+  },
   _id: '55095c4e2d316055807fe46c'
 });
 

@@ -71,8 +71,11 @@
             <!--end event-description-->
             <div class="event-comments padding10"><!--event-comments-->
                 <div class="comment" ng-repeat="comment in comments">
+                    <div class="action-hub top-right padding10" ng-show="edit.show"><!-- action-hub -->
+                        <i class="fa fa-flag"></i>
+                    </div><!-- action-hub -->
                     <img src="http://placehold.it/100x100" class="img-responsive"/>
-                    <div>
+                    <div class="comment-content">
                         <a><strong>{{comment.user.name}}</strong></br></a>
                            <p> <i class="fa fa-clock-o"></i>  {{comment.content.time | timeParse}}</p>
                         {{comment.content.msg}}

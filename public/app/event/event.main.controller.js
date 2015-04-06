@@ -1,5 +1,5 @@
 'use strict';
-angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS','Validation',
+angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation',
   function($scope, $stateParams, event, EVENT_ERRORS, Validation) {
     $scope.currentEvent = event;
     $scope.currentEvent.date = new Date('Feb 26, 2015');
@@ -17,19 +17,19 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     $scope.edit = {
       show: false
     };
-    $scope.editInformation=function(){
-        $scope.edit = {
-            show: true
-        };
+    $scope.editInformation = function() {
+      $scope.edit = {
+        show: true
+      };
     };
-    $scope.saveInformation = function(){
-        $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
-        $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
-        if(Validation.checkFinal($scope.errors)){
-            $scope.edit = {
-                show: false
-            };
-        }
+    $scope.saveInformation = function() {
+      $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
+      $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
+      if (Validation.checkFinal($scope.errors)) {
+        $scope.edit = {
+          show: false
+        };
+      }
     };
   }
 ]).filter('timeParse', function() {

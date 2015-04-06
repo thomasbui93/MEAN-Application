@@ -201,7 +201,20 @@ angular.module('voluntr', [
         }
       ]
     }
-
+  }).state('users', {
+    url: '/users/{id}',
+    controller: 'userMainController',
+    templateUrl: 'app/user-homepage/user.home.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      user: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          return Restangular.one('api/users', $stateParams.id).get();
+        }
+      ]
+    }
   });
 
   // This allows the address bar urls to seem natural
