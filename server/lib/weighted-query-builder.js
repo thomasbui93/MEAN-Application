@@ -75,7 +75,7 @@ WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
 // Sorts data by lowest score
 var sortByScore = function(data) {
   return data.sort(function(a, b) {
-    return a.score <= b.score;
+    return a.score >= b.score;
   });
 };
 
