@@ -5,7 +5,8 @@
 angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular',
   function($scope, $state, ERRORS, Validation, Restangular) {
     $scope.user = {
-      name: null,
+      firstname: null,
+      lastname: null,
       email: null,
       pwd: null,
       repwd: null,
@@ -39,7 +40,12 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       }
     };
     $scope.checkAll = function() {
-      if ($scope.user.name === '' || $scope.user.name === null) {
+      if ($scope.user.firstname === '' || $scope.user.firstname === null) {
+        $scope.error.name.violate = true;
+      } else {
+        $scope.error.name.violate = false;
+      }
+      if ($scope.user.lastname === '' || $scope.user.lastname === null) {
         $scope.error.name.violate = true;
       } else {
         $scope.error.name.violate = false;
@@ -81,15 +87,10 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     };
 
     $scope.register = function() {
-      //event.preventDefault();
       $scope.checkAll();
-      $scope.checkIdenticalEmail();
-
-
-      /* if (Validation.check()) {
-        $state.go('home');
-      }*/
+      if (Validation.check($scope.error)) {
+        $scope.checkIdenticalEmail();
+      }
     };
-
   }
 ]);

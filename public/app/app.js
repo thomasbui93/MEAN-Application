@@ -65,7 +65,7 @@ angular.module('voluntr', [
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
-    url: '/user/dash-board/',
+    url: '/user/dashboard/',
     templateUrl: 'app/user-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
@@ -73,7 +73,7 @@ angular.module('voluntr', [
     controller: 'userDashboardController'
   }).state('ngoDashboard', {
     abstract: true,
-    url: '/ngo/dash-board/',
+    url: '/ngo/dashboard/',
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
@@ -101,6 +101,38 @@ angular.module('voluntr', [
       'main': {
         controller: 'ngoEventCreateController',
         templateUrl: 'app/ngo-dashboard/eventCreate.html'
+      }
+    }
+  }).state('ngoDashboard.jobManage', {
+    url: 'job/',
+    views: {
+      'main': {
+        controller: 'ngoJobManageController',
+        templateUrl: 'app/ngo-dashboard/jobManage.html'
+      }
+    }
+  }).state('ngoDashboard.jobCreate', {
+    url: 'job/create',
+    views: {
+      'main': {
+        controller: 'ngoJobCreateController',
+        templateUrl: 'app/ngo-dashboard/jobCreate.html'
+      }
+    }
+  }).state('ngoDashboard.jobEdit', {
+    url: 'job/edit/{id}',
+    views: {
+      'main': {
+        controller: 'ngoJobEditController',
+        templateUrl: 'app/ngo-dashboard/jobEdit.html'
+      }
+    }
+  }).state('ngoDashboard.representativeManage', {
+    url: 'representative',
+    views: {
+      'main': {
+        controller: 'ngoRepresentativeManageController',
+        templateUrl: 'app/ngo-dashboard/representativeManage.html'
       }
     }
   }).state('adminDashboard', {
@@ -133,6 +165,26 @@ angular.module('voluntr', [
       'main': {
         controller: 'adminContentController',
         templateUrl: 'app/admin/admin.content.html'
+      }
+    }
+  }).state('ngoHomePage', {
+    url: '/ngo/home/:id',
+    controller: 'ngoHomePageController',
+    templateUrl: 'app/ngo-homepage/homepage.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      organisation: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id).get();
+      },
+      events: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id)
+          .getList('events');
+      },
+      recruitments: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.id)
+          .getList('recruitments');
       }
     }
   });

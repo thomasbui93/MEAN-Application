@@ -204,6 +204,9 @@
   overflow-x: hidden;
   border-left: 1px solid #ccc ;
 }
+/*
+Event NGO mangage
+*/
 .event-name{
   position: relative;
   width: 100%;
@@ -244,4 +247,92 @@
   position: relative;
   height: 50px;
   max-width: 300px;
+}
+.ngo-control-panel{
+  position: relative;
+  width: 100%;
+  padding: 10px;
+}
+.ngo-control-panel li{
+  display: inline-block;
+  text-align: center;
+  border-right: 1px solid  #000000;
+  width: 25%;
+}
+.ngo-control-panel li:last-child{
+  border-right: none;
+}
+//Job Manage
+.job{
+}
+//representative
+.representative{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+.representative.selected{
+  border: 2px solid rgba(231, 76, 60,1.0);
+}
+.representative.selected::before{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(231, 76, 60,1.0);
+  color: white;
+  font-size: 25px;
+  line-height: 20px;
+  text-align: center;
+  content: '\2713';
+  -webkit-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -moz-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -ms-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -o-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+
+.representative:hover:after{
+  -webkit-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -moz-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -ms-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -o-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  position: absolute;
+  content: '\2665';
+  top: 0px;
+  left: 0px;
+  width: 150px;
+  height: 150px;
+  color: white;
+  background-color: rgba(241, 196, 15,.5);
+  line-height: 150px;
+  font-size: 50px;
+  text-align: center;
+  background-image: -webkit-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+  background-image: -moz-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+  background-image: -ms-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+  background-image: repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+  -webkit-background-size: 3px 3px;
+  -moz-background-size: 3px 3px;
+  background-size: 3px 3px;
+}
+.representative-container{
+  position: relative;
+  width: 100%;
+}
+.representative-name{
+  position: relative;
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+//NGO homepage
+.main-info{
+  position: relative;
+  top: -70px;
 }
