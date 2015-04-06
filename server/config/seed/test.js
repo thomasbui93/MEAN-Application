@@ -108,7 +108,7 @@ Event.remove(function() {
     if (err) throw err;
   });
 
-   Event.create(exampleEvent1, function(err) {
+  Event.create(exampleEvent1, function(err) {
     if (err) throw err;
   });
 });

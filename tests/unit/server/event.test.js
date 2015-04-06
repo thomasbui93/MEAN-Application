@@ -100,7 +100,7 @@ describe('/events', function() {
       });
   });
 
-  it("should delete TomEvent without error", function(done) {
+ /* it("should delete TomEvent without error", function(done) {
     request('del', apiUrl + '/' + exampleEvent1._id)
       .expect(204, function(err) {
         if (err) return done(err);
@@ -117,7 +117,7 @@ describe('/events', function() {
         res.body.message.should.equal("No Comment with that id.");
         done();
       });
-  });
+  });*/
 
   it("should find no otherEvent in that database", function(done) {
     request('get', apiUrl + '/' + otherEvent._id)

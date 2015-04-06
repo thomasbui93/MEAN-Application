@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Comment = require('../comment/comment.model');
+
 
 var EventSchema = new Schema({
   name: {
@@ -44,5 +46,39 @@ var EventSchema = new Schema({
     default: "active"
   }, //status. 1.active, 2.block(when reach due date)
 });
+
+EventSchema.statics.deepRemove = function(events) {
+
+  if (events) {
+    for (var i = 0; i < events.length; ++i) {
+      events[i].remove(function(err) {
+
+        if (err) return next(err);
+        res.status(204).end();
+      });
+
+      var tmpEvent = events[i].comments;
+      if (tmpEvent) {
+
+        for (var j = 0; j < tmpEvent.length; ++j) {
+
+          Comment.findById(tmpEvent[j], function(err, comment) {
+
+            if (err) return next(err);
+            if (!comment) return next(new NotFoundError("No Comment found."));
+
+            comment.remove(function(err) {
+              if (err) return next(err);
+
+              res.status(204).end();
+            });
+
+          });
+        }
+      }
+    }
+  }
+
+};
 
 module.exports = mongoose.model('Event', EventSchema);

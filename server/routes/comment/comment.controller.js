@@ -22,7 +22,7 @@ exports.show = function(req, res, next) {
   Comment.findById(id)
     .populate('event createdBy')
     .exec(function(err, comment) {
-        console.log(comment);
+      console.log(comment);
       if (err) return next(err);
       if (!comment) return next(new NotFoundError('No Comment with that id.'));
 

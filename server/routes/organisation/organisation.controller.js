@@ -94,6 +94,8 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.orgId;
 
+  Organisation.deepRemove(req, res, next);
+
   Organisation.findById(id)
     .populate("events")
     .exec(function(err, organisation) {
@@ -107,11 +109,13 @@ exports.remove = function(req, res, next) {
         res.status(204).end();
       });
 
-      //removed function called dell in events
+      //removed function called dell in event
+      Organisation.deepRemove(organisation.events);
 
-      
-  });
- 
+
+
+    });
+
 };
 
 exports.getManagers = function(req, res, next) {

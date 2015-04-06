@@ -3,12 +3,18 @@ var NotFoundError = require('../../../server/lib/errors.js').NotFound;
 var exampleOrganisation = require('../../../server/config/seed/test').exampleOrganisation;
 var exampleOrganisation1 = require('../../../server/config/seed/test').exampleOrganisation1;
 
+var exampleEvent1 = require('../../../server/config/seed/test').exampleEvent1;
+
+var exampleComment1 = require('../../../server/config/seed/test').exampleComment1;
+
 var exampleUser = require('../../../server/config/seed/test').exampleUser;
 
 var request = require('../../util/ajaxUtil.js');
 
 var otherOrganisation;
 var apiUrl = '/api/organisations';
+var apiEvent ='/api/events';
+var apiComment ='/api/comments';
 
 describe('/organisation', function() {
   beforeEach(function() {
@@ -117,6 +123,26 @@ describe('/organisation', function() {
       .expect(404, function(err, res) {
         if (err) return done(err);
         res.body.message.should.equal("No Organisation with that id.");
+        done();
+      });
+  });
+
+  it("should find no exampleEvent1 in that database", function(done) {
+    request('get', apiEvent + '/' + exampleEvent1._id)
+      .expect(404, function(err, res) {
+        if (err) return done(err);
+        console.log(res.body.message);
+        res.body.message.should.equal("No event with that id.");
+        done();
+      });
+  });
+
+  it("should find no exampleComment1 in that database", function(done) {
+    request('get', apiComment + '/' + exampleComment1._id)
+      .expect(404, function(err, res) {
+        if (err) return done(err);
+        console.log(res.body.message);
+        res.body.message.should.equal("No Comment with that id.");
         done();
       });
   });

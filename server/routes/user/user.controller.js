@@ -22,7 +22,7 @@ exports.index = function(req, res, next) {
 
       if (err) return next(err);
       res.json(user);
-  });
+    });
 };
 
 exports.show = function(req, res, next) {
