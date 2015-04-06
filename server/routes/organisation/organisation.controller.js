@@ -94,8 +94,6 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.orgId;
 
-  Organisation.deepRemove(req, res, next);
-
   Organisation.findById(id)
     .populate("events")
     .exec(function(err, organisation) {

@@ -51,27 +51,16 @@ EventSchema.statics.deepRemove = function(events) {
 
   if (events) {
     for (var i = 0; i < events.length; ++i) {
-      events[i].remove(function(err) {
-
-        if (err) return next(err);
-        res.status(204).end();
-      });
+      events[i].remove();
 
       var tmpEvent = events[i].comments;
       if (tmpEvent) {
 
         for (var j = 0; j < tmpEvent.length; ++j) {
-
           Comment.findById(tmpEvent[j], function(err, comment) {
-
-            if (err) return next(err);
-            if (!comment) return next(new NotFoundError("No Comment found."));
-
-            comment.remove(function(err) {
-              if (err) return next(err);
-
-              res.status(204).end();
-            });
+            if (comment) {
+              comment.remove();
+            }
 
           });
         }

@@ -75,10 +75,7 @@ exports.remove = function(req, res, next) {
       //remove all of comments in the event
       if (evt.comments) {
         for (var i = 0; i < evt.comments.length; ++i) {
-          evt.comments[i].remove(function(err) {
-            if (err) return next(err);
-            res.status(204).end();
-          });
+          evt.comments[i].remove();
         }
       }
     });
