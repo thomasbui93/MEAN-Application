@@ -2,8 +2,8 @@
  * Created by Bui Dang Khoa on 3/26/2015.
  */
 'use strict';
-angular.module('voluntr').controller('ngoDashBoardMainController', ['$scope', 'NGO_ERRORS', 'Validation', '$timeout',
-  function($scope, NGO_ERRORS, Validation, $timeout) {
+angular.module('voluntr').controller('ngoDashBoardMainController',
+  function($scope, NGO_ERRORS, Validation, $timeout, organisation) {
     $scope.currentNGO = {
       name: 'Helping Hand',
       establish: new Date('Feb 20 1999'),
@@ -11,6 +11,10 @@ angular.module('voluntr').controller('ngoDashBoardMainController', ['$scope', 'N
       causes: ['Humanity', 'Children', 'Animation', 'Environment'],
       description: 'Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.'
     };
+
+    $scope.currentNGO = organisation;
+    console.log(organisation);
+
     $scope.edit = {
       show: false,
       state: 'Save'
@@ -58,4 +62,4 @@ angular.module('voluntr').controller('ngoDashBoardMainController', ['$scope', 'N
       }
     };
   }
-]);
+);

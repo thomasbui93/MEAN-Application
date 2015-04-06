@@ -73,11 +73,16 @@ angular.module('voluntr', [
     controller: 'userDashboardController'
   }).state('ngoDashboard', {
     abstract: true,
-    url: '/ngo/dashboard/',
+    url: '/ngo/dashboard/:orgId',
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      organisation: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.orgId).get();
+      }
     }
   }).state('ngoDashboard.eventManage', {
     url: '',

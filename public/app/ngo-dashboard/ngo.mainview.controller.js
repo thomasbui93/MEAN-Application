@@ -5,87 +5,12 @@
 angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$state',
   function($scope, $state) {
     $scope.currentNGO = $scope.$parent.currentNGO || {};
-    $scope.currentNGO.events = [{
-      id: '1',
-      date: new Date("October 20, 2015"),
-      name: 'Food catering free',
-      location: 'Hanhitie 17H B14, Oulu, Finland',
-      showVolunteer: false,
-      volunteers: [{
-        id: '1',
-        name: 'Marry Jane',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }]
-    }, {
-      id: '2',
-      date: new Date("February 26, 2015"),
-      name: 'Help children',
-      location: 'Sơme where, Oulu, Finland',
-      showVolunteer: false,
-      volunteers: [{
-        id: '1',
-        name: 'Marry Jane',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }]
-    }, {
-      id: '3',
-      date: new Date("March 11, 2015"),
-      name: 'Help elderly',
-      location: 'Nursing Home, Oulu, Finland',
-      showVolunteer: false,
-      volunteers: [{
-        id: '1',
-        name: 'Marry Jane',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }]
-    }, {
-      id: '4',
-      date: new Date("July 11, 2014"),
-      name: 'Other event',
-      location: 'Hanhitie 17H B14, Oulu, Finland',
-      showVolunteer: false,
-      volunteers: [{
-        id: '1',
-        name: 'Marry Jane',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }, {
-        id: '3',
-        name: 'Marry Currie',
-        image: 'aasdasd'
-      }]
-    }];
+
     $scope.delete = {
       state: false,
       events: []
     };
+
     //methods
     $scope.invokeDelete = function(event) {
       $scope.delete = {
@@ -93,17 +18,20 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
         events: [event]
       };
     };
+
     $scope.deleteReset = function() {
       $scope.delete = {
         state: false,
         events: []
       };
     };
+
     $scope.editTransit = function(id) {
       $state.transitionTo('ngoDashboard.eventEdit', {
         id: id
       });
     };
+
     $scope.deleteEvent = function(events) {
       events.forEach(function(event) {
         //TODO: backEnd delete goes here
@@ -115,9 +43,11 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       });
       $scope.deleteReset();
     };
+
     $scope.viewVolunteers = function(event) {
       event.showVolunteer = !event.showVolunteer;
     };
+
     //backEnd implements
     $scope.fetchEvent = function() {
 
@@ -133,8 +63,10 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       location: 'Hanhitie 17H B14, Oulu, Finland',
       description: "Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat."
     };
+
     $scope.errors = EVENT_ERRORS;
     $scope.success = false;
+
     $scope.fetchEvent = function(id) {
       //Todo retrieve the event with the specific id
     };
@@ -143,6 +75,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = !Validation.checkDescription($scope.currentEvent, 20);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentEvent);
+
       if ($scope.currentEvent.location === '' || $scope.currentEvent.location === null) {
         $scope.errors.location.violate = true;
       } else {
@@ -168,22 +101,27 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       location: '',
       description: ""
     };
+
     $scope.errors = EVENT_ERRORS;
     $scope.success = false;
+
     $scope.saveEvent = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = !Validation.checkDescription($scope.currentEvent, 20);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentEvent);
+
       if ($scope.currentEvent.location === '' || $scope.currentEvent.location === null) {
         $scope.errors.location.violate = true;
       } else {
         $scope.errors.location.violate = false;
       }
+
       if ($scope.currentEvent.date < new Date() || $scope.currentEvent.date === null) {
         $scope.errors.time.violate = true;
       } else {
         $scope.errors.time.violate = false;
       }
+
       if (!$scope.errors.name.violate && !$scope.errors.violate && !$scope.errors.description.violate && !$scope.errors.location.violate && !$scope.errors.time.violate) {
         $scope.success = true;
         $timeout(function() {
