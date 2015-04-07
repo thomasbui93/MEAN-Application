@@ -22,7 +22,7 @@
                     <h2 class="text-white text-center">{{currentEvent.name}}</h2>
                 </div>
                 <div class="col-md-3">
-                    <button class="btn btn-transparent">27 Volunteers</button>
+                    <button class="btn btn-transparent">{{currentEvent.participants.length}} Volunteers</button>
                 </div>
             </div>
         </div><!--event-detail-->
@@ -41,8 +41,8 @@
                     <i class="fa fa-clock-o"></i>
                     17:30PM. Mar 3, 2014
                 </p>
-                <!--comment <button class="btn btn-follow" ng-show="!checkFollowed()">Follow</button>
-                <button class="btn btn-follow" ng-show="checkFollowed()">Following</button>-->
+                <button class="btn btn-follow" ng-click="follow()">Follow</button>
+                <button class="btn btn-follow" >Following</button>
             </div>
             <div ng-show="edit.show" class="info-show">
                 <div class="input-container small-input center-block">
@@ -74,21 +74,21 @@
             </div>
             <!--end event-description-->
             <div class="event-comments padding10"><!--event-comments-->
-                <div class="comment" ng-repeat="comment in comments">
+                <div class="comment padding10" ng-repeat="comment in comments">
                     <div class="action-hub top-right padding10" ng-show="edit.show"><!-- action-hub -->
                         <i class="fa fa-flag"></i>
                     </div><!-- action-hub -->
                     <img src="http://placehold.it/100x100" class="img-responsive"/>
                     <div class="comment-content">
-                        <a><strong>{{comment.user.name}}</strong></br></a>
-                           <p> <i class="fa fa-clock-o"></i>  {{comment.content.time | timeParse}}</p>
-                        {{comment.content.msg}}
+                        <a><strong>{{comment.user.name || 'sss'}}</strong></br></a>
+                        {{comment.content}}
                     </div>
                 </div>
                 <!--end comment-->
-                <div class="comment-input-container"><!--comment-input-container-->
+                <div class="comment-input-container" ng-if="currentUser._id!==undefined"><!--comment-input-container-->
                     <label class="comment-label"><i class="fa fa-paper-plane"></i></label>
-                    <input class="input-comment normal-input margin-top-20" type="text" ng-model="input.comment"/>
+                    <input class="input-comment normal-input margin-top-20" type="text" ng-model="input.comment"
+                           ng-keydown="saveComment($event)"/>
                 </div>
                 <!--comment-input-container-->
             </div>

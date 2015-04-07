@@ -2,7 +2,7 @@
 
 exports.login = function(req, res, next) {
   console.log("Would process login for user: " + req.body.username + " password: " + req.body.password);
-
+    console.log("ccc kkkk");
   // Dummy response:
   res.json({
     id: 1234,

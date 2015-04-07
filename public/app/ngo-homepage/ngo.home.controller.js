@@ -34,6 +34,12 @@ angular.module('voluntr').controller('ngoHomePageController',
       $scope.errors.description.violate = Validation.checkDescription($scope.currentNGO, 20);
       if (Validation.checkFinal()) {
         //TODO: save information
+          organisation.save().then(function() {
+              $scope.edit = {
+                  show: false,
+                  saving: false
+              };
+          });
         $scope.edit = {
           show: false,
           state: 'edit'
@@ -44,7 +50,7 @@ angular.module('voluntr').controller('ngoHomePageController',
 
     };
     $scope.deleteEvent = function(event) {
-
+        return true;
     };
   }
 );

@@ -78,7 +78,7 @@
                     <p><strong class="">Start date: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
                 </div><!-- padding10 -->
                 <div class="action-hub top-right">
-                    <i class="fa fa-times text-red" ng-controller="deleteEvent(event)"></i>
+                    <i class="fa fa-times text-red" ng-click="deleteEvent(event)"></i>
                 </div><!-- action-hub -->
             </div><!-- event-brief -->
         </div><!-- right column -->
