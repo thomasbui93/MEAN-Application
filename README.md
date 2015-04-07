@@ -42,5 +42,7 @@ The default endpoints:
 - comments
 have basic query functionality. You can query them with `?field_name=xxxx`.
 
+You can not query a user by `salt` or by `password`.
+
 It will create a regex out of the query and attempt to match with the data in the model.
-If you query is specified, all of the data in the model is returned.
+If no query is specified, all of the data in the model is returned.

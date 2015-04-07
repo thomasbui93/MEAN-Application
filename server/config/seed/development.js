@@ -46,8 +46,17 @@ var org2 = new Organisation({
 var newEvent = new Event({
   name: 'Awesome event',
   description: "Awesome",
+  participants: [],
   //   endDate: Date.now,
   _id: '59195c4e2d316055807f0000'
+});
+
+var evt2 = new Event({
+  name: 'event',
+  description: "Awesome",
+  participants: [],
+  //   endDate: Date.now,
+  _id: '59195c4e2d316125807f0000'
 });
 
 var exampleRecruitment = new Recruitment({
@@ -70,14 +79,19 @@ Recruitment.remove(function() {
 Organisation.remove(function() {
   Event.remove(function() {
     newEvent.organisation = org._id;
+    evt2.organisation = org._id;
     newEvent.comments.push(newComment._id);
 
     // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent);
     org.managers.push(user);
+    newEvent.participants.push(user);
+    evt2.participants.push(user);
+    evt2.participants.push(user);
 
     org.save();
     newEvent.save();
+    evt2.save();
   });
 
   Recruitment.remove(function() {
