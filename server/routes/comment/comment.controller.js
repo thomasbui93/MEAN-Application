@@ -2,10 +2,13 @@
 
 var Comment = require('./comment.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
 
-  Comment.find(req.query)
+  var query = new QueryBuilder(req.query).query;
+
+  Comment.find(query)
     .populate('event createdBy')
     .exec(function(err, comments) {
       if (err) return next(err);
