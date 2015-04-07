@@ -1,104 +1,80 @@
-<div id="header-container-page" ng-scroll="scroll($event)">
-    <div id="about-page">
-        <div id="contact-page">
-            <div id="honor-page">
-                <ul class="circle-menu">
-                    <li ng-class="{'current-state' : (currentLocation==='header-container-page')}">
-                        <a href="#header-container-page">
-                            <div class="circle"></div>
-                            <div class="additional-information">Home</div>
-                        </a>
-                    </li>
-                    <li ng-class="{'current-state' : (currentLocation=='about-page')}">
-                        <a href="#about-page">
-                            <div class="circle"></div>
-                            <div class="additional-information">About Us</div>
-                        </a>
-                    </li>
-                    <li ng-class="{'current-state' : (currentLocation=='contact-page')}">
-                        <a href="#contact-page">
-                            <div class="circle"></div>
-                            <div class="additional-information">Contact Us</div>
-                        </a>
-                    </li>
-                    <li ng-class="{'current-state' : (currentLocation=='honor-page')}">
-                        <a href="#honor-page" >
-                            <div class="circle"></div>
-                            <div class="additional-information">Honoured NGO</div>
-                        </a>
-                    </li>
+<div class="">
+    <div class="page-container">
+        <div class="pages" >
+            <div class="section" id="main" >
+                <div class="slide-container">
+                    <div class="slide-item"><img src="img/front-end/4_volunteer.jpg" class="full-width img-responsive shadow"></div>
+                    <div class="slide-item"><img src="img/front-end/Teen-Volunteer.jpg" class="full-width img-responsive shadow"></div>
+                    <div class="slide-item"><img src="img/front-end/volunteer.jpeg" class="full-width img-responsive shadow"></div>
+                    <div class="slide-item"><img src="img/front-end/where-volunteer-work-resume.jpg" class="full-width img-responsive shadow"></div>
+                </div><!-- slide-container -->
+                <div class="center-block" id="search-block">
+                    <form novalidate>
+                        Volunteer now!<br>
+                        <input class="col-md-5 col-xs-12" type="text" name="keywords" placeholder="Key words" ng-model="search.keywords">
+                        <input class="col-md-5 col-xs-12" type="text" name="location" placeholder="Location" ng-model="search.location">
+                        <button class="col-xs-1">search</button>
+                    </form>
+                </div><!-- container search-block -->
+            </div><!-- section main --->
+
+            <div class="section " id="info">
+                <div class="text-information">
+                    <div class="col-sm-4 col-xs-12">
+                        <h2>Header Text</h2>
+                        Morbi in sem quis dui placerat ornare.
+                        Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+                    </div><!-- column left -->
+                    <div class="col-sm-4 col-xs-12">
+                        <h2>Header Text</h2>
+                        Morbi in sem quis dui pla
+                        Morbi in sem quis dui placerat ornare.
+                        Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+                    </div><!-- column middle -->
+                    <div class="col-sm-4 col-xs-12">
+                        <h2>Header Text</h2>
+                        Morbi in sem quis dui pla
+                        Morbi in sem quis dui placerat ornare.
+                        Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+                    </div><!-- column right -->
+                </div><!-- text-information -->
+            </div><!-- section info -->
+
+            <div class="section" id="most-popular">
+              <div class="organisations-bar">
+                <!-- add database fill for most popular organisations -->
+              </div>
+            </div><!-- section most-popular -->
+        </div><!-- pages -->
+        <div class="section" id="footer">
+            <div class="col-md-3 col-xs-6">
+                <ul>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
                 </ul>
-                <div class="pages" >
-                     <div class="page-container delay-transition">
-                         <div class="container section" id="header-container" >
-                             <div class="slide-container">
-                                 <div class="slide-item"><img src="img/front-end/4_volunteer.jpg" class="full-width img-responsive shadow"></div>
-                                 <div class="slide-item"><img src="img/front-end/Teen-Volunteer.jpg" class="full-width img-responsive shadow"></div>
-                                 <div class="slide-item"><img src="img/front-end/volunteer.jpeg" class="full-width img-responsive shadow"></div>
-                                 <div class="slide-item"><img src="img/front-end/where-volunteer-work-resume.jpg" class="full-width img-responsive shadow"></div>
-                             </div>
-                             <div class="mask dotted"></div>
-                             <div class="container cover-block text-white">
-                                 <div class="text-logo josenfin">Volunteer
-                                     <br/>
-                                     <a class="btn text-white sliding-middle-out" href="#about-page" >Learn more</a>
-                                     <a class="btn text-white sliding-middle-out" href="#">Get Started</a></div>
-                             </div>
-
-                             <div class="nav-container">
-                                 <a href="#about-page"><img src="img/front-end/expand22.svg" class="pointing"></a>
-                             </div>
-                         </div>
-                         <div class="section" id="about">
-                             <div class="background responsive-background ">
-                             </div>
-                             <div class="text-title josenfin ">
-                                 <div class="text-head">Give Back</div>
-                                 <div class="text-information scroll">
-                                     Morbi in sem quis dui placerat ornare.
-                                     Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam.
-                                     Sed arcu. Cras consequat.
-                                 </div>
-                             </div>
-                             <div class="nav-container" ng-click="scrollToElement('contact-page')">
-                                 <a href="#contact-page"><img src="img/front-end/expand22.svg" class="pointing"></a>
-                             </div>
-                         </div>
-                         <div class="section " id="contact">
-                             <div class="background responsive-background">
-                             </div>
-                             <div class="text-title josenfin  container">
-                                 <div class="text-head">Our Work</div>
-                                 <div class="text-information row scroll">
-                                     <div class="col-lg-4 col-md-6 col-xs-12 col-xs-12">
-                                         <h3>Header Text</h3>
-                                         Morbi in sem quis dui placerat ornare.
-                                         Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
-                                     </div>
-                                     <div class="col-lg-4 col-md-6 col-xs-12 col-xs-12">
-                                         <h3>Header Text</h3>
-                                         Morbi in sem quis dui pla
-                                         Morbi in sem quis dui placerat ornare.
-                                         Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
-                                     </div>
-                                     <div class="col-lg-4 col-md-6 col-xs-12 col-xs-12">
-                                         <h3>Header Text</h3>
-                                         Morbi in sem quis dui pla
-                                         Morbi in sem quis dui placerat ornare.
-                                         Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
-                                     </div>
-                                 </div>
-                                 <div class="nav-container">
-                                     <a href="#honor-page"><img src="img/front-end/expand22.svg" class="pointing"></a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div id="honor" class="section">
-
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+            </div><!-- 1st column -->
+            <div class="col-md-3 col-xs-6">
+                <ul>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                </ul>
+            </div><!-- 2nd column -->
+            <div class="col-md-3 col-xs-6">
+                <ul>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                </ul>
+            </div><!-- 3rd column -->
+            <div class="col-md-3 col-xs-6">
+                <ul>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                    <li><a href="#">A link</a></li>
+                </ul>
+            </div><!-- 4th column -->
+            </div><!-- footer -->
+    </div><!-- page-container -->
+</div><!-- container -->
