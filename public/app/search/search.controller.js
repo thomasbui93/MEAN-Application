@@ -13,32 +13,7 @@ angular.module('voluntr')
 
       $scope.currentResultState = '';
 
-      $scope.results = [{
-        id: '1',
-        name: 'First NGO',
-        establish: new Date("Jan 12 2014"),
-        trend: 1900,
-        description: "Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
-        interests: ['food', 'drink', 'humanity', 'animals'],
-        locations: ['Saima, Finland']
-      }, {
-        id: '2',
-        name: 'Second NGO',
-        establish: new Date("Feb 2, 2013"),
-        trend: 1000,
-        description: "Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
-        interests: ['food', 'humanity', 'animals'],
-        locations: ['Oulu, Finland']
-      }, {
-        id: '3',
-        name: 'Third NGO',
-        establish: new Date("Jul 29, 2015"),
-        trend: 13000,
-        description: "Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.",
-        interests: ['food', 'animals'],
-        locations: ['Helsinki, Finland']
-      }];
-
+      $scope.results = [];
       $scope.addInterest = function(interest) {
         $scope.search.searchInterests.push(interest);
         var index = $scope.search.Interests.indexOf(interest);
