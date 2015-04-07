@@ -140,7 +140,9 @@ exports.getRecruitments = function(req, res, next) {
 
 exports.getTopTen = function(req, res, next) {
   Organisation.find()
-    .sort({followers: 1})
+    .sort({
+      followers: 1
+    })
     .limit(10)
     .exec(function(err, organisations) {
       if (err) return next(err);

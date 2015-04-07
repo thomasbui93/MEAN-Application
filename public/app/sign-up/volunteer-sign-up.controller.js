@@ -2,15 +2,16 @@
  * Created by Bui Dang Khoa on 3/20/2015.
  */
 'use strict';
-angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular',
-  function($scope, $state, ERRORS, Validation, Restangular) {
+angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular', '$timeout',
+  function($scope, $state, ERRORS, Validation, Restangular, $timeout) {
     $scope.user = {
       firstname: null,
       lastname: null,
       email: null,
       pwd: null,
       repwd: null,
-      address: null,
+      city: null,
+      country: null,
       phone: null,
       birthday: null,
       skillSet: [],
@@ -21,7 +22,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       interest: '',
       skill: ''
     };
-
+    $scope.success = false;
     $scope.error = ERRORS;
 
     $scope.createSkill = function($event) {
@@ -62,33 +63,54 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     };
 
     $scope.checkIdenticalEmail = function() {
-
       Restangular.all('api/users').getList({
         email: $scope.user.email
       })
         .then(function(results) {
 
-          if (results.length !== 0) console.log("email is already used");
-          else {
-            Restangular.all('api/users').post({
-              firstname: $scope.user.firstname,
-              lastname: $scope.user.lastname,
-              email: $scope.user.email,
-              password: $scope.user.pwd
-
-            })
-              .then(function(results) {
-
-                console.log("user is created");
-              });
+          if (results.length !== 0) {
+            console.log("email is already used");
+            $scope.error.identicalEmail = {
+              violate: true,
+              message: 'Your email already existed.'
+            };
+          } else {
+            $scope.save();
+            $scope.error.identicalEmail = {
+              violate: false,
+              message: 'Your email already existed.'
+            };
           }
-
         });
     };
-
+    $scope.save = function() {
+      Restangular.all('api/users').post({
+        firstname: $scope.user.firstname,
+        lastname: $scope.user.lastname,
+        email: $scope.user.email,
+        password: $scope.user.pwd,
+        birthDate: {
+          date: $scope.user.birthday.getDate(),
+          month: $scope.user.birthday.getMonth(),
+          year: $scope.user.birthday.getFullYear()
+        },
+        address: {
+          city: $scope.user.city,
+          country: $scope.user.country
+        },
+        skills: $scope.user.skillSet,
+        interests: $scope.user.interestSet
+      })
+        .then(function(results) {
+          $scope.success = true;
+          $timeout(function() {
+            $state.transitionTo('user-dashboard');
+          }, 2000);
+        });
+    };
     $scope.register = function() {
       $scope.checkAll();
-      if (Validation.check($scope.error)) {
+      if (Validation.checkFinal($scope.error)) {
         $scope.checkIdenticalEmail();
       }
     };

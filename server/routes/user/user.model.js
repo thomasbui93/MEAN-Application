@@ -15,15 +15,17 @@ var UserSchema = new Schema({
   salt: String,
   address: {
     city: String,
-    country: String,
+    country: String
   },
   birthDate: {
     date: Number,
     month: Number,
-    year: Number,
+    year: Number
   },
   avatar: String, //image link
   description: String,
+  skills: [String],
+  interests: [String],
   createdOn: {
     type: Date,
     default: Date.now

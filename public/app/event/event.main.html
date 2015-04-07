@@ -1,0 +1,98 @@
+
+    <div class="event-header"> <!--event-header-->
+        <img src="http://placehold.it/800x200" class="img-responsive center-block"/>
+        <div class="action-hub padding10 top-right"> <!--action-hub-->
+            <button class=" btn btn-transparent" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil fa-2x"></i></button>
+            <button class=" btn btn-transparent" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save fa-2x"></i></button>
+        </div>
+        <!--action-hub-->
+        <div class="event-detail container"><!--event-detail-->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="square-time"><!--square-time-->
+                        <div class="square-date text-uppercase center-block clear-bg">
+                            <p class="text-center josenfin">
+                                <strong>{{ currentEvent.date | date:  'dd MMM'}}</strong><br/>
+                                <strong>{{ currentEvent.date | date:  'yyyy'}}</strong>
+                            </p>
+                        </div>
+                    </div><!--square-time-->
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-white text-center">{{currentEvent.name}}</h2>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-transparent">27 Volunteers</button>
+                </div>
+            </div>
+        </div><!--event-detail-->
+    </div><!--event-header-->
+    <div class="container">
+    <div class="row">
+        <!--event-information-->
+        <div class="col-xs-12 col-md-3 margin-top-20 padding10 event-information text-center shadow">
+            <div ng-show="!edit.show" class="info-show">
+                <h4>{{currentEvent.name}}</h4>
+                <p class="text-center">
+                    <i class="fa fa-location-arrow text-mute text-blue"></i>
+                    Oulu, Finland
+                </p>
+                <p>
+                    <i class="fa fa-clock-o"></i>
+                    17:30PM. Mar 3, 2014
+                </p>
+                <!--comment <button class="btn btn-follow" ng-show="!checkFollowed()">Follow</button>
+                <button class="btn btn-follow" ng-show="checkFollowed()">Following</button>-->
+            </div>
+            <div ng-show="edit.show" class="info-show">
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>Name: </strong></label>
+                    <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+                    <input ng-model="currentEvent.name" type="text" placeholder="{{currentEvent.name}}" class="text-center"/>
+                </div>
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>Address: </strong></label>
+                    <input ng-model="currentEvent.locations[0]" type="text" placeholder="{{currentEvent.locations[0]}}" class="text-center"/>
+                </div>
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>Time: </strong></label>
+                    <input type="datetime-local" ng-model="currentEvent.time"/>
+                </div>
+                <div class="padding10">
+                    <button class=" btn btn-follow" ng-show="edit.show" ng-click="saveInformation()">Save</button>
+                </div>
+            </div>
+        </div>
+        <!--event-description-->
+        <div  class="col-xs-12 col-md-9 margin-top-20 event-content">
+            <div class="banner"><strong>About</strong></div>
+            <div class="event-description padding10" ng-show="!edit.show">{{currentEvent.description}}
+            </div>
+            <div class="input-container event-description margin-top-20" ng-show="edit.show">
+                <p ng-show="errors.description.violate" class="text-red">{{errors.description.message}}</p>
+                <textarea ng-model="currentEvent.description" type="text" placeholder="{{currentEvent.description}}" class="normal-input margin-top-5 scroll"></textarea>
+            </div>
+            <!--end event-description-->
+            <div class="event-comments padding10"><!--event-comments-->
+                <div class="comment" ng-repeat="comment in comments">
+                    <div class="action-hub top-right padding10" ng-show="edit.show"><!-- action-hub -->
+                        <i class="fa fa-flag"></i>
+                    </div><!-- action-hub -->
+                    <img src="http://placehold.it/100x100" class="img-responsive"/>
+                    <div class="comment-content">
+                        <a><strong>{{comment.user.name}}</strong></br></a>
+                           <p> <i class="fa fa-clock-o"></i>  {{comment.content.time | timeParse}}</p>
+                        {{comment.content.msg}}
+                    </div>
+                </div>
+                <!--end comment-->
+                <div class="comment-input-container"><!--comment-input-container-->
+                    <label class="comment-label"><i class="fa fa-paper-plane"></i></label>
+                    <input class="input-comment normal-input margin-top-20" type="text" ng-model="input.comment"/>
+                </div>
+                <!--comment-input-container-->
+            </div>
+        </div>
+        <!--event-description-->
+    </div>
+    </div>

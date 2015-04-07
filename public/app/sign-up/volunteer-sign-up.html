@@ -7,6 +7,7 @@
             <p ng-show="error.passwordNotMatch.violate" class="text-red">{{error.passwordNotMatch.message}}*</p>
             <p ng-show="error.passwordNotStrong.violate" class="text-red">{{error.passwordNotStrong.message}}*</p>
             <p ng-show="error.phone.violate" class="text-red">{{error.phone.message}}*</p>
+            <p ng-show="error.identicalEmail.violate" class="text-red">{{error.identicalEmail.message}}</p>
         </div>
     </div>
     <div class="row">
@@ -62,10 +63,20 @@
     <div class="row">
         <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
             <div class="group">
-                <input type="password" ng-model="user.address" required/>
+                <input type="text" ng-model="user.city" required/>
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <label>Address:</label>
+                <label>City:</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <div class="group">
+                <input type="text" ng-model="user.country" required/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Country:</label>
             </div>
         </div>
     </div>
@@ -112,7 +123,8 @@
     </div>
     <div class="row">
         <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
-            <button class="btn btn-form pull-right" ng-click="register()">Register</button>
+            <button class="btn btn-form pull-right" ng-click="register()">Register
+                <i class="fa fa-check-circle fa-2x" ng-show="success"></i></button>
         </div>
     </div>
 
