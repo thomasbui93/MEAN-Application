@@ -14,7 +14,6 @@ exports.index = function(req, res, next) {
       if (err) return next(err);
       if (!comments) return next(new NotFoundError("No Comments found."));
 
-      console.log(query);
       res.json(comments);
     });
 };

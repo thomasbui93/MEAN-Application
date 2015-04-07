@@ -54,7 +54,6 @@ exports.update = function(req, res, next) {
 
 exports.create = function(req, res, next) {
 
-  console.log(req.body);
   var newUser = req.body;
   //check if email already exist
 
