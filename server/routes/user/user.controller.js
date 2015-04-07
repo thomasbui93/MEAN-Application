@@ -12,13 +12,7 @@ var QueryBuilder = require('../../lib/query-builder');
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
 
-  query.populate('events  managedOrganisations representOrganisations')
-    .exec(function(err, user) {
-
-          if (err) return next(err);
-          res.json(user);
-      });
-  User.find(query)
+ User.find(query)
     .populate('managedOrganisations representOrganisations events recruiments')
     .exec(function(err, users) {
       if (err) return next(err);
