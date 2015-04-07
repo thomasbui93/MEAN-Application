@@ -22,12 +22,11 @@
             <div class="event-brief row padding10 margin-top-5" ng-repeat="job in recruitments">
                 <div class="col-sm-3">
                     <img src="http://placehold.it/150x150" class="img-responsive">
-                </div><!--  -->
+                </div><!-- column -->
                 <div class="padding10">
                     <strong>{{job.name}}</strong><br>
                     <p class="text-muted">{{job.description}}</p>
                     <p><strong class="">Start date: </strong>{{job.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
-<!--                     <p><strong class="">End date: </strong>{{job.endDate | date: 'HH:mm d, MMM yyyy'}}</p> -->
                 </div><!-- padding10 -->
             </div><!-- event-brief -->
         </div><!-- left column -->
