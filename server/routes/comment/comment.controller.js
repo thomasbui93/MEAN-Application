@@ -19,11 +19,13 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function(req, res, next) {
+  console.log("comment show called");
   var id = req.params.commentId;
 
   Comment.findById(id)
     .populate('event createdBy')
     .exec(function(err, comment) {
+      console.log(comment);
       if (err) return next(err);
       if (!comment) return next(new NotFoundError('No Comment with that id.'));
 
