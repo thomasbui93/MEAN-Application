@@ -16,5 +16,10 @@
       <button type="button" class="btn btn-form margin-top-20" ng-click="login(credentials)">Sign in</button>
       <a ui-sref="register"> <button type="button" class="btn btn-form margin-top-20" >Register</button></a>
     </form>
+      <!--dummy navigation for testing the other authenticated page-->
+    <ul>
+        <li><a ui-sref="user-dashboard">Dashboard</a></li>
+        <li><a ng-click="navToUser()">User home page</a></li>
+    </ul>
    </div><!--right-->
 </div><!--container-->

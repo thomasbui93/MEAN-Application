@@ -82,12 +82,14 @@
                     </div>
                     <div class="representatives container">
                         <div class="row padding10">
-                            <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="rep in pageUser.reps">
+                            <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="rep in pageUser.representOrganisations">
                                 <div class="organization transition float-shadow">
-                                    <img src="http://placehold.it/150x150" class="img-responsive">
-                                    <div class="organization-information">
-                                        Test Organization
-                                    </div>
+                                    <a href="/ngo/home/{{rep._id}}">
+                                        <img src="http://placehold.it/150x150" class="img-responsive">
+                                        <div class="organization-information">
+                                            {{rep.name}}
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -95,16 +97,18 @@
                 </div><!-- representative-container -->
                 <div class="project-container"> <!--project-container-->
                     <div class="banner">
-                        <strong>Projects</strong>
+                        <strong>Events</strong>
                     </div>
                     <div class="representatives container">
                         <div class="row padding10">
-                            <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="project in pageUser.events">
+                            <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="event in pageUser.events">
                                 <div class="organization transition float-shadow">
+                                    <a href="/events/{{event._id}}">
                                     <img src="http://placehold.it/150x150" class="img-responsive">
                                     <div class="organization-information">
-                                        Test Event
+                                        {{event.name}}
                                     </div>
+                                        </a>
                                 </div>
                             </div>
                         </div>

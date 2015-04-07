@@ -25,7 +25,7 @@ var UserSchema = new Schema({
   avatar: String, //image link
   description: String,
   skills: [String],
-  interests:[String],
+  interests: [String],
   createdOn: {
     type: Date,
     default: Date.now

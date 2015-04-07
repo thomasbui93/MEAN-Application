@@ -2,8 +2,8 @@
  * Created by Bui Dang Khoa on 3/20/2015.
  */
 'use strict';
-angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular','$timeout',
-  function($scope, $state, ERRORS, Validation, Restangular,$timeout) {
+angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular', '$timeout',
+  function($scope, $state, ERRORS, Validation, Restangular, $timeout) {
     $scope.user = {
       firstname: null,
       lastname: null,
@@ -69,45 +69,44 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
         .then(function(results) {
 
           if (results.length !== 0) {
-              console.log("email is already used");
-              $scope.error.identicalEmail ={
-                  violate: true,
-                  message: 'Your email already existed.'
-              };
-          }
-          else {
-           $scope.save();
-           $scope.error.identicalEmail ={
-             violate: false,
-             message: 'Your email already existed.'
-           };
+            console.log("email is already used");
+            $scope.error.identicalEmail = {
+              violate: true,
+              message: 'Your email already existed.'
+            };
+          } else {
+            $scope.save();
+            $scope.error.identicalEmail = {
+              violate: false,
+              message: 'Your email already existed.'
+            };
           }
         });
     };
-    $scope.save = function(){
-        Restangular.all('api/users').post({
-            firstname: $scope.user.firstname,
-            lastname: $scope.user.lastname,
-            email: $scope.user.email,
-            password: $scope.user.pwd,
-            birthDate:{
-                date: $scope.user.birthday.getDate(),
-                month: $scope.user.birthday.getMonth(),
-                year: $scope.user.birthday.getFullYear()
-            },
-            address:{
-                city: $scope.user.city,
-                country: $scope.user.country
-            },
-            skills: $scope.user.skillSet,
-            interests: $scope.user.interestSet
-        })
-            .then(function(results) {
-                $scope.success = true;
-                $timeout(function(){
-                    $state.transitionTo('user-dashboard');
-                }, 2000);
-            });
+    $scope.save = function() {
+      Restangular.all('api/users').post({
+        firstname: $scope.user.firstname,
+        lastname: $scope.user.lastname,
+        email: $scope.user.email,
+        password: $scope.user.pwd,
+        birthDate: {
+          date: $scope.user.birthday.getDate(),
+          month: $scope.user.birthday.getMonth(),
+          year: $scope.user.birthday.getFullYear()
+        },
+        address: {
+          city: $scope.user.city,
+          country: $scope.user.country
+        },
+        skills: $scope.user.skillSet,
+        interests: $scope.user.interestSet
+      })
+        .then(function(results) {
+          $scope.success = true;
+          $timeout(function() {
+            $state.transitionTo('user-dashboard');
+          }, 2000);
+        });
     };
     $scope.register = function() {
       $scope.checkAll();

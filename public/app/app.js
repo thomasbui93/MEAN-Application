@@ -5,9 +5,13 @@ angular.module('voluntr', [
   'ui.router',
   'restangular',
   'ngAnimate'
-]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES) {
+]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES, RestangularProvider) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
+
+  RestangularProvider.setRestangularFields({
+    id: '_id'
+  });
 
   // Here we set up the states.
   $stateProvider.state('home', {

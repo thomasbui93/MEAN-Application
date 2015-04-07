@@ -2,6 +2,9 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var _ = require('lodash');
+
+var excludedFields = ['_id', 'hashedPassword', 'salt', '__v'];
 
 exports.index = function(req, res, next) {
   console.log("called index");
@@ -17,22 +20,25 @@ exports.index = function(req, res, next) {
 
   //--------------------------*
 
-  query.exec(function(err, user) {
+  query.populate('events  managedOrganisations representOrganisations')
+    .exec(function(err, user) {
 
-    if (err) return next(err);
-    res.json(user);
-  });
+      if (err) return next(err);
+      res.json(user);
+    });
 };
 
 exports.show = function(req, res, next) {
   var id = req.params.userId;
   console.log("called show");
-  User.findById(id, function(err, user) {
-    if (err) return next(err);
-    if (!user) return next(new NotFoundError('No user with that id.'));
+  User.findById(id)
+    .populate('events  managedOrganisations representOrganisations')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
 
-    res.json(user);
-  });
+      res.json(user);
+    });
 };
 
 exports.update = function(req, res, next) {
@@ -44,6 +50,10 @@ exports.update = function(req, res, next) {
     if (!user) return next(new NotFoundError('No user with that id.'));
 
     for (var field in req.body) {
+      if (_.includes(excludedFields, field)) {
+        continue;
+      }
+
       if (field in user) {
         user[field] = req.body[field];
       }
