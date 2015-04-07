@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Event = require('../event/event.model');
+
 
 var OrganisationSchema = new mongoose.Schema({
   name: {
@@ -48,5 +50,18 @@ var OrganisationSchema = new mongoose.Schema({
     ref: "User"
   }
 });
+
+/*OrganisationSchema.methods = {
+  deepRemove: function(req, res, next) {
+    console.log("called organisation deepRemove");
+    //Event.deepRemove(req, res, next);
+  }
+
+};*/
+
+OrganisationSchema.statics.deepRemove = function(events) {
+
+  Event.deepRemove(events);
+};
 
 module.exports = mongoose.model('Organisation', OrganisationSchema);

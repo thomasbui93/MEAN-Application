@@ -5,9 +5,13 @@ angular.module('voluntr', [
   'ui.router',
   'restangular',
   'ngAnimate'
-]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES) {
+]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES, RestangularProvider) {
   // Redirect to home on unmatched url.
   $urlRouterProvider.otherwise('/');
+
+  RestangularProvider.setRestangularFields({
+    id: '_id'
+  });
 
   // Here we set up the states.
   $stateProvider.state('home', {
@@ -186,6 +190,34 @@ angular.module('voluntr', [
         return Restangular.one('api/organisations', $stateParams.id)
           .getList('recruitments');
       }
+    }
+  }).state('events', {
+    url: '/events/{id}',
+    controller: 'eventMainController',
+    templateUrl: 'app/event/event.main.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      event: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          return Restangular.one('api/events', $stateParams.id).get();
+        }
+      ]
+    }
+  }).state('users', {
+    url: '/users/{id}',
+    controller: 'userMainController',
+    templateUrl: 'app/user-homepage/user.home.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      user: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          return Restangular.one('api/users', $stateParams.id).get();
+        }
+      ]
     }
   });
 

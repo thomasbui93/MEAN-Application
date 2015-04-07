@@ -2,9 +2,12 @@
 
 var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
-  Event.find(req.query)
+  var query = new QueryBuilder(req.query);
+
+  Event.find(query)
     .populate('organisation participants comments createdBy')
     .exec(function(err, events) {
       if (err) return next(err);
@@ -60,16 +63,25 @@ exports.create = function(req, res, next) {
 exports.remove = function(req, res, next) {
   var id = req.params.eventId;
 
-  Event.findById(id, function(err, evt) {
-    if (err) return next(err);
-    if (!evt) return next(new NotFoundError('No event with that id.'));
+  Event.findById(id)
+    .populate('comments')
+    .exec(function(err, evt) {
 
-    evt.remove(function(err) {
       if (err) return next(err);
+      if (!evt) return next(new NotFoundError('No event with that id.'));
 
-      res.status(204).end();
+      evt.remove(function(err) {
+        if (err) return next(err);
+        res.status(204).end();
+      });
+
+      //remove all of comments in the event
+      if (evt.comments) {
+        for (var i = 0; i < evt.comments.length; ++i) {
+          evt.comments[i].remove();
+        }
+      }
     });
-  });
 };
 
 exports.getCreatedBy = function(req, res, next) {

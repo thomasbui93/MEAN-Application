@@ -66,7 +66,9 @@ angular.module('voluntr')
     });
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $location.url('/');
+      //$location.url('/');
+      console.log($rootScope.user);
+
     });
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
