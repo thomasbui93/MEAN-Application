@@ -104,7 +104,7 @@ exports.getRepresentatives = function(req, res, next) {
 
 exports.getEvents = function(req, res, next) {
   var id = req.params.orgId;
-  
+
   Organisation.findById(id)
     .populate('events')
     .exec(function(err, organisation) {

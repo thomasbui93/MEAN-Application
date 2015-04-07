@@ -35,9 +35,7 @@ var build = function(query) {
     }
   }
 
-  // There is a chance that the query fields are all in the excluded filter.
-  // So we have to ensure that atleast an empty object is returned if that happens.
-  return query || {};
+  return query;
 };
 
 var isExcluded = function(item) {
