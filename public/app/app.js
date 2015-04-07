@@ -18,6 +18,11 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
+    resolve: {
+      organisations: function(Restangular) {
+        return Restangular.all('api/organisations').getList();
+      }
+    },
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }

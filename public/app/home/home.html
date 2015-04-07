@@ -44,33 +44,21 @@
                 <div class="padding10 container-fluid">
                     <h2>Most popular organisations</h2>
                     <div class="col-sm-1">
-                        <a href="#">A</a>
+                        <a href="#"><</a> <!-- Left arrow -->
                     </div>
                     <div class="organisations-bar row padding10 col-sm-10">
                         <!-- add database fill for most popular organisations -->
-                        <div class="col-sm-3">
-                        <h2 class="name text-center"><strong>{{currentNGO.name}}</strong></h2>
-                        <img src="http://placehold.it/150x150" class="img-responsive">
-                        <ul class="">
-                            <li class="tag">
-                                Children
-                            </li>
-                            <li class="tag">*****</li>
-                        </ul>
-                        </div>
-                        <div class="col-sm-3">
-                        <h2 class="name text-center"><strong>{{currentNGO.name}}</strong></h2>
-                        <img src="http://placehold.it/150x150" class="img-responsive">
-                        <ul class="">
-                            <li class="tag">
-                                Children
-                            </li>
-                            <li class="tag">*****</li>
-                        </ul>
+                        <div class="col-sm-3" ng-repeat="org in organisations">
+                            <h4 class="name text-center"><strong>{{org.name}}</strong></h4>
+                            <img src="http://placehold.it/150x150" class="img-responsive center-block">
+                            <span class="tag" ng-repeat="cause in org.interests">
+                                {{cause}}
+                             </span>
+                             <span class="tag">*****</span>
                         </div>
                     </div><!-- organisations-bar -->
                     <div class="col-sm-1">
-                        <a href="#">A</a>
+                        <a href="#">></a><!-- Right arrow -->
                     </div>
                 </div><!-- padding? -->
             </div><!-- section most-popular -->
