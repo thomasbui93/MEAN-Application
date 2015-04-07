@@ -30,7 +30,7 @@ angular.module('voluntr').controller('userMainController', ['$scope', '$statePar
       } else {
         state = false;
       }
-         return state;
+      return state;
     };
 
     $scope.saveInformation = function() {
@@ -45,24 +45,24 @@ angular.module('voluntr').controller('userMainController', ['$scope', '$statePar
           month: $scope.pageUser.birthDate.month + 1,
           year: $scope.pageUser.birthDate.year
         };
-      var locationArray = $scope.pageUser.location.split(" ");
+        var locationArray = $scope.pageUser.location.split(" ");
 
-      user.address = {
-        city: locationArray[0],
-        country: locationArray[1] || ' '
-      };
+        user.address = {
+          city: locationArray[0],
+          country: locationArray[1] || ' '
+        };
 
-      user.email = $scope.pageUser.email;
-      user.lastName = $scope.pageUser.lastName;
-      user.firstName = $scope.pageUser.firstName;
+        user.email = $scope.pageUser.email;
+        user.lastName = $scope.pageUser.lastName;
+        user.firstName = $scope.pageUser.firstName;
 
-      user.save().then(function() {
+        user.save().then(function() {
           $scope.edit = {
-             show: false,
-             saving: false
-              };
-          });
-          $scope.pageUser = user;
+            show: false,
+            saving: false
+          };
+        });
+        $scope.pageUser = user;
       }
     };
 

@@ -12,7 +12,7 @@ var QueryBuilder = require('../../lib/query-builder');
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
 
- User.find(query)
+  User.find(query)
     .populate('managedOrganisations representOrganisations events recruiments')
     .exec(function(err, users) {
       if (err) return next(err);
@@ -28,9 +28,9 @@ exports.show = function(req, res, next) {
   User.findById(id)
     .populate('events  managedOrganisations representOrganisations')
     .exec(function(err, user) {
-          if (err) return next(err);
-          if (!user) return next(new NotFoundError('No user with that id.'));
-      });
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
+    });
   User.findById(id)
     .populate('managedOrganisations representOrganisations events recruiments')
     .exec(function(err, user) {
@@ -44,6 +44,7 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
   var id = req.params.userId;
 
+  console.log("called user update");
   // FIXME: This update could use some validations.
   User.findById(id)
     .populate('managedOrganisations representOrganisations events recruiments')
@@ -52,20 +53,16 @@ exports.update = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       for (var field in req.body) {
-        if (_.includes(excludedFields, field)) {
-            continue;
-        }
-      }
 
-      if (field in user) {
-          user[field] = req.body[field];
-      }
-      for (var field in req.body) {
+        if (_.includes(excludedFields, field)) {
+          continue;
+        }
+
         if (field in user) {
           user[field] = req.body[field];
         }
-
       }
+
 
       user.save(function(err) {
         if (err) return next(err);
