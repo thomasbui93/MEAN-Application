@@ -4,6 +4,9 @@ var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 var QueryBuilder = require('../../lib/query-builder.js');
 
+var _ = require('lodash');
+var excludedFields = ['_id', '__v'];
+
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query);
 
@@ -32,12 +35,16 @@ exports.show = function(req, res, next) {
 
 exports.update = function(req, res, next) {
   var id = req.params.eventId;
-
   Event.findById(id, function(err, evt) {
     if (err) return next(err);
     if (!evt) return next(new NotFoundError('No event with that id.'));
 
     for (var field in req.body) {
+
+      if (_.includes(excludedFields, field)) {
+        continue;
+      }
+
       if (field in evt) {
         evt[field] = req.body[field];
       }

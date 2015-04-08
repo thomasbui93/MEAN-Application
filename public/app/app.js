@@ -224,6 +224,13 @@ angular.module('voluntr', [
         }
       ]
     }
+  }).state('advancedSearch', {
+    url: '/search-advanced/{key}',
+    controller: 'searchAdvancedController',
+    templateUrl: 'app/search/search.advanced.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest]
+    }
   });
 
   // This allows the address bar urls to seem natural

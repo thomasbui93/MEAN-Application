@@ -15,6 +15,10 @@ var CommentSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
+  },
+  createdTime: {
+    type: Date,
+    default: Date.now
   }
 
 });
