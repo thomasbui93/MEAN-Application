@@ -1,8 +1,5 @@
 'use strict';
 
-var Report = require('./report.model');
-var NotFoundError = require('../../lib/errors').NotFound;
-
 exports.index = function(req, res, next) {
 
 };

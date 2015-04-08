@@ -71,7 +71,7 @@ angular.module('voluntr')
             $scope.search.Interests.push($scope.input.cause);
             $scope.input = {
               cause: ''
-            }
+            };
           }
         }
       };

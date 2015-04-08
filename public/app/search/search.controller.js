@@ -12,7 +12,6 @@ angular.module('voluntr')
       };
 
       $scope.currentResultState = '';
-      $scope.setting;
 
       $scope.results = [];
       $scope.addInterest = function(interest) {

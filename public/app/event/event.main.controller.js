@@ -6,6 +6,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     $scope.input = {
       comment: ''
     };
+
     $scope.currentEvent = event;
     $scope.comments = event.comments;
     $scope.currentEvent.date = event.startDate;
@@ -13,6 +14,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     $scope.edit = {
       show: false
     };
+
     $scope.checkFollowed = function() {
       var index = $scope.currentUser.events.indexOf(event);
       if (index === -1) {
@@ -21,25 +23,28 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
         return true;
       }
     };
+
     $scope.editInformation = function() {
       $scope.edit = {
         show: true
       };
     };
+
     $scope.saveInformation = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
+
       event.save().then(function() {
         $scope.edit = {
           show: false,
           saving: false
         };
       });
+
       if (Validation.checkFinal($scope.errors)) {
         $scope.edit = {
           show: false
         };
-
       }
     };
 
@@ -58,7 +63,8 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
           });
         }
       }
-    }
+    };
+
     $scope.follow = function() {
        //TODO: logined user can follow the event.
         //console.log(event);
