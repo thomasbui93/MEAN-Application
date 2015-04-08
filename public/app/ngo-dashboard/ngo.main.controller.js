@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('voluntr').controller('ngoDashBoardMainController',
-  function($scope, NGO_ERRORS, Validation, $timeout, organisation) {
+  function($scope, NGO_ERRORS, KEY_CODES, Validation, $timeout, organisation) {
 
     $scope.currentNGO = organisation;
 
@@ -17,7 +17,7 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
 
     //method
     $scope.createCause = function($event) {
-      if ($event.keyCode == 13) {
+      if ($event.keyCode === KEY_CODES.enter) {
         if ($scope.currentNGO.interests.indexOf($scope.inputCause) == -1)
           $scope.currentNGO.interests.push($scope.inputCause);
         $scope.inputCause = '';

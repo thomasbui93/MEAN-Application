@@ -58,7 +58,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
           }).then(function(comment) {
             event.comments.push(comment);
             event.save().then(function(msg) {
-                $scope.input.comment = '';
+              $scope.input.comment = '';
             });
           });
         }
@@ -66,17 +66,17 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     };
 
     $scope.follow = function() {
-       //TODO: logined user can follow the event.
-        //console.log(event);
-        //console.log($rootScope.user);
-       $scope.currentUser.events.push(event);
-       $scope.currentUser.save();
+      //TODO: logined user can follow the event.
+      //console.log(event);
+      //console.log($rootScope.user);
+      $scope.currentUser.events.push(event);
+      $scope.currentUser.save();
 
-        console.log($scope.currentUser.events);
-        event.participants.push($scope.currentUser);
-       event.save().then(function(data){
-         //   console.log(data);
-       });
+      console.log($scope.currentUser.events);
+      event.participants.push($scope.currentUser);
+      event.save().then(function(data) {
+        //   console.log(data);
+      });
     };
   }
 ]).filter('timeParse', function() {

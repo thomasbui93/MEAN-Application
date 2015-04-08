@@ -129,9 +129,9 @@ angular.module('voluntr')
       $scope.showResult = function() {
         $scope.state.setting = false;
         Restangular.all('api/organisations').getList({
-            name: $scope.search.textField,
-            interests: $scope.search.searchInterests
-          })
+          name: $scope.search.textField,
+          interests: $scope.search.searchInterests
+        })
           .then(function(results) {
 
             $scope.results = results;
