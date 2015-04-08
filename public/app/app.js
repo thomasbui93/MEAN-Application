@@ -249,14 +249,14 @@ angular.module('voluntr', [
   });
 
 
-}).run(function($http, $rootScope) {
+}).run(function($http, $rootScope, Restangular) {
   // Every time the app runs, we're GETting the "current user",
   // which the server returns depending on the session cookie.
   // The asynchronous nature of this approach may cause some trouble
   // and needs more thought and testing.
   $http.get('api/users/self').success(function(user) {
-    console.log('This is the current user:', user);
-    $rootScope.user = user;
+    $rootScope.user = Restangular.restangularizeElement(null, user, 'api/users', user._id);
+    console.log('Restored session, here\'s the current user:', $rootScope.user);
   }).error(function() {
     console.log('No login session. Should we redirect to front page or what?');
   });
