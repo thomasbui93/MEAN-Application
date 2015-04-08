@@ -44,6 +44,7 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
   var id = req.params.userId;
 
+  console.log("called user update");
   // FIXME: This update could use some validations.
   User.findById(id)
     .populate('managedOrganisations representOrganisations events recruiments')
@@ -52,6 +53,7 @@ exports.update = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       for (var field in req.body) {
+
         if (_.includes(excludedFields, field)) {
           continue;
         }
@@ -59,8 +61,6 @@ exports.update = function(req, res, next) {
         if (field in user) {
           user[field] = req.body[field];
         }
-
-
       }
 
       user.save(function(err) {
