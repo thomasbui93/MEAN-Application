@@ -81,9 +81,8 @@ angular.module('voluntr')
       //get result goes here
       $scope.showResult = function() {
 
-        Restangular.all('api/organisations').getList({
-          name: $scope.search.textField,
-          interests: $scope.search.searchInterests
+        Restangular.all('api/search').getList({
+          q: $scope.search.textField + " " + $scope.search.searchInterests.join(" ")
         })
           .then(function(results) {
 
