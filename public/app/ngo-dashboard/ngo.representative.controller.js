@@ -25,36 +25,45 @@ angular.module('voluntr').controller('ngoRepresentativeManageController', ['$sco
       avatar: '',
       selected: false
     }];
+
     $scope.state = {
       check: true,
       dialog: false
     };
+
     $scope.checkRemoveAll = function() {
       angular.forEach($scope.reps, function(rep) {
         rep.selected = true;
       });
+
       $scope.state = {
         check: false
       };
     };
+
     $scope.unCheck = function() {
       angular.forEach($scope.reps, function(rep) {
         rep.selected = false;
       });
+
       $scope.state = {
         check: true
       };
     };
+
     $scope.addUser = function(rep) {
       rep.selected = !rep.selected;
     };
+
     $scope.removeInvoke = function() {
       $scope.state.dialog = true;
     };
+
     $scope.removeRepresentative = function() {
       //TODO: server remove
       $scope.deleteReset();
     };
+
     $scope.deleteReset = function() {
       $scope.state = {
         check: true,

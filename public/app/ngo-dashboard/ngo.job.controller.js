@@ -5,6 +5,7 @@
 angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$state',
   function($scope, $state) {
     $scope.currentNGO = $scope.$parent.currentNGO || {};
+
     $scope.currentNGO.jobs = [{
       id: '1',
       position: 'Volunteer Job',
@@ -50,25 +51,30 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
         candidate: false
       }
     }];
+
     $scope.delete = {
       state: false,
       jobs: []
     };
+
     $scope.viewVolunteers = function(job) {
       job.state.candidate = !job.state.candidate;
     };
+
     $scope.invokeDelete = function(job) {
       $scope.delete = {
         state: true,
         jobs: [job]
       };
     };
+
     $scope.deleteReset = function() {
       $scope.delete = {
         state: false,
         jobs: []
       };
     };
+
     $scope.deleteJob = function(jobs) {
       jobs.forEach(function(job) {
         //TODO: backEnd delete goes here
@@ -80,11 +86,13 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
       });
       $scope.deleteReset();
     };
+
     $scope.editTransit = function(id) {
       $state.transitionTo('ngoDashboard.jobEdit', {
         id: id
       });
     };
+
     $scope.fetchJobs = function() {
       //TODO: get jobs from server
     };
@@ -101,26 +109,32 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
       expireDate: new Date('30 Feb 2015'),
       phone: '123 234 1111'
     };
+
     $scope.errors = angular.copy(JOB_ERRORS);
     $scope.success = false;
+
     $scope.fetchJob = function(id) {
       //Todo retrieve the event with the specific id
     };
+
     $scope.checkError = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentJob);
       $scope.errors.description.violate = !Validation.checkDescription($scope.currentJob, 20);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentJob);
+
       if ($scope.currentJob.location === '' || $scope.currentJob.location === null) {
         $scope.errors.location.violate = true;
       } else {
         $scope.errors.location.violate = false;
       }
+
       if ($scope.currentJob.postDate >= $scope.currentJob.expireDate) {
         $scope.errors.time.violate = true;
       } else {
         $scope.errors.time.violate = false;
       }
     };
+
     $scope.saveJob = function() {
       $scope.checkError();
       if (Validation.checkFinal($scope.errors)) {
@@ -143,23 +157,28 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
       expireDate: null,
       phone: null
     };
+
     $scope.errors = angular.copy(JOB_ERRORS);
     $scope.success = false;
+
     $scope.checkError = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentJob);
       $scope.errors.description.violate = !Validation.checkDescription($scope.currentJob, 20);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentJob);
+
       if ($scope.currentJob.location === '' || $scope.currentJob.location === null) {
         $scope.errors.location.violate = true;
       } else {
         $scope.errors.location.violate = false;
       }
+
       if ($scope.currentJob.postDate >= $scope.currentJob.expireDate) {
         $scope.errors.time.violate = true;
       } else {
         $scope.errors.time.violate = false;
       }
     };
+
     $scope.saveJob = function() {
       $scope.checkError();
       if (Validation.checkFinal($scope.errors)) {
