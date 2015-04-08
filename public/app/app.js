@@ -18,6 +18,11 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
+    resolve: {
+      organisations: function(Restangular) {
+        return Restangular.all('api/organisations').getList();
+      }
+    },
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
@@ -69,7 +74,7 @@ angular.module('voluntr', [
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
-    url: '/user/dashboard/',
+    url: '/user/dashboard',
     templateUrl: 'app/user-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
@@ -77,11 +82,16 @@ angular.module('voluntr', [
     controller: 'userDashboardController'
   }).state('ngoDashboard', {
     abstract: true,
-    url: '/ngo/dashboard/',
+    url: '/ngo/dashboard/:orgId',
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
+    },
+    resolve: {
+      organisation: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.orgId).get();
+      }
     }
   }).state('ngoDashboard.eventManage', {
     url: '',
@@ -239,4 +249,15 @@ angular.module('voluntr', [
   });
 
 
-}).run(function($http) {});
+}).run(function($http, $rootScope, Restangular) {
+  // Every time the app runs, we're GETting the "current user",
+  // which the server returns depending on the session cookie.
+  // The asynchronous nature of this approach may cause some trouble
+  // and needs more thought and testing.
+  $http.get('api/users/self').success(function(user) {
+    $rootScope.user = Restangular.restangularizeElement(null, user, 'api/users', user._id);
+    console.log('Restored session, here\'s the current user:', $rootScope.user);
+  }).error(function() {
+    console.log('No login session. Should we redirect to front page or what?');
+  });
+});

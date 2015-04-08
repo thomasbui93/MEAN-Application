@@ -60,6 +60,7 @@ describe('/organisation', function() {
 
   it('should update the organisation', function(done) {
     var url = apiUrl + '/' + exampleOrganisation._id;
+
     request('put', url, { description: 'Red damnit' })
       .expect(200, function(err, res) {
         if (err) return done(err);
@@ -222,5 +223,32 @@ describe('/organisation', function() {
               });
           });
       });
+  });
+
+  describe("/top10", function() {
+    before(function(done) {
+      request('post', apiUrl, otherOrganisation)
+        .expect(201, function(err) {
+          if (err) done(err);
+
+          request('put', apiUrl + '/' + exampleOrganisation._id, { followers: 1 })
+            .expect(200, function(err, res) {
+              if (err) done(err);
+
+              done();
+           });
+        });
+    });
+
+    it("should return a list of organisations sorted by followers", function() {
+      request('get', apiUrl + '/top10')
+        .expect('Content-Type', /json/)
+        .expect(200, function(err, res) {
+          if (err) throw err;
+
+          res.body[0].followers.should.equal(1);
+          res.body[1].followers.should.equal(0);
+        });
+    });
   });
 });

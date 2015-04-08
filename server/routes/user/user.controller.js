@@ -2,6 +2,7 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var UnauthorizedError = require('../../lib/errors').Unauthorized;
 
 var _ = require('lodash');
 
@@ -20,6 +21,15 @@ exports.index = function(req, res, next) {
       res.json(users);
 
     });
+};
+
+exports.self = function(req, res, next) {
+  if (!req.session || !req.session.user) {
+    return next(new UnauthorizedError());
+  }
+
+  // TODO: Omit hashedPassword etc.
+  res.json(req.session.user);
 };
 
 exports.show = function(req, res, next) {
@@ -45,6 +55,7 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
   var id = req.params.userId;
 
+  console.log("called user update");
   // FIXME: This update could use some validations.
   User.findById(id)
     .populate('managedOrganisations representOrganisations events recruiments')
@@ -53,6 +64,7 @@ exports.update = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       for (var field in req.body) {
+
         if (_.includes(excludedFields, field)) {
           continue;
         }
@@ -60,8 +72,6 @@ exports.update = function(req, res, next) {
         if (field in user) {
           user[field] = req.body[field];
         }
-
-
       }
 
       user.save(function(err) {
