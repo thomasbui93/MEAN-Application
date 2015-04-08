@@ -10,6 +10,10 @@ var arrayFields = [
   'representOrganisations'
 ];
 
+var dateFields = [
+  'createdDate', 'startDate', 'endDate', 'createdTime', 'createdOn'
+];
+
 var QueryBuilder = function(query) {
   this.query = query ? build(query) : {};
 };
@@ -24,6 +28,10 @@ var build = function(query) {
 
     if (!isArray(query[field]) && isArrayField(field)) {
       query[field] = [query[field]];
+    }
+
+    if (isDateField(field)) {
+      continue;
     }
 
     if (isArray(query[field])) {
@@ -47,6 +55,10 @@ var createRegexArray = function(items) {
     return new RegExp(item, 'ig');
   });
 };
+
+var isDateField = function(item) {
+  return _.contains(dateFields, item);
+}
 
 var isArray = function(item) {
   return item.constructor === Array;
