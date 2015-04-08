@@ -226,21 +226,23 @@ describe('/organisation', function() {
   });
 
   describe("/top10", function() {
-    beforeEach(function() {
-
-      request('put', apiUrl + '/' + exampleOrganisation._id, { description: 'Roses' })
-        .expect(200, function(err, res) {
-          if (err) throw err;
-        });
-
+    before(function(done) {
       request('post', apiUrl, otherOrganisation)
-        .expect(200, function(err) {
-          if (err) throw err;
+        .expect(201, function(err) {
+          if (err) done(err);
+
+          request('put', apiUrl + '/' + exampleOrganisation._id, { followers: 1 })
+            .expect(200, function(err, res) {
+              if (err) done(err);
+
+              done();
+           });
         });
     });
 
     it("should return a list of organisations sorted by followers", function() {
       request('get', apiUrl + '/top10')
+        .expect('Content-Type', /json/)
         .expect(200, function(err, res) {
           if (err) throw err;
 
