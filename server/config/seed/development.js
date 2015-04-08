@@ -130,6 +130,9 @@ Organisation.remove(function() {
 
     newEvent1.organisation = org._id;
     newEvent1.comments.push(newComment1._id);
+    newEvent1.participants.push(user);
+    newEvent1.participants.push(user1);
+
 
     // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent1);
