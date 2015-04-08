@@ -7,9 +7,7 @@ angular.module('voluntr')
       $http.post('/api/login', credentials)
         .then(function(res) {
             $rootScope.user = Restangular.restangularizeElement(null, res.data, 'api/users/', res.data._id);
-            $rootScope.user.firstName = 'Khoaoao';
-            $rootScope.user.save();
-            console.log($rootScope.user);
+
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
           },
           function() {

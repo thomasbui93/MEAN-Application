@@ -1,10 +1,5 @@
-/**
- * Created by Bui Dang Khoa on 4/8/2015.
- */
-/**
- * Created by Bui Dang Khoa on 3/18/2015.
- */
 'use strict';
+
 angular.module('voluntr')
   .controller('searchAdvancedController', ['$scope', '$http', 'Restangular', '$stateParams',
     function($scope, $http, Restangular, $stateParams) {
@@ -23,6 +18,7 @@ angular.module('voluntr')
         },
         Interests: []
       };
+
       $scope.state = {
         setting: false,
         results: {
@@ -31,35 +27,39 @@ angular.module('voluntr')
           events: false
         }
       };
+
       $scope.settingToggle = function() {
         $scope.state.setting = !$scope.state.setting;
-      }
+      };
+
       $scope.resultToggle = function(params) {
         if (params === 'orgs') {
           $scope.state.results = {
             orgs: true,
             volunteers: false,
             events: false
-          }
+          };
         } else if (params === 'volunteers') {
           $scope.state.results = {
             orgs: false,
             volunteers: true,
             events: false
-          }
+          };
         } else if (params === 'events') {
           $scope.state.results = {
             orgs: false,
             volunteers: false,
             events: true
-          }
+          };
         }
-      }
+      };
+
       $scope.results = {
         organizations: [],
         volunteers: [],
         events: []
       };
+
       $scope.input = {
         cause: ''
       };
@@ -71,7 +71,7 @@ angular.module('voluntr')
             $scope.search.Interests.push($scope.input.cause);
             $scope.input = {
               cause: ''
-            }
+            };
           }
         }
       };
@@ -94,6 +94,7 @@ angular.module('voluntr')
           if (a.trend < b.trend) {
             return 1;
           }
+
           if (a.trend > b.trend) {
             return -1;
           } else return 0;
@@ -105,6 +106,7 @@ angular.module('voluntr')
           if (a.establish < b.establish) {
             return 1;
           }
+
           if (a.establish > b.establish) {
             return -1;
           } else return 0;
@@ -116,6 +118,7 @@ angular.module('voluntr')
           if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return -1;
           }
+
           if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return 1;
           } else return 0;
@@ -134,6 +137,5 @@ angular.module('voluntr')
             $scope.results = results;
           });
       };
-
     }
   ]);

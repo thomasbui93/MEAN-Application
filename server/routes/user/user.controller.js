@@ -2,6 +2,7 @@
 
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var UnauthorizedError = require('../../lib/errors').Unauthorized;
 
 var _ = require('lodash');
 
@@ -19,6 +20,15 @@ exports.index = function(req, res, next) {
       res.json(users);
 
     });
+};
+
+exports.self = function(req, res, next) {
+  if (!req.session || !req.session.user) {
+    return next(new UnauthorizedError());
+  }
+
+  // TODO: Omit hashedPassword etc.
+  res.json(req.session.user);
 };
 
 exports.show = function(req, res, next) {

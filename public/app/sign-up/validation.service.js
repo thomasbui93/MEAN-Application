@@ -6,6 +6,7 @@ angular.module('voluntr').factory('Validation', function() {
   var validation = {
 
   };
+
   validation.checkName = function(user) {
     if (user.name === '' || user.name === null) {
       return true;
@@ -13,6 +14,7 @@ angular.module('voluntr').factory('Validation', function() {
       return false;
     }
   };
+
   validation.checkEmail = function(user) {
     var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(user.email);
@@ -27,11 +29,12 @@ angular.module('voluntr').factory('Validation', function() {
     var re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     return re.test(user.phone);
   };
+
   validation.checkDescription = function(user, length) {
-    if (user.description === null) {
+    if (!user.description) {
       return true;
     } else {
-      var array = user.description.split(" ");
+      var array = user.description.split(' ');
       if (array.length < length) {
         return true;
       } else {
@@ -40,6 +43,7 @@ angular.module('voluntr').factory('Validation', function() {
       console.log(array.length);
     }
   };
+
   validation.checkPast = function(user) {
     if (user.date <= new Date()) {
       return true;
@@ -47,6 +51,7 @@ angular.module('voluntr').factory('Validation', function() {
       return true;
     } else return false;
   };
+
   validation.check = function(error) {
     if (!error.email.violate && !error.name.violate && !error.passwordNotMatch.violate && !error.passwordNotStrong.violate && !error.phone.violate) {
       return true;
@@ -54,6 +59,7 @@ angular.module('voluntr').factory('Validation', function() {
       return false;
     }
   };
+
   validation.checkFinal = function(error) {
     var state = true;
     angular.forEach(error, function(value, property) {
@@ -63,6 +69,7 @@ angular.module('voluntr').factory('Validation', function() {
     });
     return state;
   };
+
   validation.checkWithoutPassword = function(error) {
     if (!error.email.violate && !error.name.violate && !error.phone.violate && !error.description.violate) {
       return true;
@@ -70,36 +77,6 @@ angular.module('voluntr').factory('Validation', function() {
       return false;
     }
   };
+
   return validation;
-}).constant(
-  'ERRORS', {
-    name: {
-      violate: false,
-      message: 'You must enter your full name.'
-    },
-    email: {
-      violate: false,
-      message: 'You must provide an appropriate email.'
-    },
-    passwordNotMatch: {
-      violate: false,
-      message: 'Your password you enter is not match.'
-    },
-    passwordNotStrong: {
-      violate: false,
-      message: 'Your password should contain at least one number,one uppercase letter, one lowercase letter and have a strength of 8'
-    },
-    phone: {
-      violate: false,
-      message: 'Your phone number is not found.'
-    },
-    location: {
-      violate: false,
-      message: 'Your location must be defined.'
-    },
-    birthday: {
-      violate: false,
-      message: 'Your birthdate is not defined'
-    }
-  }
-);
+});
