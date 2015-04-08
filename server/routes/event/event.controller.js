@@ -41,11 +41,11 @@ exports.update = function(req, res, next) {
 
     for (var field in req.body) {
 
-        if (_.includes(excludedFields, field)) {
-            continue;
-        }
+      if (_.includes(excludedFields, field)) {
+        continue;
+      }
 
-        if (field in evt) {
+      if (field in evt) {
         evt[field] = req.body[field];
       }
     }

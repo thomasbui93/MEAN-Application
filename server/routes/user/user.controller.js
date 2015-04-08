@@ -56,9 +56,9 @@ exports.update = function(req, res, next) {
           continue;
         }
 
-          if (field in user) {
-            user[field] = req.body[field];
-          }
+        if (field in user) {
+          user[field] = req.body[field];
+        }
 
 
       }

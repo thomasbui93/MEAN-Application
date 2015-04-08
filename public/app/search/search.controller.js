@@ -3,8 +3,8 @@
  */
 'use strict';
 angular.module('voluntr')
-  .controller('searchController', ['$scope', '$http', 'Restangular',
-    function($scope, $http, Restangular) {
+  .controller('searchController', ['$scope', '$http', 'Restangular', '$stateParams',
+    function($scope, $http, Restangular, $stateParams) {
       $scope.search = {
         textField: '',
         searchInterests: [],
@@ -12,6 +12,7 @@ angular.module('voluntr')
       };
 
       $scope.currentResultState = '';
+      $scope.setting;
 
       $scope.results = [];
       $scope.addInterest = function(interest) {

@@ -17,8 +17,8 @@ var CommentSchema = new mongoose.Schema({
     required: true
   },
   createdTime: {
-      type: Date,
-      default: Date.now
+    type: Date,
+    default: Date.now
   }
 
 });

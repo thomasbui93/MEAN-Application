@@ -159,3 +159,59 @@
   -o-animation:   0.1s fadeIn ease;
   animation: 0.1s fadeIn ease;
 }
+.advanced-features.ng-show-add,
+.advanced-features.ng-hide-remove{
+  -webkit-animation: 0.5s slideDown ease;
+  -o-animation:  0.5s slideDown ease;
+  animation:  0.5s slideDown ease;
+  transform-origin: center top;
+  backface-visibility: visible;
+}
+.advanced-features.ng-hide-add,
+.advanced-features.ng-show-remove{
+  -webkit-animation: 0.5s slideUp ease;
+  -o-animation:  0.5s slideUp ease;
+  animation:  0.5s slideUp ease;
+  transform-origin: center top;
+  backface-visibility: visible;
+}
+@keyframes slideDown {
+  from{
+    -webkit-transform: rotateX(-100deg); /* Safari */
+    transform: rotateX(-100deg);
+  }
+  to{
+    -webkit-transform: rotateX(0deg); /* Safari */
+    transform: rotateX(0deg);
+  }
+}
+@-webkit-keyframes slideDown {
+  from{
+    -webkit-transform: rotateX(-100deg); /* Safari */
+    transform: rotateX(-100deg);
+  }
+  to{
+    -webkit-transform: rotateX(0deg); /* Safari */
+    transform: rotateX(0deg);
+  }
+}
+@keyframes slideUp {
+  from{
+    -webkit-transform: rotateX(0deg); /* Safari */
+    transform: rotateX(0deg);
+  }
+  to{
+    -webkit-transform: rotateX(90deg); /* Safari */
+    transform: rotateX(90deg);
+  }
+}
+@-webkit-keyframes slideUp {
+  from{
+    -webkit-transform: rotateX(0deg); /* Safari */
+    transform: rotateX(0deg);
+  }
+  to{
+    -webkit-transform: rotateX(90deg); /* Safari */
+    transform: rotateX(90deg);
+  }
+}

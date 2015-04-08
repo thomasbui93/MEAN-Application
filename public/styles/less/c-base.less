@@ -19,6 +19,9 @@ ul{
 .text-blue{
   color: rgba(52, 152, 219,1.0);;
 }
+.text-green{
+  color: rgba(39, 174, 96,1.0);
+}
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -293,4 +296,139 @@ textarea:focus{
 }
 .date-input-block input[type='text'].year-input{
   width: 70px;
+}
+
+/****************
+* search Page style
+***************/
+.button-round{
+  position: relative;
+  top: 10px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(231, 76, 60,1);
+  color: white;
+}
+.button-round::before{
+  content: '';
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: rgba(231, 76, 60,0.4);
+  top: -10px;
+  left: -10px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s ;
+  -ms-transition: all 0.5s ;
+  -o-transition: all 0.5s ;
+  transition: all 0.5s ;
+}
+.button-round:hover:before{
+  content: '';
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: rgba(231, 76, 60,0.1);
+  top: -25px;
+  left: -25px;
+}
+.button-round, .button-expand:focus{
+  outline: none;
+}
+.button-round:hover i{
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  -ms-transition: all 0.1s;
+  -o-transition: all 0.1s;
+  transition: all 0.1s;
+  -webkit-animation: zoomInOut 1s linear 0s infinite alternate; /* Chrome, Safari, Opera */
+  animation: zoomInOut 1s linear 0s infinite alternate;
+}
+/****************
+* button-expand
+***************/
+.button-expand{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  background-color: rgba(231, 76, 60,1);
+  color: white;
+  margin-right:30px ;
+  top: 10px;
+}
+.button-expand:hover i{
+  -webkit-transition: all 2s;
+  -moz-transition: all 2s;
+  -ms-transition: all 2s;
+  -o-transition: all 2s;
+  transition: all 2s;
+  -webkit-animation: circle-rotate 5s linear 0s infinite alternate; /* Chrome, Safari, Opera */
+  animation: circle-roate 5s linear 0s infinite alternate;
+}
+/****************
+* Setting date input
+***************/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.date-input-group label{
+  display: inline-block;
+  position: relative;
+  margin-bottom: 10px;
+}
+.date-input{
+  border: none;
+  background: white;
+  width: 60px;
+  height: 50px;
+  display: inline-block;
+  font-size: 15px;
+}
+.date-input:focus{
+  outline: 0;
+}
+.month{
+  width: 60px;
+}
+.text-white{
+  color: white;
+}
+.feature-header{
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  line-height: 30px;
+}
+.cause-set{
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.cause-tag{
+  position: relative;
+  width: 100px;
+  height: 25px;
+  line-height: 25px;
+  color: white;
+  background: rgba(46, 204, 113,1.0);
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.24), 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+.white-input{
+  border: none;
+  border-bottom: 1px solid white;
+  background: transparent;
+  color: white;
 }

@@ -1,10 +1,10 @@
 'use strict';
-angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope','Restangular',
+angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
   function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular) {
     $scope.currentUser = $rootScope.user;
 
-    $scope.input={
-        comment:''
+    $scope.input = {
+      comment: ''
     };
     $scope.currentEvent = event;
     $scope.comments = event.comments;
@@ -29,12 +29,12 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     $scope.saveInformation = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
-        event.save().then(function() {
-            $scope.edit = {
-                show: false,
-                saving: false
-            };
-        });
+      event.save().then(function() {
+        $scope.edit = {
+          show: false,
+          saving: false
+        };
+      });
       if (Validation.checkFinal($scope.errors)) {
         $scope.edit = {
           show: false
@@ -43,35 +43,34 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       }
     };
 
-    $scope.saveComment = function($event){
-        if($rootScope.user._id !== undefined){
-            if ($event.keyCode == 13) {
-                Restangular.all('api/comments').post({
-                    event: event._id,
-                    content: $scope.input.comment,
-                    createdBy: $rootScope.user._id
-                }).then(function(comment){
-                    event.comments.push(comment);
-                    event.save().then(function(msg){
-
-                        $scope.input.comment='';
-                    });
-                });
-            }
+    $scope.saveComment = function($event) {
+      if ($rootScope.user._id !== undefined) {
+        if ($event.keyCode == 13) {
+          Restangular.all('api/comments').post({
+            event: event._id,
+            content: $scope.input.comment,
+            createdBy: $rootScope.user._id
+          }).then(function(comment) {
+            event.comments.push(comment);
+            event.save().then(function(msg) {
+                $scope.input.comment = '';
+            });
+          });
         }
+      }
     }
     $scope.follow = function() {
-     /* //TODO: logined user can follow the event.
+       //TODO: logined user can follow the event.
         //console.log(event);
         //console.log($rootScope.user);
        $scope.currentUser.events.push(event);
        $scope.currentUser.save();
 
         console.log($scope.currentUser.events);
-        //event.participants.push($scope.currentUser);
-        event.save().then(function(data){
+        event.participants.push($scope.currentUser);
+       event.save().then(function(data){
          //   console.log(data);
-        });*/
+       });
     };
   }
 ]).filter('timeParse', function() {
