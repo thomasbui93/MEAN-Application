@@ -48,6 +48,8 @@ var EventSchema = new Schema({
     type: String,
     default: "active"
   }, //status. 1.active, 2.block(when reach due date)
+  locations:{type: String}
+
 });
 
 EventSchema.statics.deepRemove = function(events) {

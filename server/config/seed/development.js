@@ -77,10 +77,11 @@ var org2 = new Organisation({
 });
 
 var newEvent = new Event({
-  name: 'Awesome event',
+      name: 'Awesome event',
   description: "Awesome",
   startDate: new Date(2015, 4, 1, 17, 0),
   endDate: Date.now(),
+    locations: "Oulu",
   _id: '59195c4e2d316055807f0000'
 });
 
@@ -89,6 +90,7 @@ var newEvent1 = new Event({
   description: "Tom",
   startDate: new Date(2015, 4, 1, 17, 0),
   endDate: Date.now(),
+    locations: "Oulu",
   _id: '59195c4e2d316035807f0100'
 });
 

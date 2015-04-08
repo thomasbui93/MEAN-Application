@@ -62,7 +62,7 @@ angular.module('voluntr', [
       authorizedRoles: [USER_ROLES.guest]
     }
   }).state('register.ngo', {
-    url: '/ngo/:slug',
+    url: '/ngo',
     templateUrl: 'app/sign-up/ngo-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
