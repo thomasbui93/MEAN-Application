@@ -21,8 +21,8 @@
     <div class="categories-menu center-block row">
         <li class="col-md-2 hidden-xs"></li>
         <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.orgs}" ng-click="resultToggle('orgs')">Organizations</li>
-        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.volunteers}" ng-click="resultToggle('volunteers')" >Volunteers</li>
-        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.events}" ng-click="resultToggle('events')" >Events</li>
+        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.jobs}" ng-click="resultToggle('jobs')" >Jobs</li>
+        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.events}" ng-click="resultToggle('events')" >Events <div class="circle-number">{{results.events.length}}</div></li>
         <li class="col-md-1 hidden-xs"></li>
     </div>
     <!---- categories-menu end -->
@@ -108,14 +108,14 @@
             -->
     <div class="row result-set container center-block">
         <div class="organization-results row" ng-show="state.results.orgs">
-            <div class="organization-block col-md-5 row">
-                <a>
+            <div class="organization-block col-md-5 row" ng-repeat=" org in results.organizations">
+                <a >
                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
                     <div class="information-block col-md-8">
-                        <strong>Green peace</strong>
-                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i> Oulu, Finland</div>
-                        <p class="small">Lorem ipsum dolor sit amet...</p>
-                        <strong class="text-muted">Founded:</strong> 1990
+                        <strong>{{org.name}}</strong>
+                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i>{{org.locations[0]}}</div>
+                        <p class="small">{{org.description}}</p>
+                        <strong class="text-muted">Founded:</strong> {{org.createdDate | date: 'MMM dd yyyy'}}
                     </div>
                 </a>
             </div>
@@ -124,7 +124,18 @@
         <div class="volunteer-results row" ng-show="state.results.volunteers">
 
         </div>
-        <div class="evens-results row" ng-show="state.results.events">
+        <div class="organization-results row" ng-show="state.results.events">
+            <div class="organization-block col-md-5 row" ng-repeat=" event in results.events">
+                <a>
+                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
+                    <div class="information-block col-md-8">
+                        <strong>{{event.name}}</strong>
+                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i>{{event.locations[0]}}</div>
+                        <p class="small">{{event.description}}</p>
+                        <strong class="text-muted">Founded:</strong> {{event.startDate | date: 'MMM dd yyyy'}}
+                    </div>
+                </a>
+            </div>
 
         </div>
     </div>

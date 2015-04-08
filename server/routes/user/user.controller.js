@@ -13,6 +13,7 @@ var QueryBuilder = require('../../lib/query-builder');
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
 
+
   User.find(query)
     .populate('managedOrganisations representOrganisations events recruiments')
     .exec(function(err, users) {

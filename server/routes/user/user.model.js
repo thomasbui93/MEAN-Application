@@ -61,7 +61,10 @@ var UserSchema = new Schema({
   recruiments: [{
     type: Schema.Types.ObjectId,
     ref: "Recruitment"
-  }] //an array of recruit
+  }], //an array of recruit
+    phoneNumber:{
+        type:String
+    }
 });
 
 /**
