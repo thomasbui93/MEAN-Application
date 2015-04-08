@@ -1,0 +1,131 @@
+<div class="container-fluid" style="perspective: 1000px">
+    <div class="search-content row center-block">
+        <div class="col-md-2 hidden-sm">
+
+        </div>
+        <div class="search-box col-md-4 col-xs-12 col-sm-6 ">
+            <div class="inline-label"><i class="fa fa-tag"></i></div>
+            <input class="search-input" type="text" placeholder="Keywords..." ng-model="search.keyword"/>
+        </div>
+        <div class="search-box col-md-3 col-xs-12 col-sm-3" >
+            <div class="inline-label"><i class="fa fa-location-arrow"></i></div>
+            <input class="search-input" type="text" placeholder="Location..." ng-model="search.location"/>
+        </div>
+        <div class="col-sm-3 col-xs-12 ">
+            <button class="button-round pull-left" ng-click="showResult()"><i class="fa fa-search"></i></button>
+            <button class="button-expand" ng-click="settingToggle()"><i class="fa fa-cog"></i></button>
+        </div>
+    </div>
+    <!---- search-content end
+        -->
+    <div class="categories-menu center-block row">
+        <li class="col-md-2 hidden-xs"></li>
+        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.orgs}" ng-click="resultToggle('orgs')">Organizations</li>
+        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.volunteers}" ng-click="resultToggle('volunteers')" >Volunteers</li>
+        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.events}" ng-click="resultToggle('events')" >Events</li>
+        <li class="col-md-1 hidden-xs"></li>
+    </div>
+    <!---- categories-menu end -->
+    <div class="advanced-features center-block" ng-show="state.setting">
+        <div class="row">
+            <li class="col-md-1 hidden-xs"></li>
+            <div class="col-md-10 col-sm-12 row">
+                <h4 class="text-white">
+                    <div class="categories-chosen feature-header"><i class="fa fa-clock-o"></i>  Time</div>
+                </h4>
+                <div class="date-input-group col-sm-6">
+                    <label class="text-white"> From: </label>
+                    <div class="date-input-container">
+                        <input class="date-input date" type="number" max="31" min="1" ng-model="search.startDate.date"/>
+                        <input class="date-input month" type="text" list="months" ng-model="search.startDate.month">
+                        <datalist id="months">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </datalist>
+                        <input class="date-input year" type="number" min="1800" max="2200" ng-model="search.startDate.year"/>
+                    </div>
+                </div>
+                <!---- date-input-group
+                                   -->
+                <div class="date-input-group col-sm-6">
+                    <label class="text-white"> To: </label>
+                    <div class="date-input-container">
+                        <input class="date-input date" type="number" max="31" min="1" ng-model="search.endDate.date"/>
+                        <input class="date-input month" type="text" list="end-months" ng-model="search.endDate.month">
+                        <datalist id="end-months">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </datalist>
+                        <input class="date-input year" type="number" min="1800" max="2200" ng-model="search.endDate.year"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <li class="col-md-1 hidden-xs"></li>
+            <div class="col-md-10 col-sm-12 row ">
+                <h4 class="text-white">
+                    <div class="categories-chosen feature-header"><i class="fa fa-tags"></i>  Cause: </div>
+                </h4>
+                <div class="cause-set">
+                    <div class="tag" ng-repeat="cause in search.Interests" ng-click="removeInterest(cause)">
+                        <i class="fa fa-tag"></i> {{cause}}</div>
+                </div>
+                <!---- cause-set
+                    -->
+                <div class="cause-input">
+                    <div class="inline-label"><i class="fa fa-paper-plane" style="color: white"></i></div>
+                    <input type="text" class="white-input" ng-model="input.cause" ng-keydown="addInterest($event)"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="button-round pull-right" ng-click="showResult()"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+    <!---- advanced-features
+            -->
+    <div class="row result-set container center-block">
+        <div class="organization-results row" ng-show="state.results.orgs">
+            <div class="organization-block col-md-5 row">
+                <a>
+                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
+                    <div class="information-block col-md-8">
+                        <strong>Green peace</strong>
+                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i> Oulu, Finland</div>
+                        <p class="small">Lorem ipsum dolor sit amet...</p>
+                        <strong class="text-muted">Founded:</strong> 1990
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="volunteer-results row" ng-show="state.results.volunteers">
+
+        </div>
+        <div class="evens-results row" ng-show="state.results.events">
+
+        </div>
+    </div>
+</div>

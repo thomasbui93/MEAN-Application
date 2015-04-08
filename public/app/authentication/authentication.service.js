@@ -1,12 +1,15 @@
 'use strict';
 angular.module('voluntr')
-  .factory('AuthService', function($http, $rootScope, AUTH_EVENTS) {
+  .factory('AuthService', function($http, $rootScope, AUTH_EVENTS, Restangular) {
     var authService = {};
 
     authService.login = function(credentials) {
       $http.post('/api/login', credentials)
         .then(function(res) {
-            $rootScope.user = res.data;
+            $rootScope.user = Restangular.restangularizeElement(null, res.data, 'api/users/', res.data._id);
+            $rootScope.user.firstName = 'Khoaoao';
+            $rootScope.user.save();
+            console.log($rootScope.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
           },
           function() {
@@ -67,7 +70,7 @@ angular.module('voluntr')
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
       //$location.url('/');
-      console.log($rootScope.user);
+      //console.log($rootScope.user);
 
     });
 
