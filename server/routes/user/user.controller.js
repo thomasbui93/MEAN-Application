@@ -63,7 +63,6 @@ exports.update = function(req, res, next) {
         }
       }
 
-
       user.save(function(err) {
         if (err) return next(err);
 
