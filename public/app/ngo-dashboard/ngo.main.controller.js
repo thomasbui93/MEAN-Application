@@ -12,14 +12,14 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
       state: 'Save'
     };
 
-    $scope.errors = NGO_ERRORS;
+    $scope.errors = angular.copy(NGO_ERRORS);
     $scope.inputCause = '';
 
     //method
     $scope.createCause = function($event) {
       if ($event.keyCode == 13) {
-        if ($scope.currentNGO.causes.indexOf($scope.inputCause) == -1)
-          $scope.currentNGO.causes.push($scope.inputCause);
+        if ($scope.currentNGO.interests.indexOf($scope.inputCause) == -1)
+          $scope.currentNGO.interests.push($scope.inputCause);
         $scope.inputCause = '';
       }
     };
@@ -27,7 +27,7 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
     $scope.removeCause = function(cause) {
       var index = $scope.currentNGO.causes.indexOf(cause);
       if (index > -1) {
-        $scope.currentNGO.causes.splice(index, 1);
+        $scope.currentNGO.interests.splice(index, 1);
       }
     };
 

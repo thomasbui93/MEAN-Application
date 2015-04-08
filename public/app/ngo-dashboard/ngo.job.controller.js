@@ -101,7 +101,7 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
       expireDate: new Date('30 Feb 2015'),
       phone: '123 234 1111'
     };
-    $scope.errors = JOB_ERRORS;
+    $scope.errors = angular.copy(JOB_ERRORS);
     $scope.success = false;
     $scope.fetchJob = function(id) {
       //Todo retrieve the event with the specific id
@@ -143,7 +143,7 @@ angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$stat
       expireDate: null,
       phone: null
     };
-    $scope.errors = JOB_ERRORS;
+    $scope.errors = angular.copy(JOB_ERRORS);
     $scope.success = false;
     $scope.checkError = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentJob);

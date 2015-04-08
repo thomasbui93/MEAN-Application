@@ -64,7 +64,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       description: "Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat."
     };
 
-    $scope.errors = EVENT_ERRORS;
+    $scope.errors = angular.copy(EVENT_ERRORS);
     $scope.success = false;
 
     $scope.fetchEvent = function(id) {
@@ -101,7 +101,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       description: ""
     };
 
-    $scope.errors = EVENT_ERRORS;
+    $scope.errors = angular.copy(EVENT_ERRORS);
     $scope.success = false;
 
     $scope.saveEvent = function() {
