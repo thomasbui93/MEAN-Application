@@ -1,0 +1,119 @@
+<div class="event-header"> <!--event-header-->
+    <img src="http://placehold.it/800x200" class="img-responsive center-block"/>
+    <div class="action-hub padding10 top-right"> <!--action-hub-->
+        <button class=" btn btn-transparent" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil fa-2x"></i></button>
+        <button class=" btn btn-transparent" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save fa-2x"></i></button>
+    </div>
+    <!--end action-hub -->
+    <div class="avatar-user"> <!--avatar-user -->
+        <img src="http://placehold.it/100x100" class="img-responsive center-block img-thumbnail"/>
+    </div>
+    <!--end avatar-user-->
+</div><!--event-header-->
+<div class="margin-top-20 container">
+    <div class="row">
+        <div class="col-md-3 col-sm-12 shadow">
+            <div ng-show="!edit.show" class="info-show">
+                <h3 class="text-center">{{pageUser.firstName +' ' +pageUser.lastName}}</h3>
+                <p class="text-center">
+                    <i class="fa fa-location-arrow text-mute text-blue pull-left"></i>
+                    {{pageUser.address.city + ', '+ pageUser.address.country }}
+                </p>
+                <p class="text-center">
+                    <i class="fa fa-birthday-cake pull-left"></i>
+                   {{pageUser.birthday | date: 'MMM dd, yyyy'}}
+                </p>
+                <p class="text-center">
+                    <i class="fa fa-envelope-o pull-left"></i>
+                    {{pageUser.email}}
+                </p>
+                <div class="skill-sets">
+                    <i class="fa fa-tags pull-left"></i><br/>
+                    <div class="tag" ng-repeat="skill in pageUser.skills">{{skill}}</div>
+                </div>
+            </div><!-- end info-show -->
+            <div ng-show="edit.show" class="info-show padding10">
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>First Name: </strong></label>
+                    <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+                    <input ng-model="pageUser.firstName" type="text" placeholder="{{pageUser.firstName}}" class="text-center normal-input"/>
+                </div><!--end input-container-->
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>Last Name: </strong></label>
+                    <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+                    <input ng-model="pageUser.lastName" type="text" placeholder="{{pageUser.lastName}}" class="text-center normal-input"/>
+                </div><!--end input-container-->
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>Address: </strong></label>
+                    <input type="text" ng-model="pageUser.location" placeholder="{{pageUser.address.city + ', '+ pageUser.address.country}}" class="text-center normal-input"/>
+                </div><!--end input-container-->
+                <div class="input-container small-input center-block">
+                    <label class="normal-label"><strong>Email: </strong></label>
+                    <p ng-show="errors.email.violate" class="text-red"> {{errors.email.message}}</p>
+                    <input ng-model="pageUser.email" type="text" placeholder="{{pageUser.email}}" class="text-center normal-input"/>
+                </div><!--end input-container-->
+                <div class="input-container">
+                    <label class="normal-label"><i class="fa fa-birthday-cake pull-left"></i></label>
+                    <p ng-show="errors.birthday.violate" class="text-red"> {{errors.birthday.message}}</p>
+                    <div class="date-input-block">
+                        <input class="block-input" type="text" ng-model="pageUser.birthDate.date"/> -
+                        <input class="block-input" type="text" ng-model="pageUser.birthDate.month"/> -
+                        <input class="block-input year-input" type="text" ng-model="pageUser.birthDate.year"/>
+                    </div>
+                </div> <!--end input-container-->
+                <div class="input-container small-input center-block">
+                    <p ng-show="errors.passwordNotMatch.violate" class="text-red"> {{errors.passwordNotMatch.message}}</p>
+                    <label class="normal-label"><strong>Confirm password: </strong></label>
+                    <input ng-model="pageUser.pwd" type="password" class="text-center normal-input"/>
+                </div><!--end input-container-->
+                <div class="padding10">
+                    <button class="btn btn-follow center-block" ng-click="saveInformation()">
+                        Save <i class="fa fa-spinner fa-pulse" ng-show="edit.saving"></i>
+                    </button>
+                </div>
+                <!--end padding10-->
+            </div>
+        </div>
+
+        <div class="col-md-9 col-sm-12 ">
+                <div class="representative-container"><!-- representative-container -->
+                    <div class="banner">
+                        <strong>Representative</strong>
+                    </div>
+                    <div class="representatives container">
+                        <div class="row padding10">
+                            <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="rep in pageUser.representOrganisations">
+                                <div class="organization transition float-shadow">
+                                    <a href="/ngo/home/{{rep._id}}">
+                                        <img src="http://placehold.it/150x150" class="img-responsive">
+                                        <div class="organization-information">
+                                            {{rep.name}}
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- representative-container -->
+                <div class="project-container"> <!--project-container-->
+                    <div class="banner">
+                        <strong>Events</strong>
+                    </div>
+                    <div class="representatives container">
+                        <div class="row padding10">
+                            <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="event in pageUser.events">
+                                <div class="organization transition float-shadow">
+                                    <a href="/events/{{event._id}}">
+                                    <img src="http://placehold.it/150x150" class="img-responsive">
+                                    <div class="organization-information">
+                                        {{event.name}}
+                                    </div>
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--project-container-->
+        </div>
+    </div>
+</div>

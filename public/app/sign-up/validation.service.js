@@ -28,16 +28,16 @@ angular.module('voluntr').factory('Validation', function() {
     return re.test(user.phone);
   };
   validation.checkDescription = function(user, length) {
-    if (user.description === undefined) {
-      //not found
+    if (user.description === null) {
       return true;
     } else {
       var array = user.description.split(" ");
       if (array.length < length) {
-        return false;
-      } else {
         return true;
+      } else {
+        return false;
       }
+      console.log(array.length);
     }
   };
   validation.checkPast = function(user) {
@@ -56,8 +56,8 @@ angular.module('voluntr').factory('Validation', function() {
   };
   validation.checkFinal = function(error) {
     var state = true;
-    angular.forEach(error, function(property) {
-      if (property.violate === true) {
+    angular.forEach(error, function(value, property) {
+      if (value.violate) {
         state = false;
       }
     });
@@ -92,6 +92,14 @@ angular.module('voluntr').factory('Validation', function() {
     phone: {
       violate: false,
       message: 'Your phone number is not found.'
+    },
+    location: {
+      violate: false,
+      message: 'Your location must be defined.'
+    },
+    birthday: {
+      violate: false,
+      message: 'Your birthdate is not defined'
     }
   }
 );

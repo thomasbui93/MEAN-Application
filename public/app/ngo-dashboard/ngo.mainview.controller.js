@@ -73,7 +73,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
 
     $scope.saveEvent = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
-      $scope.errors.description.violate = !Validation.checkDescription($scope.currentEvent, 20);
+      $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentEvent);
 
       if ($scope.currentEvent.location === '' || $scope.currentEvent.location === null) {
@@ -81,8 +81,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       } else {
         $scope.errors.location.violate = false;
       }
-
-      if (!$scope.errors.name.violate && !$scope.errors.violate && !$scope.errors.description.violate && !$scope.errors.location.violate) {
+      if (Validation.checkFinal($scope.errors)) {
         $scope.success = true;
         //TODO: server saving ngo profile
         $timeout(function() {
@@ -107,7 +106,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
 
     $scope.saveEvent = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
-      $scope.errors.description.violate = !Validation.checkDescription($scope.currentEvent, 20);
+      $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentEvent);
 
       if ($scope.currentEvent.location === '' || $scope.currentEvent.location === null) {
@@ -121,8 +120,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       } else {
         $scope.errors.time.violate = false;
       }
-
-      if (!$scope.errors.name.violate && !$scope.errors.violate && !$scope.errors.description.violate && !$scope.errors.location.violate && !$scope.errors.time.violate) {
+      if (Validation.checkFinal($scope.errors)) {
         $scope.success = true;
         $timeout(function() {
           $state.transitionTo('ngoDashboard.eventManage');

@@ -2,10 +2,13 @@
 
 var Comment = require('./comment.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
 
-  Comment.find(req.query)
+  var query = new QueryBuilder(req.query).query;
+
+  Comment.find(query)
     .populate('event createdBy')
     .exec(function(err, comments) {
       if (err) return next(err);
@@ -16,11 +19,13 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function(req, res, next) {
+  console.log("comment show called");
   var id = req.params.commentId;
 
   Comment.findById(id)
     .populate('event createdBy')
     .exec(function(err, comment) {
+      console.log(comment);
       if (err) return next(err);
       if (!comment) return next(new NotFoundError('No Comment with that id.'));
 

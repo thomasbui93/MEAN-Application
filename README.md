@@ -32,3 +32,15 @@
 - And `git status`
 - Then `git add -A`
 - Then `git commit -a` and enter your commit message.
+
+## RESTful endpoints
+
+The default endpoints:
+- organisations
+- events
+- users
+- comments
+have basic query functionality. You can query them with `?field_name=xxxx`.
+
+It will create a regex out of the query and attempt to match with the data in the model.
+If you query is specified, all of the data in the model is returned.
