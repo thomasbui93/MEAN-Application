@@ -18,6 +18,11 @@ angular.module('voluntr', [
     url: '/',
     templateUrl: 'app/home/home.html',
     controller: 'homeController',
+    resolve: {
+      organisations: function(Restangular) {
+        return Restangular.all('api/organisations').getList();
+      }
+    },
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
@@ -69,7 +74,7 @@ angular.module('voluntr', [
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
-    url: '/user/dashboard/',
+    url: '/user/dashboard',
     templateUrl: 'app/user-dashboard/dashboard.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
@@ -77,7 +82,7 @@ angular.module('voluntr', [
     controller: 'userDashboardController'
   }).state('ngoDashboard', {
     abstract: true,
-    url: '/ngo/dashboard/',
+    url: '/ngo/dashboard',
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
