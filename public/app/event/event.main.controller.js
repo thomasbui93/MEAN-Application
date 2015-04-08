@@ -15,7 +15,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     };
     $scope.checkFollowed = function() {
       var index = $scope.currentUser.events.indexOf(event);
-      if (index = -1) {
+      if (index === -1) {
         return false;
       } else {
         return true;
