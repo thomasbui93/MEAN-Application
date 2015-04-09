@@ -25,8 +25,8 @@ var user = new User({
 
 var user1 = new User({
   email: 'k@ex.com',
-  firstName: 'K',
-  lastName: 'B',
+  firstName: 'Khoa',
+  lastName: 'Bui Dang ',
   password: 'ex',
   birthDate: {
     date: 11,

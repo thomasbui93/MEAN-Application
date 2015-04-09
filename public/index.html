@@ -30,7 +30,13 @@
             <li><a class="text-white">Events</a></li>
             <li><a class="text-white">Jobs</a></li>
         </ul>
-        <div class="login-section pull-right">
+        <div id="user-control" ng-if="user.firstName !== undefined">
+            <div class="user-name">
+               <strong>{{user.firstName || ''}}</strong>
+            </div>
+            <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
+        </div>
+        <div class="login-section pull-right" ng-if="user.firstName === undefined" >
             <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
@@ -38,18 +44,28 @@
             <input type="text" placeholder="Search"/>
             <label><i class="fa fa-search"></i></label>
         </div>
+
     </div>
 </div>
-<ul id="menu-vertical" ng-show="menu" class="hidden-md">
+<ul id="user-setting" ng-show="user.setting">
+    <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
+    <li><a class="text-white" ng-click="logout()">Logout</a></li>
+</ul>
+<ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
    <h3 class="text-center">Menu</h3>
     <hr/>
    <li>Organisation</li>
    <li>Jobs</li>
    <li>Events</li>
     <hr/>
-    <li><a ui-sref="register.votunteer">Register</a></li>
-    <li><a ui-sref="login">Login</a></li>
-    <li><a ui-sref="user-dashboard">Dashboard</a></li>
+    <div ng-if="user.firstName===undefined">
+        <li><a ui-sref="register.volunteer">Register</a></li>
+        <li><a ui-sref="login">Login</a></li>
+    </div>
+    <div ng-if="user.firstName!==undefined">
+        <li><a ui-sref="user-dashboard">Dashboard</a></li>
+        <li ><a ng-click="logout()">Logout</a></li>
+    </div>
     <hr/>
 </ul>
 
