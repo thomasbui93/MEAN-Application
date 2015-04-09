@@ -13,7 +13,46 @@
    <link type="text/css" rel="stylesheet" href="/styles/css/main.min.css">
    <!-- endinject -->
 </head>
-<body ng-app="voluntr">
+<body ng-app="voluntr" ng-controller="mainController">
+<div id="menu-horizontal" >
+    <div class="show-xs show-sm hidden-md" id="control-box" ng-click="toggleMenu()">
+        <i class="fa fa-bars fa-3x text-white img-responsive"></i>
+    </div>
+    <div class="logo-sm josefin center-block hidden-md">
+        <a href="/" class="text-white"><strong>Voluntr</strong></a>
+    </div>
+    <div class="hidden-xs hidden-sm">
+        <div class="logo josefin" >
+            <a href="/" class="text-white"><strong>Voluntr</strong></a>
+        </div>
+        <ul id="common-link">
+            <li><a class="text-white">Organisations</a></li>
+            <li><a class="text-white">Events</a></li>
+            <li><a class="text-white">Jobs</a></li>
+        </ul>
+        <div class="login-section pull-right">
+            <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
+            <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
+        </div>
+        <div id="search-section">
+            <input type="text"/>
+            <label><i class="fa fa-search"></i></label>
+        </div>
+    </div>
+</div>
+<ul id="menu-vertical" ng-show="menu" class="hidden-md">
+   <h3 class="text-center">Menu</h3>
+    <hr/>
+   <li>Organisation</li>
+   <li>Jobs</li>
+   <li>Events</li>
+    <hr/>
+   <li>Register</li>
+    <li>Login</li>
+    <li>User Dashboard</li>
+    <hr/>
+</ul>
+
 <!-- This view will be filled by the ui-router. -->
 <div ui-view></div>
 
@@ -43,6 +82,8 @@
 <script src="/app/home/home.directive.js"></script>
 <script src="/app/home/home.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
+<script src="/app/authentication/login.controller.js"></script>
+<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>
 <script src="/app/constants/key-codes.constants.js"></script>
@@ -50,12 +91,11 @@
 <script src="/app/constants/event-errors.constants.js"></script>
 <script src="/app/constants/errors.constants.js"></script>
 <script src="/app/constants/auth-events.constants.js"></script>
-<script src="/app/authentication/login.controller.js"></script>
-<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/admin/admin.report.controller.js"></script>
 <script src="/app/admin/admin.main.controller.js"></script>
 <script src="/app/admin/admin.content.controller.js"></script>
 <script src="/app/admin/admin.blacklist.controller.js"></script>
+<script src="/app/main.controller.js"></script>
 <!-- endinject -->
 </body>
 </html>
