@@ -35,7 +35,7 @@
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
         <div id="search-section">
-            <input type="text"/>
+            <input type="text" placeholder="Search"/>
             <label><i class="fa fa-search"></i></label>
         </div>
     </div>
@@ -47,9 +47,9 @@
    <li>Jobs</li>
    <li>Events</li>
     <hr/>
-   <li>Register</li>
-    <li>Login</li>
-    <li>User Dashboard</li>
+    <li><a ui-sref="register.votunteer">Register</a></li>
+    <li><a ui-sref="login">Login</a></li>
+    <li><a ui-sref="user-dashboard">Dashboard</a></li>
     <hr/>
 </ul>
 
@@ -65,15 +65,14 @@
 <!-- inject:js -->
 <script src="/app/app.js"></script>
 <script src="/app/user-homepage/user.home.controller.js"></script>
-<script src="/app/user-dashboard/user.filter.js"></script>
-<script src="/app/user-dashboard/user.dashboard.controller.js"></script>
 <script src="/app/sign-up/volunteer-sign-up.controller.js"></script>
 <script src="/app/sign-up/validation.service.js"></script>
 <script src="/app/sign-up/sign-up.controller.js"></script>
 <script src="/app/sign-up/ngo-sign-up.controller.js"></script>
+<script src="/app/user-dashboard/user.filter.js"></script>
+<script src="/app/user-dashboard/user.dashboard.controller.js"></script>
 <script src="/app/search/search.controller.js"></script>
 <script src="/app/search/search.advanced.controller.js"></script>
-<script src="/app/event/event.main.controller.js"></script>
 <script src="/app/ngo-homepage/ngo.home.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.representative.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.mainview.controller.js"></script>
@@ -82,8 +81,6 @@
 <script src="/app/ngo-dashboard/ngo.filter.js"></script>
 <script src="/app/home/home.directive.js"></script>
 <script src="/app/home/home.controller.js"></script>
-<script src="/app/authentication/login.controller.js"></script>
-<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>
 <script src="/app/constants/key-codes.constants.js"></script>
@@ -91,10 +88,13 @@
 <script src="/app/constants/event-errors.constants.js"></script>
 <script src="/app/constants/errors.constants.js"></script>
 <script src="/app/constants/auth-events.constants.js"></script>
+<script src="/app/event/event.main.controller.js"></script>
 <script src="/app/admin/admin.report.controller.js"></script>
 <script src="/app/admin/admin.main.controller.js"></script>
 <script src="/app/admin/admin.content.controller.js"></script>
 <script src="/app/admin/admin.blacklist.controller.js"></script>
+<script src="/app/authentication/login.controller.js"></script>
+<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/main.controller.js"></script>
 <!-- endinject -->
 </body>
