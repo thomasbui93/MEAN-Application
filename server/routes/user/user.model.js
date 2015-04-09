@@ -62,9 +62,9 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Recruitment"
   }], //an array of recruit
-    phoneNumber:{
-        type:String
-    }
+  phoneNumber: {
+    type: String
+  }
 });
 
 /**

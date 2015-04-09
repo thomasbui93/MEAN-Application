@@ -63,7 +63,7 @@
   background: transparent;
 }
 .text-information{
-  font-size: 15pt;
+  font-size: 15px;
   padding: 30px;
   height: 50%;
 }
@@ -86,9 +86,14 @@
 .section{
   width: 100%;
   padding: 2em 0;
+  overflow-x: hidden;
+}
+.section:nth-child(2n){
+  background: #ebe6e0;
 }
 #search-block{
-  background-color: #fff;
+  background-image: linear-gradient(200deg, rgba(124, 178, 40, 0.9) 0%, rgba(80, 179, 226, 0.9) 100%);
+  box-shadow: rgba(0,0,0,0.15) 1px 1px 5px;
   position: relative;
   width: 50%;
   height: 50%;
@@ -96,6 +101,56 @@
   top: 25%;
   padding: 2em;
   margin: 12% auto;
+}
+#most-popular{
+  position: relative;
+  width: 100%;
+}
+.organisations-bar{
+  overflow: hidden;
+  height: 200px;
+  position: relative;
+}
+.organisations-container{
+  position: absolute;
+  width: 3000%;
+  height: 200px;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+.honor-org{
+  position: relative;
+  width: 200px;
+  height:200px;
+  display: inline-block;
+}
+.honor-org .star{
+  width: 150px;
+}
+.honor-information{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  width: 150px;
+  height: 150px;
+  line-height: 75px;
+  text-align: center;
+  opacity: 0;
+}
+#most-popular .nav-bar{
+  position: relative;
+  height: 200px;
+}
+#most-popular .nav-bar div{
+  position: relative;
+  height: 50px;
+  width: 50px;
+  margin-top: 50px;
+  background: rgba(0,0,0,0.4);
 }
 #btn-menu{
   position: absolute;
@@ -318,10 +373,14 @@ Event NGO mangage
 
 .home-input{
   margin-bottom: 5px;
+  height: 50px;
+  border: none;
+  border: 1px solid white;
 }
-
-.home-input .left{
+.home-input.left{
   border-top-right-radius: 0px;
+  border-right: 1px solid #ccc ;
+
 }
 
 //NGO homepage
