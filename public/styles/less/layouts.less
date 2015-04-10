@@ -454,7 +454,9 @@ Event NGO mangage
 }
 .event-brief{
   position: relative;
-  border-bottom: 1px solid #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.24), 0 1px 6px rgba(0, 0, 0, 0.12);
+  margin-top: 20px;
 }
 .delete-dialog{
   position: relative;
@@ -686,5 +688,51 @@ Event NGO mangage
 }
 
 /****************
-* search Page
+* admin edit
 ***************/
+.inline-admin-menu{
+  position: absolute;
+  top: 50px;
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+}
+.inline-admin-menu li{
+  position: relative;
+  width: 150px;
+  height: 30px;
+  display: inline-block;
+  line-height: 30px;
+  text-align: center;
+}
+.inline-admin-menu li.selected{
+  background: #e74c3c;
+}
+.admin-menu, .admin-menu li{
+  position: relative;
+}
+.admin-menu li:before{
+  position: relative;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.admin-menu li:hover:before{
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  content: '';
+  background: white;
+  left: 1px;
+
+}
+.admin-menu li.selected:before{
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  content: '';
+  background: white;
+  left: 1px;
+}

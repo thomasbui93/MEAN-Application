@@ -21,42 +21,40 @@ angular.module('voluntr')
     };
 
     authService.isAuthenticated = function() {
-        console.log('user: ', $rootScope.user);
+      console.log('user: ', $rootScope.user);
       return !!$rootScope.user;
     };
 
     authService.isAuthorized = function(authorizedRoles, stateParam) {
       //console.log('AuthService.isAuthorized is not implemented!');
-        var access= true;
-        if (!angular.isArray(authorizedRoles)) {
-            authorizedRoles = [authorizedRoles];
+      var access = true;
+      if (!angular.isArray(authorizedRoles)) {
+        authorizedRoles = [authorizedRoles];
+      }
+      if (authService.isAuthenticated()) { //for logged in user
+        //excluded the page for guest
+        if (authorizedRoles.indexOf(USER_ROLES.admin) > -1) {
+          access = $rootScope.user.admin;
         }
-        if(authService.isAuthenticated()){//for logged in user
-            //excluded the page for guest
-            if(authorizedRoles.indexOf(USER_ROLES.admin)>-1){
-                access = $rootScope.user.admin;
-            }
-            if(authorizedRoles.indexOf(USER_ROLES.volunteer) >-1){
-                access = true;
-            } else{ // handle the ngo-page
-                //TODO: check if the volunteer owned the orgs
-                var managedOrgs = $rootScope.user.managedOrganisations.concat($rootScope.user.representOrganisations);
-                var index = managedOrgs.indexOf(stateParam);
-                if(index > -1){// user owned the orgs.
-                    access = true;
-                }
-                access = false; //who doesn't
-            }
+        if (authorizedRoles.indexOf(USER_ROLES.volunteer) > -1) {
+          access = true;
+        } else { // handle the ngo-page
+          //TODO: check if the volunteer owned the orgs
+          var managedOrgs = $rootScope.user.managedOrganisations.concat($rootScope.user.representOrganisations);
+          var index = managedOrgs.indexOf(stateParam);
+          if (index > -1) { // user owned the orgs.
+            access = true;
+          }
+          access = false; //who doesn't
         }
-        else{
-            if(authorizedRoles.indexOf(USER_ROLES.guest) >-1){
-                access = true;
-            }
-            else{
-                access = false;
-            }
+      } else {
+        if (authorizedRoles.indexOf(USER_ROLES.guest) > -1) {
+          access = true;
+        } else {
+          access = false;
         }
-        return access;
+      }
+      return access;
     };
 
     return authService;

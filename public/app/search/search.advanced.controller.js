@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('voluntr')
-  .controller('searchAdvancedController', ['$scope', '$http', 'Restangular', '$stateParams',
-    function($scope, $http, Restangular, $stateParams) {
+  .controller('searchAdvancedController', ['$scope', '$http', 'Restangular', '$stateParams', 'initialResult',
+    function($scope, $http, Restangular, $stateParams, initialResult) {
       $scope.search = {
         keyword: $stateParams.key,
         location: '',
@@ -38,7 +38,7 @@ angular.module('voluntr')
             orgs: true,
             jobs: false,
             events: false
-          }
+          };
         } else if (params === 'jobs') {
           $scope.state.results = {
             orgs: false,
@@ -55,11 +55,7 @@ angular.module('voluntr')
 
       };
 
-      $scope.results = {
-        organizations: [],
-        jobs: [],
-        events: []
-      };
+      $scope.results = initialResult;
 
       $scope.input = {
         cause: ''
@@ -160,15 +156,17 @@ angular.module('voluntr')
           });
       };
 
-      $scope.showResult = function() {
-        $scope.state.setting = false;
-        if ($scope.state.results.orgs === true) {
-          $scope.showOrgs();
-        } else if ($scope.state.results.jobs === true) {
-          $scope.showJobs();
-        } else if ($scope.state.results.events === true) {
-          $scope.showEvents();
+      $scope.showResult = function($event) {
+        if ($event === undefined || $event.keyCode === 13) {
+          $scope.state.setting = false;
+          if ($scope.state.results.orgs === true) {
+            $scope.showOrgs();
+          } else if ($scope.state.results.jobs === true) {
+            $scope.showJobs();
+          } else if ($scope.state.results.events === true) {
+            $scope.showEvents();
 
+          }
         }
       };
     }

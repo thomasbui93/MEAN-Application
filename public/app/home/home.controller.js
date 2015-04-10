@@ -1,8 +1,15 @@
 'use strict';
 
-angular.module('voluntr').controller('homeController', ['$scope', '$rootScope', 'organisations', 'Restangular',
-  function($scope, $rootScope, organisations, Restangular) {
+angular.module('voluntr').controller('homeController', ['$scope', '$rootScope', 'organisations', 'Restangular', '$state',
+  function($scope, $rootScope, organisations, Restangular, $state) {
     $scope.organisations = organisations;
+    $scope.input = {
+      searchBox: {
+        key: '',
+        location: ''
+      }
+    };
+
     $scope.fetchOrganisation = function() {
       //TODO: fetch 6 most contributed orgs
       Restangular.all('api/organisations')
@@ -28,6 +35,14 @@ angular.module('voluntr').controller('homeController', ['$scope', '$rootScope', 
       if (currentStateCSS <= -200) {
         container.css({
           '-webkit-transform': 'translateX(' + (currentStateCSS + 200) + 'px)'
+        });
+      }
+    };
+    $scope.searchBox = function($event) {
+      if ($event === undefined || $event.keyCode == 13) {
+        $state.go('advancedSearch', {
+          key: $scope.input.searchBox.key,
+          location: $scope.input.searchBox.location
         });
       }
     };

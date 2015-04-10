@@ -20,7 +20,7 @@ var user = new User({
     city: 'Oulu',
     country: 'Finland'
   },
-  admin: false,
+  admin: true,
   _id: '55095c4e2d316055807fe46c'
 });
 

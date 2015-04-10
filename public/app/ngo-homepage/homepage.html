@@ -1,11 +1,12 @@
 <div class="container">
-    <div id="header" class="">
+    <div id="header" >
         <img src="img/front-end/4_volunteer.jpg" class="full-width img-responsive shadow">
     </div><!-- header -->
-    <div class="main-info">
-        <img src="http://placehold.it/200x200" class="img-responsive center-block">
-        <div id="ngo-info" class="show-information padding10" ng-show="!edit.show">
-            <h2 class="name text-center"><strong>{{currentNGO.name}}</strong></h2>
+    <div class="main-info row">
+
+        <div id="ngo-info" class="show-information padding10 col-md-4 " ng-show="!edit.show">
+            <img src="http://placehold.it/200x200" class="img-responsive center-block">
+            <h3 class="name text-center"><strong>{{currentNGO.name}}</strong></h3>
             <p class="location text-center"><i class="fa fa-map-marker text-muted"></i> {{currentNGO.locations[0]}}</p>
             <p>{{currentNGO.description}}</p>
             <ul class="skill-sets">
@@ -15,25 +16,34 @@
             </ul>
         </div><!-- ngo-info -->
         <!-- ngo-edit -->
-        <div class="ngo-profile edit-information padding10" ng-show="edit.show">
-            <div class="input-container small-input center-block">
-                <label class="normal-label"><strong>Name: </strong></label>
-                <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+        <div class="ngo-profile edit-information col-md-4" ng-show="edit.show">
+            <img src="http://placehold.it/200x200" class="img-responsive center-block">
+            <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+            <div class="group center-block margin-top-20">
                 <input ng-model="currentNGO.name" type="text" placeholder="{{currentNGO.name}}" class="text-center"/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Name: <span class="text-red">*</span></label>
             </div>
-            <div class="input-container small-input center-block">
-                <label class="normal-label"><strong>Address: </strong></label>
+            <div class="group center-block">
                 <input ng-model="currentNGO.locations[0]" type="text" placeholder="{{currentNGO.locations[0]}}" class="text-center"/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Location: <span class="text-red">*</span></label>
             </div>
-            <div class="input-container small-input center-block">
-                <label class="normal-label"><strong>Phone: </strong></label>
+            <div class="group center-block">
                 <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
                 <input ng-model="currentNGO.phone" type="text" placeholder="{{currentNGO.phone}}" class="text-center"/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Phone: <span class="text-red">*</span></label>
             </div>
-            <div class="input-container small-input center-block">
-                <label class="normal-label"><strong>Description: </strong></label>
+            <div class="group center-block">
                 <p ng-show="errors.description.violate" class="text-red">{{errors.description.message}}</p>
                 <input ng-model="currentNGO.description" type="text" placeholder="{{currentNGO.description}}" class="text-center">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Description: <span class="text-red">*</span></label>
             </div>
             <div class="input-container small-input center-block">
                 <label class="normal-label"><strong>Cause: </strong></label>
@@ -45,43 +55,60 @@
         </div><!-- end ngo-edit -->
         <button class="btn-small btn-form center-block margin-top-20" ng-click="editInformation()" ng-show="!edit.show">Edit</button>
         <button class="btn-small btn-form center-block margin-top-20" ng-click="saveInformation()" ng-show="edit.show">Save</button>
-    </div><!-- main-info -->
-    <div id="bottom-container" class="show-information">
-        <div id="left-column" class="col-sm-6">
-            <h4 class="text-center">Volunteering jobs</h4>
-            <hr>
-            <div class="event-brief row padding10 margin-top-5" ng-repeat="job in recruitments">
-                <div class="col-sm-3">
-                    <img src="http://placehold.it/150x150" class="img-responsive">
-                </div><!-- column -->
-                <div class="padding10">
-                    <strong>{{job.name}}</strong><br>
-                    <p class="text-muted">{{job.description}}</p>
-                    <p><strong class="">Start date: </strong>{{job.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
-                </div><!-- padding10 -->
 
-                <div class="action-hub top-right"><!-- padding10 -->
-                    <i class="fa fa-times text-red" ng-click="deleteJob(job)"></i>
+        <div id="bottom-container" class="show-information col-md-8 row margin-top-20" ng-show="!dialogShow">
+            <div id="left-column" class="col-sm-6 margin-top-20">
+                <h4 class="text-center">Volunteering jobs</h4>
+                <hr>
+                <div class="event-brief row padding10 margin-top-5" ng-repeat="job in recruitments">
+                    <div class="col-sm-3">
+                        <img src="http://placehold.it/150x150" class="img-responsive">
+                    </div><!-- column -->
+                    <div class="padding10">
+                        <strong>{{job.name}}</strong><br>
+                        {{job.description}}<br/>
+                        <i class="fa fa-map-marker">{{jobs.locations}}</i><br/>
+                        <p><strong class="">Start date: </strong>{{job.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
+                    </div><!-- padding10 -->
+
+                    <div class="action-hub top-right padding10"><!-- padding10 -->
+                        <i class="fa fa-times text-red " ng-click="deleteJob(job)"></i>
+                    </div>
+                </div><!-- event-brief -->
+            </div><!-- left column -->
+
+            <div id="right-column" class="col-sm-6 margin-top-20">
+                <h4 class="text-center">Events</h4>
+                <hr>
+                <div class="event-brief row margin-top-5" ng-repeat="event in events | orderBy : startDate">
+                    <div class="col-sm-3 padding10">
+                        <img src="http://placehold.it/150x150" class="img-responsive">
+                    </div><!-- col 3 -->
+                    <div class="padding10">
+                        <strong>{{event.name}}</strong><br>
+                        {{event.description}}<br/>
+                        <i class="fa fa-map-marker"> </i> {{event.locations}}<br/>
+                        <strong class="">Time: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
+                    </div><!-- padding10 -->
+                    <div class="action-hub top-right padding10 link-like">
+                        <i class="fa fa-times text-red" ng-click="showDialog(event)"></i>
+                    </div><!-- action-hub -->
+                </div><!-- event-brief -->
+            </div><!-- right column -->
+        </div><!-- bottom container -->
+
+        <div class="col-md-8 delete-dialog-container margin-top-20" ng-show="dialogShow">
+            <div class="delete-dialog center-block margin-top-20">
+                <div class="small-banner"><strong>Delete Dialog</strong></div>
+                <br/>
+                <p class="center-block text-center">Do you really want to delete the events ?</p>
+                <div class="row text-center">
+                    <button class="btn-small btn-inline btn-red" ng-click="deleteEvent(removeEvent)">Yes
+                        <i class="fa fa-check" ng-show="deleteSuccess"></i></button>
+                    <button class="btn-small btn-inline btn-follow center-block" ng-click="cancelDialog()">Cancel</button>
                 </div>
-            </div><!-- event-brief -->
-        </div><!-- left column -->
+            </div>
+        </div>
+    </div><!-- main-info -->
 
-        <div id="right-column" class="col-sm-6">
-            <h4 class="text-center">Events</h4>
-            <hr>
-            <div class="event-brief row padding10 margin-top-5" ng-repeat="event in events">
-                <div class="col-sm-3">
-                    <img src="http://placehold.it/150x150" class="img-responsive">
-                </div><!-- col 3 -->
-                <div class="padding10">
-                    <strong>{{event.name}}</strong><br>
-                    <p class="text-muted">{{event.description}}</p>
-                    <p><strong class="">Start date: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
-                </div><!-- padding10 -->
-                <div class="action-hub top-right">
-                    <i class="fa fa-times text-red" ng-click="deleteEvent(event)"></i>
-                </div><!-- action-hub -->
-            </div><!-- event-brief -->
-        </div><!-- right column -->
-    </div><!-- bottom container -->
 </div><!--container-->

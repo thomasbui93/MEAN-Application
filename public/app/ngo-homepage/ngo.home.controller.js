@@ -1,21 +1,26 @@
 'use strict';
 
 angular.module('voluntr').controller('ngoHomePageController',
-  function($scope, $state, $stateParams, Restangular, organisation, events, recruitments, NGO_ERRORS, Validation) {
+  function($scope, $state, $stateParams, Restangular, organisation, NGO_ERRORS, Validation, $timeout) {
     $scope.currentNGO = organisation;
-    $scope.events = events;
-    $scope.recruitments = recruitments;
+    $scope.events = organisation.events;
+    $scope.recruitments = organisation.recruitments;
     $scope.errors = NGO_ERRORS;
     $scope.edit = {
       show: false,
       state: 'edit'
     };
+    $scope.userShow = true;
+    $scope.dialogShow = false;
+    $scope.removeEvent = null;
+    $scope.deleteSuccess = false;
     $scope.editInformation = function() {
       $scope.edit = {
         show: true,
         state: 'Save'
       };
     };
+
     $scope.createCause = function($event) {
       if ($event.keyCode == 13) {
         if ($scope.currentNGO.interests.indexOf($scope.inputCause) == -1)
@@ -50,7 +55,28 @@ angular.module('voluntr').controller('ngoHomePageController',
 
     };
     $scope.deleteEvent = function(event) {
-      return true;
+      var index = organisation.events.indexOf(event);
+      if (index > -1) {
+        organisation.events.splice(index, 1);
+        organisation.save().then(function() {
+          $scope.deleteSuccess = true;
+          $timeout(function() {
+            $scope.deleteSuccess = false;
+            $scope.cancelDialog();
+          }, 500);
+        });
+      }
+    };
+
+    $scope.showDialog = function(event) {
+      $scope.userShow = false;
+      $scope.dialogShow = true;
+      $scope.removeEvent = event;
+    };
+    $scope.cancelDialog = function() {
+      $scope.userShow = true;
+      $scope.dialogShow = false;
+      $scope.removeEvent = null;
     };
   }
 );

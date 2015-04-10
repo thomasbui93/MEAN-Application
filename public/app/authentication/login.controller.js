@@ -13,4 +13,4 @@ angular.module('voluntr')
         id: $rootScope.user._id
       });
     };
-});
+  });

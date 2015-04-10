@@ -11,9 +11,9 @@
                 <div class="center-block container" id="search-block">
                     <form novalidate class="row">
                         <h3 class="text-center text-white">Volunteer now!</h3>
-                        <input class="col-md-6 col-xs-12 home-input left" type="text" name="keywords" placeholder="Key words" ng-model="search.keywords">
-                        <input class="col-md-6 col-xs-12 home-input" type="text" name="location" placeholder="Location" ng-model="search.location">
-                        <button class="btn btn-form margin-top-5 col-xs-12">search</button>
+                        <input class="col-md-6 col-xs-12 home-input left" type="text" name="keywords" placeholder="Key words" ng-model="input.searchBox.key">
+                        <input class="col-md-6 col-xs-12 home-input" type="text" name="location" placeholder="Location" ng-model="input.searchBox.location">
+                        <button class="btn btn-form margin-top-5 col-xs-12" ng-click="searchBox()">search</button>
                     </form>
                 </div><!-- search-block -->
             </div><!-- section main -->

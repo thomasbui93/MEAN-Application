@@ -41,15 +41,15 @@
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
         <div id="search-section">
-            <input type="text" placeholder="Search"/>
+            <input type="text" placeholder="Search" ng-keydown="searchMenu($event)" ng-model="input.searchMenu"/>
             <label><i class="fa fa-search"></i></label>
         </div>
-
     </div>
 </div>
 <ul id="user-setting" ng-show="user.setting">
     <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
     <li><a class="text-white" ng-click="logout()">Logout</a></li>
+    <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
 </ul>
 <ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
    <h3 class="text-center">Menu</h3>
@@ -58,21 +58,22 @@
    <li>Jobs</li>
    <li>Events</li>
     <hr/>
-    <div ng-if="user.firstName===undefined">
-        <li><a ui-sref="register.volunteer" class="text-white">Register</a></li>
-        <li><a ui-sref="login" class="text-white">Login</a></li>
-    </div>
-    <div ng-if="user.firstName!==undefined">
-        <li><a ui-sref="user-dashboard" class="text-white">Dashboard</a></li>
-        <li ><a ng-click="logout()" class="text-white">Logout</a></li>
-    </div>
+    <li ng-if="user.firstName===undefined">
+        <div><a ui-sref="register.volunteer" class="text-white">Register</a></div>
+        <div><a ui-sref="login" class="text-white">Login</a></div>
+    </li>
+    <li ng-if="user.firstName!==undefined">
+        <div><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <div ><a ng-click="logout()" class="text-white">Logout</a></div>
+        <div><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
+    </li>
     <hr/>
     <!---- THIS block for testing authorization
         -->
     <li>
-        <a href="/ngo/dashboard/55095c4e2d316055807f00dd">Org example</a>
+        <a href="/ngo/dashboard/55095c4e2d316055807f00dd" class="text-white">Org example</a>
     </li>
-    <li><a href="/admin/">Admin</a></li>
+
 </ul>
 
 <!-- This view will be filled by the ui-router. -->

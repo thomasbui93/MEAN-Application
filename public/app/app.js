@@ -24,7 +24,7 @@ angular.module('voluntr', [
       }
     },
     data: {
-      authorizedRoles: [USER_ROLES.guest,USER_ROLES.volunteer]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
   }).state('example', {
     url: '/example',
@@ -86,7 +86,7 @@ angular.module('voluntr', [
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+      authorizedRoles: [USER_ROLES.volunteer]
     },
     resolve: {
       organisation: function(Restangular, $stateParams) {
@@ -235,6 +235,24 @@ angular.module('voluntr', [
     templateUrl: 'app/search/search.advanced.html',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      initialResult: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          var results = {
+            organizations: [],
+            jobs: [],
+            events: []
+          };
+          Restangular.all('api/organisations').getList({
+            name: $stateParams.key,
+            locations: $stateParams.location
+          }).then(function(data) {
+            results.organizations = data;
+          });
+          return results;
+        }
+      ]
     }
   });
 
@@ -249,17 +267,18 @@ angular.module('voluntr', [
   });
 
 
-}).run(['$http', '$rootScope','Restangular','$state','AuthService','USER_ROLES',
-    function($http, $rootScope, Restangular,$state, AuthService, USER_ROLES) {
-  // Every time the app runs, we're GETting the "current user",
-  // which the server returns depending on the session cookie.
-  // The asynchronous nature of this approach may cause some trouble
-  // and needs more thought and testing.
-  $http.get('api/users/self').success(function(user) {
-    $rootScope.user = Restangular.restangularizeElement(null, user, 'api/users', user._id);
-    //console.log('Restored session, here\'s the current user:', $rootScope.user);
-  }).error(function() {
-    console.log('No login session. Should we redirect to front page or what?');
-  });
+}).run(['$http', '$rootScope', 'Restangular', '$state', 'AuthService', 'USER_ROLES',
+  function($http, $rootScope, Restangular, $state, AuthService, USER_ROLES) {
+    // Every time the app runs, we're GETting the "current user",
+    // which the server returns depending on the session cookie.
+    // The asynchronous nature of this approach may cause some trouble
+    // and needs more thought and testing.
+    $http.get('api/users/self').success(function(user) {
+      $rootScope.user = Restangular.restangularizeElement(null, user, 'api/users', user._id);
+      //console.log('Restored session, here\'s the current user:', $rootScope.user);
+    }).error(function() {
+      console.log('No login session. Should we redirect to front page or what?');
+    });
 
-}]);
+  }
+]);
