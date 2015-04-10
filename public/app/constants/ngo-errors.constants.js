@@ -19,5 +19,10 @@ angular.module('voluntr').constant('NGO_ERRORS', {
   description: {
     violate: false,
     message: 'Your description should be informative (more than 30 words)'
+  },
+  location: {
+      violate: false,
+      message: 'Your organisation should have a specific address.'
   }
+
 });

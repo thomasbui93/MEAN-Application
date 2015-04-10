@@ -24,7 +24,7 @@ angular.module('voluntr', [
       }
     },
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest,USER_ROLES.volunteer]
     }
   }).state('example', {
     url: '/example',
@@ -36,7 +36,7 @@ angular.module('voluntr', [
       }
     },
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
   }).state('login', {
     url: '/login',
@@ -50,12 +50,12 @@ angular.module('voluntr', [
     templateUrl: 'app/search/search.html',
     controller: 'searchController',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
   }).state('register', {
     url: '/register',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     controller: 'signUpController',
     templateUrl: 'app/sign-up/sign-up.html'
@@ -70,14 +70,14 @@ angular.module('voluntr', [
     url: '/ngo',
     templateUrl: 'app/sign-up/ngo-sign-up.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
     url: '/user/dashboard',
     templateUrl: 'app/user-dashboard/dashboard.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     controller: 'userDashboardController'
   }).state('ngoDashboard', {
@@ -86,7 +86,7 @@ angular.module('voluntr', [
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     resolve: {
       organisation: function(Restangular, $stateParams) {
@@ -155,7 +155,7 @@ angular.module('voluntr', [
     controller: 'adminController',
     templateUrl: 'app/admin/admin.main.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.admin]
     }
   }).state('adminDashboard.blacklist', {
     url: '',
@@ -186,7 +186,7 @@ angular.module('voluntr', [
     controller: 'ngoHomePageController',
     templateUrl: 'app/ngo-homepage/homepage.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     resolve: {
       organisation: function(Restangular, $stateParams) {
@@ -206,7 +206,7 @@ angular.module('voluntr', [
     controller: 'eventMainController',
     templateUrl: 'app/event/event.main.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     resolve: {
       event: ['$stateParams', 'Restangular',
@@ -220,7 +220,7 @@ angular.module('voluntr', [
     controller: 'userMainController',
     templateUrl: 'app/user-homepage/user.home.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     },
     resolve: {
       user: ['$stateParams', 'Restangular',
@@ -234,7 +234,7 @@ angular.module('voluntr', [
     controller: 'searchAdvancedController',
     templateUrl: 'app/search/search.advanced.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
   });
 
@@ -249,15 +249,17 @@ angular.module('voluntr', [
   });
 
 
-}).run(function($http, $rootScope, Restangular) {
+}).run(['$http', '$rootScope','Restangular','$state','AuthService','USER_ROLES',
+    function($http, $rootScope, Restangular,$state, AuthService, USER_ROLES) {
   // Every time the app runs, we're GETting the "current user",
   // which the server returns depending on the session cookie.
   // The asynchronous nature of this approach may cause some trouble
   // and needs more thought and testing.
   $http.get('api/users/self').success(function(user) {
     $rootScope.user = Restangular.restangularizeElement(null, user, 'api/users', user._id);
-    console.log('Restored session, here\'s the current user:', $rootScope.user);
+    //console.log('Restored session, here\'s the current user:', $rootScope.user);
   }).error(function() {
     console.log('No login session. Should we redirect to front page or what?');
   });
-});
+
+}]);

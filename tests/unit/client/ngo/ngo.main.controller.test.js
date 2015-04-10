@@ -84,6 +84,10 @@ describe('NGO main controller unit test', function() {
         description: {
           violate: true,
           message: 'Your description should be informative (more than 30 words)'
+        },
+        location: {
+          violate: false,
+          message: 'Your organisation should have a specific address.'
         }
       });
     });
@@ -115,6 +119,10 @@ describe('NGO main controller unit test', function() {
         description: {
           violate: false,
           message: 'Your description should be informative (more than 30 words)'
+        },
+        location: {
+           violate: false,
+           message: 'Your organisation should have a specific address.'
         }
       });
     });

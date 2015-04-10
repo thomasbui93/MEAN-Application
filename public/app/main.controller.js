@@ -24,8 +24,8 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
       $scope.user.setting = true;
     };
 
-    $scope.hideMenu= function () {
-        $scope.menu = false;
+    $scope.hideMenu = function() {
+      $scope.menu = false;
     };
   }
 ]);

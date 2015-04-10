@@ -4,7 +4,7 @@
         <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
             <p ng-show="error.name.violate" class="text-red">{{error.name.message}}*</p>
             <div class="group">
-                <input type="text" ng-model="org.name" required/>
+                <input type="text" ng-model="org.name" required autofocus/>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Organisation Name: <span class="text-red">*</span></label>

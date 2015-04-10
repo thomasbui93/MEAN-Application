@@ -12,5 +12,5 @@ angular.module('voluntr')
       $state.transitionTo('users', {
         id: $rootScope.user._id
       });
-    }
-  });
+    };
+});

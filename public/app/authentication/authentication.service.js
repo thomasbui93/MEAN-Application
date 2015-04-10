@@ -1,6 +1,6 @@
 'use strict';
 angular.module('voluntr')
-  .factory('AuthService', function($http, $rootScope, AUTH_EVENTS, Restangular) {
+  .factory('AuthService', function($http, $rootScope, AUTH_EVENTS, Restangular, USER_ROLES) {
     var authService = {};
 
     authService.login = function(credentials) {
@@ -21,12 +21,42 @@ angular.module('voluntr')
     };
 
     authService.isAuthenticated = function() {
+        console.log('user: ', $rootScope.user);
       return !!$rootScope.user;
     };
 
-    authService.isAuthorized = function(authorizedRoles) {
-      console.log('AuthService.isAuthorized is not implemented!');
-      return true;
+    authService.isAuthorized = function(authorizedRoles, stateParam) {
+      //console.log('AuthService.isAuthorized is not implemented!');
+        var access= true;
+        if (!angular.isArray(authorizedRoles)) {
+            authorizedRoles = [authorizedRoles];
+        }
+        if(authService.isAuthenticated()){//for logged in user
+            //excluded the page for guest
+            if(authorizedRoles.indexOf(USER_ROLES.admin)>-1){
+                access = $rootScope.user.admin;
+            }
+            if(authorizedRoles.indexOf(USER_ROLES.volunteer) >-1){
+                access = true;
+            } else{ // handle the ngo-page
+                //TODO: check if the volunteer owned the orgs
+                var managedOrgs = $rootScope.user.managedOrganisations.concat($rootScope.user.representOrganisations);
+                var index = managedOrgs.indexOf(stateParam);
+                if(index > -1){// user owned the orgs.
+                    access = true;
+                }
+                access = false; //who doesn't
+            }
+        }
+        else{
+            if(authorizedRoles.indexOf(USER_ROLES.guest) >-1){
+                access = true;
+            }
+            else{
+                access = false;
+            }
+        }
+        return access;
     };
 
     return authService;
@@ -51,9 +81,10 @@ angular.module('voluntr')
       }
     ]);
   }).run(function($location, AUTH_EVENTS, AuthService, $rootScope) {
-    $rootScope.$on('$stateChangeStart', function(event, next) {
+    $rootScope.$on('$stateChangeStart', function(event, next, nextParam, from, fromParams) {
       var authorizedRoles = next.data.authorizedRoles;
-      if (!AuthService.isAuthorized(authorizedRoles)) {
+      var id = nextParam.id || '';
+      if (!AuthService.isAuthorized(authorizedRoles, id)) {
         event.preventDefault();
 
         if (AuthService.isAuthenticated()) {
@@ -67,9 +98,7 @@ angular.module('voluntr')
     });
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      //$location.url('/');
-      //console.log($rootScope.user);
-
+      $location.url('/');
     });
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
