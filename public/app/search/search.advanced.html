@@ -121,8 +121,18 @@
             </div>
 
         </div>
-        <div class="volunteer-results row" ng-show="state.results.volunteers">
-
+        <div class="volunteer-results row" ng-show="state.results.jobs">
+            <div class="organization-block col-md-5 row" ng-repeat=" job in results.jobs">
+                <a>
+                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
+                    <div class="information-block col-md-8">
+                        <strong>{{job.name}}</strong>
+                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i> {{job.locations[0]}}</div>
+                        <p class="small">{{job.description}}</p>
+                        <strong class="text-muted">Created: </strong> {{job.startDate | date: 'MMM dd yyyy'}}
+                    </div>
+                </a>
+            </div>
         </div>
         <div class="organization-results row" ng-show="state.results.events">
             <div class="organization-block col-md-5 row" ng-repeat=" event in results.events">
@@ -130,9 +140,9 @@
                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
                     <div class="information-block col-md-8">
                         <strong>{{event.name}}</strong>
-                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i>{{event.locations[0]}}</div>
+                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i> {{event.locations[0]}}</div>
                         <p class="small">{{event.description}}</p>
-                        <strong class="text-muted">Founded:</strong> {{event.startDate | date: 'MMM dd yyyy'}}
+                        <strong class="text-muted">Start :</strong> {{event.startDate | date: 'MMM dd yyyy'}}
                     </div>
                 </a>
             </div>

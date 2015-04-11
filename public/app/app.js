@@ -254,6 +254,18 @@ angular.module('voluntr', [
         }
       ]
     }
+  }).state('permissionDenied', {
+    url: '/permission-denied',
+    templateUrl: 'app/static/permission-denied.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    }
+  }).state('loginRequired', {
+    url: '/login-required',
+    templateUrl: 'app/static/login-required.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    }
   });
 
   // This allows the address bar urls to seem natural

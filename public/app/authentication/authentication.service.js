@@ -17,11 +17,11 @@ angular.module('voluntr')
 
     authService.logout = function() {
       $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-      $rootScope.user = null;
+      $rootScope.user = undefined;
     };
 
     authService.isAuthenticated = function() {
-      console.log('user: ', $rootScope.user);
+      //console.log('user: ', $rootScope.user);
       return !!$rootScope.user;
     };
 
@@ -62,7 +62,7 @@ angular.module('voluntr')
     return {
       responseError: function(response) {
         $rootScope.$broadcast({
-          401: AUTH_EVENTS.notAuthenticated,
+          //401: AUTH_EVENTS.notAuthenticated,
           403: AUTH_EVENTS.notAuthorized,
           419: AUTH_EVENTS.sessionTimeout,
           440: AUTH_EVENTS.sessionTimeout
@@ -78,7 +78,7 @@ angular.module('voluntr')
         return $injector.get('AuthInterceptor');
       }
     ]);
-  }).run(function($location, AUTH_EVENTS, AuthService, $rootScope) {
+  }).run(function($location, AUTH_EVENTS, AuthService, $rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function(event, next, nextParam, from, fromParams) {
       var authorizedRoles = next.data.authorizedRoles;
       var id = nextParam.id || '';
@@ -101,5 +101,11 @@ angular.module('voluntr')
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
       $location.url('/');
+    });
+    $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
+      $state.go('permissionDenied');
+    });
+    $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
+      $state.go('loginRequired');
     });
   });
