@@ -5,21 +5,24 @@
 
   <div class="col-md-6 col-xs-12 margin-top-20">
     <form novalidate class="padding10">
-      <div class="input-container">
+        <div class="input-container">
           <label for="email" class="normal-label"><strong><h4>Username/Email:</h4></strong></label>
           <input type="text" name="email" ng-model="credentials.email" id="email" class="normal-input margin-top-5" placeholder="Your email">
-      </div>
-      <div class="input-container">
+        </div>
+        <div class="input-container">
           <label for="password" class="normal-label"><strong><h4>Password:</h4> </strong></label>
           <input type="password" name="password" ng-model="credentials.password" id="password" class="normal-input margin-top-5">
-      </div>
-      <button type="button" class="btn btn-form margin-top-20" ng-click="login(credentials)">Sign in</button>
-      <a ui-sref="register"> <button type="button" class="btn btn-form margin-top-20" >Register</button></a>
+        </div>
+        <button type="button" class="btn btn-form margin-top-20 pull-left" ng-click="login(credentials)">Sign in</button>
+        <p class="text-info pull-right margin-top-20">
+             Don't have account yet?
+            <br/>
+             <a ui-sref="register" >
+                  Register
+             </a>
+        </p>
     </form>
-      <!--dummy navigation for testing the other authenticated page-->
-    <ul>
-        <li><a ui-sref="user-dashboard">Dashboard</a></li>
-        <li><a ng-click="navToUser()">User home page</a></li>
-    </ul>
+
+
    </div><!--right-->
 </div><!--container-->

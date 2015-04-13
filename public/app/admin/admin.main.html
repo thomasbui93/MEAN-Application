@@ -1,12 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
-            <ul>
-                <li><a ui-sref="adminDashboard.blacklist"><strong>Blacklist</strong></a></li>
-                <li><a ui-sref="adminDashboard.report"><strong>Report</strong></a></li>
-                <li><a ui-sref="adminDashboard.content"><strong>Content report</strong></a></li>
+            <ul class="margin-top-20 admin-menu">
+                <li class=" text-center blue-background padding10 " ng-class="{'selected': isState('adminDashboard.blacklist')}"><a  class="text-white" ui-sref="adminDashboard.blacklist"><strong>Blacklist</strong></a></li>
+                <li class=" text-center blue-background padding10 " ng-class="{'selected': isState('adminDashboard.report')}"><a class="text-white" ui-sref="adminDashboard.report"><strong>Report</strong></a></li>
+                <li class=" text-center blue-background padding10 " ng-class="{'selected': isState('adminDashboard.content')}"><a class="text-white" ui-sref="adminDashboard.content"><strong>Content report</strong></a></li>
             </ul>
         </div>
+        <ul class="hidden-md hidden-lg inline-admin-menu">
+            <li class="margin-top-20 blue-background" ng-class="{'selected': isState('adminDashboard.blacklist')}"><a  class="text-white" ui-sref="adminDashboard.blacklist"><strong>Blacklist</strong></a></li>
+            <li class="margin-top-20 blue-background" ng-class="{'selected': isState('adminDashboard.report')}"><a class="text-white" ui-sref="adminDashboard.report"><strong>Report</strong></a></li>
+            <li class="margin-top-20 blue-background" ng-class="{'selected': isState('adminDashboard.content')}"><a class="text-white" ui-sref="adminDashboard.content"><strong>Content report</strong></a></li>
+        </ul>
+
         <div class="col-sm-12 col-xs-12 col-md-9 col-lg-9" ui-view="main">
 
         </div>

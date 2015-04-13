@@ -10,11 +10,75 @@
     <link href='http://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css'>
     <!-- /Vendor styles -->
     <!-- inject:css -->
-   <link type="text/css" rel="stylesheet" href="/styles/css/animate.min.css">
    <link type="text/css" rel="stylesheet" href="/styles/css/main.min.css">
    <!-- endinject -->
 </head>
-<body ng-app="voluntr">
+<body ng-app="voluntr" ng-controller="mainController">
+<div id="menu-horizontal" >
+    <div class="show-xs show-sm hidden-md hidden-lg" id="control-box" ng-click="toggleMenu()">
+        <i class="fa fa-bars fa-3x text-white img-responsive"></i>
+    </div>
+    <div class="logo-sm josefin center-block hidden-md hidden-lg">
+        <a href="/" class="text-white"><strong>Voluntr</strong></a>
+    </div>
+    <div class="hidden-xs hidden-sm">
+        <div class="logo josefin" >
+            <a href="/" class="text-white"><strong>Voluntr</strong></a>
+        </div>
+        <ul id="common-link">
+            <li><a class="text-white">Organisations</a></li>
+            <li><a class="text-white">Events</a></li>
+            <li><a class="text-white">Jobs</a></li>
+        </ul>
+        <div id="user-control" ng-if="user.firstName !== undefined">
+            <div class="user-name">
+               <strong>{{user.firstName || ''}}</strong>
+            </div>
+            <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
+        </div>
+        <div class="login-section pull-right" ng-if="user.firstName === undefined" >
+            <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
+            <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
+        </div>
+        <div id="search-section">
+            <input type="text" placeholder="Search" ng-keydown="searchMenu($event)" ng-model="input.searchMenu"/>
+            <label><i class="fa fa-search"></i></label>
+        </div>
+    </div>
+</div>
+<ul id="user-setting" ng-show="user.setting">
+    <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
+    <li><a class="text-white" ng-click="logout()">Logout</a></li>
+    <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
+</ul>
+<ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
+   <h3 class="text-center">Menu</h3>
+    <hr/>
+   <li>Organisation</li>
+   <li>Jobs</li>
+   <li>Events</li>
+    <hr/>
+    <li ng-if="user.firstName===undefined">
+        <div><a ui-sref="register.volunteer" class="text-white">Register</a></div>
+        <div><a ui-sref="login" class="text-white">Login</a></div>
+    </li>
+    <li ng-if="user.firstName!==undefined">
+        <div><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <div ><a ng-click="logout()" class="text-white">Logout</a></div>
+        <div><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
+    </li>
+    <hr/>
+    <!---- THIS block for testing authorization
+        -->
+    <li>
+        <a ui-sref="login" class="text-white">Login</a>
+    </li>
+    <li>
+        <a href="/ngo/dashboard/55095c4e2d316055807f00dd" class="text-white">Org example</a>
+    </li>
+
+</ul>
+
 <!-- This view will be filled by the ui-router. -->
 <div ui-view></div>
 
@@ -57,6 +121,7 @@
 <script src="/app/admin/admin.main.controller.js"></script>
 <script src="/app/admin/admin.content.controller.js"></script>
 <script src="/app/admin/admin.blacklist.controller.js"></script>
+<script src="/app/main.controller.js"></script>
 <!-- endinject -->
 </body>
 </html>

@@ -20,13 +20,14 @@ var user = new User({
     city: 'Oulu',
     country: 'Finland'
   },
+  admin: true,
   _id: '55095c4e2d316055807fe46c'
 });
 
 var user1 = new User({
   email: 'k@ex.com',
-  firstName: 'K',
-  lastName: 'B',
+  firstName: 'Khoa',
+  lastName: 'Bui Dang ',
   password: 'ex',
   birthDate: {
     date: 11,
@@ -75,8 +76,36 @@ var org2 = new Organisation({
   interests: ['drink']
 });
 
+var org3 = new Organisation({
+  _id: '55095c4e2d316055307f00fd',
+  name: 'Khoa KK',
+  locations: ['Bangkok'],
+  interests: ['drink']
+});
+
+var org4 = new Organisation({
+  _id: '55095c4e2d316255807f00fd',
+  name: 'Tom VV',
+  locations: ['Bangkok'],
+  interests: ['drink']
+});
+
+var org5 = new Organisation({
+  _id: '55095c4e2d216055807f00fd',
+  name: 'Social',
+  locations: ['Bangkok'],
+  interests: ['drink']
+});
+
+var org6 = new Organisation({
+  _id: '55495c4e2d316055807f00fd',
+  name: 'Panda',
+  locations: ['Bangkok'],
+  interests: ['drink']
+});
+
 var newEvent = new Event({
-      name: 'Awesome event',
+  name: 'Awesome event',
   description: "Awesome",
   startDate: new Date(2015, 4, 1, 17, 0),
   endDate: Date.now(),
@@ -100,7 +129,7 @@ var newEvent1 = new Event({
   description: "Tom",
   startDate: new Date(2015, 4, 1, 17, 0),
   endDate: Date.now(),
-    locations: "Oulu",
+  locations: "Oulu",
   _id: '59195c4e2d316035807f0100'
 });
 
@@ -171,6 +200,10 @@ Organisation.remove(function() {
 
   org1.save();
   org2.save();
+  org3.save();
+  org4.save();
+  org5.save();
+  org6.save();
 });
 
 

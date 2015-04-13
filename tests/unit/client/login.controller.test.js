@@ -53,7 +53,7 @@ describe('LoginController unit testing', function() {
   describe('$scope logout', function() {
     it('reset the initial state of user object in rootScope', function() {
       scope.logout();
-      expect(rootScope.user).toEqual(null);
+      expect(rootScope.user).toBeUndefined();
     });
 
     it('broadcast the logout success event to the scope', function() {
