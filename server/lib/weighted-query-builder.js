@@ -68,6 +68,8 @@ WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
 // Returns an int score for a data field
 var calculateScore = function(data, matchType, term) {
   if (isArray(data)) {
+    if (data.length === 0) return matchScore[matchType];
+
     return data.map(function(item) {
         return matchScore[matchType] * levenshteinDistance(item, term);
       }).reduce(adder);
