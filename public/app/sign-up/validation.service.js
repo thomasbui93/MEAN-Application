@@ -39,7 +39,6 @@ angular.module('voluntr').factory('Validation', function() {
       } else {
         return false;
       }
-      console.log(array.length);
     }
   };
 
@@ -81,9 +80,22 @@ angular.module('voluntr').factory('Validation', function() {
     if (!user.birthday) return false;
 
     try {
-      user.birthday.getDate();
-      user.birthday.getMonth();
-      user.birthday.getFullYear();
+      var birthday = {
+        day: user.birthday.getDate(),
+        month: user.birthday.getMonth(),
+        year: user.birthday.getFullYear()
+      };
+
+      for (var key in birthday) {
+        if (birthday[key] === "Invalid Date") {
+          return false;
+        }
+      }
+
+      // They're from the future!
+      if (user.birthday.getTime() > Date.now()) {
+        return false;
+      }
 
       return true;
     } catch (e) {

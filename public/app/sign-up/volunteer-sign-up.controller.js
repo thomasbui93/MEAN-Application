@@ -63,7 +63,6 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       if ($scope.user.phone && $scope.user.phone !== '') {
         $scope.error.phone.violate = !Validation.checkPhone($scope.user);
       }
-      console.log($scope.user);
 
       $scope.error.passwordNotStrong.violate = !Validation.checkPassword($scope.user);
       $scope.error.birthday.violate = !Validation.checkBirthdate($scope.user);

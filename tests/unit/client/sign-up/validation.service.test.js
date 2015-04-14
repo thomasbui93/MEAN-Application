@@ -84,5 +84,22 @@ describe('Validation service unit test', function(){
             error.name.violate = true;
             expect(validation.check(error)).toEqual(false);
         });
-    })
+    });
+
+   describe('validation: checkBirthdate', function() {
+        it('should return false if null date is passed', function() {
+            user.birthday = null;
+            expect(validation.checkBirthdate(user)).toEqual(false);
+        });
+
+        it('should return true on valid date', function() {
+            user.birthday = new Date("2/2/2000");
+            expect(validation.checkBirthdate(user)).toEqual(true);
+        });
+
+        it('should return false if the date is in the future', function() {
+            user.birthday = new Date("2/2/3300");
+            expect(validation.checkBirthdate(user)).toEqual(false);
+        });
+   }); 
 })
