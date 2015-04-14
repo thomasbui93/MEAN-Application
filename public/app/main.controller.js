@@ -19,11 +19,10 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
       });
       $scope.menu = !$scope.menu;
     };
-    /*
+
     $rootScope.$watch('user', function() {
       $scope.user = $rootScope.user;
     });
-    */
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
       $scope.user = $rootScope.user;
     });

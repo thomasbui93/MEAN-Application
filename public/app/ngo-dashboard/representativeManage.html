@@ -1,21 +1,22 @@
 <div class="container representative-container" ng-show="!state.dialog">
     <h3 class="text-center">Representatives </h3>
     <div>
-        <h5>Add user by email</h5>
+        <h4>Add user by email</h4>
         <input type="text" class="normal-input" ng-model="input.email" ng-keyup="showUser($event)" />
-        <div class="margin-top-20">
-            <li class="ngo-location" ng-repeat="user in matchUser" ng-click="addRepresentative(user)">Email: {{user.email}}</li>
-        </div>
+        <ul class="margin-top-20">
+            <li class="user-brief" ng-repeat="user in matchUser" ng-click="addRepresentative(user)">
+                 <strong>{{user.firstName +" "+ user.lastName}}</strong>
+                 <p class="text-italic"><i class="fa fa-envelope-o"></i> {{user.email}} </p>
+            </li>
+        </ul>
         <div ng-if="input.repeatedError === true" class="text-center text-red">Already user as a representative.</div>
         <div ng-if="matchUser.length === 0" class="text-italic"> User email not found </div>
         <button class="btn btn-form margin-top-5" ng-click="addRepresentative()">Add Representatives</button>
     </div>
-
     <div class="row padding10" ng-if="rep.length === 0">
         <button class="btn btn-small btn-red pull-left" ng-click="removeInvoke()">Remove</button>
         <button class="btn btn-small btn-form pull-right" ng-click="checkRemoveAll()" ng-show="state.check">Check All</button>
         <button class="btn btn-small btn-form pull-right" ng-click="unCheck()" ng-show="!state.check">Uncheck</button>
-
     </div>
     <hr/>
     <div class="row padding10 ">

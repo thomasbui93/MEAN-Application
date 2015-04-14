@@ -109,7 +109,7 @@
     <div class="row result-set container center-block">
         <div class="organization-results row" ng-show="state.results.orgs">
             <div class="organization-block col-md-5 row" ng-repeat=" org in results.organizations">
-                <a >
+                <a ui-sref="ngoHomePage({id: org._id})">
                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
                     <div class="information-block col-md-8">
                         <strong>{{org.name}}</strong>
@@ -136,7 +136,7 @@
         </div>
         <div class="organization-results row" ng-show="state.results.events">
             <div class="organization-block col-md-5 row" ng-repeat=" event in results.events">
-                <a>
+                <a ui-sref="events({id: event._id})">
                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
                     <div class="information-block col-md-8">
                         <strong>{{event.name}}</strong>

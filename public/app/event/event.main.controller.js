@@ -1,10 +1,9 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  'comments',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments) {
+  'comments','organisation',
+  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organistion) {
     $scope.currentUser = $rootScope.user;
     var findObject = function(array, object) {
-
       var index = -1;
       if (object === undefined) {
         return -1;
@@ -18,6 +17,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       return index;
 
     };
+    $scope.organisation = organistion;
     $scope.isFollowed = findObject(event.participants, $rootScope.user) !== -1;
     $scope.input = {
       comment: ''
@@ -40,7 +40,13 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
         return true;
       }
     };
-
+    $scope.checkOwner = function () {
+      if($rootScope.user === undefined){
+          return false;
+      } else{
+          // TODO: check owner
+      }
+    };
     $scope.editInformation = function() {
       $scope.edit = {
         show: true
@@ -82,7 +88,6 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
             userComment.createdBy.lastName = $rootScope.user.lastName;
             comments.push(userComment);
             $scope.input.comment = '';
-
             event.comments.push(comment);
             event.save().then(function(msg) {});
           });
@@ -93,11 +98,12 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     $scope.follow = function() {
       $scope.currentUser.events.push(event);
       $scope.currentUser.save();
-
-      console.log($scope.currentUser.events);
-      event.participants.push($scope.currentUser);
+      var user = {
+          _id : $scope.currentUser._id
+      };
+      event.participants.push(user);
       event.save().then(function(data) {
-        //TODO: check if this is working fine
+        //TODO: check if this is working fine-> done
         $scope.isFollowed = true;
       });
     };

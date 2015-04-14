@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('voluntr').controller('ngoHomePageController',
-  function($scope, $state, $stateParams, Restangular, organisation, NGO_ERRORS, Validation, $timeout) {
+  function($scope, $state, $stateParams, Restangular, organisation, NGO_ERRORS, Validation, $timeout, $rootScope) {
     $scope.currentNGO = organisation;
     $scope.events = organisation.events;
     $scope.recruitments = organisation.recruitments;
@@ -20,7 +20,6 @@ angular.module('voluntr').controller('ngoHomePageController',
         state: 'Save'
       };
     };
-
     $scope.createCause = function($event) {
       if ($event.keyCode == 13) {
         if ($scope.currentNGO.interests.indexOf($scope.inputCause) == -1)
@@ -79,6 +78,28 @@ angular.module('voluntr').controller('ngoHomePageController',
       $scope.userShow = true;
       $scope.dialogShow = false;
       $scope.removeEvent = null;
+    };
+      var findObject = function(array, object) {
+          var index = -1;
+          if (object === undefined) {
+              return -1;
+          }
+          for (var i = 0; i < array.length; i++) {
+              if (array[i]._id === object._id) {
+                  index = i;
+                  break;
+              }
+          }
+          return index;
+
+      };
+    $scope.isOwner = function () {
+        if($rootScope.user === undefined){
+            return false;
+        } else{
+            var index = $rootScope.user.managedOrganisations.indexOf(organisation._id);
+            return (index !== -1);
+        }
     };
   }
 );
