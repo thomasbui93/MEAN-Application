@@ -21,8 +21,7 @@ angular.module('voluntr').factory('Validation', function() {
   };
 
   validation.checkPassword = function(user) {
-    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-    return re.test(user.password);
+    return user.pwd.length > 7;
   };
 
   validation.checkPhone = function(user) {

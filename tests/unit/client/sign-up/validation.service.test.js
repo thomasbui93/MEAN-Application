@@ -44,26 +44,15 @@ describe('Validation service unit test', function(){
             expect(validation.checkEmail(user)).toEqual(false);
         });
     });
+
     describe('Validation: checkPassword', function(){
         it('should return true if the password is match', function(){
-            user.password = 'ABCabc12300324';
+            user.pwd = 'ABCabc12300324';
             expect(validation.checkPassword(user)).toEqual(true);
         });
+        
         it('should return false if the password is not match', function(){
-            user.password = 'ABCabc';
-            expect(validation.checkPassword(user)).toEqual(false);
-        });
-        it('should return false if the password is not match', function(){
-            user.password = 'ABC12300324';
-            expect(validation.checkPassword(user)).toEqual(false);
-        });
-        it('should return false if the password is not match', function(){
-            user.password = 'abc12300324';
-            expect(validation.checkPassword(user)).toEqual(false);
-        });
-
-        it('should return false if the password is not match', function(){
-            user.password = 'ABCabc1';
+            user.pwd = 'ABCabc';
             expect(validation.checkPassword(user)).toEqual(false);
         });
     });

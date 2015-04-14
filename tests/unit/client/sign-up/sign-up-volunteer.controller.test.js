@@ -34,8 +34,8 @@ describe('volunteerSignUpController unit test', function(){
             scope.user = {
                 name: 'Test User',
                 email: 'test@email.com',
-                pwd: 'abcABC1900',
-                repwd: 'abcABC1900',
+                pwd: 'abcdefgg',
+                repwd: 'abcdefgg',
                 address: 'Hanhitie',
                 phone: '900 000 090',
                 birthday: 'Feb 27 9000',
@@ -70,7 +70,7 @@ describe('volunteerSignUpController unit test', function(){
         });
 
         it('should set error.passwordNotStrong.violate to be true if password is not match requirements', function(){
-            scope.user.pwd = 'sometest';
+            scope.user.pwd = 'short';
             scope.checkAll();
             expect(scope.error.passwordNotStrong.violate).toEqual(true);
         });

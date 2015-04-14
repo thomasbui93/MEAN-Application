@@ -40,6 +40,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
         $scope.input.interest = '';
       }
     };
+
     $scope.checkAll = function() {
       if ($scope.user.firstname === '' || $scope.user.firstname === null) {
         $scope.error.name.violate = true;
@@ -58,8 +59,12 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       } else {
         $scope.error.passwordNotMatch.violate = false;
       }
+
+      if ($scope.user.phone && $scope.user.phone !== '') {
+        $scope.error.phone.violate = !Validation.checkPhone($scope.user);
+      }
+
       $scope.error.passwordNotStrong.violate = !Validation.checkPassword($scope.user);
-      $scope.error.phone.violate = !Validation.checkPhone($scope.user);
     };
 
     $scope.checkIdenticalEmail = function() {
