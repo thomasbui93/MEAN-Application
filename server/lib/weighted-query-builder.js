@@ -26,9 +26,12 @@ WeightedQueryBuilder.prototype.buildParameters = function(query) {
   var queryParams = query.q.split(" ");
   this._query = queryParams;
 
-  queryParams = queryParams.map(function(param) {
-    return new RegExp(param, 'ig');
-  });
+  queryParams = queryParams.filter(function(param){
+      return param !== "";
+    })
+    .map(function(param) {
+      return new RegExp(param, 'ig');
+    });
 
   return prepareQuery(queryParams);
 };
@@ -72,8 +75,8 @@ var calculateScore = function(data, matchType, term) {
     if (data.length === 0) return matchScore[matchType];
 
     return data.map(function(item) {
-        return matchScore[matchType] * levenshteinDistance(item, term);
-      }).reduce(adder);
+      return matchScore[matchType] * levenshteinDistance(item, term);
+    }).reduce(adder);
 
   } else if (matchType === "description") {
     // Minumum description length is enforced by the database
