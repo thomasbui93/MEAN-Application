@@ -109,7 +109,7 @@ angular.module('voluntr', [
     controller: 'ngoDashBoardMainController',
     templateUrl: 'app/ngo-dashboard/dashboard.html',
     data: {
-      authorizedRoles: [USER_ROLES.volunteer, USER_ROLES.guest]
+      authorizedRoles: [USER_ROLES.volunteer]
     },
     resolve: {
       organisation: function(Restangular, $stateParams) {
@@ -129,9 +129,6 @@ angular.module('voluntr', [
       }
     },
     resolve: {
-      events: function(events) {
-        return events;
-      },
       organisation: function(organisation) {
         return organisation;
       }
@@ -196,7 +193,7 @@ angular.module('voluntr', [
     }
   }).state('adminDashboard', {
     abstract: true,
-    url: '/admin/',
+    url: '/admin',
     controller: 'adminController',
     templateUrl: 'app/admin/admin.main.html',
     data: {
@@ -211,7 +208,7 @@ angular.module('voluntr', [
       }
     }
   }).state('adminDashboard.report', {
-    url: 'report/',
+    url: '/report',
     views: {
       'main': {
         controller: 'adminReportController',
@@ -219,7 +216,7 @@ angular.module('voluntr', [
       }
     }
   }).state('adminDashboard.content', {
-    url: 'content/',
+    url: '/content',
     views: {
       'main': {
         controller: 'adminContentController',
@@ -258,7 +255,10 @@ angular.module('voluntr', [
         function($stateParams, Restangular) {
           return Restangular.one('api/events', $stateParams.id).get();
         }
-      ]
+      ],
+      comments: function($stateParams, Restangular) {
+        return Restangular.one('api/comments/', $stateParams.id).getList('eventComment');
+      }
     }
   }).state('users', {
     url: '/users/{id}',

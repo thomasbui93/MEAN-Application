@@ -1,20 +1,43 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular) {
+  'comments',
+  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments) {
     $scope.currentUser = $rootScope.user;
 
+    var findObject = function(array, object) {
+
+      var index = -1;
+      if (object === undefined) {
+        return -1;
+      }
+      for (var i = 0; i < array.length; i++) {
+        if (array[i]._id === object._id) {
+          index = i;
+          break;
+        }
+      }
+      return index;
+
+    };
+    $scope.isFollowed = findObject(event.participants, $rootScope.user) !== -1;
     $scope.input = {
       comment: ''
     };
 
     $scope.currentEvent = event;
-    $scope.comments = event.comments;
+    $scope.comments = comments;
+    console.log(comments);
     $scope.currentEvent.date = event.startDate;
     $scope.errors = EVENT_ERRORS;
     $scope.edit = {
       show: false
     };
+    /*console.log(event.comments);
+      var createdById = [];
+      for(var i =0 ; i< $scope.comments.length; ++i)
+      {
 
+      }*/
     $scope.checkFollowed = function() {
       var index = $scope.currentUser.events.indexOf(event);
       if (index === -1) {
@@ -56,10 +79,18 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
             content: $scope.input.comment,
             createdBy: $rootScope.user._id
           }).then(function(comment) {
+            var userComment = {
+              createdBy: {},
+              content: ''
+            };
+            userComment.content = comment.content;
+            userComment.createdBy.firstName = $rootScope.user.firstName;
+            userComment.createdBy.lastName = $rootScope.user.lastName;
+            comments.push(userComment);
+            $scope.input.comment = '';
+
             event.comments.push(comment);
-            event.save().then(function(msg) {
-              $scope.input.comment = '';
-            });
+            event.save().then(function(msg) {});
           });
         }
       }
@@ -77,6 +108,25 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       event.save().then(function(data) {
         //   console.log(data);
       });
+    };
+
+    $scope.unFollow = function() {
+      var indexEvent = findObject($rootScope.user.events, event);
+      if (indexEvent !== -1) {
+        $rootScope.user.events.splice(indexEvent, 1);
+        $rootScope.user.save();
+      }
+      var indexUser = findObject(event.participants, $rootScope.user);
+
+      if (indexUser !== -1) {
+        event.participants.splice(indexUser, 1);
+
+        event.save().then(function() {
+          console.log('deleted');
+          $scope.isFollowed = false;
+        });
+      }
+
     };
   }
 ]).filter('timeParse', function() {

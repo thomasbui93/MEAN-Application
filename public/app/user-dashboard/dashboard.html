@@ -92,7 +92,7 @@
                 <div class="notification-container scroll container">
                     <div class="notification-brief row padding10" ng-repeat="event in events">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" >
-                            <a href="#">
+                            <a ui-sref="events({id: event._id})">
                                 <img src="http://placehold.it/40x40" class="center-block img-responsive"/>
                             </a>
                         </div>

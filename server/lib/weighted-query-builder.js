@@ -26,9 +26,9 @@ WeightedQueryBuilder.prototype.buildParameters = function(query) {
   var queryParams = query.q.split(" ");
   this._query = queryParams;
 
-  queryParams = queryParams.filter(function(param){
-      return param !== "";
-    })
+  queryParams = queryParams.filter(function(param) {
+    return param !== "";
+  })
     .map(function(param) {
       return new RegExp(param, 'ig');
     });

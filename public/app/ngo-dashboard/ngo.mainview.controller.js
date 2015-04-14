@@ -2,8 +2,8 @@
  * Created by Bui Dang Khoa on 3/26/2015.
  */
 'use strict';
-angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$state', 'events', 'organisation', 'Restangular',
-  function($scope, $state, events, organisation, Restangular) {
+angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$state', 'organisation', 'Restangular',
+  function($scope, $state, organisation, Restangular) {
     $scope.currentNGO = $scope.$parent.currentNGO || {};
     $scope.events = organisation.events;
     $scope.delete = {
@@ -11,8 +11,6 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       event: null
     };
 
-    //methods
-    console.log(organisation);
     $scope.invokeDelete = function(event) {
       $scope.delete = {
         state: true,
@@ -33,30 +31,34 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
     };
 
     $scope.deleteEvent = function() {
-        var index = -1;
-        var deleteID = null;
-        for(var i=0; i<organisation.events.length; i++){
-            if(organisation.events[i]._id === $scope.delete.event._id){
-                index = i;
-                deleteID = organisation.events[i]._id;
-            }
+      var index = -1;
+      var deleteID = null;
+      for (var i = 0; i < organisation.events.length; i++) {
+        if (organisation.events[i]._id === $scope.delete.event._id) {
+          index = i;
+          deleteID = organisation.events[i]._id;
         }
-        console.log(index);
-        if(index >-1){
-            organisation.events.splice(index, 1);
-            organisation.save().then(function () {
-                Restangular.one('api/events', deleteID)
-                    .remove().then(function() {
-                        $scope.events = organisation.events;
-                    });
+      }
+      if (index > -1) {
+        organisation.events.splice(index, 1);
+        organisation.save().then(function() {
+          Restangular.one('api/events', deleteID)
+            .remove().then(function() {
+              $scope.events = organisation.events;
             });
-        }
+        });
+      }
 
       $scope.deleteReset();
     };
 
     $scope.viewVolunteers = function(event) {
-      event.showVolunteer = !event.showVolunteer;
+      Restangular.one('api/events', event._id)
+        .getList('participants')
+        .then(function(results) {
+          event.volunteers = results;
+          event.showVolunteer = !event.showVolunteer;
+        });
     };
   }
 ]).controller('ngoEventEditController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout', 'event', 'organisation',
@@ -87,8 +89,13 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
       }
       console.log($scope.errors);
       if (Validation.checkFinal($scope.errors)) {
-        console.log('saving');
-        $scope.currentEvent.save().then(function() {
+        $scope.currentEvent.save().then(function(result) {
+          for (var i = 0; i < organisation.events.length; i++) {
+            if (organisation.events[i]._id === result._id) {
+              organisation.events.splice(i, 1);
+            }
+          }
+          organisation.events.push(result);
           $scope.success = true;
           $timeout(function() {
             $state.transitionTo('ngoDashboard.eventManage', {
@@ -133,10 +140,11 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
         Restangular.all('api/events').post({
           name: $scope.currentEvent.name,
           locations: $scope.currentEvent.location,
-        //  startDate: $scope.currentEvent.startDate,
-        //  endDate: $scope.currentEvent.endDate,
+          startDate: new Date($scope.currentEvent.startDate),
+          endDate: new Date(2015, 1, 1),
           description: $scope.currentEvent.description
         }).then(function(result) {
+          console.log(result);
           organisation.events.push(result);
           organisation.save().then(function() {
             $scope.success = true;

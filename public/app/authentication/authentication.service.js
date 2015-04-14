@@ -25,6 +25,7 @@ angular.module('voluntr')
     };
 
     authService.isAuthorized = function(authorizedRoles, stateParam) {
+        console.log(authService.isAuthenticated(), $rootScope.user);
       //console.log('AuthService.isAuthorized is not implemented!');
       var access = true;
       if (!angular.isArray(authorizedRoles)) {

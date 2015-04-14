@@ -23,7 +23,7 @@ var OrganisationSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "Event"
   }], //an array of event_id belong to this organisation
-  recruitments: [{
+    recruitments: [{
     type: Schema.Types.ObjectId,
     ref: "Recruitment"
   }], //an array of recruitment_id belong to this organisation

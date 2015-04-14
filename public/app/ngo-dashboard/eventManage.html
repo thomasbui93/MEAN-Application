@@ -9,8 +9,9 @@
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="padding10">
                 <strong>{{event.name}}</strong><br>
-                <p><strong>Location: </strong> {{event.locations[0]}}</p>
-                <p><strong class="">Time: </strong>{{event.date | date: 'HH:mm d, MMM yyyy'}}</p>
+                <p><strong>Location: </strong> {{event.locations}}</p>
+                <p><strong class="">From: </strong>{{event.startDate | date: 'MMM dd, yyyy. HH:mm'}}</p>
+                <p><strong class="">To: </strong>{{event.endDate | date: 'MMM dd, yyyy. HH:mm'}}</p>
                 <div>
                     <a ui-sref="ngoDashboard.eventEdit({id : event._id})"><button class="btn-small btn-follow">Edit</button></a>
                     <button class="btn-small btn-follow" ng-click="invokeDelete(event)">Remove</button>
@@ -21,7 +22,7 @@
                 <div ng-repeat="volunteer in event.volunteers" class="margin-top-5 cross-background volunteer" ng-show="event.showVolunteer">
                    <div class="margin-left-30">
                        <img src="http://placehold.it/30x30" class="img-circle img-responsive border-10">
-                      {{volunteer.name}}
+                      {{volunteer.firstName + " "+ volunteer.lastName}}
                    </div>
                 </div>
             </div>

@@ -41,8 +41,11 @@
                     <i class="fa fa-clock-o"></i>
                     17:30PM. Mar 3, 2014
                 </p>
-                <button class="btn btn-follow" ng-click="follow()">Follow</button>
-                <button class="btn btn-follow" >Following</button>
+                <div ng-if=" currentUser !== undefined">
+                    <button class="btn btn-follow" ng-click="follow()" ng-show="!isFollowed">Follow</button>
+                    <button class="btn btn-follow" ng-click="unFollow()" ng-show="isFollowed">Following</button>
+                </div>
+
             </div>
             <div ng-show="edit.show" class="info-show">
                 <div class="input-container small-input center-block">
@@ -80,10 +83,11 @@
                     </div><!-- action-hub -->
                     <img src="http://placehold.it/100x100" class="img-responsive"/>
                     <div class="comment-content">
-                        <a><strong>{{comment.user.name || 'sss'}}</strong></br></a>
+                        <a><strong>{{comment.createdBy.firstName+' '+ comment.createdBy.lastName  || 'Anonymous'}}</strong></br></a>
                         {{comment.content}}
                     </div>
                 </div>
+
                 <!--end comment-->
                 <div class="comment-input-container" ng-if="currentUser._id!==undefined"><!--comment-input-container-->
                     <label class="comment-label"><i class="fa fa-paper-plane"></i></label>

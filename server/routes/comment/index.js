@@ -12,5 +12,6 @@ router.delete('/:commentId', controller.remove);
 
 router.get('/:commentId/createdBy', controller.getCreatedBy);
 router.get('/:commentId/event', controller.getEvent);
+router.get('/:commentId/eventComment', controller.findByEvent);
 
 module.exports = router;
