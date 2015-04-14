@@ -6,23 +6,48 @@
             </div>
             <div class="information">
                 <div ng-show="!edit.show" class="show-information padding10">
-                    <p class="name text-center"><strong>{{user.name}}</strong></p>
-                    <p class="location text-center">{{user.address}}</p>
+                    <p class="name text-center"><strong>{{user.firstName + " " +user.lastName}}</strong></p>
+                    <p>
+                        <i class="fa fa-map-marker pull-left"></i>
+                        <p class="location text-center">{{user.address.city+ ", " + user.address.country}}</p>
+                    </p>
+                    <p>
+                        <i class="fa fa-calendar pull-left"></i>
+                        <p class="text-center">{{ user.birthday | date: 'MMM dd yyyy' }}</p>
+                    </p>
+                    <p>
+                        <i class="fa fa-phone-square pull-left"> </i>
+                        <p class="text-center">{{user.phone | undefinedString}}</p>
+                    </p>
                     <ul class="skill-sets">
-                        <li class="tag" ng-repeat="skill in user.skillSet">
+                        <p class="pull-left"><strong>Skill: </strong></p><br/>
+                        <p class="text-italic text-center" ng-if="user.skills.length === 0"> No data shown</p>
+                        <li class="tag" ng-repeat="skill in user.skills">
+                            {{skill}}
+                        </li>
+                    </ul>
+                    <ul class="skill-sets">
+                        <p class="pull-left"><strong>Interests: </strong></p><br/>
+                        <p class="text-italic text-center" ng-if="user.interests.length === 0"> No data shown</p>
+                        <li class="tag" ng-repeat="skill in user.interests">
                             {{skill}}
                         </li>
                     </ul>
                 </div>
                 <div ng-show="edit.show" class="edit-information padding10">
                     <div class="input-container">
-                        <label class="normal-label"><strong>Name: </strong></label>
+                        <label class="normal-label"><strong>First Name: </strong></label>
                         <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
-                        <input ng-model="user.name" type="text" placeholder="{{user.name}}" class="normal-input"/>
+                        <input ng-model="user.firstName" type="text" placeholder="{{user.firstName}}" class="normal-input"/>
+                    </div>
+                    <div class="input-container">
+                        <label class="normal-label"><strong>Last Name: </strong></label>
+                        <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+                        <input ng-model="user.lastName" type="text" placeholder="{{user.lastName}}" class="normal-input"/>
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Address: </strong></label>
-                        <input ng-model="user.address" type="text" placeholder="{{user.address}}" class="normal-input margin-top-5"/>
+                        <input ng-model="user.location" type="text" placeholder="{{user.location}}" class="normal-input margin-top-5"/>
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Email: </strong></label>
@@ -37,22 +62,24 @@
                     <div class="input-container">
                         <label class="normal-label"><strong>Skills: </strong></label>
                         <div class="skill-sets">
-                            <div class="tag" ng-repeat="skill in user.skillSet" ng-click="removeSkill(skill)">{{skill}}</div>
-                            <input class="hide-input" type="text" ng-keydown="createSkill($event)" ng-model="input.skill"/>
+                            <div class="tag" ng-repeat="skill in user.skills" ng-click="removeSkill(skill)">{{skill}}</div>
+                            <input class="hide-input" type="text" ng-keydown="createSkill($event)" ng-model="input.skill" ng-blur="input.skill =''"/>
                         </div>
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Interests: </strong></label>
                         <div class="skill-sets">
-                            <div class="tag" ng-repeat="interest in user.interestSet" ng-click="removeInterest(interest)">{{interest}}</div>
-                            <input class="hide-input" type="text" ng-keydown="createInterest($event)" ng-model="input.interest"/>
+                            <div class="tag" ng-repeat="interest in user.interests" ng-click="removeInterest(interest)">{{interest}}</div>
+                            <input class="hide-input" type="text" ng-keydown="createInterest($event)" ng-model="input.interest" ng-blur="input.interest =''"/>
                         </div>
                     </div>
                 </div>
                 <div class="padding10 border-top">
 
                     <div class="center-block">
-                        <button ng-show="edit.show" class="btn btn-follow center-block" ng-click="saveInformation()">{{edit.state}}</button>
+                        <button ng-show="edit.show" class="btn btn-form center-block" ng-click="saveInformation()">{{edit.state}}
+                            <i class="fa fa-check-circle" ng-show="edit.success"></i>
+                        </button>
                     </div>
                     <button ng-show="!edit.show"  class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
 
@@ -61,38 +88,29 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 container">
             <div class="user-notification">
-                <div class="banner shadow"><strong>Notification</strong></div>
+                <div class="banner shadow"><strong>Upcoming events</strong></div>
                 <div class="notification-container scroll container">
-                    <div ng-repeat="notification in notifications" class="notification-brief row padding10">
+                    <div class="notification-brief row padding10" ng-repeat="event in events">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" >
                             <a href="#">
                                 <img src="http://placehold.it/40x40" class="center-block img-responsive"/>
                             </a>
                         </div>
-                        <div class="col-md-10 col-xs-10 col-lg-10 col-sm-10"><strong>{{notification.name}} </strong>{{notification.status}}</div>
+                        <div class="col-md-10 col-xs-10 col-lg-10 col-sm-10">
+                            <strong>{{event.name}} </strong>
+                            {{event.startDate}}</div>
                     </div>
                 </div>
             </div>
             <div class="row margin-top-5">
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong>Recent activities</strong></div>
+                        <div class="banner"><strong>Representatives</strong></div>
                         <div class="activities-container scroll container">
-                            <div ng-repeat="activity in activities | Past:true |orderBy: '-date'" class="event row margin-top-5">
-                                <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
-                                    <div class="simple-date text-uppercase center-block">
-                                       <p class="text-center">
-                                           <strong>{{ activity.date | date:  'dd MMM'}}</strong><br/>
-                                           <strong>{{ activity.date | date:  'yyyy'}}</strong>
-                                       </p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9 col-xs-9 col-md-9 col-lg-9">
-                                    <div class="event-name">
-                                        <strong>{{activity.name}}</strong>
-
-                                    </div>
-                                </div>
+                            <div ng-repeat="org in representOrganisations" class="event row margin-top-5">
+                                <a ui-sref="ngoDashboard.eventManage({orgId: org._id})">
+                                    {{org.name}}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -100,23 +118,12 @@
                 </div>
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong>Upcoming activities</strong></div>
+                        <div class="banner"><strong> Organisations: </strong></div>
                         <div class="activities-container scroll container">
-                            <div ng-repeat="activity in activities |Past: false|orderBy: '-date'" class="event row margin-top-5">
-                                <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
-                                    <div class="simple-date text-uppercase center-block">
-                                        <p class="text-center">
-                                            <strong>{{ activity.date | date:  'dd MMM'}}</strong><br/>
-                                            <strong>{{ activity.date | date:  'yyyy'}}</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9 col-xs-9 col-md-9 col-lg-9">
-                                    <div class="event-name">
-                                        <strong>{{activity.name}}</strong>
-
-                                    </div>
-                                </div>
+                            <div ng-repeat="org in managedOrganisations" class="event row margin-top-5">
+                               <a ui-sref="ngoDashboard.eventManage({orgId: org._id})">
+                                   {{org.name}}
+                               </a>
                             </div>
                         </div>
                     </div>

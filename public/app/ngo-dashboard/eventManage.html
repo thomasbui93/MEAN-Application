@@ -1,19 +1,22 @@
     <h4 class="text-center">Events Management</h4>
+
     <a ui-sref="ngoDashboard.eventCreate"><button class="btn-small btn-follow pull-right">New</button></a>
     <hr/>
-    <div class="event-brief row padding10 margin-top-5" ng-repeat="event in currentNGO.events" ng-show="!delete.state">
+    <div class="event-brief row padding10 margin-top-5" ng-repeat="event in events" ng-show="!delete.state">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <img src="http://placehold.it/150x150" class="img-responsive">
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="padding10">
                 <strong>{{event.name}}</strong><br>
-                <p class="text-muted">{{event.location}}</p>
+                <p><strong>Location: </strong> {{event.locations[0]}}</p>
                 <p><strong class="">Time: </strong>{{event.date | date: 'HH:mm d, MMM yyyy'}}</p>
                 <div>
-                    <button class="btn-small btn-follow" ng-click="editTransit(event.id)">Edit</button>
+                    <a ui-sref="ngoDashboard.eventEdit({id : event._id})"><button class="btn-small btn-follow">Edit</button></a>
                     <button class="btn-small btn-follow" ng-click="invokeDelete(event)">Remove</button>
-                    <button class="" ng-click="viewVolunteers(event)">Volunteers</button>
+                    <button class="btn-small btn-form" ng-click="viewVolunteers(event)">
+                        Volunteers ({{event.participants.length}})
+                    </button>
                 </div>
                 <div ng-repeat="volunteer in event.volunteers" class="margin-top-5 cross-background volunteer" ng-show="event.showVolunteer">
                    <div class="margin-left-30">
@@ -30,7 +33,7 @@
             <br/>
             <p class="center-block text-center">Do you really want to delete the events ?</p>
             <div class="row text-center">
-                <button class="btn-small btn-inline btn-red " ng-click="deleteEvent(delete.events)">Yes</button>
+                <button class="btn-small btn-inline btn-red " ng-click="deleteEvent()">Yes</button>
                 <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
             </div>
 

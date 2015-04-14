@@ -63,9 +63,9 @@
         <div><a ui-sref="login" class="text-white">Login</a></div>
     </li>
     <li ng-if="user.firstName!==undefined">
-        <div><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <div ><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
         <div ><a ng-click="logout()" class="text-white">Logout</a></div>
-        <div><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
+        <div ><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
     </li>
     <hr/>
     <!---- THIS block for testing authorization
@@ -74,13 +74,13 @@
         <a ui-sref="login" class="text-white">Login</a>
     </li>
     <li>
-        <a href="/ngo/dashboard/55095c4e2d316055807f00dd" class="text-white">Org example</a>
+        <a href="ngo/dashboard/55095c4e2d316055307f00fd" class="text-white">Org example</a><br/>
     </li>
 
 </ul>
 
 <!-- This view will be filled by the ui-router. -->
-<div ui-view></div>
+<div ui-view ng-click="hideThing()"></div>
 
 <script src="/vendor/angular/angular.js"></script>
 <script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>

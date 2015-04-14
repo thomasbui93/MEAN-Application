@@ -11,12 +11,18 @@
     </div>
     <div class="input-container">
         <label class="normal-label"><strong>Location: </strong></label>
-        <input ng-model="currentEvent.location" type="text" placeholder="{{currentEvent.location}}" class="normal-input margin-top-5"/>
+        <p ng-show="errors.location.violate" class="text-red"> {{errors.location.message}}</p>
+        <input ng-model="currentEvent.locations" type="text" placeholder="{{currentEvent.locations}}" class="normal-input margin-top-5"/>
     </div>
     <div class="input-container">
-        <label class="normal-label"><strong>Phone: </strong></label>
-        <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
-        <input ng-model="currentEvent.phone" type="text" placeholder="{{currentEvent.phone}}" class="normal-input margin-top-5"/>
+        <label class="normal-label"><strong>Start: </strong></label>
+        <p ng-show="errors.time.violate" class="text-red"> {{errors.time.message}}</p>
+        <input ng-model="input.startDate"  type="datetime-local" placeholder="start time" class="normal-input margin-top-5"/>
+    </div>
+    <div class="input-container">
+        <label class="normal-label"><strong>End: </strong></label>
+        <p ng-show="errors.time.violate" class="text-red"> {{errors.time.message}}</p>
+        <input ng-model="input.endDate"  type="datetime-local" placeholder="end time" class="normal-input margin-top-5"/>
     </div>
     <div class="input-container">
         <label class="normal-label"><strong>Description: </strong></label>

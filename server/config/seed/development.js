@@ -21,7 +21,7 @@ var user = new User({
     country: 'Finland'
   },
   admin: true,
-  _id: '55095c4e2d316055807fe46c'
+  _id: '55095c4e2d316055808fe46c'
 });
 
 var user1 = new User({
@@ -35,8 +35,8 @@ var user1 = new User({
     year: 1993
   },
   address: {
-    city: 'll',
-    country: 'hh'
+    city: 'Oulu',
+    country: 'Finland'
   },
   _id: '55095c4e2d3160f5907fe46c'
 });
@@ -178,12 +178,15 @@ Organisation.remove(function() {
     newEvent1.participants.push(user);
     newEvent1.participants.push(user1);
 
+    org1.events.push(newEvent);
+    org1.events.push(newEvent1);
 
     // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent1);
     org.managers.push(user);
 
     org.save();
+    org1.save();
     newEvent.save();
     evt2.save();
     newEvent1.save();

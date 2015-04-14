@@ -7,7 +7,6 @@ angular.module('voluntr')
       $http.post('/api/login', credentials)
         .then(function(res) {
             $rootScope.user = Restangular.restangularizeElement(null, res.data, 'api/users/', res.data._id);
-
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
           },
           function() {
@@ -96,11 +95,13 @@ angular.module('voluntr')
     });
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $location.url('/');
+      //redirect to user dashboard for now
+      $state.go('user-dashboard');
     });
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
       $location.url('/');
+      console.log($rootScope.user);
     });
     $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
       $state.go('permissionDenied');

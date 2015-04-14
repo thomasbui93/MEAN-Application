@@ -37,8 +37,10 @@ angular.module('voluntr').controller('ngoHomePageController',
     $scope.saveInformation = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentNGO);
       $scope.errors.description.violate = Validation.checkDescription($scope.currentNGO, 20);
-      if (Validation.checkFinal()) {
+      if (Validation.checkFinal($scope.errors)) {
         //TODO: save information
+        //Authenticated Saving implementations
+
         organisation.save().then(function() {
           $scope.edit = {
             show: false,

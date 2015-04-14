@@ -39,7 +39,10 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
         });
       }
     };
-
+    $scope.hideThing = function() {
+      $scope.menu = false;
+      $scope.user.setting = false;
+    };
 
   }
 ]);

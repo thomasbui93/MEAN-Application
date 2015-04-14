@@ -86,6 +86,8 @@ exports.remove = function(req, res, next) {
 
 };
 
+
+
 exports.getManagers = function(req, res, next) {
   var id = req.params.orgId;
 

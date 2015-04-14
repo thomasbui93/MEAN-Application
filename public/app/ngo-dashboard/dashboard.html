@@ -6,10 +6,26 @@
             </div>
             <div class="ngo-profile" >
                 <div class="show-information padding10" ng-show="!edit.show">
-                    <p class="name text-center"><strong>{{currentNGO.name}}</strong></p>
-                    <p class="location text-center">{{currentNGO.address[0]}}</p>
+                    <p class="name text-center"><strong>{{currentNGO.name | undefinedString}}</strong></p>
+                    <strong>Locations: </strong><br/>
+                    <div ng-if="currentNGO.locations.length === 0">
+                        Unknown data
+                    </div>
+                    <div ng-repeat="location in currentNGO.locations" class="text-center">
+                        <i class="fa fa-map-marker "></i>
+                        {{location}}
+                    </div>
+                    <strong>Phone number: </strong><br/>
+                    <p class="text-center">
+                        <i class="fa fa-phone-square"></i>
+                        {{currentNGO.phone | undefinedString}}
+                    </p>
+                    <strong>Skills: </strong><br/>
+                    <div ng-if="currentNGO.interests.length === 0" class="text-center text-italic">
+                        Unknown data
+                    </div>
                     <ul class="skill-sets">
-                        <li class="tag" ng-repeat="cause in currentNGO.causes">
+                        <li class="tag" ng-repeat="cause in currentNGO.interests">
                             {{cause}}
                         </li>
                     </ul>
@@ -22,12 +38,12 @@
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Address: </strong></label>
-                        <input ng-model="currentNGO.address" type="text" placeholder="{{currentNGO.address}}" class="normal-input margin-top-5"/>
-                    </div>
-                    <div class="input-container">
-                        <label class="normal-label"><strong>Email: </strong></label>
-                        <p ng-show="errors.email.violate" class="text-red">{{errors.email.message}}</p>
-                        <input ng-model="currentNGO.email" type="text" placeholder="{{currentNGO.email}}" class="normal-input margin-top-5"/>
+                        <div ng-repeat="location in currentNGO.locations" class="ngo-location" ng-click="removeLocation(location)">
+                            <i class="fa fa-map-marker "></i>
+                            {{location}}
+                            <i class="fa fa-times close-icon pull-right" ></i>
+                        </div>
+                        <input ng-model="input.address" type="text" placeholder="{{input.address}}" class="normal-input margin-top-5" ng-keydown="addLocation($event)"/>
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Phone: </strong></label>
@@ -42,7 +58,7 @@
                     <div class="input-container">
                         <label class="normal-label"><strong>Cause: </strong></label>
                         <div class="skill-sets">
-                            <div class="tag" ng-repeat="cause in currentNGO.causes" ng-click="removeCause(cause)">{{cause}}</div>
+                            <div class="tag" ng-repeat="cause in currentNGO.interests" ng-click="removeCause(cause)">{{cause}}</div>
                             <input class="hide-input" type="text" ng-keydown="createCause($event)" ng-model="inputCause"/>
                         </div>
                     </div>

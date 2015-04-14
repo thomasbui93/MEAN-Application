@@ -7,11 +7,11 @@
     <form novalidate class="padding10">
         <div class="input-container">
           <label for="email" class="normal-label"><strong><h4>Username/Email:</h4></strong></label>
-          <input type="text" name="email" ng-model="credentials.email" id="email" class="normal-input margin-top-5" placeholder="Your email">
+          <input type="text" name="email"  ng-keypress="enterLogin($event)" ng-model="credentials.email" id="email" class="normal-input margin-top-5" placeholder="Your email">
         </div>
         <div class="input-container">
           <label for="password" class="normal-label"><strong><h4>Password:</h4> </strong></label>
-          <input type="password" name="password" ng-model="credentials.password" id="password" class="normal-input margin-top-5">
+          <input type="password" ng-keypress="enterLogin($event)" name="password" ng-model="credentials.password" id="password" class="normal-input margin-top-5">
         </div>
         <button type="button" class="btn btn-form margin-top-20 pull-left" ng-click="login(credentials)">Sign in</button>
         <p class="text-info pull-right margin-top-20">
