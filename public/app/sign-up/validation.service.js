@@ -21,7 +21,7 @@ angular.module('voluntr').factory('Validation', function() {
   };
 
   validation.checkPassword = function(user) {
-    return user.pwd.length > 7;
+    return user.pwd ? user.pwd.length > 7 : false;
   };
 
   validation.checkPhone = function(user) {
