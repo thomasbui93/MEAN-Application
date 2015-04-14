@@ -3,6 +3,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = require('mongoose').Schema;
+var fs = require('fs');
 
 var UserSchema = new Schema({
   email: {
@@ -153,6 +154,11 @@ UserSchema.methods = {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  },
+
+  saveAvatar: function(file, cb) {
+    console.log('dummy saveAvatar');
+    db(null, 'lol');
   }
 };
 

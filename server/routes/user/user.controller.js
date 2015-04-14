@@ -109,6 +109,13 @@ exports.remove = function(req, res, next) {
   });
 };
 
+exports.uploadAvatar = function(req, res, next) {
+  console.log('This is our user:', req.user);
+  console.log('These are the files:', req.files);
+
+  res.send(200);
+};
+
 exports.getManagedOrganisations = function(req, res, next) {
   var id = req.params.userId;
 

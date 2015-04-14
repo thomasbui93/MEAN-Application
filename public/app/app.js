@@ -4,6 +4,7 @@ angular.module('voluntr', [
   // module dependencies go here
   'ui.router',
   'restangular',
+  'angularFileUpload',
   'ngAnimate'
 ]).config(function($urlRouterProvider, $stateProvider, $locationProvider, USER_ROLES, RestangularProvider) {
   // Redirect to home on unmatched url.
