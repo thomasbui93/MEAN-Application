@@ -266,6 +266,13 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
+  }).state('faq', {
+    url: '/faq',
+    templateUrl: 'app/faq/faq.html',
+    controller: 'faqController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    }
   });
 
   // This allows the address bar urls to seem natural
