@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('voluntr')
-  .controller('searchAdvancedController', ['$scope', '$http', 'Restangular', '$stateParams',
-    function($scope, $http, Restangular, $stateParams) {
+  .controller('searchAdvancedController', ['$scope', '$http', 'Restangular', '$stateParams', 'initialResult',
+    function($scope, $http, Restangular, $stateParams, initialResult) {
       $scope.search = {
         keyword: $stateParams.key,
         location: '',
@@ -38,7 +38,7 @@ angular.module('voluntr')
             orgs: true,
             jobs: false,
             events: false
-          }
+          };
         } else if (params === 'jobs') {
           $scope.state.results = {
             orgs: false,
@@ -55,11 +55,7 @@ angular.module('voluntr')
 
       };
 
-      $scope.results = {
-        organizations: [],
-        jobs: [],
-        events: []
-      };
+      $scope.results = initialResult;
 
       $scope.input = {
         cause: ''
@@ -127,48 +123,50 @@ angular.module('voluntr')
       };
 
       //get result goes here
-      $scope.showOrgs =function(){
-          Restangular.all('api/organisations').getList({
-              name: $scope.search.keyword,
-              locations: $scope.search.location,
-              //createdDate: new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
-              interests: $scope.search.Interests
-          }).then(function(results) {
-              $scope.results.organizations = results;
+      $scope.showOrgs = function() {
+        Restangular.all('api/organisations').getList({
+          name: $scope.search.keyword,
+          locations: $scope.search.location,
+          //createdDate: new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
+          interests: $scope.search.Interests
+        }).then(function(results) {
+          $scope.results.organizations = results;
+        });
+      };
+      $scope.showJobs = function() {
+        Restangular.all('api/events').getList({
+          name: $scope.search.keyword
+        })
+          .then(function(results) {
+            $scope.results.jobs = results;
           });
       };
-      $scope.showJobs = function(){
-          Restangular.all('api/events').getList({
-              name: $scope.search.keyword
-          })
-              .then(function(results) {
-                  $scope.results.jobs = results;
-              });
+      $scope.showEvents = function() {
+        console.log("showevents");
+
+        Restangular.all('api/events').getList({
+          name: $scope.search.keyword,
+          locations: $scope.search.location,
+          //startDate: new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
+          //endDate : new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
+          interests: $scope.search.Interests
+        })
+          .then(function(results) {
+            $scope.results.events = results;
+          });
       };
-      $scope.showEvents = function(){
-          console.log("showevents");
 
-         Restangular.all('api/events').getList({
-             name: $scope.search.keyword,
-             locations:  $scope.search.location,
-             //startDate: new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
-             //endDate : new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
-             interests: $scope.search.Interests
-         })
-           .then(function(results) {
-              $scope.results.events = results;
-           });
-        };
-
-      $scope.showResult = function() {
-        $scope.state.setting = false;
-        if($scope.state.results.orgs === true){
+      $scope.showResult = function($event) {
+        if ($event === undefined || $event.keyCode === 13) {
+          $scope.state.setting = false;
+          if ($scope.state.results.orgs === true) {
             $scope.showOrgs();
-        } else if($scope.state.results.jobs === true){
+          } else if ($scope.state.results.jobs === true) {
             $scope.showJobs();
-        } else if($scope.state.results.events === true){
+          } else if ($scope.state.results.events === true) {
             $scope.showEvents();
 
+          }
         }
       };
     }

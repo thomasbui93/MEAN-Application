@@ -54,12 +54,12 @@ var OrganisationSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-    email:{
-        type:String
-    },
-    phoneNumber:{
-        type:String
-    }
+  email: {
+    type: String
+  },
+  phoneNumber: {
+    type: String
+  }
 
 });
 

@@ -26,9 +26,12 @@ WeightedQueryBuilder.prototype.buildParameters = function(query) {
   var queryParams = query.q.split(" ");
   this._query = queryParams;
 
-  queryParams = queryParams.map(function(param) {
-    return new RegExp(param, 'ig');
-  });
+  queryParams = queryParams.filter(function(param){
+      return param !== "";
+    })
+    .map(function(param) {
+      return new RegExp(param, 'ig');
+    });
 
   return prepareQuery(queryParams);
 };
@@ -50,7 +53,6 @@ WeightedQueryBuilder.prototype.getWeightedResults = function(queryResults) {
   return sortByScore(queryResults);
 };
 
-// TODO: refactor
 // Generates levenshtein score for every query result and adds them to create a score
 WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
   var score = 0;
@@ -58,24 +60,34 @@ WeightedQueryBuilder.prototype._generateMatchScore = function(data) {
   this._query.forEach(function(term) {
     for (var match in matchScore) {
       if (data[match]) {
-        if (isArray(data[match])) {
-          data[match].forEach(function(item) {
-            score += matchScore[match] * levenshteinDistance(item, term);
-          });
-        } else if (match === "description") {
-          var textArray = data[match].split(" ");
-
-          textArray.forEach(function(item) {
-            score += matchScore[match] * levenshteinDistance(item, term);
-          });
-        } else {
-          score += matchScore[match] * levenshteinDistance(data[match], term);
-        }
+        score += calculateScore(data[match], match, term);
       }
     }
   });
 
   return score;
+};
+
+// Returns an int score for a data field
+var calculateScore = function(data, matchType, term) {
+  if (isArray(data)) {
+    // Reduce fails on empty arrays
+    if (data.length === 0) return matchScore[matchType];
+
+    return data.map(function(item) {
+      return matchScore[matchType] * levenshteinDistance(item, term);
+    }).reduce(adder);
+
+  } else if (matchType === "description") {
+    // Minumum description length is enforced by the database
+    return data.split(" ")
+      .map(function(item) {
+        return matchScore[matchType] * levenshteinDistance(item, term);
+      }).reduce(adder);
+
+  } else {
+    return matchScore[matchType] * levenshteinDistance(data, term);
+  }
 };
 
 // Sorts data by lowest score
@@ -145,6 +157,10 @@ var levenshteinDistance = function(a, b) {
 
 var isArray = function(a) {
   return a.constructor === Array;
+};
+
+var adder = function(a, b) {
+  return a + b;
 };
 
 module.exports = WeightedQueryBuilder;
