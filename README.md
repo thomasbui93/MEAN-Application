@@ -40,7 +40,8 @@ The default endpoints:
 - events
 - users
 - comments
-have basic query functionality. You can query them with `?field_name=xxxx`.
+
+all have basic query functionality. You can query them with `?field_name=xxxx`.
 
 You can not query a user by `salt` or by `password`.
 
