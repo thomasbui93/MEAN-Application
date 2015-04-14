@@ -3,7 +3,6 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
   'comments',
   function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments) {
     $scope.currentUser = $rootScope.user;
-
     var findObject = function(array, object) {
 
       var index = -1;
@@ -25,19 +24,14 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     };
 
     $scope.currentEvent = event;
+    $scope.currentEvent.time = new Date($scope.currentEvent.date);
     $scope.comments = comments;
-    console.log(comments);
     $scope.currentEvent.date = event.startDate;
     $scope.errors = EVENT_ERRORS;
     $scope.edit = {
       show: false
     };
-    /*console.log(event.comments);
-      var createdById = [];
-      for(var i =0 ; i< $scope.comments.length; ++i)
-      {
 
-      }*/
     $scope.checkFollowed = function() {
       var index = $scope.currentUser.events.indexOf(event);
       if (index === -1) {
@@ -97,16 +91,14 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
     };
 
     $scope.follow = function() {
-      //TODO: logined user can follow the event.
-      //console.log(event);
-      //console.log($rootScope.user);
       $scope.currentUser.events.push(event);
       $scope.currentUser.save();
 
       console.log($scope.currentUser.events);
       event.participants.push($scope.currentUser);
       event.save().then(function(data) {
-        //   console.log(data);
+        //TODO: check if this is working fine
+        $scope.isFollowed = true;
       });
     };
 

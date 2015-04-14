@@ -101,7 +101,6 @@ angular.module('voluntr').controller('ngoRepresentativeManageController', ['$sco
     };
 
     $scope.removeRepresentative = function() {
-      //TODO: server remove
       for (var i = 0; i < $scope.reps.length; i++) {
         var rep = $scope.reps[i];
         if (rep.selected === true) {

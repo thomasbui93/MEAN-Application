@@ -30,13 +30,13 @@
             <li><a class="text-white">Events</a></li>
             <li><a class="text-white">Jobs</a></li>
         </ul>
-        <div id="user-control" ng-if="user.firstName !== undefined">
+        <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
             <div class="user-name">
-               <strong>{{user.firstName || ''}}</strong>
+               <strong ng-cloak>{{user.firstName || ''}}</strong>
             </div>
             <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
         </div>
-        <div class="login-section pull-right" ng-if="user.firstName === undefined" >
+        <div class="login-section pull-right" ng-cloak ng-if="user.firstName === undefined" >
             <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
 </div>
-<ul id="user-setting" ng-show="user.setting">
+<ul id="user-setting" ng-show="setting" ng-cloak="" ng-click="hideThing()">
     <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
     <li><a class="text-white" ng-click="logout()">Logout</a></li>
     <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
@@ -108,8 +108,6 @@
 <script src="/app/home/home.directive.js"></script>
 <script src="/app/home/home.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
-<script src="/app/authentication/login.controller.js"></script>
-<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>
 <script src="/app/constants/key-codes.constants.js"></script>
@@ -117,6 +115,8 @@
 <script src="/app/constants/event-errors.constants.js"></script>
 <script src="/app/constants/errors.constants.js"></script>
 <script src="/app/constants/auth-events.constants.js"></script>
+<script src="/app/authentication/login.controller.js"></script>
+<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/admin/admin.report.controller.js"></script>
 <script src="/app/admin/admin.main.controller.js"></script>
 <script src="/app/admin/admin.content.controller.js"></script>

@@ -90,41 +90,49 @@
             <div class="user-notification">
                 <div class="banner shadow"><strong>Upcoming events</strong></div>
                 <div class="notification-container scroll container">
-                    <div class="notification-brief row padding10" ng-repeat="event in events">
+                    <a class=" row padding10" ng-repeat="event in events" ui-sref="events({id: event._id})">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" >
-                            <a ui-sref="events({id: event._id})">
                                 <img src="http://placehold.it/40x40" class="center-block img-responsive"/>
-                            </a>
                         </div>
-                        <div class="col-md-10 col-xs-10 col-lg-10 col-sm-10">
-                            <strong>{{event.name}} </strong>
-                            {{event.startDate}}</div>
-                    </div>
+                        <div class="col-md-10 col-xs-10 col-lg-10 col-sm-10 subtle-background padding10">
+                            <strong>{{event.name}} </strong><br/>
+                            {{event.startDate | date: 'MMM dd, yyyy. hh:mm  '}}
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="row margin-top-5">
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong>Representatives</strong></div>
+                        <div class="banner"><strong>Represented Organisations: </strong></div>
                         <div class="activities-container scroll container">
-                            <div ng-repeat="org in representOrganisations" class="event row margin-top-5">
-                                <a ui-sref="ngoDashboard.eventManage({orgId: org._id})">
-                                    {{org.name}}
-                                </a>
-                            </div>
+                            <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" ng-repeat="org in representOrganisations">
+                                <div  class="organization-block row margin-top-5 margin-left-10">
+                                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
+                                    <div class="information-block row-md-8 xs-hide sm-hide">
+                                        {{org.name}}<br/>
+                                        <i class="fa fa-map-marker text-green"></i> {{org.locations[0]}}
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
 
                 </div>
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong> Organisations: </strong></div>
+                        <div class="banner"><strong> Managed Organisations: </strong></div>
                         <div class="activities-container scroll container">
-                            <div ng-repeat="org in managedOrganisations" class="event row margin-top-5">
-                               <a ui-sref="ngoDashboard.eventManage({orgId: org._id})">
-                                   {{org.name}}
-                               </a>
-                            </div>
+                            <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" ng-repeat="org in managedOrganisations">
+                                <div  class="organization-block row margin-top-5 margin-left-10">
+                                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
+                                    <div class="information-block row-md-8 xs-hide sm-hide">
+                                        {{org.name}}<br/>
+                                        <i class="fa fa-map-marker text-green "></i>  {{org.locations[0]}}
+                                    </div>
+                                </div>
+                            </a>
+
                         </div>
                     </div>
 

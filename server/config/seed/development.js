@@ -184,7 +184,7 @@ User.remove(function() {
 
 Recruitment.remove(function() {
   exampleRecruitment.save();
-    exampleRecruitment1.save();
+  exampleRecruitment1.save();
 });
 
 Organisation.remove(function() {

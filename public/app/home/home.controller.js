@@ -11,7 +11,6 @@ angular.module('voluntr').controller('homeController', ['$scope', '$rootScope', 
     };
 
     $scope.fetchOrganisation = function() {
-      //TODO: fetch 6 most contributed orgs
       Restangular.all('api/organisations')
         .getList()
         .then(function(results) {
