@@ -77,5 +77,19 @@ angular.module('voluntr').factory('Validation', function() {
     }
   };
 
+  validation.checkBirthdate = function(user) {
+    if (!user.birthday) return false;
+
+    try {
+      user.birthday.getDate();
+      user.birthday.getMonth();
+      user.birthday.getFullYear();
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   return validation;
 });

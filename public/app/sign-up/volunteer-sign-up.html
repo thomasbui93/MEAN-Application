@@ -345,6 +345,7 @@
     </div>
     <div class="row">
         <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
+            <p ng-show="error.birthday.violate" class="text-red">{{ error.birthday.message }}</p>
             <h4 class="normal-label">Date of Birth: <span class="text-red">*</span></h4>
             <div class="group">
                 <input  type="date" ng-model="user.birthday" required />
