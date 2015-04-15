@@ -3,12 +3,14 @@
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 var UnauthorizedError = require('../../lib/errors').Unauthorized;
+var UnknownError = require('../../lib/errors').Unknown;
 
 var _ = require('lodash');
 
 var excludedFields = ['_id', 'hashedPassword', 'salt', '__v'];
 
 var QueryBuilder = require('../../lib/query-builder');
+var ImageSaver = require('../../lib/image-saver');
 
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
@@ -106,6 +108,19 @@ exports.remove = function(req, res, next) {
 
       res.status(204).end();
     });
+  });
+};
+
+exports.uploadAvatar = function(req, res, next) {
+  var imageSaver = new ImageSaver('/img/profiles/', req.session.user._id);
+
+  imageSaver.saveImageFromRequest(req, function(err, response) {
+    if (err) {
+      console.log(err);
+      return next(new UnknownError());
+    }
+
+    res.json(response);
   });
 };
 
