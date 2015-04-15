@@ -21,8 +21,7 @@ angular.module('voluntr').factory('Validation', function() {
   };
 
   validation.checkPassword = function(user) {
-    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-    return re.test(user.password);
+    return user.pwd ? user.pwd.length > 7 : false;
   };
 
   validation.checkPhone = function(user) {
@@ -40,7 +39,6 @@ angular.module('voluntr').factory('Validation', function() {
       } else {
         return false;
       }
-      console.log(array.length);
     }
   };
 
@@ -74,6 +72,33 @@ angular.module('voluntr').factory('Validation', function() {
     if (!error.email.violate && !error.name.violate && !error.phone.violate && !error.description.violate) {
       return true;
     } else {
+      return false;
+    }
+  };
+
+  validation.checkBirthdate = function(user) {
+    if (!user.birthday) return false;
+
+    try {
+      var birthday = {
+        day: user.birthday.getDate(),
+        month: user.birthday.getMonth(),
+        year: user.birthday.getFullYear()
+      };
+
+      for (var key in birthday) {
+        if (birthday[key] === "Invalid Date") {
+          return false;
+        }
+      }
+
+      // They're from the future!
+      if (user.birthday.getTime() > Date.now()) {
+        return false;
+      }
+
+      return true;
+    } catch (e) {
       return false;
     }
   };

@@ -44,13 +44,13 @@ exports.update = function(req, res, next) {
 
       for (var field in req.body) {
 
-          if (_.includes(excludedFields, field)) {
-              continue;
-          }
+        if (_.includes(excludedFields, field)) {
+          continue;
+        }
 
-          if (field in organisation) {
-              organisation[field] = req.body[field];
-          }
+        if (field in organisation) {
+          organisation[field] = req.body[field];
+        }
       }
       organisation.save(function(err) {
         if (err) return next(err);

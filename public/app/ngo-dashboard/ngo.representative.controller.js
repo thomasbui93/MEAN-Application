@@ -117,14 +117,14 @@ angular.module('voluntr').controller('ngoRepresentativeManageController', ['$sco
             organisation.representatives.splice(index, 1);
 
             Restangular.one('api/users', rep._id)
-                .get()
-                .then(function (user) {
-                    var index = findObject(user.representOrganisations, organisation);
-                    if(index >-1){
-                        user.representOrganisations.splice(index, 1);
-                        user.save();
-                    }
-                });
+              .get()
+              .then(function(user) {
+                var index = findObject(user.representOrganisations, organisation);
+                if (index > -1) {
+                  user.representOrganisations.splice(index, 1);
+                  user.save();
+                }
+              });
             continue;
           }
         }

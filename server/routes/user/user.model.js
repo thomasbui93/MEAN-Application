@@ -3,6 +3,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = require('mongoose').Schema;
+var fs = require('fs');
 
 var UserSchema = new Schema({
   email: {
@@ -22,7 +23,10 @@ var UserSchema = new Schema({
     month: Number,
     year: Number
   },
-  avatar: String, //image link
+  avatar: {
+    type: String,
+    default: '//placehold.it/200x200'
+  },
   description: String,
   skills: [String],
   interests: [String],

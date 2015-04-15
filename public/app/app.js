@@ -327,7 +327,11 @@ angular.module('voluntr', [
     }
   }).state('404', {
     url: '/404',
-    templateUrl: 'app/static/404.html',
+    templateUrl: 'app/static/404.html'
+  }).state('faq', {
+    url: '/faq',
+    templateUrl: 'app/faq/faq.html',
+    controller: 'faqController',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }

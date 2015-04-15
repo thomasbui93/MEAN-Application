@@ -82,8 +82,36 @@
 <!-- This view will be filled by the ui-router. -->
 <div ui-view ng-click="hideThing()"></div>
 
+<div class="container-fluid padding20" id="footer">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+        <ul>
+            <li><strong>Volunteer</strong></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Volunteer blog</a></li>
+            <li><a href="#">A link</a></li>
+        </ul>
+    </div><!-- 1st column -->
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+        <ul>
+            <li><strong>Community</strong></li>
+            <li><a href="/faq">Help</a></li>
+            <li><a href="#">Terms of use</a></li>
+            <li><a href="#">Privacy &amp cookies</a></li>
+        </ul>
+    </div><!-- 2nd column -->
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+        <ul>
+            <li><strong>Voulunteer Oy</strong></li>
+            <li>Kotkantie 1, 90250</li>
+            <li>Oulu, Finland</li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+    </div><!-- 3rd column -->
+</div><!-- footer -->
+
 <script src="/vendor/angular/angular.js"></script>
 <script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="/vendor/angular-file-upload/dist/angular-file-upload.js"></script>
 <script src="/vendor/angular-animate/angular-animate.js"></script>
 <script src="/vendor/lodash/index.js"></script>
 <script src="/vendor/restangular/dist/restangular.js"></script>
@@ -107,9 +135,8 @@
 <script src="/app/ngo-dashboard/ngo.filter.js"></script>
 <script src="/app/home/home.directive.js"></script>
 <script src="/app/home/home.controller.js"></script>
+<script src="/app/faq/faq.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
-<script src="/app/authentication/login.controller.js"></script>
-<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>
 <script src="/app/constants/key-codes.constants.js"></script>
@@ -117,6 +144,8 @@
 <script src="/app/constants/event-errors.constants.js"></script>
 <script src="/app/constants/errors.constants.js"></script>
 <script src="/app/constants/auth-events.constants.js"></script>
+<script src="/app/authentication/login.controller.js"></script>
+<script src="/app/authentication/authentication.service.js"></script>
 <script src="/app/admin/admin.report.controller.js"></script>
 <script src="/app/admin/admin.main.controller.js"></script>
 <script src="/app/admin/admin.content.controller.js"></script>
