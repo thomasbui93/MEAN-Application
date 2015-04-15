@@ -15,7 +15,7 @@ angular.module('voluntr').constant('ERRORS', {
   },
   passwordNotStrong: {
     violate: false,
-    message: 'Your password should be atleast 8 characters long'
+    message: 'Your password should be at least 8 characters long'
   },
   phone: {
     violate: false,
