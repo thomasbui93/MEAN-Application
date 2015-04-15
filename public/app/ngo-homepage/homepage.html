@@ -53,8 +53,10 @@
                 </div>
             </div>
         </div><!-- end ngo-edit -->
-        <button class="btn-small btn-form center-block margin-top-20" ng-click="editInformation()" ng-show="!edit.show">Edit</button>
-        <button class="btn-small btn-form center-block margin-top-20" ng-click="saveInformation()" ng-show="edit.show">Save</button>
+        <div class="action-hub" ng-show="isOwner()">
+            <button class="btn-small btn-form center-block margin-top-20" ng-click="editInformation()" ng-show="!edit.show">Edit</button>
+            <button class="btn-small btn-form center-block margin-top-20" ng-click="saveInformation()" ng-show="edit.show">Save</button>
+        </div>
 
         <div id="bottom-container" class="show-information col-md-8 row margin-top-20" ng-show="!dialogShow">
             <div id="left-column" class="col-sm-6 margin-top-20">
@@ -81,15 +83,18 @@
                 <h4 class="text-center">Events</h4>
                 <hr>
                 <div class="event-brief row margin-top-5" ng-repeat="event in events | orderBy : startDate">
-                    <div class="col-sm-3 padding10">
-                        <img src="http://placehold.it/150x150" class="img-responsive">
-                    </div><!-- col 3 -->
-                    <div class="padding10">
-                        <strong>{{event.name}}</strong><br>
-                        {{event.description}}<br/>
-                        <i class="fa fa-map-marker"> </i> {{event.locations}}<br/>
-                        <strong class="">Time: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
-                    </div><!-- padding10 -->
+                    <a ui-sref="events({id: event._id})">
+                        <div class="col-sm-3 padding10">
+                            <img src="http://placehold.it/150x150" class="img-responsive">
+                        </div><!-- col 3 -->
+                        <div class="padding10">
+                            <strong>{{event.name}}</strong><br>
+                            {{event.description}}<br/>
+                            <i class="fa fa-map-marker"> </i> {{event.locations}}<br/>
+                            <strong class="">Time: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
+                        </div>
+                    </a>
+                    <!-- padding10 -->
                     <div class="action-hub top-right padding10 link-like">
                         <i class="fa fa-times text-red" ng-click="showDialog(event)"></i>
                     </div><!-- action-hub -->

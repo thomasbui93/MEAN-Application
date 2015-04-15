@@ -1,10 +1,7 @@
 
     <div class="event-header"> <!--event-header-->
         <img src="http://placehold.it/800x200" class="img-responsive center-block"/>
-        <div class="action-hub padding10 top-right"> <!--action-hub-->
-            <button class=" btn btn-transparent" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil fa-2x"></i></button>
-            <button class=" btn btn-transparent" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save fa-2x"></i></button>
-        </div>
+
         <!--action-hub-->
         <div class="event-detail container"><!--event-detail-->
             <div class="row">
@@ -21,9 +18,6 @@
                 <div class="col-md-6">
                     <h2 class="text-white text-center">{{currentEvent.name}}</h2>
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-transparent">{{currentEvent.participants.length}} Volunteers</button>
-                </div>
             </div>
         </div><!--event-detail-->
     </div><!--event-header-->
@@ -32,30 +26,41 @@
         <!--event-information-->
         <div class="col-xs-12 col-md-3 margin-top-20 padding10 event-information text-center shadow">
             <div ng-show="!edit.show" class="info-show">
+                <div class="action-hub padding10 top-right" ng-if="currentUser !== undefined"> <!--action-hub-->
+                    <button class=" btn btn-form" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil "></i></button>
+                    <button class=" btn btn-form" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save "></i></button>
+                </div>
                 <h4>{{currentEvent.name}}</h4>
+                <h5 class="text-green">{{currentEvent.participants.length}} Volunteers</h5>
                 <p class="text-center">
-                    <i class="fa fa-location-arrow text-mute text-blue"></i>
+                    <i class="fa fa-map-marker text-mute text-blue"></i>
                     Oulu, Finland
                 </p>
                 <p>
                     <i class="fa fa-clock-o"></i>
                     17:30PM. Mar 3, 2014
                 </p>
-                <button class="btn btn-follow" ng-click="follow()">Follow</button>
-                <button class="btn btn-follow" >Following</button>
+                <div ng-if=" currentUser !== undefined">
+                    <button class="btn btn-follow" ng-click="follow()" ng-show="!isFollowed">Follow</button>
+                    <button class="btn btn-follow" ng-click="unFollow()" ng-show="isFollowed">Following</button>
+                </div>
+
             </div>
             <div ng-show="edit.show" class="info-show">
-                <div class="input-container small-input center-block">
-                    <label class="normal-label"><strong>Name: </strong></label>
-                    <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
+                <div class="group center-block margin-top-5">
                     <input ng-model="currentEvent.name" type="text" placeholder="{{currentEvent.name}}" class="text-center"/>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Name: <span class="text-red">*</span></label>
                 </div>
-                <div class="input-container small-input center-block">
-                    <label class="normal-label"><strong>Address: </strong></label>
-                    <input ng-model="currentEvent.locations[0]" type="text" placeholder="{{currentEvent.locations[0]}}" class="text-center"/>
+                <div class="group center-block margin-top-5">
+                    <input ng-model="currentEvent.locations" type="text" placeholder="{{currentEvent.locations}}" class="text-center"/>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Address: <span class="text-red">*</span></label>
                 </div>
-                <div class="input-container small-input center-block">
-                    <label class="normal-label"><strong>Time: </strong></label>
+                <div class="group center-block margin-top-5">
+                    <strong class="pull-left">Time: </strong>
                     <input type="datetime-local" ng-model="currentEvent.time"/>
                 </div>
                 <div class="padding10">
@@ -80,10 +85,11 @@
                     </div><!-- action-hub -->
                     <img src="http://placehold.it/100x100" class="img-responsive"/>
                     <div class="comment-content">
-                        <a><strong>{{comment.user.name || 'sss'}}</strong></br></a>
+                        <a><strong>{{comment.createdBy.firstName+' '+ comment.createdBy.lastName  || 'Anonymous'}}</strong></br></a>
                         {{comment.content}}
                     </div>
                 </div>
+
                 <!--end comment-->
                 <div class="comment-input-container" ng-if="currentUser._id!==undefined"><!--comment-input-container-->
                     <label class="comment-label"><i class="fa fa-paper-plane"></i></label>

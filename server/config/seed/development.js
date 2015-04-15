@@ -21,7 +21,7 @@ var user = new User({
     country: 'Finland'
   },
   admin: true,
-  _id: '55095c4e2d316055807fe46c'
+  _id: '55095c4e2d316055808fe46c'
 });
 
 var user1 = new User({
@@ -35,12 +35,28 @@ var user1 = new User({
     year: 1993
   },
   address: {
-    city: 'll',
-    country: 'hh'
+    city: 'Oulu',
+    country: 'Finland'
   },
   _id: '55095c4e2d3160f5907fe46c'
 });
 
+var user2 = new User({
+  email: 'k',
+  firstName: 'Khdddoa',
+  lastName: 'Bui Dang ',
+  password: 'ex',
+  birthDate: {
+    date: 11,
+    month: 5,
+    year: 1993
+  },
+  address: {
+    city: 'Oulu',
+    country: 'Finland'
+  },
+  _id: '5509524e2d3160f5907fe46c'
+});
 
 var newComment = new Comment({
   createdBy: user,
@@ -141,6 +157,14 @@ var exampleRecruitment = new Recruitment({
   _id: '59195c4e2d316055807f0050'
 });
 
+var exampleRecruitment1 = new Recruitment({
+  name: "Volunteers kokol!",
+  description: "hhhh for group.",
+  startDate: Date.now(),
+  endDate: Date.now(),
+  _id: '58195c4e2d316055807f0050'
+});
+
 
 User.remove(function() {
   user.managedOrganisations.push(org);
@@ -153,11 +177,14 @@ User.remove(function() {
   user1.events.push(newEvent1);
   user1.save();
 
+  user2.save();
+
 
 });
 
 Recruitment.remove(function() {
   exampleRecruitment.save();
+  exampleRecruitment1.save();
 });
 
 Organisation.remove(function() {
@@ -178,12 +205,16 @@ Organisation.remove(function() {
     newEvent1.participants.push(user);
     newEvent1.participants.push(user1);
 
+    org1.events.push(newEvent);
+    org1.events.push(newEvent1);
+
 
     // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent1);
     org.managers.push(user);
 
     org.save();
+    org1.save();
     newEvent.save();
     evt2.save();
     newEvent1.save();
@@ -191,12 +222,19 @@ Organisation.remove(function() {
 
   Recruitment.remove(function() {
     exampleRecruitment.organisation = org._id;
-
+    exampleRecruitment1.organisation = org1._id;
     org.recruitments.push(exampleRecruitment);
+    org1.recruitments.push(exampleRecruitment);
 
     org.save();
+    org1.save();
+
     exampleRecruitment.save();
+    exampleRecruitment1.save();
   });
+  org1.representatives.push(user1);
+  org1.representatives.push(user);
+
 
   org1.save();
   org2.save();

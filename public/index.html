@@ -30,13 +30,13 @@
             <li><a class="text-white">Events</a></li>
             <li><a class="text-white">Jobs</a></li>
         </ul>
-        <div id="user-control" ng-if="user.firstName !== undefined">
+        <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
             <div class="user-name">
-               <strong>{{user.firstName || ''}}</strong>
+               <strong ng-cloak>{{user.firstName || ''}}</strong>
             </div>
             <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
         </div>
-        <div class="login-section pull-right" ng-if="user.firstName === undefined" >
+        <div class="login-section pull-right" ng-cloak ng-if="user.firstName === undefined" >
             <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
 </div>
-<ul id="user-setting" ng-show="user.setting">
+<ul id="user-setting" ng-show="setting" ng-cloak="" ng-click="hideThing()">
     <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
     <li><a class="text-white" ng-click="logout()">Logout</a></li>
     <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
@@ -63,9 +63,9 @@
         <div><a ui-sref="login" class="text-white">Login</a></div>
     </li>
     <li ng-if="user.firstName!==undefined">
-        <div><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <div ><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
         <div ><a ng-click="logout()" class="text-white">Logout</a></div>
-        <div><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
+        <div ><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
     </li>
     <hr/>
     <!---- THIS block for testing authorization
@@ -74,13 +74,40 @@
         <a ui-sref="login" class="text-white">Login</a>
     </li>
     <li>
-        <a href="/ngo/dashboard/55095c4e2d316055807f00dd" class="text-white">Org example</a>
+        <a href="ngo/dashboard/55095c4e2d316055307f00fd" class="text-white">Org example</a><br/>
     </li>
 
 </ul>
 
 <!-- This view will be filled by the ui-router. -->
-<div ui-view></div>
+<div ui-view ng-click="hideThing()"></div>
+
+<div class="container-fluid padding20" id="footer">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+        <ul>
+            <li><strong>Volunteer</strong></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Volunteer blog</a></li>
+            <li><a href="#">A link</a></li>
+        </ul>
+    </div><!-- 1st column -->
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+        <ul>
+            <li><strong>Community</strong></li>
+            <li><a href="/faq">Help</a></li>
+            <li><a href="#">Terms of use</a></li>
+            <li><a href="#">Privacy &amp cookies</a></li>
+        </ul>
+    </div><!-- 2nd column -->
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+        <ul>
+            <li><strong>Voulunteer Oy</strong></li>
+            <li>Kotkantie 1, 90250</li>
+            <li>Oulu, Finland</li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+    </div><!-- 3rd column -->
+</div><!-- footer -->
 
 <script src="/vendor/angular/angular.js"></script>
 <script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
@@ -92,22 +119,23 @@
 <!-- inject:js -->
 <script src="/app/app.js"></script>
 <script src="/app/user-homepage/user.home.controller.js"></script>
+<script src="/app/user-dashboard/user.filter.js"></script>
+<script src="/app/user-dashboard/user.dashboard.controller.js"></script>
 <script src="/app/sign-up/volunteer-sign-up.controller.js"></script>
 <script src="/app/sign-up/validation.service.js"></script>
 <script src="/app/sign-up/sign-up.controller.js"></script>
 <script src="/app/sign-up/ngo-sign-up.controller.js"></script>
-<script src="/app/user-dashboard/user.filter.js"></script>
-<script src="/app/user-dashboard/user.dashboard.controller.js"></script>
-<script src="/app/home/home.directive.js"></script>
-<script src="/app/home/home.controller.js"></script>
 <script src="/app/search/search.controller.js"></script>
 <script src="/app/search/search.advanced.controller.js"></script>
+<script src="/app/ngo-homepage/ngo.home.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.representative.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.mainview.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.main.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.job.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.filter.js"></script>
-<script src="/app/ngo-homepage/ngo.home.controller.js"></script>
+<script src="/app/home/home.directive.js"></script>
+<script src="/app/home/home.controller.js"></script>
+<script src="/app/faq/faq.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>

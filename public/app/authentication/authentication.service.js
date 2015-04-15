@@ -7,7 +7,6 @@ angular.module('voluntr')
       $http.post('/api/login', credentials)
         .then(function(res) {
             $rootScope.user = Restangular.restangularizeElement(null, res.data, 'api/users/', res.data._id);
-
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
           },
           function() {
@@ -22,10 +21,15 @@ angular.module('voluntr')
 
     authService.isAuthenticated = function() {
       //console.log('user: ', $rootScope.user);
-      return !!$rootScope.user;
+      if ($rootScope.user === undefined || $rootScope.user === null) {
+        return false;
+      } else {
+        return true;
+      }
     };
 
     authService.isAuthorized = function(authorizedRoles, stateParam) {
+      console.log(authService.isAuthenticated(), $rootScope.user);
       //console.log('AuthService.isAuthorized is not implemented!');
       var access = true;
       if (!angular.isArray(authorizedRoles)) {
@@ -39,7 +43,7 @@ angular.module('voluntr')
         if (authorizedRoles.indexOf(USER_ROLES.volunteer) > -1) {
           access = true;
         } else { // handle the ngo-page
-          //TODO: check if the volunteer owned the orgs
+          //check if the volunteer owned the orgs
           var managedOrgs = $rootScope.user.managedOrganisations.concat($rootScope.user.representOrganisations);
           var index = managedOrgs.indexOf(stateParam);
           if (index > -1) { // user owned the orgs.
@@ -96,11 +100,13 @@ angular.module('voluntr')
     });
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $location.url('/');
+      //redirect to user dashboard for now
+      $state.go('user-dashboard');
     });
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
       $location.url('/');
+      console.log($rootScope.user);
     });
     $rootScope.$on(AUTH_EVENTS.notAuthorized, function() {
       $state.go('permissionDenied');

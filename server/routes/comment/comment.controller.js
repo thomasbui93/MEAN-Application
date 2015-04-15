@@ -94,6 +94,23 @@ exports.getCreatedBy = function(req, res, next) {
     });
 };
 
+exports.findByEvent = function(req, res, next) {
+
+  var eventId = req.params.commentId;
+  console.log("called find by event");
+
+  Comment.find({
+    event: eventId
+  })
+    .populate('createdBy')
+    .exec(function(err, comment) {
+      if (err) return next(err);
+      if (!comment) return next(new NotFoundError("No Comment found."));
+      console.log(comment);
+      res.json(comment);
+    });
+};
+
 exports.getEvent = function(req, res, next) {
   var id = req.params.commentId;
 

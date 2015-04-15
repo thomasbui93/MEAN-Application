@@ -2,56 +2,12 @@
  * Created by Bui Dang Khoa on 3/31/2015.
  */
 'use strict';
-angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$state',
-  function($scope, $state) {
+angular.module('voluntr').controller('ngoJobManageController', ['$scope', '$state', 'organisation',
+  function($scope, $state, organisation) {
     $scope.currentNGO = $scope.$parent.currentNGO || {};
 
-    $scope.currentNGO.jobs = [{
-      id: '1',
-      position: 'Volunteer Job',
-      address: 'Oulu Halli, Oulu',
-      description: 'Capecare runs a cafe twice a week for residents. ' +
-        'This role involves making coffee and tea and serving cakes to residents at the cafe.',
-      postDate: new Date('24 Feb 2015'),
-      expireDate: new Date('30 Feb 2015'),
-      phone: '123 234 1111',
-      volunteers: [{
-        id: '12',
-        name: 'Test User 1'
-      }, {
-        id: '13',
-        name: 'Test User 2'
-      }, {
-        id: '14',
-        name: 'Test User 3'
-      }],
-      state: {
-        candidate: false
-      }
-    }, {
-      id: '2',
-      position: 'Volunteer Job',
-      address: 'Oulu Halli, Oulu',
-      description: 'Capecare runs a cafe twice a week for residents. ' +
-        'This role involves making coffee and tea and serving cakes to residents at the cafe.',
-      postDate: new Date('24 Feb 2015'),
-      expireDate: new Date('30 Feb 2015'),
-      phone: '123 234 1111',
-      volunteers: [{
-        id: '12',
-        name: 'Test User 1'
-      }, {
-        id: '13',
-        name: 'Test User 2'
-      }, {
-        id: '14',
-        name: 'Test User 3'
-      }],
-      state: {
-        candidate: false
-      }
-    }];
-
+    $scope.currentNGO.jobs = organisation.recruitments;
+    console.log(organisation);
     $scope.delete = {
       state: false,
       jobs: []

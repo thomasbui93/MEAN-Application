@@ -11,22 +11,22 @@ angular.module('voluntr').constant('ERRORS', {
   },
   passwordNotMatch: {
     violate: false,
-    message: 'Your password you enter is not match.'
+    message: 'The passwords you entered don\'t match!'
   },
   passwordNotStrong: {
     violate: false,
-    message: 'Your password should contain at least one number,one uppercase letter, one lowercase letter and have a strength of 8'
+    message: 'Your password should be at least 8 characters long'
   },
   phone: {
     violate: false,
-    message: 'Your phone number is not found.'
+    message: 'Invalid phone number'
   },
   location: {
     violate: false,
-    message: 'Your location must be defined.'
+    message: 'You should enter your location'
   },
   birthday: {
     violate: false,
-    message: 'Your birthdate is not defined'
+    message: 'That doesn\'t seem like a valid birthday!'
   }
 });

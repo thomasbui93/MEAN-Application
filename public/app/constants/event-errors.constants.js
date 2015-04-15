@@ -9,10 +9,6 @@ angular.module('voluntr').constant('EVENT_ERRORS', {
     violate: false,
     message: 'Your location should be defined'
   },
-  phone: {
-    violate: false,
-    message: 'Your phone number is not found.'
-  },
   time: {
     violate: false,
     message: "The given time is invalid or in the past"

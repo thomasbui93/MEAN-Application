@@ -6,7 +6,6 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
   function($scope, NGO_ERRORS, KEY_CODES, Validation, $timeout, organisation) {
 
     $scope.currentNGO = organisation;
-
     $scope.edit = {
       show: false,
       state: 'Save'
@@ -25,7 +24,7 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
     };
 
     $scope.removeCause = function(cause) {
-      var index = $scope.currentNGO.causes.indexOf(cause);
+      var index = $scope.currentNGO.interests.indexOf(cause);
       if (index > -1) {
         $scope.currentNGO.interests.splice(index, 1);
       }
@@ -38,23 +37,38 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
       };
     };
 
+    $scope.removeLocation = function(location) {
+      var index = $scope.currentNGO.locations.indexOf(location);
+      if (index > -1) {
+        $scope.currentNGO.locations.splice(index, 1);
+      }
+
+    };
+
+    $scope.addLocation = function($event) {
+      if ($scope.input.address !== '' && $event.keyCode === KEY_CODES.enter) {
+        $scope.currentNGO.locations.push($scope.input.address);
+        $scope.input.address = '';
+      }
+    };
+
     $scope.saveInformation = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentNGO);
-      $scope.errors.email.violate = !Validation.checkEmail($scope.currentNGO);
       $scope.errors.phone.violate = !Validation.checkPhone($scope.currentNGO);
-      $scope.errors.description.violate = Validation.checkDescription($scope.currentNGO, 30);
+      $scope.errors.description.violate = Validation.checkDescription($scope.currentNGO, 20);
       if (Validation.checkFinal($scope.errors)) {
-        $scope.edit = {
-          show: true,
-          state: 'Successfully saved!'
-        };
-        $timeout(function() {
+        $scope.currentNGO.save().then(function() {
           $scope.edit = {
-            show: false,
-            state: 'Edit'
+            show: true,
+            state: 'Saved'
           };
-        }, 1000);
-        ////Todo: Saving staff goes here
+          $timeout(function() {
+            $scope.edit = {
+              show: false,
+              state: 'Edit'
+            };
+          }, 1000);
+        });
       }
     };
   }

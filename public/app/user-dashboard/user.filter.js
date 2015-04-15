@@ -18,4 +18,12 @@ angular.module('voluntr').filter('Past', function() {
     }
     return output;
   };
+}).filter('undefinedString', function() {
+  return function(input) {
+    if (input === '' || input === null || input === undefined) {
+      return 'Unknown data';
+    } else {
+      return input;
+    }
+  };
 });
