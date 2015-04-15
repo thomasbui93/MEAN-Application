@@ -1,7 +1,7 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
   'comments', 'organisation',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organisation) {
+  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organistion) {
     $scope.currentUser = $rootScope.user;
     var findObject = function(array, object) {
       var index = -1;
@@ -43,8 +43,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       if ($rootScope.user === undefined) {
         return false;
       } else {
-        var index = organisation.managers.indexOf($rootScope.user._id);
-        return (index !== -1);
+        // TODO: check owner
       }
     };
     console.log($scope.checkOwner());
