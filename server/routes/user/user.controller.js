@@ -10,6 +10,7 @@ var _ = require('lodash');
 var excludedFields = ['_id', 'hashedPassword', 'salt', '__v'];
 
 var QueryBuilder = require('../../lib/query-builder');
+var ImageSaver = require('../../lib/image-saver');
 
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
@@ -111,39 +112,15 @@ exports.remove = function(req, res, next) {
 };
 
 exports.uploadAvatar = function(req, res, next) {
-  var multiparty = require('multiparty');
-  var fs = require('fs');
-  var path = require('path');
+  var imageSaver = new ImageSaver('/img/profiles/', req.session.user._id);
 
-  var profilesPath = path.normalize(__dirname + '/../../../public/img/profiles/');
-
-  var form = new multiparty.Form({
-    autoFiles: true,
-    uploadDir: profilesPath
-  });
-
-  form.on('error', function(err) {
-    console.log(err);
-    next(new UnknownError());
-  });
-
-  form.on('file', function(formFieldName, file) {
-    var fileExtension = _.last(file.path.split('.'));
-    var newFileName = req.session.user._id + '.' + fileExtension;
-
-    fs.rename(file.path, profilesPath + newFileName, function(err) {
+  imageSaver.saveImageFromRequest(req, function(err, response) {
+    if (err) {
       console.log(err);
-      if (err) return next(new UnknownError());
+      return next(new UnknownError());
+    }
 
-      res.status(200).json({
-        avatarUrl: '/img/profiles/' + newFileName
-      });
-    });
-  });
-
-  form.parse(req, function(err) {
-    console.log(err);
-    if (err) return next(new UnknownError());
+    res.json(response);
   });
 };
 

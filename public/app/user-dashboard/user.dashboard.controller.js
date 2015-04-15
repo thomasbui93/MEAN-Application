@@ -44,7 +44,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
       },
       transformRequest: angular.identity
     }).success(function(data) {
-      $scope.user.avatar = data.avatarUrl;
+      $scope.user.avatar = data.url;
       $scope.user.save();
     }).error(function(err) {
       console.log(err);
