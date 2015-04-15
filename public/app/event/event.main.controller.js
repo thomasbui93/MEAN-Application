@@ -1,14 +1,31 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular) {
+  'comments','organisation',
+  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organistion) {
     $scope.currentUser = $rootScope.user;
+    var findObject = function(array, object) {
+      var index = -1;
+      if (object === undefined) {
+        return -1;
+      }
+      for (var i = 0; i < array.length; i++) {
+        if (array[i]._id === object._id) {
+          index = i;
+          break;
+        }
+      }
+      return index;
 
+    };
+    $scope.organisation = organistion;
+    $scope.isFollowed = findObject(event.participants, $rootScope.user) !== -1;
     $scope.input = {
       comment: ''
     };
 
     $scope.currentEvent = event;
-    $scope.comments = event.comments;
+    $scope.currentEvent.time = new Date($scope.currentEvent.date);
+    $scope.comments = comments;
     $scope.currentEvent.date = event.startDate;
     $scope.errors = EVENT_ERRORS;
     $scope.edit = {
@@ -23,7 +40,13 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
         return true;
       }
     };
-
+    $scope.checkOwner = function () {
+      if($rootScope.user === undefined){
+          return false;
+      } else{
+          // TODO: check owner
+      }
+    };
     $scope.editInformation = function() {
       $scope.edit = {
         show: true
@@ -56,27 +79,52 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
             content: $scope.input.comment,
             createdBy: $rootScope.user._id
           }).then(function(comment) {
+            var userComment = {
+              createdBy: {},
+              content: ''
+            };
+            userComment.content = comment.content;
+            userComment.createdBy.firstName = $rootScope.user.firstName;
+            userComment.createdBy.lastName = $rootScope.user.lastName;
+            comments.push(userComment);
+            $scope.input.comment = '';
             event.comments.push(comment);
-            event.save().then(function(msg) {
-              $scope.input.comment = '';
-            });
+            event.save().then(function(msg) {});
           });
         }
       }
     };
 
     $scope.follow = function() {
-      //TODO: logined user can follow the event.
-      //console.log(event);
-      //console.log($rootScope.user);
       $scope.currentUser.events.push(event);
       $scope.currentUser.save();
-
-      console.log($scope.currentUser.events);
-      event.participants.push($scope.currentUser);
+      var user = {
+          _id : $scope.currentUser._id
+      };
+      event.participants.push(user);
       event.save().then(function(data) {
-        //   console.log(data);
+        //TODO: check if this is working fine-> done
+        $scope.isFollowed = true;
       });
+    };
+
+    $scope.unFollow = function() {
+      var indexEvent = findObject($rootScope.user.events, event);
+      if (indexEvent !== -1) {
+        $rootScope.user.events.splice(indexEvent, 1);
+        $rootScope.user.save();
+      }
+      var indexUser = findObject(event.participants, $rootScope.user);
+
+      if (indexUser !== -1) {
+        event.participants.splice(indexUser, 1);
+
+        event.save().then(function() {
+          console.log('deleted');
+          $scope.isFollowed = false;
+        });
+      }
+
     };
   }
 ]).filter('timeParse', function() {

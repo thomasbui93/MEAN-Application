@@ -11,7 +11,7 @@ exports.index = function(req, res, next) {
     .populate('events managers representatives recruitments')
     .exec(function(err, organisations) {
       if (err) return next(err);
-
+      console.log(organisations);
       res.json(organisations);
     });
 };
@@ -85,6 +85,8 @@ exports.remove = function(req, res, next) {
     });
 
 };
+
+
 
 exports.getManagers = function(req, res, next) {
   var id = req.params.orgId;

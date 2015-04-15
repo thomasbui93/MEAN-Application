@@ -30,29 +30,33 @@ angular.module('voluntr')
 
       $scope.settingToggle = function() {
         $scope.state.setting = !$scope.state.setting;
+
       };
 
       $scope.resultToggle = function(params) {
+          $scope.showResult();
         if (params === 'orgs') {
           $scope.state.results = {
             orgs: true,
             jobs: false,
             events: false
           };
+          $scope.showOrgs();
         } else if (params === 'jobs') {
           $scope.state.results = {
             orgs: false,
             jobs: true,
             events: false
           };
+          $scope.showJobs();
         } else if (params === 'events') {
           $scope.state.results = {
             orgs: false,
             jobs: false,
             events: true
           };
+          $scope.showEvents();
         }
-
       };
 
       $scope.results = initialResult;
@@ -154,6 +158,7 @@ angular.module('voluntr')
           .then(function(results) {
             $scope.results.events = results;
           });
+
       };
 
       $scope.showResult = function($event) {

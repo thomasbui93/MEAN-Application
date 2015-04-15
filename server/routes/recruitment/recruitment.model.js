@@ -37,7 +37,7 @@ var RecruitmentSchema = new mongoose.Schema({
   status: {
     type: String,
     "default": "active"
-  }, //status. 1.active, 2.block(when reach due date)
+  } //status. 1.active, 2.block(when reach due date)
 
 });
 

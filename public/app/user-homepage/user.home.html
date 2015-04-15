@@ -1,9 +1,6 @@
 <div class="event-header"> <!--event-header-->
     <img src="http://placehold.it/800x200" class="img-responsive center-block"/>
-    <div class="action-hub padding10 top-right"> <!--action-hub-->
-        <button class=" btn btn-transparent" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil fa-2x"></i></button>
-        <button class=" btn btn-transparent" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save fa-2x"></i></button>
-    </div>
+
     <!--end action-hub -->
     <div class="avatar-user"> <!--avatar-user -->
         <img src="http://placehold.it/100x100" class="img-responsive center-block img-thumbnail"/>
@@ -13,23 +10,41 @@
 <div class="margin-top-20 container">
     <div class="row">
         <div class="col-md-3 col-sm-12 shadow">
+            <div class="action-hub padding10 top-right" ng-show="isOwner()"> <!--action-hub-->
+                <button class=" btn btn-form edit" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil fa"></i></button>
+                <button class=" btn btn-form edit" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save fa"></i></button>
+            </div>
             <div ng-show="!edit.show" class="info-show">
                 <h3 class="text-center">{{pageUser.firstName +' ' +pageUser.lastName}}</h3>
                 <p class="text-center">
-                    <i class="fa fa-location-arrow text-mute text-blue pull-left"></i>
+                    <i class="fa fa-map-marker text-mute text-blue pull-left"></i>
                     {{pageUser.address.city + ', '+ pageUser.address.country }}
                 </p>
                 <p class="text-center">
-                    <i class="fa fa-birthday-cake pull-left"></i>
+                    <i class="fa fa-calendar pull-left"></i>
                    {{pageUser.birthday | date: 'MMM dd, yyyy'}}
                 </p>
                 <p class="text-center">
                     <i class="fa fa-envelope-o pull-left"></i>
                     {{pageUser.email}}
                 </p>
+                <p class="text-center">
+                    <i class="fa fa-phone-square pull-left"></i>
+                    {{pageUser.phone | undefinedString}}
+                </p>
                 <div class="skill-sets">
-                    <i class="fa fa-tags pull-left"></i><br/>
+                    <strong>Skills: </strong>
+                    <div ng-if="pageUser.skills.length === 0">
+                        <p class="text-center text-italic text-blue">Unknown data</p>
+                    </div>
                     <div class="tag" ng-repeat="skill in pageUser.skills">{{skill}}</div>
+                </div>
+                <div class="skill-sets">
+                    <strong>Interests: </strong>
+                    <div ng-if="pageUser.interests.length === 0">
+                        <p class="text-center text-italic text-blue">Unknown data</p>
+                    </div>
+                    <div class="tag" ng-repeat="skill in pageUser.interests">{{skill}}</div>
                 </div>
             </div><!-- end info-show -->
             <div ng-show="edit.show" class="info-show padding10">
@@ -69,6 +84,7 @@
                 <div class="padding10">
                     <button class="btn btn-follow center-block" ng-click="saveInformation()">
                         Save <i class="fa fa-spinner fa-pulse" ng-show="edit.saving"></i>
+                            <i class="fa fa-check-circle" ng-show="edit.success"></i>
                     </button>
                 </div>
                 <!--end padding10-->

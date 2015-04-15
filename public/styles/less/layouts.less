@@ -115,6 +115,7 @@
   display: inline-block;
   width: 75px;
   text-align: center;
+  overflow: hidden;
 }
 #user-control i{
   position: relative;
@@ -122,7 +123,7 @@
   height: 50px;
   width: 50px;
   line-height: 50px;
-  top: 0px;
+  top: -10px;
   cursor: pointer;
 }
 #user-setting{
@@ -150,6 +151,8 @@
 #user-setting li{
   text-align: center;
   border-bottom: 1px solid white;
+  height: 30px;
+  line-height: 30px;
 }
 #user-setting li:last-child{
   border-bottom: none;
@@ -412,6 +415,23 @@ a{
   padding-bottom: 20px;
   padding-top: 20px;
   border-bottom: 1px solid #cccccc;
+}
+.ngo-location{
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+}
+.ngo-location .close-icon{
+  position: relative;
+  right: 10px;
+  line-height: 30px;
+  height: 30px;
+}
+.ngo-location:hover{
+  background-color:rgba(52, 152, 219,0.3);
+}
+.ngo-location:hover .close-icon{
+  color: red;
 }
 .big-logo{
   position: relative;
@@ -782,4 +802,20 @@ Event NGO mangage
   content: '';
   background: white;
   left: 1px;
+}
+.action-hub .btn{
+  height: 30px;
+}
+#bottom-container{
+  position: relative;
+  margin-top: 50px;
+}
+.user-brief{
+  position: relative;
+  height: 60px;
+  line-height: 30px;
+  background: #eeeeff;
+  padding-left: 20px;
+  margin-top: 5px;
+  cursor: pointer;
 }

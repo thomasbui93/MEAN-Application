@@ -2,129 +2,159 @@
  * Created by Bui Dang Khoa on 3/26/2015.
  */
 'use strict';
-angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$state',
-  function($scope, $state) {
+angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$state', 'organisation', 'Restangular',
+  function($scope, $state, organisation, Restangular) {
     $scope.currentNGO = $scope.$parent.currentNGO || {};
-
+    $scope.events = organisation.events;
     $scope.delete = {
       state: false,
-      events: []
+      event: null
     };
 
-    //methods
     $scope.invokeDelete = function(event) {
       $scope.delete = {
         state: true,
-        events: [event]
+        event: event
       };
+
     };
 
     $scope.deleteReset = function() {
       $scope.delete = {
         state: false,
-        events: []
+        event: null
       };
     };
 
     $scope.editTransit = function(id) {
-      $state.transitionTo('ngoDashboard.eventEdit', {
-        id: id
-      });
+      $state.go('ngoDashboard.eventEdit', id);
     };
 
-    $scope.deleteEvent = function(events) {
-      events.forEach(function(event) {
-        //TODO: backEnd delete goes here
-        //simulation:
-        var index = $scope.currentNGO.events.indexOf(event);
-        if (index > -1) {
-          $scope.currentNGO.events.splice(index, 1);
+    $scope.deleteEvent = function() {
+      var index = -1;
+      var deleteID = null;
+      for (var i = 0; i < organisation.events.length; i++) {
+        if (organisation.events[i]._id === $scope.delete.event._id) {
+          index = i;
+          deleteID = organisation.events[i]._id;
         }
-      });
+      }
+      if (index > -1) {
+        organisation.events.splice(index, 1);
+        organisation.save().then(function() {
+          Restangular.one('api/events', deleteID)
+            .remove().then(function() {
+              $scope.events = organisation.events;
+            });
+        });
+      }
+
       $scope.deleteReset();
     };
 
     $scope.viewVolunteers = function(event) {
-      event.showVolunteer = !event.showVolunteer;
-    };
-
-    //backEnd implements
-    $scope.fetchEvent = function() {
-
+      Restangular.one('api/events', event._id)
+        .getList('participants')
+        .then(function(results) {
+          event.volunteers = results;
+          event.showVolunteer = !event.showVolunteer;
+        });
     };
   }
-]).controller('ngoEventEditController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout',
-  function($scope, $stateParams, $state, EVENT_ERRORS, Validation, $timeout) {
-    $scope.currentEvent = {
-      id: '1',
-      date: new Date("October 20, 2015"),
-      name: 'Food catering free',
-      phone: '099 222 3333',
-      location: 'Hanhitie 17H B14, Oulu, Finland',
-      description: "Morbi in sem quis dui pla Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat."
-    };
-
+]).controller('ngoEventEditController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout', 'event', 'organisation',
+  function($scope, $stateParams, $state, EVENT_ERRORS, Validation, $timeout, event, organisation) {
+    $scope.currentEvent = event;
     $scope.errors = angular.copy(EVENT_ERRORS);
     $scope.success = false;
-
-    $scope.fetchEvent = function(id) {
-      //Todo retrieve the event with the specific id
+    $scope.input = {
+      endDate: null,
+      startDate: null
     };
 
     $scope.saveEvent = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
-      $scope.errors.phone.violate = !Validation.checkPhone($scope.currentEvent);
-
-      if ($scope.currentEvent.location === '' || $scope.currentEvent.location === null) {
+      if ($scope.currentEvent.locations === '' || $scope.currentEvent.locations === null) {
         $scope.errors.location.violate = true;
       } else {
         $scope.errors.location.violate = false;
       }
+      $scope.currentEvent.startDate = new Date($scope.input.startDate);
+      $scope.currentEvent.endDate = new Date($scope.input.endDate);
+      if ($scope.currentEvent.startDate > $scope.currentEvent.endDate || $scope.input.startDate === null || $scope.input.endDate === null) {
+        console.log($scope.input.startDate, $scope.input.endDate, $scope.currentEvent.startDate > $scope.currentEvent.endDate);
+        $scope.errors.time.violate = true;
+      } else {
+        $scope.errors.time.violate = false;
+      }
+      console.log($scope.errors);
       if (Validation.checkFinal($scope.errors)) {
-        $scope.success = true;
-        //TODO: server saving ngo profile
-        $timeout(function() {
-          $state.transitionTo('ngoDashboard.eventManage');
-        }, 1500);
+        $scope.currentEvent.save().then(function(result) {
+          for (var i = 0; i < organisation.events.length; i++) {
+            if (organisation.events[i]._id === result._id) {
+              organisation.events.splice(i, 1);
+            }
+          }
+          organisation.events.push(result);
+          $scope.success = true;
+          $timeout(function() {
+            $state.transitionTo('ngoDashboard.eventManage', {
+              orgId: organisation._id
+            });
+          }, 1500);
+        });
       }
     };
   }
-]).controller('ngoEventCreateController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout',
-  function($scope, $stateParams, $state, EVENT_ERRORS, Validation, $timeout) {
+]).controller('ngoEventCreateController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout', 'organisation', 'Restangular',
+  function($scope, $stateParams, $state, EVENT_ERRORS, Validation, $timeout, organisation, Restangular) {
     $scope.currentEvent = {
-      id: null,
-      date: null,
-      name: '',
-      phone: '',
-      location: '',
-      description: ""
+      name: null,
+      locations: null,
+      startDate: null,
+      endDate: null,
+      description: null
     };
-
     $scope.errors = angular.copy(EVENT_ERRORS);
     $scope.success = false;
 
     $scope.saveEvent = function() {
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
-      $scope.errors.phone.violate = !Validation.checkPhone($scope.currentEvent);
-
       if ($scope.currentEvent.location === '' || $scope.currentEvent.location === null) {
         $scope.errors.location.violate = true;
       } else {
         $scope.errors.location.violate = false;
       }
 
-      if ($scope.currentEvent.date < new Date() || $scope.currentEvent.date === null) {
+      if ($scope.currentEvent.startDate > $scope.currentEvent.endDate ||
+        $scope.currentEvent.startDate === null ||
+        $scope.currentEvent.endDate === null) {
+
         $scope.errors.time.violate = true;
       } else {
         $scope.errors.time.violate = false;
       }
       if (Validation.checkFinal($scope.errors)) {
-        $scope.success = true;
-        $timeout(function() {
-          $state.transitionTo('ngoDashboard.eventManage');
-        }, 1500);
+
+        Restangular.all('api/events').post({
+          name: $scope.currentEvent.name,
+          locations: $scope.currentEvent.location,
+          startDate: new Date($scope.currentEvent.startDate),
+          endDate: new Date(2015, 1, 1),
+          description: $scope.currentEvent.description
+        }).then(function(result) {
+          console.log(result);
+          organisation.events.push(result);
+          organisation.save().then(function() {
+            $scope.success = true;
+            $timeout(function() {
+              $state.transitionTo('ngoDashboard.eventManage', {
+                orgId: organisation._id
+              });
+            }, 1500);
+          });
+        });
       }
     };
   }

@@ -30,13 +30,13 @@
             <li><a class="text-white">Events</a></li>
             <li><a class="text-white">Jobs</a></li>
         </ul>
-        <div id="user-control" ng-if="user.firstName !== undefined">
+        <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
             <div class="user-name">
-               <strong>{{user.firstName || ''}}</strong>
+               <strong ng-cloak>{{user.firstName || ''}}</strong>
             </div>
             <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
         </div>
-        <div class="login-section pull-right" ng-if="user.firstName === undefined" >
+        <div class="login-section pull-right" ng-cloak ng-if="user.firstName === undefined" >
             <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
 </div>
-<ul id="user-setting" ng-show="user.setting">
+<ul id="user-setting" ng-show="setting" ng-cloak="" ng-click="hideThing()">
     <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
     <li><a class="text-white" ng-click="logout()">Logout</a></li>
     <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
@@ -63,9 +63,9 @@
         <div><a ui-sref="login" class="text-white">Login</a></div>
     </li>
     <li ng-if="user.firstName!==undefined">
-        <div><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <div ><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
         <div ><a ng-click="logout()" class="text-white">Logout</a></div>
-        <div><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
+        <div ><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
     </li>
     <hr/>
     <!---- THIS block for testing authorization
@@ -74,13 +74,13 @@
         <a ui-sref="login" class="text-white">Login</a>
     </li>
     <li>
-        <a href="/ngo/dashboard/55095c4e2d316055807f00dd" class="text-white">Org example</a>
+        <a href="ngo/dashboard/55095c4e2d316055307f00fd" class="text-white">Org example</a><br/>
     </li>
 
 </ul>
 
 <!-- This view will be filled by the ui-router. -->
-<div ui-view></div>
+<div ui-view ng-click="hideThing()"></div>
 
 <div class="container-fluid padding20" id="footer">
     <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
