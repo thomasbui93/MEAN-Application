@@ -107,6 +107,7 @@
     <!---- advanced-features
             -->
     <div class="row result-set container center-block">
+        <h4 class="margin-top-20 text-center" ng-if="results.organizations.length ===0">No result found</h4>
         <div class="organization-results row" ng-show="state.results.orgs">
             <div class="organization-block col-md-5 row" ng-repeat=" org in results.organizations">
                 <a ui-sref="ngoHomePage({id: org._id})">
@@ -122,6 +123,7 @@
 
         </div>
         <div class="volunteer-results row" ng-show="state.results.jobs">
+            <h4 class="margin-top-20 text-center" ng-if="results.jobs.length ===0">No result found</h4>
             <div class="organization-block col-md-5 row" ng-repeat=" job in results.jobs">
                 <a>
                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
@@ -135,6 +137,7 @@
             </div>
         </div>
         <div class="organization-results row" ng-show="state.results.events">
+            <h4 class="margin-top-20 text-center" ng-if="results.events.length ===0">No result found</h4>
             <div class="organization-block col-md-5 row" ng-repeat=" event in results.events">
                 <a ui-sref="events({id: event._id})">
                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">

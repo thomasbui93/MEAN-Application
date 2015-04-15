@@ -97,7 +97,6 @@ exports.getCreatedBy = function(req, res, next) {
 exports.findByEvent = function(req, res, next) {
 
   var eventId = req.params.commentId;
-  console.log("called find by event");
 
   Comment.find({
     event: eventId
@@ -106,7 +105,7 @@ exports.findByEvent = function(req, res, next) {
     .exec(function(err, comment) {
       if (err) return next(err);
       if (!comment) return next(new NotFoundError("No Comment found."));
-      console.log(comment);
+
       res.json(comment);
     });
 };

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  'comments','organisation',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organistion) {
+  'comments', 'organisation',
+  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organisation) {
     $scope.currentUser = $rootScope.user;
     var findObject = function(array, object) {
       var index = -1;
@@ -17,12 +17,11 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       return index;
 
     };
-    $scope.organisation = organistion;
     $scope.isFollowed = findObject(event.participants, $rootScope.user) !== -1;
     $scope.input = {
       comment: ''
     };
-
+    $scope.organisation = organisation;
     $scope.currentEvent = event;
     $scope.currentEvent.time = new Date($scope.currentEvent.date);
     $scope.comments = comments;
@@ -40,13 +39,15 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
         return true;
       }
     };
-    $scope.checkOwner = function () {
-      if($rootScope.user === undefined){
-          return false;
-      } else{
-          // TODO: check owner
+    $scope.checkOwner = function() {
+      if ($rootScope.user === undefined) {
+        return false;
+      } else {
+        var index = organisation.managers.indexOf($rootScope.user._id);
+        return (index !== -1);
       }
     };
+    console.log($scope.checkOwner());
     $scope.editInformation = function() {
       $scope.edit = {
         show: true
@@ -99,11 +100,10 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       $scope.currentUser.events.push(event);
       $scope.currentUser.save();
       var user = {
-          _id : $scope.currentUser._id
+        _id: $scope.currentUser._id
       };
       event.participants.push(user);
       event.save().then(function(data) {
-        //TODO: check if this is working fine-> done
         $scope.isFollowed = true;
       });
     };

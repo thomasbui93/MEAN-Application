@@ -13,7 +13,7 @@
         <div ng-if="matchUser.length === 0" class="text-italic"> User email not found </div>
         <button class="btn btn-form margin-top-5" ng-click="addRepresentative()">Add Representatives</button>
     </div>
-    <div class="row padding10" ng-if="rep.length === 0">
+    <div class="row padding10" >
         <button class="btn btn-small btn-red pull-left" ng-click="removeInvoke()">Remove</button>
         <button class="btn btn-small btn-form pull-right" ng-click="checkRemoveAll()" ng-show="state.check">Check All</button>
         <button class="btn btn-small btn-form pull-right" ng-click="unCheck()" ng-show="!state.check">Uncheck</button>
@@ -34,7 +34,7 @@
     <div class="delete-dialog center-block">
         <div class="small-banner"><strong>Delete Dialog</strong></div>
         <br/>
-        <p class="center-block text-center">Do you really want to delete the events ?</p>
+        <p class="center-block text-center">Do you really want to delete the representative ?</p>
         <div class="row text-center">
             <button class="btn-small btn-inline btn-red " ng-click="removeRepresentative()">Yes</button>
             <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>

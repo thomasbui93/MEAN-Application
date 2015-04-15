@@ -97,22 +97,41 @@ angular.module('voluntr').controller('ngoRepresentativeManageController', ['$sco
     };
 
     $scope.removeInvoke = function() {
-      $scope.state.dialog = true;
+      var hasSelected = false;
+      angular.forEach($scope.reps, function(rep) {
+        if (rep.selected === true) {
+          hasSelected = true;
+        }
+      });
+      $scope.state.dialog = hasSelected;
     };
 
     $scope.removeRepresentative = function() {
-      for (var i = 0; i < $scope.reps.length; i++) {
+
+      var i = 0;
+      while (i < $scope.reps.length) {
         var rep = $scope.reps[i];
         if (rep.selected === true) {
           var index = findObject(organisation.representatives, rep);
           if (index !== -1) {
             organisation.representatives.splice(index, 1);
 
+            Restangular.one('api/users', rep._id)
+                .get()
+                .then(function (user) {
+                    var index = findObject(user.representOrganisations, organisation);
+                    if(index >-1){
+                        user.representOrganisations.splice(index, 1);
+                        user.save();
+                    }
+                });
+            continue;
           }
         }
+        ++i;
       }
       organisation.save().then(function() {
-        console.log(organisation);
+
       });
       $scope.deleteReset();
     };

@@ -4,6 +4,10 @@ var Organisation = require('./organisation.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 var QueryBuilder = require('../../lib/query-builder.js');
 
+var _ = require('lodash');
+
+var excludedFields = ['_id', 'hashedPassword', 'salt', '__v'];
+
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
   //console.log(req.query.createdDate);
@@ -39,9 +43,14 @@ exports.update = function(req, res, next) {
       if (!organisation) return next(new NotFoundError('No Organisation with that id.'));
 
       for (var field in req.body) {
-        if (field in organisation) {
-          organisation[field] = req.body[field];
-        }
+
+          if (_.includes(excludedFields, field)) {
+              continue;
+          }
+
+          if (field in organisation) {
+              organisation[field] = req.body[field];
+          }
       }
       organisation.save(function(err) {
         if (err) return next(err);

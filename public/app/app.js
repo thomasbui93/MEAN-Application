@@ -70,7 +70,7 @@ angular.module('voluntr', [
     url: '/ngo',
     templateUrl: 'app/sign-up/ngo-sign-up.html',
     data: {
-      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+      authorizedRoles: [USER_ROLES.volunteer]
     },
     controller: 'ngoSignUpController'
   }).state('user-dashboard', {
@@ -166,6 +166,12 @@ angular.module('voluntr', [
         controller: 'ngoJobManageController',
         templateUrl: 'app/ngo-dashboard/jobManage.html'
       }
+    },
+    resolve: {
+      recruitments: function(Restangular, $stateParams) {
+        return Restangular.one('api/organisations', $stateParams.orgId)
+          .getList('recruitments');
+      }
     }
   }).state('ngoDashboard.jobCreate', {
     url: '/job/create',
@@ -181,6 +187,11 @@ angular.module('voluntr', [
       'main': {
         controller: 'ngoJobEditController',
         templateUrl: 'app/ngo-dashboard/jobEdit.html'
+      }
+    },
+    resolve: {
+      recruitment: function(Restangular, $stateParams) {
+        return Restangular.one('api/recruitments', $stateParams.id).get();
       }
     }
   }).state('ngoDashboard.representativeManage', {
@@ -256,9 +267,8 @@ angular.module('voluntr', [
           return Restangular.one('api/events', $stateParams.id).get();
         }
       ],
-      organisation: function($stateParams, Restangular){
-          //TODO: get organisation that owned events
-          //return Restangular.one('api/events', $stateParams.id).getList('organisations');
+      organisation: function($stateParams, Restangular) {
+        return Restangular.one('api/events', $stateParams.id).one('organisation').get();
       },
       comments: function($stateParams, Restangular) {
         return Restangular.one('api/comments/', $stateParams.id).getList('eventComment');
@@ -312,6 +322,12 @@ angular.module('voluntr', [
   }).state('loginRequired', {
     url: '/login-required',
     templateUrl: 'app/static/login-required.html',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    }
+  }).state('404', {
+    url: '/404',
+    templateUrl: 'app/static/404.html',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }

@@ -3,6 +3,8 @@
 var Recruitment = require('./recruitment.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 
+var _ = require('lodash');
+var excludedFields = ['_id', 'hashedPassword', 'salt', '__v'];
 exports.index = function(req, res, next) {
   Recruitment.find(req.query)
     .populate('organisation participants createdBy')
@@ -27,15 +29,32 @@ exports.show = function(req, res, next) {
 
 exports.update = function(req, res, next) {
   var id = req.params.recrId;
+  console.log("called recruiment update");
 
-  Recruitment.findByIdAndUpdate(id, req.body, {
-    'new': true
-  }, function(err, recruitment) {
-    if (err) return next(err);
-    if (!recruitment) return next(new NotFoundError('No Recruitment with that id.'));
+  Recruitment.findById(id)
+    .populate('organisation participants createdBy')
+    .exec(function(err, recruitment) {
 
-    res.json(recruitment);
-  });
+      if (err) return next(err);
+      if (!recruitment) return next(new NotFoundError('No user with that id.'));
+
+      for (var field in req.body) {
+
+        if (_.includes(excludedFields, field)) {
+          continue;
+        }
+
+        if (field in recruitment) {
+          recruitment[field] = req.body[field];
+        }
+      }
+
+      recruitment.save(function(err) {
+        if (err) return next(err);
+
+        res.json(recruitment);
+      });
+    });
 };
 
 exports.create = function(req, res, next) {

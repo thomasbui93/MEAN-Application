@@ -2,8 +2,8 @@
  * Created by Bui Dang Khoa on 4/8/2015.
  */
 'use strict';
-angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state', 'NGO_ERRORS', 'Validation', 'Restangular', '$timeout', '$rootScope',
-  function($scope, $state, ERRORS, Validation, Restangular, $timeout, $rootScope) {
+angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state', 'NGO_ERRORS', 'Validation', 'Restangular', '$timeout', '$rootScope', '$window',
+  function($scope, $state, ERRORS, Validation, Restangular, $timeout, $rootScope, $window) {
     $scope.org = {
       name: null,
       email: null,
@@ -53,13 +53,19 @@ angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state',
         description: $scope.org.description,
         owner: $rootScope.user._id
       })
-        .then(function(results) {
-          console.log('create');
-          $rootScope.user.managedOrganisations.push(results);
-          $rootScope.user.save();
-          $scope.success = true;
-
-        });
+        .then(
+          function(results) {
+            $rootScope.user.managedOrganisations.push(results);
+            $rootScope.user.save();
+            $scope.success = true;
+            $timeout(function() {
+              $state.transitionTo('user-dashboard');
+            }, 1500);
+          },
+          function(error) {
+            console.log(error);
+          }
+      );
     };
     $scope.register = function() {
       $scope.error.name.violate = Validation.checkName($scope.org);
@@ -71,7 +77,9 @@ angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state',
       }
       $scope.error.description.violate = Validation.checkDescription($scope.org, 20);
       if (Validation.checkFinal($scope.error) && $rootScope.user !== undefined) {
-        $scope.save();
+        $scope.saveNGO();
+      } else {
+        //TODO: scroll to top page.
       }
     };
   }

@@ -58,7 +58,7 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Event"
   }], //an array of events id which user participated in 
-  recruiments: [{
+  recruitments: [{
     type: Schema.Types.ObjectId,
     ref: "Recruitment"
   }], //an array of recruit

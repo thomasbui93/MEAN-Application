@@ -141,7 +141,7 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
           name: $scope.currentEvent.name,
           locations: $scope.currentEvent.location,
           startDate: new Date($scope.currentEvent.startDate),
-          endDate: new Date(2015, 1, 1),
+          endDate: new Date($scope.currentEvent.endDate),
           description: $scope.currentEvent.description
         }).then(function(result) {
           console.log(result);

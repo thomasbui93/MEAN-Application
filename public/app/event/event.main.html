@@ -26,7 +26,7 @@
         <!--event-information-->
         <div class="col-xs-12 col-md-3 margin-top-20 padding10 event-information text-center shadow">
             <div ng-show="!edit.show" class="info-show">
-                <div class="action-hub padding10 top-right" ng-if="currentUser !== undefined"> <!--action-hub-->
+                <div class="action-hub padding10 top-right" ng-if="checkOwner()"> <!--action-hub-->
                     <button class=" btn btn-form" ng-show="!edit.show" ng-click="editInformation()"><i class="fa fa-pencil "></i></button>
                     <button class=" btn btn-form" ng-show="edit.show" ng-click="saveInformation()"><i class="fa fa-save "></i></button>
                 </div>
@@ -38,7 +38,7 @@
                 </p>
                 <p>
                     <i class="fa fa-clock-o"></i>
-                    17:30PM. Mar 3, 2014
+                    {{currentEvent.date | date: 'MMM dd, yyyy. HH : mm'}}
                 </p>
                 <div ng-if=" currentUser !== undefined">
                     <button class="btn btn-follow" ng-click="follow()" ng-show="!isFollowed">Follow</button>
