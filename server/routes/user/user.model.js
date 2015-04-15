@@ -23,7 +23,10 @@ var UserSchema = new Schema({
     month: Number,
     year: Number
   },
-  avatar: String, //image link
+  avatar: {
+    type: String,
+    default: '//placehold.it/200x200'
+  },
   description: String,
   skills: [String],
   interests: [String],
@@ -154,11 +157,6 @@ UserSchema.methods = {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
-  },
-
-  saveAvatar: function(file, cb) {
-    console.log('dummy saveAvatar');
-    db(null, 'lol');
   }
 };
 

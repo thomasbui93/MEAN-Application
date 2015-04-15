@@ -3,6 +3,7 @@
 var User = require('./user.model');
 var NotFoundError = require('../../lib/errors').NotFound;
 var UnauthorizedError = require('../../lib/errors').Unauthorized;
+var UnknownError = require('../../lib/errors').Unknown;
 
 var _ = require('lodash');
 
@@ -110,10 +111,40 @@ exports.remove = function(req, res, next) {
 };
 
 exports.uploadAvatar = function(req, res, next) {
-  console.log('This is our user:', req.user);
-  console.log('These are the files:', req.files);
+  var multiparty = require('multiparty');
+  var fs = require('fs');
+  var path = require('path');
 
-  res.send(200);
+  var profilesPath = path.normalize(__dirname + '/../../../public/img/profiles/');
+
+  var form = new multiparty.Form({
+    autoFiles: true,
+    uploadDir: profilesPath
+  });
+
+  form.on('error', function(err) {
+    console.log(err);
+    next(new UnknownError());
+  });
+
+  form.on('file', function(formFieldName, file) {
+    var fileExtension = _.last(file.path.split('.'));
+    var newFileName = req.session.user._id + '.' + fileExtension;
+
+    fs.rename(file.path, profilesPath + newFileName, function(err) {
+      console.log(err);
+      if (err) return next(new UnknownError());
+
+      res.status(200).json({
+        avatarUrl: '/img/profiles/' + newFileName
+      });
+    });
+  });
+
+  form.parse(req, function(err) {
+    console.log(err);
+    if (err) return next(new UnknownError());
+  });
 };
 
 exports.getManagedOrganisations = function(req, res, next) {
