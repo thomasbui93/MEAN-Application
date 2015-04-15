@@ -1,6 +1,6 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  'comments','organisation',
+  'comments', 'organisation',
   function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organistion) {
     $scope.currentUser = $rootScope.user;
     var findObject = function(array, object) {
@@ -40,11 +40,11 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
         return true;
       }
     };
-    $scope.checkOwner = function () {
-      if($rootScope.user === undefined){
-          return false;
-      } else{
-          // TODO: check owner
+    $scope.checkOwner = function() {
+      if ($rootScope.user === undefined) {
+        return false;
+      } else {
+        // TODO: check owner
       }
     };
     $scope.editInformation = function() {
@@ -99,7 +99,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       $scope.currentUser.events.push(event);
       $scope.currentUser.save();
       var user = {
-          _id : $scope.currentUser._id
+        _id: $scope.currentUser._id
       };
       event.participants.push(user);
       event.save().then(function(data) {

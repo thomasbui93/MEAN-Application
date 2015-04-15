@@ -6,12 +6,12 @@ var QueryBuilder = require('../../lib/query-builder.js');
 
 exports.index = function(req, res, next) {
   var query = new QueryBuilder(req.query).query;
-  //console.log(req.query.createdDate);
+
   Organisation.find(query)
     .populate('events managers representatives recruitments')
     .exec(function(err, organisations) {
       if (err) return next(err);
-      console.log(organisations);
+      
       res.json(organisations);
     });
 };

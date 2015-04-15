@@ -191,38 +191,6 @@ angular.module('voluntr', [
         templateUrl: 'app/ngo-dashboard/representativeManage.html'
       }
     }
-  }).state('adminDashboard', {
-    abstract: true,
-    url: '/admin',
-    controller: 'adminController',
-    templateUrl: 'app/admin/admin.main.html',
-    data: {
-      authorizedRoles: [USER_ROLES.admin]
-    }
-  }).state('adminDashboard.blacklist', {
-    url: '',
-    views: {
-      'main': {
-        controller: 'adminBlacklistController',
-        templateUrl: 'app/admin/admin.blacklist.html'
-      }
-    }
-  }).state('adminDashboard.report', {
-    url: '/report',
-    views: {
-      'main': {
-        controller: 'adminReportController',
-        templateUrl: 'app/admin/admin.report.html'
-      }
-    }
-  }).state('adminDashboard.content', {
-    url: '/content',
-    views: {
-      'main': {
-        controller: 'adminContentController',
-        templateUrl: 'app/admin/admin.content.html'
-      }
-    }
   }).state('ngoHomePage', {
     url: '/ngo/home/:id',
     controller: 'ngoHomePageController',
@@ -256,9 +224,9 @@ angular.module('voluntr', [
           return Restangular.one('api/events', $stateParams.id).get();
         }
       ],
-      organisation: function($stateParams, Restangular){
-          //TODO: get organisation that owned events
-          //return Restangular.one('api/events', $stateParams.id).getList('organisations');
+      organisation: function($stateParams, Restangular) {
+        //TODO: get organisation that owned events
+        //return Restangular.one('api/events', $stateParams.id).getList('organisations');
       },
       comments: function($stateParams, Restangular) {
         return Restangular.one('api/comments/', $stateParams.id).getList('eventComment');

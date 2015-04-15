@@ -34,7 +34,7 @@ angular.module('voluntr')
       };
 
       $scope.resultToggle = function(params) {
-          $scope.showResult();
+        $scope.showResult();
         if (params === 'orgs') {
           $scope.state.results = {
             orgs: true,
