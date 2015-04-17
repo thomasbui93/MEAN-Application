@@ -5,8 +5,8 @@
 angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$state', 'ERRORS', 'Validation', 'Restangular', '$timeout',
   function($scope, $state, ERRORS, Validation, Restangular, $timeout) {
     $scope.user = {
-      firstname: null,
-      lastname: null,
+      firstName: null,
+      lastName: null,
       email: null,
       pwd: null,
       repwd: null,
@@ -23,7 +23,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       skill: ''
     };
     $scope.success = false;
-    $scope.error = ERRORS;
+    $scope.error = angular.copy(ERRORS);
 
     $scope.createSkill = function($event) {
       if ($event.keyCode == 13) {
@@ -73,7 +73,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
         email: $scope.user.email
       })
         .then(function(results) {
-
+              console.log(results.length);
           if (results.length !== 0) {
             console.log("email is already used");
             $scope.error.identicalEmail = {
@@ -81,19 +81,24 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
               message: 'Your email already existed.'
             };
           } else {
-            $scope.save();
             $scope.error.identicalEmail = {
               violate: false,
               message: 'Your email already existed.'
             };
+              console.log('not identical email');
+              if(Validation.checkFinal($scope.error)){
+                  $scope.save();
+              }
+
           }
         });
     };
 
     $scope.save = function() {
+        console.log('save called');
       Restangular.all('api/users').post({
-        firstname: $scope.user.firstname,
-        lastname: $scope.user.lastname,
+        firstName: $scope.user.firstName,
+        lastName: $scope.user.lastName,
         email: $scope.user.email,
         password: $scope.user.pwd,
         birthDate: {
@@ -111,16 +116,18 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
         .then(function(results) {
           $scope.success = true;
           $timeout(function() {
-            $state.transitionTo('user-dashboard');
+            $state.transitionTo('login');
           }, 2000);
         });
     };
 
     $scope.register = function() {
+
       $scope.checkAll();
-      if (Validation.checkFinal($scope.error)) {
+
+      //if (Validation.checkFinal($scope.error)) {
         $scope.checkIdenticalEmail();
-      }
+      //}
     };
   }
 ]);

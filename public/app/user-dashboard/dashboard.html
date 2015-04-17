@@ -79,10 +79,11 @@
                 </div>
                 <div class="padding10 border-top">
 
-                    <div class="center-block">
-                        <button ng-show="edit.show" class="btn btn-form center-block" ng-click="saveInformation()">{{edit.state}}
+                    <div class="center-block text-center">
+                        <button ng-show="edit.show" class="btn btn-form" ng-click="saveInformation()">{{edit.state}}
                             <i class="fa fa-check-circle" ng-show="edit.success"></i>
                         </button>
+                        <button ng-show="edit.show"  class="btn btn-red" ng-click="cancelSave()">Cancel</button>
                     </div>
                     <button ng-show="!edit.show"  class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
 

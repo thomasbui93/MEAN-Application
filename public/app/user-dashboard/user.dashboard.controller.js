@@ -2,14 +2,10 @@
  * Created by Bui Dang Khoa on 3/25/2015.
  */
 'use strict';
-
-
-
-
-
 angular.module('voluntr').controller('userDashboardController', function($scope, ERRORS, Validation,
-  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, events, $http) {
+  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, events, $http, AuthService) {
 
+    console.log($rootScope.user);
   $scope.edit = {
     show: false,
     state: 'Save',
@@ -211,8 +207,13 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
 
         });
     }
-
-
+  };
+  $scope.cancelSave = function () {
+      $scope.edit = {
+          show: false,
+          state: 'Edit',
+          success: false
+      };
   };
 
 });

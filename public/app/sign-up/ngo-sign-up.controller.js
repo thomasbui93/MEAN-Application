@@ -51,7 +51,8 @@ angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state',
         locations: $scope.org.locations,
         interests: $scope.org.causes,
         description: $scope.org.description,
-        owner: $rootScope.user._id
+        owner: $rootScope.user._id,
+        managers: $rootScope.user._id
       })
         .then(
           function(results) {

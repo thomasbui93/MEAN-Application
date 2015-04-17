@@ -3,6 +3,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
   'comments', 'organisation',
   function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organisation) {
     $scope.currentUser = $rootScope.user;
+      console.log(organisation);
     var findObject = function(array, object) {
       var index = -1;
       if (object === undefined) {
@@ -43,11 +44,11 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       if ($rootScope.user === undefined) {
         return false;
       } else {
-        var index = organisation.managers.indexOf($rootScope.user._id);
+        var index = organisation.managers.concat(organisation.representatives).indexOf($rootScope.user._id);
         return (index !== -1);
       }
     };
-    console.log($scope.checkOwner());
+      console.log($scope.checkOwner());
     $scope.editInformation = function() {
       $scope.edit = {
         show: true
