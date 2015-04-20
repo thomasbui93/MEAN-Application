@@ -54,30 +54,22 @@
 </ul>
 <ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
    <h3 class="text-center">Menu</h3>
-    <hr/>
+    <hr>
    <li>Organisation</li>
    <li>Jobs</li>
    <li>Events</li>
-    <hr/>
+    <hr>
     <li ng-if="user.firstName===undefined">
         <div><a ui-sref="register-volunteer" class="text-white">Register</a></div>
         <div><a ui-sref="login" class="text-white">Login</a></div>
     </li>
     <li ng-if="user.firstName!==undefined">
-        <div ><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <a ui-sref="user-dashboard" class="text-white">Dashboard</a>
+    </li>
+    <li ng-if="user.firstName!==undefined">
         <div ><a ng-click="logout()" class="text-white">Logout</a></div>
-        <div ><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
     </li>
-    <hr/>
-    <!---- THIS block for testing authorization
-        -->
-    <li>
-        <a ui-sref="login" class="text-white">Login</a>
-    </li>
-    <li>
-        <a href="ngo/dashboard/55095c4e2d316055307f00fd" class="text-white">Org example</a><br/>
-    </li>
-
+    <hr>
 </ul>
 
 <!-- This view will be filled by the ui-router. -->
