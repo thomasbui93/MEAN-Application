@@ -1,5 +1,5 @@
 <div class="container padding10">
-    <div class="row">
+    <div class="row" >
         <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3 user-profile">
 
             <div id="avatar">
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 container">
+        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 container" ng-show="!delete.state && !unFollow.state">
             <div class="user-notification">
                 <div class="banner shadow"><strong>Upcoming events</strong></div>
                 <div class="notification-container scroll container">
@@ -109,39 +109,87 @@
                     <div class="user-activities">
                         <div class="banner"><strong>Represented Organisations: </strong></div>
                         <div class="activities-container scroll container">
-                            <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" ng-repeat="org in representOrganisations">
-                                <div  class="organization-block row margin-top-5 margin-left-10">
-                                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
-                                    <div class="information-block row-md-8 xs-hide sm-hide">
-                                        {{org.name}}<br/>
-                                        <i class="fa fa-map-marker text-green"></i> {{org.locations[0]}}
-                                    </div>
+                            <div ng-if="representOrganisations.length === 0" class="text-italic margin-top-20">
+                                <p>You don't represent for any organisation</p>
+                            </div>
+                            <div ng-repeat="org in representOrganisations">
+                                <div class="close-tag" ng-click="invokeUnFollow(org)">
+                                    <i class="fa fa-times close-icon"></i>
                                 </div>
-                            </a>
+                                <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" >
+                                    <div  class="organization-block row margin-top-5 margin-left-10">
+                                        <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
+                                        <div class="information-block row-md-8 xs-hide sm-hide">
+                                            {{org.name}}<br/>
+                                            <i class="fa fa-map-marker text-green"></i> {{org.locations[0]}}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                 </div>
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong> Managed Organisations: </strong></div>
+                        <div class="banner">
+                            <strong> Managed Organisations: </strong>
+                            <a ui-sref="register.ngo" class="pull-right text-white padding-right-10">
+                                <i class="fa fa-plus text-white"></i>
+                            </a>
+                        </div>
                         <div class="activities-container scroll container">
-                            <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" ng-repeat="org in managedOrganisations">
-                                <div  class="organization-block row margin-top-5 margin-left-10">
+                            <div ng-if="managedOrganisations.length === 0" class="text-italic margin-top-20">
+                                <p>You don't have any organisation</p>
+                                <a ui-sref="register.ngo" class="text-green">
+                                    Create one
+                                    <i class="fa fa-plus-circle"></i>
+                                </a>
+                            </div>
+                            <div ng-repeat="org in managedOrganisations">
+                                <div class="close-tag" ng-click="invokeDelete(org)">
+                                    <i class="fa fa-times close-icon"></i>
+                                </div>
+                                <a  ui-sref="ngoDashboard.eventManage({orgId: org._id})"  class="organization-block row margin-top-5 margin-left-10">
                                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
                                     <div class="information-block row-md-8 xs-hide sm-hide">
                                         {{org.name}}<br/>
                                         <i class="fa fa-map-marker text-green "></i>  {{org.locations[0]}}
                                     </div>
-                                </div>
-                            </a>
+
+                                </a>
+                            </div>
 
                         </div>
                     </div>
 
                 </div>
             </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 delete-dialog-container margin-top-20" ng-show="delete.state">
+            <div class="delete-dialog center-block">
+                <div class="small-banner"><strong>Delete Dialog</strong></div>
+                <br/>
+                <p class="center-block text-center">Do you really want to delete the organisation ?</p>
+                <div class="row text-center">
+                    <button class="btn-small btn-inline btn-red " ng-click="removeOrg()">Yes</button>
+                    <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
+                </div>
 
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 delete-dialog-container margin-top-20" ng-show="unFollow.state">
+            <div class="delete-dialog center-block">
+                <div class="small-banner"><strong>Delete Dialog</strong></div>
+                <br/>
+                <p class="center-block text-center">Do you really want to leave the organisation ?</p>
+                <div class="row text-center">
+                    <button class="btn-small btn-inline btn-red " ng-click="unFollowOrg()">Yes</button>
+                    <button class="btn-small btn-inline btn-follow center-block" ng-click="unFollowReset()">Cancel</button>
+                </div>
+
+            </div>
         </div>
     </div>
+
 </div>

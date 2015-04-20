@@ -3,6 +3,10 @@
  */
 'use strict';
 
+
+
+
+
 angular.module('voluntr').controller('userDashboardController', function($scope, ERRORS, Validation,
   $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, events, $http) {
 
@@ -11,12 +15,18 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     state: 'Save',
     success: false
   };
-
+  $scope.detele = {
+    state: false,
+    org: null
+  };
   $scope.input = {
     skill: '',
     interest: ''
   };
-
+  $scope.unFollow = {
+    state: false,
+    org: null
+  };
   $scope.user = $rootScope.user;
 
   $scope.user.birthday = new Date($rootScope.user.birthDate.year, $rootScope.user.birthDate.month, $rootScope.user.birthDate.date);
@@ -134,6 +144,75 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
           }
         });
     }
+  };
+  $scope.invokeDelete = function(org) {
+    $scope.delete = {
+      state: true,
+      org: org
+    };
+  };
+  $scope.deleteReset = function() {
+    $scope.delete = {
+      state: false,
+      org: null
+    };
+  };
+  $scope.removeOrg = function() {
+    Restangular.one('api/organisations', $scope.delete.org._id)
+      .remove()
+      .then(function() {
+        for (var i = 0; i < $scope.managedOrganisations.length; i++) {
+          if ($scope.delete.org._id === $scope.managedOrganisations[i]._id) {
+            $scope.managedOrganisations.splice(i, 1);
+          }
+        }
+        $scope.deleteReset();
+      });
+  };
+  $scope.invokeUnFollow = function(org) {
+    $scope.unFollow = {
+      state: true,
+      org: org
+    };
+  };
+  $scope.unFollowReset = function() {
+    $scope.unFollow = {
+      state: false,
+      org: null
+    };
+  };
+  //findObject
+  var findObject = function(array, object) {
+    var index = -1;
+    if (object === undefined) {
+      return -1;
+    }
+    for (var i = 0; i < array.length; i++) {
+      if (array[i]._id === object._id) {
+        index = i;
+        break;
+      }
+    }
+    return index;
+  };
+  $scope.unFollowOrg = function() {
+    var index = $rootScope.user.representOrganisations.indexOf($scope.unFollow.org._id);
+    if (index > -1) {
+      $rootScope.user.representOrganisations.splice(index, 1);
+      $rootScope.user.save()
+        .then(function() {
+          console.log($scope.unFollow.org);
+          $scope.unFollow.org.save()
+            .then(function() {
+              var index = findObject($scope.representOrganisations, $scope.unFollow.org);
+              $scope.representOrganisations.splice(index, 1);
+              $scope.unFollowReset();
+            });
+
+        });
+    }
+
+
   };
 
 });

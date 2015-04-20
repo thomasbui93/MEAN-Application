@@ -73,7 +73,7 @@
                         <p><strong class="">Start date: </strong>{{job.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
                     </div><!-- padding10 -->
 
-                    <div class="action-hub top-right padding10"><!-- padding10 -->
+                    <div class="action-hub top-right padding10" ng-show="isOwner()"><!-- padding10 -->
                         <i class="fa fa-times text-red " ng-click="deleteJob(job)"></i>
                     </div>
                 </div><!-- event-brief -->
@@ -95,7 +95,7 @@
                         </div>
                     </a>
                     <!-- padding10 -->
-                    <div class="action-hub top-right padding10 link-like">
+                    <div class="action-hub top-right padding10 link-like" ng-show="isOwner()">
                         <i class="fa fa-times text-red" ng-click="showDialog(event)"></i>
                     </div><!-- action-hub -->
                 </div><!-- event-brief -->

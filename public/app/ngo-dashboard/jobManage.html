@@ -1,24 +1,23 @@
 <h4 class="text-center">Jobs Managements</h4>
 <a ui-sref="ngoDashboard.jobCreate"><button class="btn-small btn-follow pull-right">New</button></a>
 <hr/>
-<div class="job row padding10 margin-top-5" ng-repeat="job in currentNGO.jobs" ng-show="!delete.state">
-    <strong class="text-uppercase">{{job.position}}</strong>
+<div class="job row padding10 margin-top-5" ng-repeat="job in jobs" ng-show="!delete.state">
+    <strong class="text-uppercase">{{job.name}}</strong>
     <p class="text-muted">{{job.address}}</p>
     <p class="text-info">
-        <strong>From: </strong>{{job.postDate | date: 'MMM dd yyyy' }}<br/>
-        <strong>To: </strong>{{job.expireDate | date: 'MMM dd yyyy' }}
+        <strong>From: </strong> {{job.startDate | date: 'MMM dd yyyy' }}<br/>
+        <strong>To: </strong> {{job.endDate | date: 'MMM dd yyyy' }}
     </p>
-    <p>{{job.description}}</p>
+    <p>
+        <strong>Contact: </strong><br/>
+        <i class="fa fa-envelope-o"> </i> <span> {{job.email | undefinedString}}</span><br/>
+        <i class="fa fa-phone-square"></i> <span> {{job.phone | undefinedString}}</span>
+    </p>
+    <p><strong>Description : </strong>{{job.description}}</p>
     <div>
-        <button class="btn-small btn-follow" ng-click="editTransit(job.id)">Edit</button>
+        <a ui-sref="ngoDashboard.jobEdit({id: job._id})"><button class="btn-small btn-follow">Edit</button></a>
         <button class="btn-small btn-follow" ng-click="invokeDelete(job)">Remove</button>
-        <button class="btn-small btn-follow" ng-click="viewVolunteers(job)">Volunteers<strong>({{job.volunteers.length}})</strong></button>
-    </div>
-    <div ng-repeat="volunteer in job.volunteers" class="margin-top-5 cross-background volunteer" ng-show="job.state.candidate">
-        <div class="margin-left-30">
-            <img src="http://placehold.it/30x30" class="img-circle img-responsive border-10">
-            {{volunteer.name}}
-        </div>
+        <button class="btn-small btn-follow" ng-click="viewVolunteers(job)">Volunteers</button>
     </div>
     <hr/>
 </div>
@@ -28,8 +27,20 @@
         <br/>
         <p class="center-block text-center">Do you really want to delete the events ?</p>
         <div class="row text-center">
-            <button class="btn-small btn-inline btn-red " ng-click="deleteJob(delete.jobs)">Yes</button>
+            <button class="btn-small btn-inline btn-red " ng-click="deleteJob()">Yes</button>
             <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
+        </div>
+
+    </div>
+</div>
+<div class="row delete-dialog-container margin-top-20" ng-show="delete.error">
+    <div class="delete-dialog center-block">
+        <div class="small-banner"><strong>Delete Dialog</strong></div>
+        <br/>
+        <p class="center-block text-center">Errors happened in the process</p>
+        <div class="row text-center">
+            <button class="btn-small btn-inline btn-red " ng-click="backToManage()">Back</button>
+            <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteJob()">Try again</button>
         </div>
 
     </div>
