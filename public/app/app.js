@@ -52,13 +52,6 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
-  }).state('register', {
-    url: '/register',
-    data: {
-      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
-    },
-    controller: 'signUpController',
-    templateUrl: 'app/sign-up/sign-up.html'
   }).state('register.volunteer', {
     url: '/volunteer',
     controller: 'volunteerSignUpController',
