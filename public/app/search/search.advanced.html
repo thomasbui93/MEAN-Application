@@ -16,7 +16,7 @@
             <button class="button-expand" ng-click="settingToggle()"><i class="fa fa-cog"></i></button>
         </div>
     </div>
-    <!---- search-content end
+    <!-- search-content end
         -->
     <div class="categories-menu center-block row">
         <li class="col-md-2 hidden-xs"></li>
@@ -25,7 +25,7 @@
         <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.events}" ng-click="resultToggle('events')" >Events <div class="circle-number">{{results.events.length}}</div></li>
         <li class="col-md-1 hidden-xs"></li>
     </div>
-    <!---- categories-menu end -->
+    <!-- categories-menu end -->
     <div class="advanced-features center-block" ng-show="state.setting">
         <div class="row">
             <li class="col-md-1 hidden-xs"></li>
@@ -55,7 +55,7 @@
                         <input class="date-input year" type="number" min="1800" max="2200" ng-model="search.startDate.year"/>
                     </div>
                 </div>
-                <!---- date-input-group
+                <!-- date-input-group
                                    -->
                 <div class="date-input-group col-sm-6">
                     <label class="text-white"> To: </label>
@@ -104,7 +104,7 @@
             <button class="button-round pull-right" ng-click="showResult()"><i class="fa fa-search"></i></button>
         </div>
     </div>
-    <!---- advanced-features
+    <!-- advanced-features
             -->
     <div class="row result-set container center-block">
         <h4 class="margin-top-20 text-center" ng-if="results.organizations.length ===0">No result found</h4>
