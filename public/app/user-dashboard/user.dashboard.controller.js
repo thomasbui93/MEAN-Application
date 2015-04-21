@@ -10,7 +10,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     state: 'Save',
     success: false
   };
-  $scope.detele = {
+  $scope.delete = {
     state: false,
     org: null
   };
@@ -19,6 +19,10 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     interest: ''
   };
   $scope.leave = {
+    state: false,
+    org: null
+  };
+  $scope.follow = {
     state: false,
     org: null
   };
@@ -147,6 +151,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
       state: true,
       org: org
     };
+    console.log($scope.delete.state);
   };
   $scope.deleteReset = function() {
     $scope.delete = {
@@ -171,6 +176,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
       state: true,
       org: org
     };
+    console.log('leave', $scope.leave);
   };
   $scope.leaveReset = function() {
     $scope.leave = {
@@ -216,8 +222,36 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
       success: false
     };
   };
-  console.log(managedOrganisations);
   $scope.checkOwner = function(org) {
     return ($rootScope.user._id === org.owner);
+  };
+  $scope.invokeUnFollowOrg = function(org) {
+    $scope.follow = {
+      state: true,
+      org: org
+    };
+  };
+  $scope.unFollowReset = function() {
+    $scope.follow = {
+      state: false,
+      org: null
+    };
+  };
+  $scope.unFollowOrg = function() {
+    var index = $rootScope.user.followOrganisations.indexOf($scope.follow.org._id);
+    if (index > -1) {
+      $rootScope.user.followOrganisations.splice(index, 1);
+      $rootScope.user.save()
+        .then(function() {
+          console.log($scope.follow.org);
+          $scope.follow.org.save()
+            .then(function() {
+              var index = findObject($scope.followOrganisations, $scope.follow.org);
+              $scope.followOrganisations.splice(index, 1);
+              $scope.unFollowReset();
+            });
+
+        });
+    }
   };
 });

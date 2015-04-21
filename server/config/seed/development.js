@@ -278,6 +278,8 @@ Organisation.remove(function() {
   org1.representatives.push(user1);
   org1.representatives.push(user);
 
+  org3.followers.push(user1._id);
+  org4.followers.push(user1._id);
 
   org1.save();
   org2.save();
