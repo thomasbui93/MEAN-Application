@@ -83,36 +83,6 @@ add more color into the box to customize bottom bar
   100% { opacity: 0 }
 }
 
-/***
-Circle menu
-**/
-.circle-menu{
-    position: fixed;
-    float: right;
-    right: 0px;
-    top: 100px;
-    z-index: 100;
-}
-.circle-menu li{
-    position: relative;
-    margin-top: 10px;
-    cursor: pointer;
-    padding: 20px;
-    height: 50px;
-}
-.circle{
-    position: relative;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: #2ecc71;
-    border-radius: 50%;
-    -webkit-transition: all 0.25s;
-    -moz-transition: all 0.25s;
-    -ms-transition: all 0.25s;
-    -o-transition: all 0.25s;
-    transition: all 0.25s;
-}
 .active-state::before{
     position: absolute;
     top: -5px;
@@ -122,31 +92,6 @@ Circle menu
     height: 20px;
     border-radius: 50%;
     border: 1px solid #2ecc71;
-}
-.circle::after{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    content: '';
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1px dashed #2ecc71;
-    -webkit-transition: all 0.25s;
-    -moz-transition: all 0.25s;
-    -ms-transition: all 0.25s;
-    -o-transition: all 0.25s;
-    transition: all 0.25s;
-}
-.circle-menu li:hover .circle::after{
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    content: '';
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px dashed #2ecc71;
 }
 .additional-information{
     position: absolute;
@@ -180,13 +125,6 @@ Circle menu
     border-left:5px solid #2ecc71;
     right: -5px;
     top: 10px;
-}
-.circle-menu li:hover .additional-information{
-    height: auto;
-    width: auto;
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-    overflow: visible;
 }
 .current-state .additional-information{
   height: auto;
