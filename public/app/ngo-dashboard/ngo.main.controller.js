@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('voluntr').controller('ngoDashBoardMainController',
-  function($scope, NGO_ERRORS, KEY_CODES, Validation, $timeout, organisation) {
+  function($scope, NGO_ERRORS, KEY_CODES, Validation, $timeout, organisation, FileUploader) {
 
     $scope.currentNGO = organisation;
     $scope.edit = {
@@ -15,6 +15,22 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
     $scope.inputCause = '';
 
     //method
+
+    $scope.uploadFile = function(files) {
+      var file = files[0];
+      if (!file) return;
+
+      var uploadUrl = '/api/organisations/' + $scope.currentNGO._id + '/picture';
+
+      FileUploader.upload(uploadUrl, file)
+        .success(function(data) {
+          $scope.currentNGO.picture = data.url;
+          $scope.currentNGO.save();
+        }).error(function(err) {
+          console.log(err);
+        });
+    };
+
     $scope.createCause = function($event) {
       if ($event.keyCode === KEY_CODES.enter) {
         if ($scope.currentNGO.interests.indexOf($scope.inputCause) == -1)

@@ -59,6 +59,10 @@ var OrganisationSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: String
+  },
+  picture: {
+    type: String,
+    default: '//placehold.it/200x200'
   }
 
 });
