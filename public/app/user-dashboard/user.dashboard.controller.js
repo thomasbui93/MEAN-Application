@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('voluntr').controller('userDashboardController', function($scope, ERRORS, Validation,
-  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, followOrganisations, events, $http) {
+  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, followOrganisations, events, FileUploader) {
 
   $scope.edit = {
     show: false,
@@ -42,24 +42,15 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     var file = files[0];
     if (!file) return;
 
-    var fd = new FormData();
-
-    fd.append("file", file);
-
     var uploadUrl = '/api/users/' + $rootScope.user._id + '/avatar';
 
-    $http.post(uploadUrl, fd, {
-      withCredentials: true,
-      headers: {
-        'Content-Type': undefined
-      },
-      transformRequest: angular.identity
-    }).success(function(data) {
-      $scope.user.avatar = data.url;
-      $scope.user.save();
-    }).error(function(err) {
-      console.log(err);
-    });
+    FileUploader.upload(uploadUrl, file)
+      .success(function(data) {
+        $scope.user.avatar = data.url;
+        $scope.user.save();
+      }).error(function(err) {
+        console.log(err);
+      });
   };
 
   $scope.createSkill = function($event) {

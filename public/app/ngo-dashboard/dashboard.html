@@ -1,9 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
-            <a ui-sref="ngoHomePage({id: currentNGO._id})">
-                <img src="http://placehold.it/200x200" class="img-responsive center-block">
-            </a>
+            <div>
+                <a ui-sref="ngoHomePage({id: currentNGO._id})">
+                    <img ng-src="{{ currentNGO.picture }}" class="img-responsive center-block">
+                </a>
+                <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" accept="image/*" />
+            </div>
             <div class="ngo-profile" >
                 <div class="show-information padding10" ng-show="!edit.show">
                     <p class="name text-center"><strong>{{currentNGO.name | undefinedString}}</strong></p>

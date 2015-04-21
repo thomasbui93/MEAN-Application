@@ -2,7 +2,9 @@
 
 var Organisation = require('./organisation.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var UnkownError = require('../../lib/errors').Unknown;
 var QueryBuilder = require('../../lib/query-builder.js');
+var ImageSaver = require('../../lib/image-saver');
 
 var _ = require('lodash');
 
@@ -93,6 +95,19 @@ exports.remove = function(req, res, next) {
 
     });
 
+};
+
+exports.uploadPicture = function(req, res, next) {
+  var imageSaver = new ImageSaver('/img/organisations/', req.params.orgId);
+
+  imageSaver.saveImageFromRequest(req, function(err, response) {
+    if (err) {
+      console.log(err);
+      return next(new UnkownError('Image upload failed.'));
+    }
+
+    res.json(response);
+  });
 };
 
 

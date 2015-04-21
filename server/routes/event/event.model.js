@@ -50,6 +50,10 @@ var EventSchema = new Schema({
   }, //status. 1.active, 2.block(when reach due date)
   locations: {
     type: String
+  },
+  picture: {
+    type: String,
+    default: '//placehold.it/200x200'
   }
 
 });
