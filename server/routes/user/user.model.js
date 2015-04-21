@@ -54,6 +54,10 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Organisation"
   }], //an array of organisation id which user is representative
+  followOrganisations: [{
+    type: Schema.Types.ObjectId,
+    ref: "Organisation"
+  }], //an array of organisation id which user is following
   admin: {
     type: Boolean,
     "default": false

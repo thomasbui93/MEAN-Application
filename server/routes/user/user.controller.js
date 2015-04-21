@@ -17,7 +17,7 @@ exports.index = function(req, res, next) {
 
 
   User.find(query)
-    .populate('managedOrganisations representOrganisations events recruiments')
+    .populate('managedOrganisations representOrganisations followOrganisations events recruiments')
     .exec(function(err, users) {
       if (err) return next(err);
       res.json(users);
@@ -39,13 +39,13 @@ exports.show = function(req, res, next) {
 
   console.log("called show");
   User.findById(id)
-    .populate('events  managedOrganisations representOrganisations')
+    .populate('events  managedOrganisations followOrganisations representOrganisations')
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next(new NotFoundError('No user with that id.'));
     });
   User.findById(id)
-    .populate('managedOrganisations representOrganisations events recruiments')
+    .populate('managedOrganisations representOrganisations followOrganisations events recruiments')
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next(new NotFoundError('No user with that id.'));
@@ -60,7 +60,7 @@ exports.update = function(req, res, next) {
   console.log("called user update");
   // FIXME: This update could use some validations.
   User.findById(id)
-    .populate('managedOrganisations representOrganisations events recruiments')
+    .populate('managedOrganisations representOrganisations followOrganisations events recruiments')
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next(new NotFoundError('No user with that id.'));
@@ -147,6 +147,19 @@ exports.getRepresentOrganisations = function(req, res, next) {
       if (!user) return next(new NotFoundError('No user with that id.'));
 
       res.json(user.representOrganisations);
+    });
+};
+
+exports.getFollowOrganisations = function(req, res, next) {
+  var id = req.params.userId;
+
+  User.findById(id)
+    .populate('followOrganisations')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new NotFoundError('No user with that id.'));
+
+      res.json(user.followOrganisations);
     });
 };
 

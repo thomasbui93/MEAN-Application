@@ -17,6 +17,7 @@ router.post('/:userId/avatar', Auth.isAuthenticated, controller.uploadAvatar);
 
 router.get('/:userId/managedOrganisations', controller.getManagedOrganisations);
 router.get('/:userId/representOrganisations', controller.getRepresentOrganisations);
+router.get('/:userId/followOrganisations', controller.getFollowOrganisations);
 router.get('/:userId/events', controller.getEvents);
 
 module.exports = router;
