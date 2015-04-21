@@ -26,18 +26,6 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
-  }).state('example', {
-    url: '/example',
-    templateUrl: 'app/test-folder/example.html',
-    controller: 'exampleController',
-    resolve: {
-      items: function(Restangular) {
-        return Restangular.all('api/example').getList();
-      }
-    },
-    data: {
-      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
-    }
   }).state('login', {
     url: '/login',
     templateUrl: 'app/authentication/login.html',
