@@ -30,7 +30,7 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
       $scope.user = undefined;
     });
     $scope.showSetting = function() {
-      $scope.setting = true;
+      $scope.setting = !$scope.setting;
     };
 
     $scope.hideMenu = function() {
