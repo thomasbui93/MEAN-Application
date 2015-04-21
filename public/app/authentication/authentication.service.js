@@ -34,22 +34,19 @@ angular.module('voluntr')
       var access = true;
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
+          console.log('not array');
       }
-      if (authService.isAuthenticated()) { //for logged in user
-        //excluded the page for guest
+      if (authService.isAuthenticated()) {
         if (authorizedRoles.indexOf(USER_ROLES.admin) > -1) {
           access = $rootScope.user.admin;
         }
-        if (authorizedRoles.indexOf(USER_ROLES.volunteer) > -1) {
-          access = true;
-        } else { // handle the ngo-page
-          //check if the volunteer owned the orgs
+        if (authorizedRoles.indexOf(USER_ROLES.volunteer) > -1 && stateParam !== undefined) {
+
           var managedOrgs = $rootScope.user.managedOrganisations.concat($rootScope.user.representOrganisations);
+            console.log(managedOrgs);
           var index = managedOrgs.indexOf(stateParam);
-          if (index > -1) { // user owned the orgs.
-            access = true;
-          }
-          access = false; //who doesn't
+            console.log(index);
+          access = (index>-1); //who doesn't
         }
       } else {
         if (authorizedRoles.indexOf(USER_ROLES.guest) > -1) {
@@ -86,18 +83,20 @@ angular.module('voluntr')
   }).run(function($location, AUTH_EVENTS, AuthService, $rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function(event, next, nextParam, from, fromParams) {
       var authorizedRoles = next.data.authorizedRoles;
-      var id = nextParam.id || '';
+      var id = nextParam.orgId ;
+     //   console.log(AuthService.isAuthorized(authorizedRoles, id));
       if (!AuthService.isAuthorized(authorizedRoles, id)) {
-        event.preventDefault();
+            event.preventDefault();
 
-        if (AuthService.isAuthenticated()) {
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-          //user is not allowed
-        } else {
-          //user is not logged in
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-        }
+         if (AuthService.isAuthenticated()) {
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                //user is not allowed
+            } else {
+                //user is not logged in
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+            }
       }
+
     });
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {

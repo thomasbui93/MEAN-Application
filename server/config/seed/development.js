@@ -143,8 +143,8 @@ var evt2 = new Event({
 var newEvent1 = new Event({
   name: 'Tom event',
   description: "Tom",
-  startDate: new Date(2015, 4, 1, 17, 0),
-  endDate: Date.now(),
+  startDate: new Date(2015, 3, 1, 17, 0, 0),
+  endDate: new Date(2015, 3, 2, 17, 0, 0),
   locations: "Oulu",
   _id: '59195c4e2d316035807f0100'
 });
@@ -152,8 +152,8 @@ var newEvent1 = new Event({
 var newEvent2 = new Event({
   name: 'Khosa event WWW',
   description: "Tom",
-  startDate: new Date(2015, 4, 1, 17, 0),
-  endDate: Date.now(),
+  startDate: new Date(2015, 3, 1, 17, 0, 0),
+  endDate: new Date(2015, 3, 2, 17, 0, 0),
   locations: "Oulu",
   _id: '59295c4e2d316035807f0100'
 });
@@ -161,8 +161,8 @@ var newEvent2 = new Event({
 var newEvent3 = new Event({
   name: 'Tom event WWW',
   description: "Tom",
-  startDate: new Date(2015, 4, 1, 17, 0),
-  endDate: Date.now(),
+  startDate: new Date(2015, 3, 1, 17, 0),
+  endDate: new Date(2015, 3, 2, 17, 0),
   locations: "Oulu",
   _id: '59395c4e2d316035807f0100'
 });
