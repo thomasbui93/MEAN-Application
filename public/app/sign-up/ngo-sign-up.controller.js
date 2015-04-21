@@ -18,14 +18,14 @@ angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state',
       cause: ''
     };
     $scope.createCause = function($event) {
-      if ($event.keyCode === 13) {
+      if ($event.keyCode === 13 || $event.keyCode === 9) {
         if ($scope.org.causes.indexOf($scope.input.cause) === -1)
           $scope.org.causes.push($scope.input.cause);
         $scope.input.cause = '';
       }
     };
     $scope.createLocation = function($event) {
-      if ($event.keyCode == 13 && $scope.input.location !== '') {
+      if (($event.keyCode == 13 || $event.keyCode === 9) && $scope.input.location !== '') {
         if ($scope.org.locations.indexOf($scope.input.location) == -1)
           $scope.org.locations.push($scope.input.location);
         $scope.input.location = '';
@@ -51,7 +51,8 @@ angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state',
         locations: $scope.org.locations,
         interests: $scope.org.causes,
         description: $scope.org.description,
-        owner: $rootScope.user._id
+        owner: $rootScope.user._id,
+        managers: $rootScope.user._id
       })
         .then(
           function(results) {

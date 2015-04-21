@@ -2,13 +2,8 @@
  * Created by Bui Dang Khoa on 3/25/2015.
  */
 'use strict';
-
-
-
-
-
 angular.module('voluntr').controller('userDashboardController', function($scope, ERRORS, Validation,
-  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, events, $http) {
+  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, followOrganisations, events, $http) {
 
   $scope.edit = {
     show: false,
@@ -23,7 +18,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     skill: '',
     interest: ''
   };
-  $scope.unFollow = {
+  $scope.leave = {
     state: false,
     org: null
   };
@@ -35,6 +30,8 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
   $scope.notifications = [];
   $scope.managedOrganisations = managedOrganisations;
   $scope.representOrganisations = representOrganisations;
+  $scope.allOrganisations = managedOrganisations.concat(representOrganisations);
+  $scope.followOrganisations = followOrganisations;
   $scope.events = events;
 
   $scope.uploadFile = function(files) {
@@ -169,14 +166,14 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
         $scope.deleteReset();
       });
   };
-  $scope.invokeUnFollow = function(org) {
-    $scope.unFollow = {
+  $scope.invokeLeave = function(org) {
+    $scope.leave = {
       state: true,
       org: org
     };
   };
-  $scope.unFollowReset = function() {
-    $scope.unFollow = {
+  $scope.leaveReset = function() {
+    $scope.leave = {
       state: false,
       org: null
     };
@@ -195,24 +192,32 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     }
     return index;
   };
-  $scope.unFollowOrg = function() {
-    var index = $rootScope.user.representOrganisations.indexOf($scope.unFollow.org._id);
+  $scope.leaveOrg = function() {
+    var index = $rootScope.user.representOrganisations.indexOf($scope.leave.org._id);
     if (index > -1) {
       $rootScope.user.representOrganisations.splice(index, 1);
       $rootScope.user.save()
         .then(function() {
-          console.log($scope.unFollow.org);
-          $scope.unFollow.org.save()
+          console.log($scope.leave.org);
+          $scope.leave.org.save()
             .then(function() {
-              var index = findObject($scope.representOrganisations, $scope.unFollow.org);
+              var index = findObject($scope.representOrganisations, $scope.leave.org);
               $scope.representOrganisations.splice(index, 1);
-              $scope.unFollowReset();
+              $scope.leaveReset();
             });
 
         });
     }
-
-
   };
-
+  $scope.cancelSave = function() {
+    $scope.edit = {
+      show: false,
+      state: 'Edit',
+      success: false
+    };
+  };
+  console.log(managedOrganisations);
+  $scope.checkOwner = function(org) {
+    return ($rootScope.user._id === org.owner);
+  };
 });

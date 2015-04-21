@@ -44,7 +44,8 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       if ($rootScope.user === undefined) {
         return false;
       } else {
-        // TODO: check owner
+        var index = organisation.managers.concat(organisation.representatives).indexOf($rootScope.user._id);
+        return (index !== -1);
       }
     };
     console.log($scope.checkOwner());

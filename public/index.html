@@ -72,36 +72,36 @@
     <hr>
 </ul>
 
-<!-- This view will be filled by the ui-router. -->
-<div ui-view ng-click="hideThing()"></div>
 
-<div class="container-fluid padding20" id="footer">
-    <div class="col-sm-4 col-sm-offset-0">
+
+<!-- This view will be filled by the ui-router. -->
+<div ui-view ng-click="hideThing()" id="main-content"></div>
+<footer class="container-fluid padding20" id="footer">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
         <ul>
             <li><strong>Volunteer</strong></li>
             <li><a href="#">About us</a></li>
             <li><a href="#">Volunteer blog</a></li>
             <li><a href="#">A link</a></li>
         </ul>
-    </div><!-- 1st column -->
-    <div class="col-sm-4 col-sm-offset-0">
+    </div>
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
         <ul>
             <li><strong>Community</strong></li>
             <li><a href="/faq">Help</a></li>
             <li><a href="#">Terms of use</a></li>
             <li><a href="#">Privacy &amp cookies</a></li>
         </ul>
-    </div><!-- 2nd column -->
-    <div class="col-sm-4 col-sm-offset-0">
+    </div>
+    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
         <ul>
             <li><strong>Voulunteer Oy</strong></li>
             <li>Kotkantie 1, 90250</li>
             <li>Oulu, Finland</li>
             <li><a href="#">Contact us</a></li>
         </ul>
-    </div><!-- 3rd column -->
-</div><!-- footer -->
-
+    </div>
+</footer><!-- footer -->
 <script src="/vendor/angular/angular.js"></script>
 <script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/vendor/angular-animate/angular-animate.js"></script>

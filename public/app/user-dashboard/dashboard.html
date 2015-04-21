@@ -4,7 +4,7 @@
 
             <div id="avatar">
                 <img width="200" height="200" ng-src="{{ user.avatar }}" class="img-responsive center-block">
-                <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" accept="image/*" />
+                <input type="file" class="input-transparent" ng-show="edit.show" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" accept="image/*" />
             </div>
 
             <div class="information">
@@ -79,10 +79,11 @@
                 </div>
                 <div class="padding10 border-top">
 
-                    <div class="center-block">
-                        <button ng-show="edit.show" class="btn btn-form center-block" ng-click="saveInformation()">{{edit.state}}
+                    <div class="center-block text-center">
+                        <button ng-show="edit.show" class="btn btn-form" ng-click="saveInformation()">{{edit.state}}
                             <i class="fa fa-check-circle" ng-show="edit.success"></i>
                         </button>
+                        <button ng-show="edit.show"  class="btn btn-red" ng-click="cancelSave()">Cancel</button>
                     </div>
                     <button ng-show="!edit.show"  class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
 
@@ -107,13 +108,13 @@
             <div class="row margin-top-5">
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong>Represented Organisations: </strong></div>
+                        <div class="banner"><strong>Following Organisations: </strong></div>
                         <div class="activities-container scroll container">
-                            <div ng-if="representOrganisations.length === 0" class="text-italic margin-top-20">
-                                <p>You don't represent for any organisation</p>
+                            <div ng-if="followOrganisations.length === 0" class="text-italic margin-top-20">
+                                <p>You are not following any organisation</p>
                             </div>
-                            <div ng-repeat="org in representOrganisations">
-                                <div class="close-tag" ng-click="invokeUnFollow(org)">
+                            <div ng-repeat="org in followOrganisations">
+                                <div class="close-tag" ng-click="invokecancelFollow(org)">
                                     <i class="fa fa-times close-icon"></i>
                                 </div>
                                 <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" >
@@ -133,7 +134,7 @@
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
                         <div class="banner">
-                            <strong> Managed Organisations: </strong>
+                            <strong> Managed/Represented Organisations: </strong>
                             <a ui-sref="register-ngo" class="pull-right text-white padding-right-10">
                                 <i class="fa fa-plus text-white"></i>
                             </a>
@@ -146,9 +147,12 @@
                                     <i class="fa fa-plus-circle"></i>
                                 </a>
                             </div>
-                            <div ng-repeat="org in managedOrganisations">
-                                <div class="close-tag" ng-click="invokeDelete(org)">
-                                    <i class="fa fa-times close-icon"></i>
+                            <div ng-repeat="org in allOrganisations">
+                                <div class="close-tag" ng-click="invokeDelete(org)" ng-if="checkOwner(org)">
+                                    <i class="fa fa-user-secret text-green"></i>
+                                </div>
+                                <div class="close-tag" ng-click="leaveOrg(org)" ng-if="!checkOwner(org)">
+                                    <i class="fa fa-users text-blue"></i>
                                 </div>
                                 <a  ui-sref="ngoDashboard.eventManage({orgId: org._id})"  class="organization-block row margin-top-5 margin-left-10">
                                     <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
