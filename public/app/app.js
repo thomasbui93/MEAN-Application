@@ -229,8 +229,7 @@ angular.module('voluntr', [
         }
       ],
       organisation: function($stateParams, Restangular) {
-        //TODO: get organisation that owned events
-        //return Restangular.one('api/events', $stateParams.id).getList('organisations');
+       return Restangular.one('api/events', $stateParams.id).one('organisation').get(); 
       },
       comments: function($stateParams, Restangular) {
         return Restangular.one('api/comments/', $stateParams.id).getList('eventComment');
