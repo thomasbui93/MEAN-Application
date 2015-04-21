@@ -14,6 +14,13 @@
                     {{cause}}
                 </li>
             </ul>
+            <hr/>
+            <div ng-if="currentUser !== undefined" class="center-block text-center margin-top-20">
+                <button class="btn btn-follow" ng-click="follow()" ng-show="!isFollowed">
+                    <i class="fa fa-twitter text-white"></i>
+                    Follow</button>
+                <button class="btn btn-form" ng-click="unFollow()" ng-show="isFollowed">Following</button>
+            </div>
         </div><!-- ngo-info -->
         <!-- ngo-edit -->
         <div class="ngo-profile edit-information col-md-4 col-md-offset-4" ng-show="edit.show">

@@ -40,8 +40,10 @@
                 {{currentEvent.date | date: 'MMM dd, yyyy. HH : mm'}}
             </p>
             <div ng-if="currentUser !== undefined">
-                <button class="btn btn-follow" ng-click="follow()" ng-show="!isFollowed">Follow</button>
-                <button class="btn btn-follow" ng-click="unFollow()" ng-show="isFollowed">Following</button>
+                <button class="btn btn-follow" ng-click="follow()" ng-show="!isFollowed">
+                    <i class="fa fa-twitter text-white"></i>
+                    Follow</button>
+                <button class="btn btn-form" ng-click="unFollow()" ng-show="isFollowed">Following</button>
             </div>
 
         </div>

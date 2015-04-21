@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
-            <div>
+            <a ui-sref="ngoHomePage({id: currentNGO._id})">
                 <img src="http://placehold.it/200x200" class="img-responsive center-block">
-            </div>
+            </a>
             <div class="ngo-profile" >
                 <div class="show-information padding10" ng-show="!edit.show">
                     <p class="name text-center"><strong>{{currentNGO.name | undefinedString}}</strong></p>
