@@ -15,4 +15,6 @@ router.get('/:eventId/organisation', controller.getOrganisation);
 router.get('/:eventId/participants', controller.getParticipants);
 router.get('/:eventId/comments', controller.getComments);
 
+router.post('/:eventId/picture', controller.uploadPicture);
+
 module.exports = router;

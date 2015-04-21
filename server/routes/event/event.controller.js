@@ -2,7 +2,9 @@
 
 var Event = require('./event.model');
 var NotFoundError = require('../../lib/errors').NotFound;
+var UnknownError = require('../../lib/errors').Unknown;
 var QueryBuilder = require('../../lib/query-builder.js');
+var ImageSaver = require('../../lib/image-saver');
 
 var _ = require('lodash');
 var excludedFields = ['_id', '__v'];
@@ -89,6 +91,19 @@ exports.remove = function(req, res, next) {
         }
       }
     });
+};
+
+exports.uploadPicture = function(req, res, next) {
+  var imageSaver = new ImageSaver('/img/events/', req.params.eventId);
+
+  imageSaver.saveImageFromRequest(req, function(err, response) {
+    if (err) {
+      console.log(err);
+      return next(new UnknownError('Image upload failed.'));
+    }
+
+    res.json(response);
+  });
 };
 
 exports.getCreatedBy = function(req, res, next) {

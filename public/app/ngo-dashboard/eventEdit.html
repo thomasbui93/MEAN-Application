@@ -2,7 +2,8 @@
 <h4 class="text-center">Edit Event</h4><br/><h4 class="text-center">{{currentEvent.name}}</h4>
 <div class="edit-information padding10">
     <div class="row center-block">
-        <img src="http://placehold.it/200x200" class="img-responsive center-block">
+        <img width="200" height="200" ng-src="{{ currentEvent.picture }}" class="img-responsive center-block">
+        <input type="file" name="file" onchange="angular.element(this).scope().uploadEventPicture(this.files)" accept="image/*" />
     </div>
     <div class="input-container">
         <label class="normal-label"><strong>Name: </strong></label>

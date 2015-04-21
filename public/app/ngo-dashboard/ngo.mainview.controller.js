@@ -61,52 +61,68 @@ angular.module('voluntr').controller('ngoEventManageController', ['$scope', '$st
         });
     };
   }
-]).controller('ngoEventEditController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout', 'event', 'organisation',
-  function($scope, $stateParams, $state, EVENT_ERRORS, Validation, $timeout, event, organisation) {
-    $scope.currentEvent = event;
-    $scope.errors = angular.copy(EVENT_ERRORS);
-    $scope.success = false;
-    $scope.input = {
-      endDate: null,
-      startDate: null
-    };
+]).controller('ngoEventEditController', function($scope, $stateParams, $state,
+  EVENT_ERRORS, Validation, $timeout, event, organisation, FileUploader) {
 
-    $scope.saveEvent = function() {
-      $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
-      $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
-      if ($scope.currentEvent.locations === '' || $scope.currentEvent.locations === null) {
-        $scope.errors.location.violate = true;
-      } else {
-        $scope.errors.location.violate = false;
-      }
-      $scope.currentEvent.startDate = new Date($scope.input.startDate);
-      $scope.currentEvent.endDate = new Date($scope.input.endDate);
-      if ($scope.currentEvent.startDate > $scope.currentEvent.endDate || $scope.input.startDate === null || $scope.input.endDate === null) {
-        console.log($scope.input.startDate, $scope.input.endDate, $scope.currentEvent.startDate > $scope.currentEvent.endDate);
-        $scope.errors.time.violate = true;
-      } else {
-        $scope.errors.time.violate = false;
-      }
-      console.log($scope.errors);
-      if (Validation.checkFinal($scope.errors)) {
-        $scope.currentEvent.save().then(function(result) {
-          for (var i = 0; i < organisation.events.length; i++) {
-            if (organisation.events[i]._id === result._id) {
-              organisation.events.splice(i, 1);
-            }
+  $scope.currentEvent = event;
+  $scope.errors = angular.copy(EVENT_ERRORS);
+  $scope.success = false;
+  $scope.input = {
+    endDate: null,
+    startDate: null
+  };
+
+  $scope.uploadEventPicture = function(files) {
+    console.log('FILES', files);
+    var file = files[0];
+    if (!file) return;
+
+    var uploadUrl = '/api/events/' + $scope.currentEvent._id + '/picture';
+
+    FileUploader.upload(uploadUrl, file)
+      .success(function(data) {
+        $scope.currentEvent.picture = data.url;
+        $scope.currentEvent.save();
+      }).error(function(err) {
+        console.log(err);
+      });
+  };
+
+  $scope.saveEvent = function() {
+    $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
+    $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
+    if ($scope.currentEvent.locations === '' || $scope.currentEvent.locations === null) {
+      $scope.errors.location.violate = true;
+    } else {
+      $scope.errors.location.violate = false;
+    }
+    $scope.currentEvent.startDate = new Date($scope.input.startDate);
+    $scope.currentEvent.endDate = new Date($scope.input.endDate);
+    if ($scope.currentEvent.startDate > $scope.currentEvent.endDate || $scope.input.startDate === null || $scope.input.endDate === null) {
+      console.log($scope.input.startDate, $scope.input.endDate, $scope.currentEvent.startDate > $scope.currentEvent.endDate);
+      $scope.errors.time.violate = true;
+    } else {
+      $scope.errors.time.violate = false;
+    }
+    console.log($scope.errors);
+    if (Validation.checkFinal($scope.errors)) {
+      $scope.currentEvent.save().then(function(result) {
+        for (var i = 0; i < organisation.events.length; i++) {
+          if (organisation.events[i]._id === result._id) {
+            organisation.events.splice(i, 1);
           }
-          organisation.events.push(result);
-          $scope.success = true;
-          $timeout(function() {
-            $state.transitionTo('ngoDashboard.eventManage', {
-              orgId: organisation._id
-            });
-          }, 1500);
-        });
-      }
-    };
-  }
-]).controller('ngoEventCreateController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout', 'organisation', 'Restangular',
+        }
+        organisation.events.push(result);
+        $scope.success = true;
+        $timeout(function() {
+          $state.transitionTo('ngoDashboard.eventManage', {
+            orgId: organisation._id
+          });
+        }, 1500);
+      });
+    }
+  };
+}).controller('ngoEventCreateController', ['$scope', '$stateParams', '$state', 'EVENT_ERRORS', 'Validation', '$timeout', 'organisation', 'Restangular',
   function($scope, $stateParams, $state, EVENT_ERRORS, Validation, $timeout, organisation, Restangular) {
     $scope.currentEvent = {
       name: null,
