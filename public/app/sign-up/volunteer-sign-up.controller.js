@@ -26,7 +26,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     $scope.error = angular.copy(ERRORS);
 
     $scope.createSkill = function($event) {
-      if ($event.keyCode == 13) {
+      if ($event.keyCode === 13 || $event.keyCode === 9) {
         if ($scope.user.skillSet.indexOf($scope.input.skill) == -1)
           $scope.user.skillSet.push($scope.input.skill);
         $scope.input.skill = '';
@@ -34,7 +34,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
     };
 
     $scope.createInterest = function($event) {
-      if ($event.keyCode == 13) {
+      if ($event.keyCode == 13 || $event.keyCode === 9) {
         if ($scope.user.interestSet.indexOf($scope.input.interest) == -1)
           $scope.user.interestSet.push($scope.input.interest);
         $scope.input.interest = '';

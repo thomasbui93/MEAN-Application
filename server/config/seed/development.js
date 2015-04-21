@@ -196,6 +196,8 @@ User.remove(function() {
 
   user1.managedOrganisations.push(org1);
   user1.representOrganisations.push(org2);
+  user1.followOrganisations.push(org3);
+  user1.followOrganisations.push(org4);
   user1.events.push(newEvent1);
   user1.save();
 
@@ -244,8 +246,7 @@ Organisation.remove(function() {
     org.managers.push(user);
 
     org1.managers.push(user1);
-    org1.managers.push(user2);
-    org1.managers.push(user);
+    org1.owner = user1._id;
 
     org2.representatives.push(user1);
     org2.representatives.push(user2);

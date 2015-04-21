@@ -50,10 +50,10 @@ describe('volunteerSignUpController unit test', function(){
             expect(scope.error.phone.violate).toEqual(false);
         });
 
-        it('should set error.name.violate to be true if name is not match', function(){
+        it('should set error.name.violate to be false if name is not match', function(){
             scope.user.name = '';
             scope.checkAll();
-            expect(scope.error.name.violate).toEqual(true);
+            expect(scope.error.name.violate).toEqual(false);
         });
 
         it('should set error.email.violate to be true if email is not match requirements', function(){

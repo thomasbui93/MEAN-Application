@@ -94,6 +94,13 @@ angular.module('voluntr', [
         } else {
           return {};
         }
+      },
+      followOrganisations: function(Restangular, $rootScope) {
+        if ($rootScope.user !== undefined) {
+          return Restangular.one('api/users', $rootScope.user._id).getList('followOrganisations');
+        } else {
+          return {};
+        }
       }
     }
   }).state('ngoDashboard', {

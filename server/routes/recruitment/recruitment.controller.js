@@ -9,6 +9,7 @@ exports.index = function(req, res, next) {
   Recruitment.find(req.query)
     .populate('organisation participants createdBy')
     .exec(function(err, recruitments) {
+
       if (err) return next(err);
       if (!recruitments) return next(new NotFoundError("No Recruitments found."));
 

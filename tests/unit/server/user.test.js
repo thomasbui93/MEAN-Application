@@ -16,15 +16,15 @@ describe('/users', function() {
   });
 
   it('should return example user', function(done) {
-    request(app)
-      .get('/api/users')
-      .expect(200, function(err, res) {
-        if (err) return done(err);
+     request(app)
+     .get('/api/users')
+     .expect(200, function(err, res) {
+     if (err) return done(err);
 
-        res.body[0].email.should.equal(exampleUser.email);
-        done();
-      });
-  });
+     res.body[0].email.should.equal(exampleUser.email);
+     done();
+     });
+     });
 
   it('should create a new user', function(done) {
     var otherUser = {
