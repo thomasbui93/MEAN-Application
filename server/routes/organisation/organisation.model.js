@@ -45,11 +45,10 @@ var OrganisationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  followers: {
-    type: Number,
-    min: 0,
-    default: 0
-  },
+  followers: [{
+    type: String
+  }],
+
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User"

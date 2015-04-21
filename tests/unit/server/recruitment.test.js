@@ -16,6 +16,7 @@ describe('/recruitments', function() {
       .get(apiUrl)
       .expect('Content-Type', /json/)
       .expect(200, done);
+
   });
 
   it('should return example recruitment', function(done) {

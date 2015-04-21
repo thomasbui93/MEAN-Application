@@ -3,16 +3,17 @@
     <div class="input-container">
         <label class="normal-label"><strong>Position: </strong></label>
         <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
-        <input ng-model="currentJob.position" type="text" placeholder="{{currentJob.position}}" class="normal-input"/>
-    </div>
-    <div class="input-container">
-        <label class="normal-label"><strong>Location: </strong></label>
-        <input ng-model="currentJob.address" type="text" placeholder="{{currentJob.address}}" class="normal-input margin-top-5"/>
+        <input ng-model="currentJob.name" type="text" placeholder="{{currentJob.name}}" class="normal-input"/>
     </div>
     <div class="input-container">
         <label class="normal-label"><strong>Phone: </strong></label>
         <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
         <input ng-model="currentJob.phone" type="text" placeholder="{{currentJob.phone}}" class="normal-input margin-top-5"/>
+    </div>
+    <div class="input-container">
+        <label class="normal-label"><strong>Email: </strong></label>
+        <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
+        <input ng-model="currentJob.email" type="text" placeholder="{{currentJob.email}}" class="normal-input margin-top-5"/>
     </div>
     <div class="input-container">
         <label class="normal-label"><strong>Description: </strong></label>
@@ -22,12 +23,12 @@
     <div class="input-container">
         <label class="normal-label"><strong>From: </strong></label>
         <p ng-show="errors.time.violate" class="text-red">{{errors.time.message}}</p>
-        <input ng-model="currentJob.postDate" type='date' placeholder="{{currentJob.postDate}}"  class="normal-input margin-top-5">
+        <input ng-model="currentJob.startDate" type='date' placeholder="{{currentJob.startDate}}"  class="normal-input margin-top-5">
     </div>
     <div class="input-container">
         <label class="normal-label"><strong>To: </strong></label>
         <p ng-show="errors.time.violate" class="text-red">{{errors.time.message}}</p>
-        <input ng-model="currentJob.expireDate" type='date' placeholder="{{currentJob.expireDate}}"  class="normal-input margin-top-5">
+        <input ng-model="currentJob.endDate" type='date' placeholder="{{currentJob.endDate}}"  class="normal-input margin-top-5">
     </div>
     <button class="btn btn-follow center-block margin-top-20" ng-click="saveJob()" ng-show="!success">Save Event</button>
     <button class="btn btn-form center-block margin-top-20" ng-show="success">Successfully Saved</button>

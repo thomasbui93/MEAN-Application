@@ -149,11 +149,31 @@ var newEvent1 = new Event({
   _id: '59195c4e2d316035807f0100'
 });
 
+var newEvent2 = new Event({
+  name: 'Khosa event WWW',
+  description: "Tom",
+  startDate: new Date(2015, 4, 1, 17, 0),
+  endDate: Date.now(),
+  locations: "Oulu",
+  _id: '59295c4e2d316035807f0100'
+});
+
+var newEvent3 = new Event({
+  name: 'Tom event WWW',
+  description: "Tom",
+  startDate: new Date(2015, 4, 1, 17, 0),
+  endDate: Date.now(),
+  locations: "Oulu",
+  _id: '59395c4e2d316035807f0100'
+});
+
 var exampleRecruitment = new Recruitment({
   name: "Volunteers wanted!",
   description: "Looking for group.",
   startDate: Date.now(),
   endDate: Date.now(),
+  email: "eeee@eac.com",
+  phone: "01234567891",
   _id: '59195c4e2d316055807f0050'
 });
 
@@ -162,6 +182,8 @@ var exampleRecruitment1 = new Recruitment({
   description: "hhhh for group.",
   startDate: Date.now(),
   endDate: Date.now(),
+  email: "erdsfs@eac.com",
+  phone: "56487213456",
   _id: '58195c4e2d316055807f0050'
 });
 
@@ -174,6 +196,8 @@ User.remove(function() {
 
   user1.managedOrganisations.push(org1);
   user1.representOrganisations.push(org2);
+  user1.followOrganisations.push(org3);
+  user1.followOrganisations.push(org4);
   user1.events.push(newEvent1);
   user1.save();
 
@@ -182,10 +206,10 @@ User.remove(function() {
 
 });
 
-Recruitment.remove(function() {
-  exampleRecruitment.save();
-  exampleRecruitment1.save();
-});
+/*Recruitment.remove(function() {
+ exampleRecruitment.save();
+ exampleRecruitment1.save();
+ });*/
 
 Organisation.remove(function() {
   Event.remove(function() {
@@ -193,9 +217,19 @@ Organisation.remove(function() {
     evt2.organisation = org._id;
     newEvent.comments.push(newComment._id);
 
+    newEvent2.organisation = org1._id;
+    newEvent3.organisation = org1._id;
+
+    newEvent2.createdBy = user2._id;
+    newEvent3.createdBy = user1._id;
+
+
     // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent);
     org.managers.push(user);
+
+    org1.events.push(newEvent2);
+    org1.events.push(newEvent3);
     newEvent.participants.push(user);
     evt2.participants.push(user);
     evt2.participants.push(user);
@@ -205,26 +239,35 @@ Organisation.remove(function() {
     newEvent1.participants.push(user);
     newEvent1.participants.push(user1);
 
-    org1.events.push(newEvent);
-    org1.events.push(newEvent1);
 
 
     // org.recruitment.push(exampleRecruitment);
     org.events.push(newEvent1);
     org.managers.push(user);
 
+    org1.managers.push(user1);
+    org1.owner = user1._id;
+
+    org2.representatives.push(user1);
+    org2.representatives.push(user2);
+    org2.representatives.push(user);
+
     org.save();
     org1.save();
+    org2.save();
+
     newEvent.save();
     evt2.save();
     newEvent1.save();
+    newEvent2.save();
+    newEvent3.save();
   });
 
   Recruitment.remove(function() {
     exampleRecruitment.organisation = org._id;
     exampleRecruitment1.organisation = org1._id;
     org.recruitments.push(exampleRecruitment);
-    org1.recruitments.push(exampleRecruitment);
+    org1.recruitments.push(exampleRecruitment1);
 
     org.save();
     org1.save();

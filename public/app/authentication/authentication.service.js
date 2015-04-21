@@ -29,7 +29,7 @@ angular.module('voluntr')
     };
 
     authService.isAuthorized = function(authorizedRoles, stateParam) {
-      console.log(authService.isAuthenticated(), $rootScope.user);
+      // console.log(authService.isAuthenticated(), $rootScope.user);
       //console.log('AuthService.isAuthorized is not implemented!');
       var access = true;
       if (!angular.isArray(authorizedRoles)) {
@@ -69,7 +69,8 @@ angular.module('voluntr')
           //401: AUTH_EVENTS.notAuthenticated,
           403: AUTH_EVENTS.notAuthorized,
           419: AUTH_EVENTS.sessionTimeout,
-          440: AUTH_EVENTS.sessionTimeout
+          440: AUTH_EVENTS.sessionTimeout,
+          404: AUTH_EVENTS.notFound
         }[response.status], response);
         return $q.reject(response);
       }
@@ -113,5 +114,8 @@ angular.module('voluntr')
     });
     $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
       $state.go('loginRequired');
+    });
+    $rootScope.$on(AUTH_EVENTS.notFound, function() {
+      $state.go('404');
     });
   });

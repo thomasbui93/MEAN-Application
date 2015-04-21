@@ -14,7 +14,6 @@
     <div class="row">
         <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
             <p ng-show="error.email.violate" class="text-red">{{error.email.message}}*</p>
-            <p ng-show="error.identicalEmail.violate" class="text-red">{{error.identicalEmail.message}}</p>
             <div class="group">
                 <input  type="text" ng-model="org.email" required/>
                 <span class="highlight"></span>
@@ -68,6 +67,7 @@
     <div class="row">
         <div class=" col-md-6 col-xs-12 col-sm-12 col-lg-6">
             <label class="normal-label">Description: </label>
+            <p ng-show="error.description.violate" class="text-red">{{error.description.message}}*</p>
             <textarea ng-model="org.description" class="textarea-wide">
 
             </textarea>

@@ -4,7 +4,7 @@
     </div><!-- header -->
     <div class="main-info row">
 
-        <div id="ngo-info" class="show-information padding10 col-md-4 " ng-show="!edit.show">
+        <div id="ngo-info" class="show-information padding10 col-md-4 col-md-offset-4 " ng-show="!edit.show">
             <img src="http://placehold.it/200x200" class="img-responsive center-block">
             <h3 class="name text-center"><strong>{{currentNGO.name}}</strong></h3>
             <p class="location text-center"><i class="fa fa-map-marker text-muted"></i> {{currentNGO.locations[0]}}</p>
@@ -16,7 +16,7 @@
             </ul>
         </div><!-- ngo-info -->
         <!-- ngo-edit -->
-        <div class="ngo-profile edit-information col-md-4" ng-show="edit.show">
+        <div class="ngo-profile edit-information col-md-4 col-md-offset-4" ng-show="edit.show">
             <img src="http://placehold.it/200x200" class="img-responsive center-block">
             <p ng-show="errors.name.violate" class="text-red"> {{errors.name.message}}</p>
             <div class="group center-block margin-top-20">
@@ -73,7 +73,7 @@
                         <p><strong class="">Start date: </strong>{{job.startDate | date: 'HH:mm d, MMM yyyy'}}</p>
                     </div><!-- padding10 -->
 
-                    <div class="action-hub top-right padding10"><!-- padding10 -->
+                    <div class="action-hub top-right padding10" ng-show="isOwner()"><!-- padding10 -->
                         <i class="fa fa-times text-red " ng-click="deleteJob(job)"></i>
                     </div>
                 </div><!-- event-brief -->
@@ -95,7 +95,7 @@
                         </div>
                     </a>
                     <!-- padding10 -->
-                    <div class="action-hub top-right padding10 link-like">
+                    <div class="action-hub top-right padding10 link-like" ng-show="isOwner()">
                         <i class="fa fa-times text-red" ng-click="showDialog(event)"></i>
                     </div><!-- action-hub -->
                 </div><!-- event-brief -->

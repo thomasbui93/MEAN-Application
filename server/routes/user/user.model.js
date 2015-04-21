@@ -54,6 +54,10 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Organisation"
   }], //an array of organisation id which user is representative
+  followOrganisations: [{
+    type: Schema.Types.ObjectId,
+    ref: "Organisation"
+  }], //an array of organisation id which user is following
   admin: {
     type: Boolean,
     "default": false
@@ -62,7 +66,7 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Event"
   }], //an array of events id which user participated in 
-  recruiments: [{
+  recruitments: [{
     type: Schema.Types.ObjectId,
     ref: "Recruitment"
   }], //an array of recruit

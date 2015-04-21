@@ -1,6 +1,11 @@
 /****************
 * menu bar
 ***************/
+#main-content{
+  position: relative;
+  margin-bottom: 50px;
+  min-height: 100%;
+}
 #menu-horizontal{
   position: fixed;
   top: 0px;
@@ -175,9 +180,9 @@
   padding: 5px;
   display: none;
 }
-#menu-vertical li{
+#menu-vertical li, #menu-vertical div{
   width: 100%;
-  height: 30px;
+  height: 2em;
   color: white;
   text-align: center;
   font-size: 15px;
@@ -205,6 +210,8 @@
 ***************/
 #footer{
   background: #f5f5f5;
+  position: relative;
+  text-align: center;
 }
 a{
   text-decoration: none;
@@ -223,7 +230,9 @@ a{
   outline: 0;
   text-decoration: underline;
 }
-
+#footer div.col-sm-4{
+    margin: 2.5em auto;
+}
 /****************
 * end Footer
 ***************/
@@ -314,7 +323,7 @@ a{
   background-color: #ffffff;
   overflow:hidden;
   padding: 0px;
-  height: 19%;
+  height: 25%;
 }
 .section{
   width: 100%;
@@ -328,12 +337,12 @@ a{
   background-image: linear-gradient(200deg, rgba(124, 178, 40, 0.9) 0%, rgba(80, 179, 226, 0.9) 100%);
   box-shadow: rgba(0,0,0,0.15) 1px 1px 5px;
   position: relative;
-  width: 500px;
+  max-width: 500px;
+  min-width: 270px;
   height: 50%;
   border-radius: 10px;
-  top: 25%;
   padding: 2em;
-  margin: 12% auto;
+  margin: 10em auto;
 }
 #most-popular{
   position: relative;
@@ -675,10 +684,14 @@ Event NGO mangage
 }
 .event-content{
   position: relative;
+  min-height: 300px;
+}
+.event-content-container{
+  position: relative;
+  min-height: 300px;
+  margin-bottom: 20px;
 }
 .event-description{
-  position: absolute;
-  top: 50px;
   width: 100%;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
@@ -686,10 +699,9 @@ Event NGO mangage
   max-height: 200px;
 }
 .event-comments{
-  position: absolute;
-  top: 150px;
   width: 100%;
   border: 1px solid #cccccc;
+  min-height: 500px;
 }
 .comment{
   position: relative;
@@ -818,4 +830,10 @@ Event NGO mangage
   padding-left: 20px;
   margin-top: 5px;
   cursor: pointer;
+}
+.close-tag{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: red;
 }

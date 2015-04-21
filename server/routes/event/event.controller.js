@@ -122,12 +122,14 @@ exports.getCreatedBy = function(req, res, next) {
 exports.getOrganisation = function(req, res, next) {
   var id = req.params.eventId;
 
+  console.log("called get organisation");
   Event.findById(id)
     .populate('organisation')
     .exec(function(err, evt) {
       if (err) return next(err);
       if (!evt) return next(new NotFoundError("No event with that id."));
 
+      console.log(evt.organisation);
       res.json(evt.organisation);
     });
 };

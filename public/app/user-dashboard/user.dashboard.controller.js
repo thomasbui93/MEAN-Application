@@ -2,21 +2,26 @@
  * Created by Bui Dang Khoa on 3/25/2015.
  */
 'use strict';
-
 angular.module('voluntr').controller('userDashboardController', function($scope, ERRORS, Validation,
-  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, events, FileUploader) {
+  $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, followOrganisations, events, FileUploader) {
 
   $scope.edit = {
     show: false,
     state: 'Save',
     success: false
   };
-
+  $scope.detele = {
+    state: false,
+    org: null
+  };
   $scope.input = {
     skill: '',
     interest: ''
   };
-
+  $scope.leave = {
+    state: false,
+    org: null
+  };
   $scope.user = $rootScope.user;
 
   $scope.user.birthday = new Date($rootScope.user.birthDate.year, $rootScope.user.birthDate.month, $rootScope.user.birthDate.date);
@@ -25,6 +30,8 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
   $scope.notifications = [];
   $scope.managedOrganisations = managedOrganisations;
   $scope.representOrganisations = representOrganisations;
+  $scope.allOrganisations = managedOrganisations.concat(representOrganisations);
+  $scope.followOrganisations = followOrganisations;
   $scope.events = events;
 
   $scope.uploadFile = function(files) {
@@ -126,5 +133,82 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
         });
     }
   };
+  $scope.invokeDelete = function(org) {
+    $scope.delete = {
+      state: true,
+      org: org
+    };
+  };
+  $scope.deleteReset = function() {
+    $scope.delete = {
+      state: false,
+      org: null
+    };
+  };
+  $scope.removeOrg = function() {
+    Restangular.one('api/organisations', $scope.delete.org._id)
+      .remove()
+      .then(function() {
+        for (var i = 0; i < $scope.managedOrganisations.length; i++) {
+          if ($scope.delete.org._id === $scope.managedOrganisations[i]._id) {
+            $scope.managedOrganisations.splice(i, 1);
+          }
+        }
+        $scope.deleteReset();
+      });
+  };
+  $scope.invokeLeave = function(org) {
+    $scope.leave = {
+      state: true,
+      org: org
+    };
+  };
+  $scope.leaveReset = function() {
+    $scope.leave = {
+      state: false,
+      org: null
+    };
+  };
+  //findObject
+  var findObject = function(array, object) {
+    var index = -1;
+    if (object === undefined) {
+      return -1;
+    }
+    for (var i = 0; i < array.length; i++) {
+      if (array[i]._id === object._id) {
+        index = i;
+        break;
+      }
+    }
+    return index;
+  };
+  $scope.leaveOrg = function() {
+    var index = $rootScope.user.representOrganisations.indexOf($scope.leave.org._id);
+    if (index > -1) {
+      $rootScope.user.representOrganisations.splice(index, 1);
+      $rootScope.user.save()
+        .then(function() {
+          console.log($scope.leave.org);
+          $scope.leave.org.save()
+            .then(function() {
+              var index = findObject($scope.representOrganisations, $scope.leave.org);
+              $scope.representOrganisations.splice(index, 1);
+              $scope.leaveReset();
+            });
 
+        });
+    }
+  };
+  $scope.cancelSave = function() {
+    $scope.edit = {
+      show: false,
+      state: 'Edit',
+      success: false
+    };
+  };
+  console.log(managedOrganisations);
+  $scope.checkOwner = function(org) {
+    return ($rootScope.user._id === org.owner);
+  };
 });

@@ -34,6 +34,12 @@ var RecruitmentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String
+  },
+  phone: {
+    type: String
+  },
   status: {
     type: String,
     "default": "active"
