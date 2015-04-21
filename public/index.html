@@ -27,9 +27,9 @@
             <a href="/" class="text-white"><strong>Voluntr</strong></a>
         </div>
         <ul id="common-link">
-            <li><a class="text-white">Organisations</a></li>
-            <li><a class="text-white">Events</a></li>
-            <li><a class="text-white">Jobs</a></li>
+            <li ui-sref-active="active"><a class="text-white" ui-sref="organisations">Organisations</a></li>
+            <li ui-sref-active="active"><a class="text-white">Events</a></li>
+            <li ui-sref-active="active"><a class="text-white">Jobs</a></li>
         </ul>
         <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
             <div class="user-name" ui-sref="user-dashboard">
@@ -120,6 +120,7 @@
 <script src="/app/sign-up/ngo-sign-up.controller.js"></script>
 <script src="/app/search/search.controller.js"></script>
 <script src="/app/search/search.advanced.controller.js"></script>
+<script src="/app/organisations/organisations.controller.js"></script>
 <script src="/app/ngo-homepage/ngo.home.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.representative.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.mainview.controller.js"></script>

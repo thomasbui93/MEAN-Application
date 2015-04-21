@@ -291,6 +291,18 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
+  }).state('organisations', {
+    url: '/organisations',
+    templateUrl: 'app/organisations/organisations.html',
+    controller: 'organisationsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      organisations: function(Restangular) {
+        return Restangular.all('api/organisations').getList();
+      }
+    }
   });
 
   // This allows the address bar urls to seem natural
