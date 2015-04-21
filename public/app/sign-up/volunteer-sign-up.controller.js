@@ -73,7 +73,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
         email: $scope.user.email
       })
         .then(function(results) {
-              console.log(results.length);
+          console.log(results.length);
           if (results.length !== 0) {
             console.log("email is already used");
             $scope.error.identicalEmail = {
@@ -85,17 +85,17 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
               violate: false,
               message: 'Your email already existed.'
             };
-              console.log('not identical email');
-              if(Validation.checkFinal($scope.error)){
-                  $scope.save();
-              }
+            console.log('not identical email');
+            if (Validation.checkFinal($scope.error)) {
+              $scope.save();
+            }
 
           }
         });
     };
 
     $scope.save = function() {
-        console.log('save called');
+      console.log('save called');
       Restangular.all('api/users').post({
         firstName: $scope.user.firstName,
         lastName: $scope.user.lastName,
@@ -126,7 +126,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
       $scope.checkAll();
 
       //if (Validation.checkFinal($scope.error)) {
-        $scope.checkIdenticalEmail();
+      $scope.checkIdenticalEmail();
       //}
     };
   }

@@ -5,7 +5,7 @@
 angular.module('voluntr').controller('userDashboardController', function($scope, ERRORS, Validation,
   $timeout, $rootScope, Restangular, managedOrganisations, representOrganisations, events, $http, AuthService) {
 
-    console.log($rootScope.user);
+  console.log($rootScope.user);
   $scope.edit = {
     show: false,
     state: 'Save',
@@ -208,12 +208,12 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
         });
     }
   };
-  $scope.cancelSave = function () {
-      $scope.edit = {
-          show: false,
-          state: 'Edit',
-          success: false
-      };
+  $scope.cancelSave = function() {
+    $scope.edit = {
+      show: false,
+      state: 'Edit',
+      success: false
+    };
   };
 
 });

@@ -3,7 +3,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
   'comments', 'organisation',
   function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organisation) {
     $scope.currentUser = $rootScope.user;
-      console.log(organisation);
+    console.log(organisation);
     var findObject = function(array, object) {
       var index = -1;
       if (object === undefined) {
@@ -48,7 +48,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
         return (index !== -1);
       }
     };
-      console.log($scope.checkOwner());
+    console.log($scope.checkOwner());
     $scope.editInformation = function() {
       $scope.edit = {
         show: true

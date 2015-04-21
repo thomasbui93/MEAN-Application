@@ -10,11 +10,11 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
       show: false,
       state: 'Save'
     };
-    $scope.cancelSave = function () {
-        $scope.edit = {
-            show: false,
-            state: 'Save'
-        };
+    $scope.cancelSave = function() {
+      $scope.edit = {
+        show: false,
+        state: 'Save'
+      };
     };
     $scope.errors = angular.copy(NGO_ERRORS);
     $scope.inputCause = '';
