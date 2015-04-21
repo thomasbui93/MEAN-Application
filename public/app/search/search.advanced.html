@@ -20,9 +20,9 @@
         -->
     <div class="categories-menu center-block row">
         <li class="col-md-2 hidden-xs"></li>
-        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.orgs}" ng-click="resultToggle('orgs')">Organizations <div class="circle-number">{{results.organizations.length}}</div></li>
-        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.jobs}" ng-click="resultToggle('jobs')" >Jobs  <div class="circle-number">{{results.jobs.length}}</div></li>
-        <li class="col-xs-4 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.events}" ng-click="resultToggle('events')" >Events <div class="circle-number">{{results.events.length}}</div></li>
+        <li class="col-xs-12 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.orgs}" ng-click="resultToggle('orgs')">Organizations <div class="circle-number">{{results.organizations.length}}</div></li>
+        <li class="col-xs-12 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.jobs}" ng-click="resultToggle('jobs')" >Jobs  <div class="circle-number">{{results.jobs.length}}</div></li>
+        <li class="col-xs-12 col-md-3 col-lg-2" ng-class="{'categories-chosen': state.results.events}" ng-click="resultToggle('events')" >Events <div class="circle-number">{{results.events.length}}</div></li>
         <li class="col-md-1 hidden-xs"></li>
     </div>
     <!-- categories-menu end -->
@@ -107,7 +107,8 @@
     <!-- advanced-features
             -->
     <div class="row result-set container center-block">
-        <h4 class="margin-top-20 text-center" ng-if="results.organizations.length ===0">No result found</h4>
+        <h4 class="margin-top-20 text-center" ng-if="results.organizations.length ===0">No results were found.</h4>
+        <p class="text-center" ng-if="results.organizations.length ===0">Maybe you could try to search a more general term, e.g. "peace", "animals", or "plants".</p>
         <div class="organization-results row" ng-show="state.results.orgs">
             <div class="organization-block col-md-5 row" ng-repeat=" org in results.organizations">
                 <a ui-sref="ngoHomePage({id: org._id})">

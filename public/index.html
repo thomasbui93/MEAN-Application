@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Voluntr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <!-- Vendor styles -->
     <link type="text/css" rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.css">
@@ -10,8 +11,8 @@
     <link href='http://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css'>
     <!-- /Vendor styles -->
     <!-- inject:css -->
-   <link type="text/css" rel="stylesheet" href="/styles/css/main.min.css">
-   <!-- endinject -->
+    <link type="text/css" rel="stylesheet" href="/styles/css/main.min.css">
+    <!-- endinject -->
 </head>
 <body ng-app="voluntr" ng-controller="mainController">
 <div id="menu-horizontal" >
@@ -37,7 +38,7 @@
             <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
         </div>
         <div class="login-section pull-right" ng-cloak ng-if="user.firstName === undefined" >
-            <div><a class="text-white text-center" ui-sref="register.volunteer">Register</a></div>
+            <div><a class="text-white text-center" ui-sref="register-volunteer">Register</a></div>
             <div><a class="text-white text-center" ui-sref="login"> Log In </a></div>
         </div>
         <div id="search-section">
@@ -53,37 +54,29 @@
 </ul>
 <ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
    <h3 class="text-center">Menu</h3>
-    <hr/>
+    <hr>
    <li>Organisation</li>
    <li>Jobs</li>
    <li>Events</li>
-    <hr/>
+    <hr>
     <li ng-if="user.firstName===undefined">
-        <div><a ui-sref="register.volunteer" class="text-white">Register</a></div>
+        <div><a ui-sref="register-volunteer" class="text-white">Register</a></div>
         <div><a ui-sref="login" class="text-white">Login</a></div>
     </li>
     <li ng-if="user.firstName!==undefined">
-        <div ><a ui-sref="user-dashboard" class="text-white">Dashboard</a></div>
+        <a ui-sref="user-dashboard" class="text-white">Dashboard</a>
+    </li>
+    <li ng-if="user.firstName!==undefined">
         <div ><a ng-click="logout()" class="text-white">Logout</a></div>
-        <div ><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></div>
     </li>
-    <hr/>
-    <!---- THIS block for testing authorization
-        -->
-    <li>
-        <a ui-sref="login" class="text-white">Login</a>
-    </li>
-    <li>
-        <a href="ngo/dashboard/55095c4e2d316055307f00fd" class="text-white">Org example</a><br/>
-    </li>
-
+    <hr>
 </ul>
 
 <!-- This view will be filled by the ui-router. -->
 <div ui-view ng-click="hideThing()"></div>
 
 <div class="container-fluid padding20" id="footer">
-    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+    <div class="col-sm-4 col-sm-offset-0">
         <ul>
             <li><strong>Volunteer</strong></li>
             <li><a href="#">About us</a></li>
@@ -91,7 +84,7 @@
             <li><a href="#">A link</a></li>
         </ul>
     </div><!-- 1st column -->
-    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+    <div class="col-sm-4 col-sm-offset-0">
         <ul>
             <li><strong>Community</strong></li>
             <li><a href="/faq">Help</a></li>
@@ -99,7 +92,7 @@
             <li><a href="#">Privacy &amp cookies</a></li>
         </ul>
     </div><!-- 2nd column -->
-    <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
+    <div class="col-sm-4 col-sm-offset-0">
         <ul>
             <li><strong>Voulunteer Oy</strong></li>
             <li>Kotkantie 1, 90250</li>
@@ -122,7 +115,6 @@
 <script src="/app/user-dashboard/user.dashboard.controller.js"></script>
 <script src="/app/sign-up/volunteer-sign-up.controller.js"></script>
 <script src="/app/sign-up/validation.service.js"></script>
-<script src="/app/sign-up/sign-up.controller.js"></script>
 <script src="/app/sign-up/ngo-sign-up.controller.js"></script>
 <script src="/app/search/search.controller.js"></script>
 <script src="/app/search/search.advanced.controller.js"></script>

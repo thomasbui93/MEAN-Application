@@ -52,22 +52,15 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
-  }).state('register', {
-    url: '/register',
-    data: {
-      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
-    },
-    controller: 'signUpController',
-    templateUrl: 'app/sign-up/sign-up.html'
-  }).state('register.volunteer', {
-    url: '/volunteer',
+  }).state('register-volunteer', {
+    url: '/register/volunteer',
     controller: 'volunteerSignUpController',
     templateUrl: 'app/sign-up/volunteer-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.guest]
     }
-  }).state('register.ngo', {
-    url: '/ngo',
+  }).state('register-ngo', {
+    url: '/register/ngo',
     templateUrl: 'app/sign-up/ngo-sign-up.html',
     data: {
       authorizedRoles: [USER_ROLES.volunteer]
