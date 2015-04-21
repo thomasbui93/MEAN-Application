@@ -157,6 +157,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
         for (var i = 0; i < $scope.managedOrganisations.length; i++) {
           if ($scope.delete.org._id === $scope.managedOrganisations[i]._id) {
             $scope.managedOrganisations.splice(i, 1);
+            $scope.allOrganisations = $scope.managedOrganisations.concat($scope.representOrganisations);
           }
         }
         $scope.deleteReset();
@@ -200,6 +201,7 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
             .then(function() {
               var index = findObject($scope.representOrganisations, $scope.leave.org);
               $scope.representOrganisations.splice(index, 1);
+              $scope.allOrganisations = $scope.managedOrganisations.concat($scope.representOrganisations);
               $scope.leaveReset();
             });
 

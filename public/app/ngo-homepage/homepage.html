@@ -65,9 +65,9 @@
             <button class="btn-small btn-form center-block margin-top-20" ng-click="saveInformation()" ng-show="edit.show">Save</button>
         </div>
 
-        <div id="bottom-container" class="show-information col-md-8 row margin-top-20" ng-show="!dialogShow">
-            <div id="left-column" class="col-sm-6 margin-top-20">
-                <h4 class="text-center">Volunteering jobs</h4>
+        <div id="bottom-container" class="show-information col-md-12 row margin-top-20" ng-show="!dialogShow">
+            <div id="left-column" class="col-sm-4 margin-top-20">
+                <h4 class="text-center"><strong>Volunteering jobs</strong></h4>
                 <hr>
                 <div class="event-brief row padding10 margin-top-5" ng-repeat="job in recruitments">
                     <div class="col-sm-3">
@@ -86,10 +86,12 @@
                 </div><!-- event-brief -->
             </div><!-- left column -->
 
-            <div id="right-column" class="col-sm-6 margin-top-20">
-                <h4 class="text-center">Events</h4>
+            <div id="right-column" class="col-sm-4 margin-top-20">
+                <h4 class="text-center">
+                    <strong>Events</strong>
+                </h4>
                 <hr>
-                <div class="event-brief row margin-top-5" ng-repeat="event in events | orderBy : startDate">
+                <div class="event-brief row margin-top-5" ng-repeat="event in events | orderBy : startDate | Past: false">
                     <a ui-sref="events({id: event._id})">
                         <div class="col-sm-3 padding10">
                             <img src="http://placehold.it/150x150" class="img-responsive">
@@ -107,6 +109,31 @@
                     </div><!-- action-hub -->
                 </div><!-- event-brief -->
             </div><!-- right column -->
+            <div class="col-sm-4 margin-top-20">
+                <h4 class="text-center">
+                    <strong>
+                        Past Events
+                    </strong>
+                </h4>
+                <hr>
+                <div class="event-brief row margin-top-5" ng-repeat="event in events | Past: true">
+                    <a ui-sref="events({id: event._id})">
+                        <div class="col-sm-3 padding10">
+                            <img src="http://placehold.it/150x150" class="img-responsive">
+                        </div><!-- col 3 -->
+                        <div class="padding10">
+                            <strong>{{event.name}}</strong><br>
+                            {{event.description}}<br/>
+                            <i class="fa fa-map-marker text-green"> </i> {{event.locations}}<br/>
+                            <strong class="">End Date: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
+                        </div>
+                    </a>
+                    <!-- padding10 -->
+                    <div class="action-hub top-right padding10 link-like" ng-show="isOwner()">
+                        <i class="fa fa-times text-red" ng-click="showDialog(event)"></i>
+                    </div><!-- action-hub -->
+                </div><!-- event-brief -->
+            </div>
         </div><!-- bottom container -->
 
         <div class="col-md-8 delete-dialog-container margin-top-20" ng-show="dialogShow">

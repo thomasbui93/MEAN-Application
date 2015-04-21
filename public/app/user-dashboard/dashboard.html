@@ -83,9 +83,9 @@
                         <button ng-show="edit.show" class="btn btn-form" ng-click="saveInformation()">{{edit.state}}
                             <i class="fa fa-check-circle" ng-show="edit.success"></i>
                         </button>
-                        <button ng-show="edit.show"  class="btn btn-red" ng-click="cancelSave()">Cancel</button>
+                        <button ng-show="edit.show" class="btn btn-red" ng-click="cancelSave()">Cancel</button>
                     </div>
-                    <button ng-show="!edit.show"  class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
+                    <button ng-show="!edit.show" class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
 
                 </div>
             </div>
@@ -108,7 +108,7 @@
             <div class="row margin-top-5">
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong>Following Organisations: </strong></div>
+                        <div class="banner"><strong>Followed Organisations: </strong></div>
                         <div class="activities-container scroll container">
                             <div ng-if="followOrganisations.length === 0" class="text-italic margin-top-20">
                                 <p>You are not following any organisation</p>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="activities-container scroll container">
                             <div ng-if="managedOrganisations.length === 0" class="text-italic margin-top-20">
-                                <p>You don't have any organisation</p>
+                                <p>You don't have any organisations</p>
                                 <a ui-sref="register-ngo" class="text-green">
                                     Create one
                                     <i class="fa fa-plus-circle"></i>
@@ -186,7 +186,7 @@
             <div class="delete-dialog center-block">
                 <div class="small-banner"><strong>Delete Dialog</strong></div>
                 <br/>
-                <p class="center-block text-center">Do you really want to delete the organisation ?</p>
+                <p class="center-block text-center">Do you really want to delete this organisation?</p>
                 <div class="row text-center">
                     <button class="btn-small btn-inline btn-red " ng-click="removeOrg()">Yes</button>
                     <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
@@ -198,7 +198,7 @@
             <div class="delete-dialog center-block">
                 <div class="small-banner"><strong>Delete Dialog</strong></div>
                 <br/>
-                <p class="center-block text-center">Do you really want to leave the organisation ?</p>
+                <p class="center-block text-center">Do you really want to leave the organisation?</p>
                 <div class="row text-center">
                     <button class="btn-small btn-inline btn-red " ng-click="leaveOrg()">Yes</button>
                     <button class="btn-small btn-inline btn-follow center-block" ng-click="leaveReset()">Cancel</button>
@@ -210,7 +210,7 @@
             <div class="delete-dialog center-block">
                 <div class="small-banner"><strong>Delete Dialog</strong></div>
                 <br/>
-                <p class="center-block text-center">Do you really want to unfollow the organisation ?</p>
+                <p class="center-block text-center">Do you really want to unfollow this organisation?</p>
                 <div class="row text-center">
                     <button class="btn-small btn-inline btn-red " ng-click="unFollowOrg()">Yes</button>
                     <button class="btn-small btn-inline btn-follow center-block" ng-click="unFollowReset()">Cancel</button>
