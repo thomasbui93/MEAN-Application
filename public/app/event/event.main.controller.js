@@ -1,8 +1,9 @@
 'use strict';
 angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  'comments', 'organisation',
-  function($scope, $stateParams, event, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organistion) {
+  'comments',
+  function($scope, $stateParams, evt, EVENT_ERRORS, Validation, $rootScope, Restangular, comments) {
     $scope.currentUser = $rootScope.user;
+
     var findObject = function(array, object) {
       var index = -1;
       if (object === undefined) {
@@ -17,22 +18,22 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       return index;
 
     };
-    $scope.isFollowed = findObject(event.participants, $rootScope.user) !== -1;
+    $scope.isFollowed = findObject(evt.participants, $rootScope.user) !== -1;
     $scope.input = {
       comment: ''
     };
-    $scope.organisation = organisation;
-    $scope.currentEvent = event;
+
+    $scope.currentEvent = evt;
     $scope.currentEvent.time = new Date($scope.currentEvent.date);
     $scope.comments = comments;
-    $scope.currentEvent.date = event.startDate;
+    $scope.currentEvent.date = evt.startDate;
     $scope.errors = EVENT_ERRORS;
     $scope.edit = {
       show: false
     };
 
     $scope.checkFollowed = function() {
-      var index = $scope.currentUser.events.indexOf(event);
+      var index = $scope.currentUser.events.indexOf(evt);
       if (index === -1) {
         return false;
       } else {
@@ -57,7 +58,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       $scope.errors.name.violate = Validation.checkName($scope.currentEvent);
       $scope.errors.description.violate = Validation.checkDescription($scope.currentEvent, 20);
 
-      event.save().then(function() {
+      evt.save().then(function() {
         $scope.edit = {
           show: false,
           saving: false
@@ -75,7 +76,7 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
       if ($rootScope.user._id !== undefined) {
         if ($event.keyCode == 13) {
           Restangular.all('api/comments').post({
-            event: event._id,
+            evt: evt._id,
             content: $scope.input.comment,
             createdBy: $rootScope.user._id
           }).then(function(comment) {
@@ -88,37 +89,37 @@ angular.module('voluntr').controller('eventMainController', ['$scope', '$statePa
             userComment.createdBy.lastName = $rootScope.user.lastName;
             comments.push(userComment);
             $scope.input.comment = '';
-            event.comments.push(comment);
-            event.save().then(function(msg) {});
+            evt.comments.push(comment);
+            evt.save().then(function(msg) {});
           });
         }
       }
     };
 
     $scope.follow = function() {
-      $scope.currentUser.events.push(event);
+      $scope.currentUser.events.push(evt);
       $scope.currentUser.save();
       var user = {
         _id: $scope.currentUser._id
       };
-      event.participants.push(user);
-      event.save().then(function(data) {
+      evt.participants.push(user);
+      evt.save().then(function(data) {
         $scope.isFollowed = true;
       });
     };
 
     $scope.unFollow = function() {
-      var indexEvent = findObject($rootScope.user.events, event);
+      var indexEvent = findObject($rootScope.user.events, evt);
       if (indexEvent !== -1) {
         $rootScope.user.events.splice(indexEvent, 1);
         $rootScope.user.save();
       }
-      var indexUser = findObject(event.participants, $rootScope.user);
+      var indexUser = findObject(evt.participants, $rootScope.user);
 
       if (indexUser !== -1) {
-        event.participants.splice(indexUser, 1);
+        evt.participants.splice(indexUser, 1);
 
-        event.save().then(function() {
+        evt.save().then(function() {
           console.log('deleted');
           $scope.isFollowed = false;
         });
