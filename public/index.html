@@ -27,13 +27,13 @@
             <a href="/" class="text-white"><strong>Voluntr</strong></a>
         </div>
         <ul id="common-link">
-            <li><a class="text-white">Organisations</a></li>
-            <li><a class="text-white">Events</a></li>
-            <li><a class="text-white">Jobs</a></li>
+            <li ui-sref-active="active"><a class="text-white" ui-sref="organisations">Organisations</a></li>
+            <li ui-sref-active="active"><a class="text-white">Events</a></li>
+            <li ui-sref-active="active"><a class="text-white">Jobs</a></li>
         </ul>
         <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
-            <div class="user-name">
-               <strong ng-cloak>{{user.firstName || ''}}</strong>
+            <div class="user-name" ui-sref="user-dashboard">
+               <a class="text-white" href=""><strong ng-cloak>{{user.firstName || ''}}</strong></a>
             </div>
             <i class="fa fa-cogs fa-2x" ng-click="showSetting()"></i>
         </div>
@@ -60,8 +60,10 @@
    <li>Events</li>
     <hr>
     <li ng-if="user.firstName===undefined">
-        <div><a ui-sref="register-volunteer" class="text-white">Register</a></div>
-        <div><a ui-sref="login" class="text-white">Login</a></div>
+        <a ui-sref="register-volunteer" class="text-white">Register</a>
+    </li>
+    <li>
+        <a ui-sref="login" class="text-white">Login</a>
     </li>
     <li ng-if="user.firstName!==undefined">
         <a ui-sref="user-dashboard" class="text-white">Dashboard</a>
@@ -118,15 +120,17 @@
 <script src="/app/sign-up/ngo-sign-up.controller.js"></script>
 <script src="/app/search/search.controller.js"></script>
 <script src="/app/search/search.advanced.controller.js"></script>
+<script src="/app/organisations/organisations.controller.js"></script>
+<script src="/app/ngo-homepage/ngo.home.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.representative.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.mainview.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.main.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.job.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.filter.js"></script>
-<script src="/app/ngo-homepage/ngo.home.controller.js"></script>
-<script src="/app/faq/faq.controller.js"></script>
 <script src="/app/home/home.directive.js"></script>
 <script src="/app/home/home.controller.js"></script>
+<script src="/app/file-uploader/file-uploader.service.js"></script>
+<script src="/app/faq/faq.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>

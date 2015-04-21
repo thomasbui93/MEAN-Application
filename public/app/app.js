@@ -224,7 +224,7 @@ angular.module('voluntr', [
         }
       ],
       organisation: function($stateParams, Restangular) {
-       return Restangular.one('api/events', $stateParams.id).one('organisation').get(); 
+        return Restangular.one('api/events', $stateParams.id).one('organisation').get();
       },
       comments: function($stateParams, Restangular) {
         return Restangular.one('api/comments/', $stateParams.id).getList('eventComment');
@@ -290,6 +290,18 @@ angular.module('voluntr', [
     controller: 'faqController',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    }
+  }).state('organisations', {
+    url: '/organisations',
+    templateUrl: 'app/organisations/organisations.html',
+    controller: 'organisationsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      organisations: function(Restangular) {
+        return Restangular.all('api/organisations').getList();
+      }
     }
   });
 

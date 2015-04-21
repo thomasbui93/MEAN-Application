@@ -17,7 +17,7 @@ exports.index = function(req, res, next) {
     .populate('events managers representatives recruitments')
     .exec(function(err, organisations) {
       if (err) return next(err);
-      
+
       res.json(organisations);
     });
 };

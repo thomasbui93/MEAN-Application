@@ -121,19 +121,6 @@
   -o-animation: 0.1s flipOutX ease;
   animation: 0.1s flipOutX ease;
 }
-//blocked user
-/****************
-*     .block-user.ng-enter.ng-enter-active,
-.block-user.ng-leave {
-  opacity: 1;
-}
-
-.block-user.ng-leave.ng-leave-active,
-.block-user.ng-enter {
-  opacity: 0;
-}
-***************/
-
 //representative
 .representative-container.ng-show-add,
 .representative-container.ng-hide-remove{
@@ -177,17 +164,31 @@
 }
 
 /****************
+* animation for settings
+***************/
+#user-setting.ng-show-add, #user-setting.ng-hide-remove{
+  -webkit-animation: 0.2s slideInDown ease-in-out;
+  -o-animation: 0.2s slideInDown ease-in-out;
+  animation: 0.2s slideInDown ease-in-out;
+}
+#user-setting.ng-hide-add, #user-setting.ng-show-remove{
+  -webkit-animation: 0.2s slideOutUp ease-in-out;
+  -o-animation: 0.2s slideOutUp ease-in-out;
+  animation: 0.2s slideOutUp ease-in-out;
+}
+
+/****************
 * animation for vertical bar
 ***************/
 #menu-vertical.ng-show-add, #menu-vertical.ng-hide-remove{
-  -webkit-animation: 0.5s bounceInLeft ease-in-out;
-  -o-animation: 0.5s bounceInLeft ease-in-out;
-  animation: 0.5s bounceInLeft ease-in-out;
+  -webkit-animation: 0.25s slideInLeft ease-in-out;
+  -o-animation: 0.25s slideInLeft ease-in-out;
+  animation: 0.25s slideInLeft ease-in-out;
 }
 #menu-vertical.ng-hide-add, #menu-vertical.ng-show-remove{
-  -webkit-animation: 1s bounceOutLeft ease-in-out;
-  -o-animation: 1s bounceOutLeft ease-in-out;
-  animation: 1s bounceOutLeft ease-in-out;
+  -webkit-animation: 0.25s slideOutLeft ease-in-out;
+  -o-animation: 0.25s slideOutLeft ease-in-out;
+  animation: 0.25s slideOutLeft ease-in-out;
 }
 @keyframes slideDown {
   from{
