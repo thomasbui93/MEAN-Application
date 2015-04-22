@@ -5,12 +5,7 @@
 angular.module('voluntr')
   .controller('searchController', ['$scope', '$location', 'Restangular', '$stateParams', '$state', 'initialResult',
     function($scope, $location, Restangular, $stateParams, $state, initialResult) {
-      $scope.search = {
-        keyword: $stateParams.key,
-        textField: '',
-        searchInterests: [],
-        Interests: ['helping children', 'food', 'drink']
-      };
+      $scope.keyword = $stateParams.key;
 
       $scope.results = initialResult;
       $scope.searchedWord = $stateParams.key;
@@ -18,18 +13,18 @@ angular.module('voluntr')
       $scope.showResult = function($event) {
         if (!$event || $event.keyCode === 13) {
           Restangular.all('api/search').getList({
-            q: $scope.search.keyword
+            q: $scope.keyword
           })
-          .then(function(results) {
-            $scope.results = results;
-            $scope.searchedWord = $scope.search.keyword;
-          });
+            .then(function(results) {
+              $scope.results = results;
+              $scope.searchedWord = $scope.keyword;
+            });
         }
       };
 
       $scope.goAdvanced = function() {
         $state.go('advancedSearch', {
-          key: $scope.search.keyword,
+          key: $scope.keyword,
           location: ''
         });
       };
