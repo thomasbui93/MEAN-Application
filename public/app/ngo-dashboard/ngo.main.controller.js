@@ -36,6 +36,21 @@ angular.module('voluntr').controller('ngoDashBoardMainController',
         });
     };
 
+    $scope.uploadBanner = function(files) {
+      var file = files[0];
+      if (!file) return;
+
+      var uploadUrl = '/api/organisations/' + $scope.currentNGO._id + '/banner';
+
+      FileUploader.upload(uploadUrl, file)
+        .success(function(data) {
+          $scope.currentNGO.banner = data.url;
+          $scope.currentNGO.save();
+        }).error(function(err) {
+          console.log(err);
+        });
+    };
+
     $scope.createCause = function($event) {
       if ($event.keyCode === KEY_CODES.enter) {
         if ($scope.currentNGO.interests.indexOf($scope.inputCause) == -1)
