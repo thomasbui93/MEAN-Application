@@ -1,9 +1,9 @@
 'use strict';
-angular.module('voluntr').controller('eventMainController', ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',
-  'comments',
-  function($scope, $stateParams, evt, EVENT_ERRORS, Validation, $rootScope, Restangular, comments) {
+angular.module('voluntr').controller('eventMainController',
+    ['$scope', '$stateParams', 'event', 'EVENT_ERRORS', 'Validation', '$rootScope', 'Restangular',  'comments','organisation',
+  function($scope, $stateParams, evt, EVENT_ERRORS, Validation, $rootScope, Restangular, comments, organisation) {
     $scope.currentUser = $rootScope.user;
-
+      console.log(organisation);
     var findObject = function(array, object) {
       var index = -1;
       if (object === undefined) {
