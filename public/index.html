@@ -28,7 +28,7 @@
         </div>
         <ul id="common-link">
             <li ui-sref-active="active"><a class="text-white" ui-sref="organisations">Organisations</a></li>
-            <li ui-sref-active="active"><a class="text-white">Events</a></li>
+            <li ui-sref-active="active"><a class="text-white" ui-sref="allEvents">Events</a></li>
             <li ui-sref-active="active"><a class="text-white">Jobs</a></li>
         </ul>
         <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
@@ -131,6 +131,7 @@
 <script src="/app/home/home.controller.js"></script>
 <script src="/app/file-uploader/file-uploader.service.js"></script>
 <script src="/app/faq/faq.controller.js"></script>
+<script src="/app/event/events.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>

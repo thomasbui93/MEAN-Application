@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <h1 class="page-header text-center">Our Events
+    <br>
+    <small>Just one click away to find ways to help!</small>
+    </h1>
+    <div class="container">
+    <h2 class="text-center">Upcoming events</h2>
+    <div class="organization-block col-md-5 row" ng-repeat="event in events | orderBy : startDate | Past: false">
+        <a ui-sref="events({id: event._id})">
+            <div class="col-sm-3 padding10">
+                <img src="{{event.picture}}" class="img-responsive">
+            </div><!-- col 3 -->
+            <div class="information-block col-md-8 padding10">
+                <strong>{{event.name}}</strong><br>
+                {{event.description}}<br/>
+                <i class="fa fa-map-marker text-green"></i> {{event.locations}}<br/>
+                <strong class="">Time: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
+            </div><!-- information-block -->
+        </a>
+    </div><!-- organization-block -->
+    </div>
+
+    <div class="container">
+    <h2 class="text-center">Past events</h2>
+    <div class="organization-block col-md-5 row" ng-repeat="event in events | orderBy : startDate | Past: true">
+        <a ui-sref="events({id: event._id})">
+            <div class="col-sm-3 padding10">
+                <img src="{{event.picture}}" class="img-responsive">
+            </div><!-- col 3 -->
+            <div class="information-block col-md-8 padding10">
+                <strong>{{event.name}}</strong><br>
+                {{event.description}}<br/>
+                <i class="fa fa-map-marker text-green"></i> {{event.locations}}<br/>
+                <strong class="">Time: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
+            </div><!-- information-block -->
+        </a>
+    </div><!-- organization-block -->
+    </div>
+</div><!-- container -->

@@ -126,9 +126,8 @@
                             {{event.description}}<br/>
                             <i class="fa fa-map-marker text-green"> </i> {{event.locations}}<br/>
                             <strong class="">End Date: </strong>{{event.startDate | date: 'HH:mm d, MMM yyyy'}}
-                        </div>
+                        </div><!-- padding10 -->
                     </a>
-                    <!-- padding10 -->
                     <div class="action-hub top-right padding10 link-like" ng-show="isOwner()">
                         <i class="fa fa-times text-red" ng-click="showDialog(event)"></i>
                     </div><!-- action-hub -->
