@@ -48,16 +48,15 @@
     </div>
 </div>
 <ul id="user-setting" ng-show="setting" ng-cloak="" ng-click="hideThing()">
-    <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
-    <li><a class="text-white" ng-click="logout()">Logout</a></li>
-    <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
+    <li ui-sref-active="active"><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
+    <li ui-sref-active="active"><a class="text-white" ng-click="logout()">Logout</a></li>
 </ul>
 <ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
    <h3 class="text-center">Menu</h3>
     <hr>
-   <li>Organisation</li>
-   <li>Jobs</li>
-   <li>Events</li>
+   <li ui-sref-active="active"><a class="text-white" ui-sref="organisations">Organisation</a></li>
+   <li ui-sref-active="active"><a class="text-white">Jobs</a></li>
+   <li ui-sref-active="active"><a class="text-white" ui-sref="allEvents">Events</a></li>
     <hr>
     <li ng-if="user.firstName===undefined">
         <a ui-sref="register-volunteer" class="text-white">Register</a>
