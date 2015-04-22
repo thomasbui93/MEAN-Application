@@ -358,7 +358,10 @@
             <label class="normal-label">Skills: </label>
             <div class="group">
                 <div class="skill-sets">
-                    <div class="tag" ng-repeat="skill in user.skillSet">{{skill}}</div>
+                    <div class="tag" ng-repeat="skill in user.skillSet" ng-click="removeSkill(skill)">
+                        {{skill}}
+                        <i class="fa fa-times text-white"></i>
+                    </div>
                     <input class="invisible-input" type="text" ng-keydown="createSkill($event)" ng-model="input.skill"
                             ng-blur="input.skill= '' "/>
                 </div>
@@ -370,7 +373,10 @@
             <label class="normal-label">Interests: </label>
             <div class="group">
                 <div class="skill-sets">
-                    <div class="tag" ng-repeat="interest in user.interestSet">{{interest}}</div>
+                    <div class="tag" ng-repeat="interest in user.interestSet" ng-click="removeInterest(interest)">
+                        {{interest}}
+                        <i class="fa fa-times text-white"></i>
+                    </div>
                     <input class="invisible-input" type="text" ng-keydown="createInterest($event)" ng-model="input.interest"
                             ng-blur="input.interest=''"/>
                 </div>

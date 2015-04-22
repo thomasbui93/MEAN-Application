@@ -195,12 +195,15 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     if (index > -1) {
       $rootScope.user.representOrganisations.splice(index, 1);
       $rootScope.user.save()
-        .then(function() {
-          console.log($scope.leave.org);
+        .then(function(user) {
+          $rootScope.user = user;
+          var index = findObject($scope.representOrganisations, $scope.leave.org);
+          $scope.representOrganisations.splice(index, 1);
+          var indexUser = $scope.leave.org.representatives.indexOf($rootScope.user._id);
+          $scope.leave.org.representatives.splice(indexUser, 1);
+          $scope.leave.org = Restangular.restangularizeElement(null, $scope.leave.org, 'api/organisations', $scope.leave.org._id);
           $scope.leave.org.save()
             .then(function() {
-              var index = findObject($scope.representOrganisations, $scope.leave.org);
-              $scope.representOrganisations.splice(index, 1);
               $scope.allOrganisations = $scope.managedOrganisations.concat($scope.representOrganisations);
               $scope.leaveReset();
             });
@@ -216,7 +219,8 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     };
   };
   $scope.checkOwner = function(org) {
-    return ($rootScope.user._id === org.owner);
+
+    return ($rootScope.user !== undefined && $rootScope.user._id === org.owner);
   };
   $scope.invokeUnFollowOrg = function(org) {
     $scope.follow = {
@@ -235,10 +239,15 @@ angular.module('voluntr').controller('userDashboardController', function($scope,
     if (index > -1) {
       $rootScope.user.followOrganisations.splice(index, 1);
       $rootScope.user.save()
-        .then(function() {
-          console.log($scope.follow.org);
+        .then(function(user) {
+          var indexUser = $scope.follow.org.followers.indexOf($rootScope.user._id);
+          console.log(indexUser, $scope.follow.org.followers);
+          $scope.follow.org.followers.splice(indexUser, 1);
+          console.log('after splice: ', $scope.follow.org.followers);
+          $scope.follow.org = Restangular.restangularizeElement(null, $scope.follow.org, 'api/organisations', $scope.follow.org._id);
           $scope.follow.org.save()
-            .then(function() {
+            .then(function(org) {
+              console.log('after splice:', org);
               var index = findObject($scope.followOrganisations, $scope.follow.org);
               $scope.followOrganisations.splice(index, 1);
               $scope.unFollowReset();

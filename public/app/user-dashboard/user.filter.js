@@ -4,7 +4,6 @@
 'use strict';
 angular.module('voluntr').filter('Past', function() {
   return function(input, boolean) {
-    console.log(input);
     var output = [];
     for (var i = 0; i < input.length; i++) {
       if (new Date(input[i].endDate) <= new Date() || input[i].date <= new Date()) {
@@ -17,7 +16,6 @@ angular.module('voluntr').filter('Past', function() {
         }
       }
     }
-    console.log(output);
     return output;
   };
 }).filter('undefinedString', function() {
