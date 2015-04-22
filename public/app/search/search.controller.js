@@ -13,7 +13,11 @@ angular.module('voluntr')
       $scope.showResult = function($event) {
         if (!$event || $event.keyCode === 13) {
           $scope.searchedWord = $scope.keyword;
-          $state.go('search', {key: $scope.searchedWord}, {notify: false});
+          $state.go('search', {
+            key: $scope.searchedWord
+          }, {
+            notify: false
+          });
 
           Restangular.all('api/search').getList({
             q: $scope.keyword
