@@ -5,6 +5,10 @@ angular.module('voluntr')
       email: '',
       password: ''
     };
+    $scope.error = {
+      violate: false,
+      message: ' *User name and password is not match'
+    }
     $scope.login = AuthService.login;
     $scope.logout = AuthService.logout;
     $scope.isAuthenticated = AuthService.isAuthenticated;
@@ -13,4 +17,7 @@ angular.module('voluntr')
         AuthService.login($scope.credentials);
       }
     };
+    $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
+      $scope.error.violate = true;
+    });
   });

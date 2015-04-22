@@ -19,7 +19,7 @@ angular.module('voluntr').controller('ngoSignUpController', ['$scope', '$state',
     };
     $scope.createCause = function($event) {
       if ($event.keyCode === 13 || $event.keyCode === 9) {
-        if ($scope.org.causes.indexOf($scope.input.cause) === -1)
+        if ($scope.org.causes.indexOf($scope.input.cause) === -1 && $scope.input.cause !== '')
           $scope.org.causes.push($scope.input.cause);
         $scope.input.cause = '';
       }

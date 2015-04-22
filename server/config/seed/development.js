@@ -190,6 +190,7 @@ var exampleRecruitment1 = new Recruitment({
 
 User.remove(function() {
   user.managedOrganisations.push(org);
+  user.representOrganisations.push(org1);
   user.representOrganisations.push(org2);
   user.events.push(newEvent);
   user.save();

@@ -37,27 +37,29 @@ exports.show = function(req, res, next) {
 
 exports.update = function(req, res, next) {
   var id = req.params.eventId;
-  Event.findById(id, function(err, evt) {
-    if (err) return next(err);
-    if (!evt) return next(new NotFoundError('No event with that id.'));
-
-    for (var field in req.body) {
-
-      if (_.includes(excludedFields, field)) {
-        continue;
-      }
-
-      if (field in evt) {
-        evt[field] = req.body[field];
-      }
-    }
-
-    evt.save(function(err) {
+  Event.findById(id)
+    .populate('organisation participants comments createdBy')
+    .exec(function(err, evt) {
       if (err) return next(err);
+      if (!evt) return next(new NotFoundError('No event with that id.'));
 
-      res.json(evt);
+      for (var field in req.body) {
+
+        if (_.includes(excludedFields, field)) {
+          continue;
+        }
+
+        if (field in evt) {
+          evt[field] = req.body[field];
+        }
+      }
+
+      evt.save(function(err) {
+        if (err) return next(err);
+
+        res.json(evt);
+      });
     });
-  });
 };
 
 exports.create = function(req, res, next) {

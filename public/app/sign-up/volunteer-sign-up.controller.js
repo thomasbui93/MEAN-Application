@@ -27,7 +27,7 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
 
     $scope.createSkill = function($event) {
       if ($event.keyCode === 13 || $event.keyCode === 9) {
-        if ($scope.user.skillSet.indexOf($scope.input.skill) == -1)
+        if ($scope.user.skillSet.indexOf($scope.input.skill) == -1 && $scope.input.skill !== '')
           $scope.user.skillSet.push($scope.input.skill);
         $scope.input.skill = '';
       }
@@ -35,12 +35,23 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
 
     $scope.createInterest = function($event) {
       if ($event.keyCode == 13 || $event.keyCode === 9) {
-        if ($scope.user.interestSet.indexOf($scope.input.interest) == -1)
+        if ($scope.user.interestSet.indexOf($scope.input.interest) == -1 && $scope.input.interest !== '')
           $scope.user.interestSet.push($scope.input.interest);
         $scope.input.interest = '';
       }
     };
-
+    $scope.removeSkill = function(skill) {
+      var index = $scope.user.skillSet.indexOf(skill);
+      if (index > -1) {
+        $scope.user.skillSet.splice(index, 1);
+      }
+    };
+    $scope.removeInterest = function(interest) {
+      var index = $scope.user.interestSet.indexOf(interest);
+      if (index > -1) {
+        $scope.user.interestSet.splice(index, 1);
+      }
+    };
     $scope.checkAll = function() {
       if ($scope.user.firstname === '' || $scope.user.firstname === null) {
         $scope.error.name.violate = true;
@@ -111,7 +122,8 @@ angular.module('voluntr').controller('volunteerSignUpController', ['$scope', '$s
           country: $scope.user.country
         },
         skills: $scope.user.skillSet,
-        interests: $scope.user.interestSet
+        interests: $scope.user.interestSet,
+        phoneNumber: $scope.user.phone
       })
         .then(function(results) {
           $scope.success = true;
