@@ -40,5 +40,13 @@ angular.module('voluntr')
       $scope.noResults = function() {
         return $scope.results ? $scope.results.length === 0 : true;
       };
+
+      $scope.isOrganization = function(result) {
+        return !!result.managers;
+      };
+
+      $scope.isEvent = function(result) {
+        return !!result.comments;
+      };
     }
   ]);
