@@ -39,7 +39,7 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
 
     $scope.searchMenu = function($event) {
       if ($event.keyCode == 13) {
-        $state.go('advancedSearch', {
+        $state.go('search', {
           key: $scope.input.searchMenu,
           location: ''
         });
