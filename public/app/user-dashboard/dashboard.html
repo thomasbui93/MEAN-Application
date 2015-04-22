@@ -1,11 +1,10 @@
 <div class="container padding10">
     <div class="row" >
         <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3 user-profile">
-
             <div id="avatar">
                 <img width="200" height="200" ng-src="{{ user.avatar }}" class="img-responsive center-block">
                 <input type="file" class="input-transparent" ng-show="edit.show" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" accept="image/*" />
-            </div>
+            </div><!-- avatar -->
 
             <div class="information">
                 <div ng-show="!edit.show" class="show-information padding10">
@@ -20,7 +19,7 @@
                     </p>
                     <p>
                         <i class="fa fa-phone-square pull-left"> </i>
-                        <p class="text-center">{{user.phone | undefinedString}}</p>
+                        <p class="text-center">{{user.phoneNumber | undefinedString}}</p>
                     </p>
                     <ul class="skill-sets">
                         <p class="pull-left"><strong>Skill: </strong></p><br/>
@@ -32,11 +31,11 @@
                     <ul class="skill-sets">
                         <p class="pull-left"><strong>Interests: </strong></p><br/>
                         <p class="text-italic text-center" ng-if="user.interests.length === 0"> No data shown</p>
-                        <li class="tag" ng-repeat="skill in user.interests">
+                        <li class="tag center-block" ng-repeat="skill in user.interests">
                             {{skill}}
                         </li>
                     </ul>
-                </div>
+                </div><!-- show-information -->
                 <div ng-show="edit.show" class="edit-information padding10">
                     <div class="input-container">
                         <label class="normal-label"><strong>First Name: </strong></label>
@@ -60,37 +59,41 @@
                     <div class="input-container">
                         <label class="normal-label"><strong>Phone: </strong></label>
                         <p ng-show="errors.phone.violate" class="text-red">{{errors.phone.message}}</p>
-                        <input ng-model="user.phone" type="text" placeholder="{{user.phone}}" class="normal-input margin-top-5"/>
+                        <input ng-model="user.phoneNumber" type="text" placeholder="{{user.phoneNumber}}" class="normal-input margin-top-5"/>
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Skills: </strong></label>
                         <div class="skill-sets">
-                            <div class="tag" ng-repeat="skill in user.skills" ng-click="removeSkill(skill)">{{skill}}</div>
+                            <div class="tag pull-left" ng-repeat="skill in user.skills" ng-click="removeSkill(skill)">
+                                {{skill}}
+                                <i class="fa fa-times text-white"></i>
+                            </div>
                             <input class="hide-input" type="text" ng-keydown="createSkill($event)" ng-model="input.skill" ng-blur="input.skill =''"/>
                         </div>
                     </div>
                     <div class="input-container">
                         <label class="normal-label"><strong>Interests: </strong></label>
                         <div class="skill-sets">
-                            <div class="tag" ng-repeat="interest in user.interests" ng-click="removeInterest(interest)">{{interest}}</div>
+                            <div class="tag pull-left" ng-repeat="interest in user.interests" ng-click="removeInterest(interest)">
+                                {{interest}}
+                                <i class="fa fa-times text-white"></i>
+                            </div>
                             <input class="hide-input" type="text" ng-keydown="createInterest($event)" ng-model="input.interest" ng-blur="input.interest =''"/>
                         </div>
                     </div>
-                </div>
+                </div><!-- edit-information -->
                 <div class="padding10 border-top">
-
                     <div class="center-block text-center">
                         <button ng-show="edit.show" class="btn btn-form" ng-click="saveInformation()">{{edit.state}}
                             <i class="fa fa-check-circle" ng-show="edit.success"></i>
                         </button>
-                        <button ng-show="edit.show"  class="btn btn-red" ng-click="cancelSave()">Cancel</button>
-                    </div>
-                    <button ng-show="!edit.show"  class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 container" ng-show="!delete.state && !unFollow.state">
+                        <button ng-show="edit.show" class="btn btn-red" ng-click="cancelSave()">Cancel</button>
+                    </div><!-- center-block -->
+                    <button ng-show="!edit.show" class="btn btn-follow center-block" ng-click="editInformation()">Edit</button>
+                </div><!-- paddding and border-top -->
+            </div><!--information -->
+        </div><!-- user-profile -->
+        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 container" ng-show="!delete.state&&!leave.state &&!follow.state">
             <div class="user-notification">
                 <div class="banner shadow"><strong>Upcoming events</strong></div>
                 <div class="notification-container scroll container">
@@ -102,98 +105,110 @@
                             <strong>{{event.name}} </strong><br/>
                             {{event.startDate | date: 'MMM dd, yyyy. hh:mm  '}}
                         </div>
-                    </a>
-                </div>
-            </div>
+                    </a><!-- event in events -->
+                </div><!-- notification-container -->
+            </div><!-- user-notification -->
             <div class="row margin-top-5">
                 <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
                     <div class="user-activities">
-                        <div class="banner"><strong>Following Organisations: </strong></div>
+                        <div class="banner"><strong>Followed Organisations: </strong></div>
                         <div class="activities-container scroll container">
                             <div ng-if="followOrganisations.length === 0" class="text-italic margin-top-20">
                                 <p>You are not following any organisation</p>
                             </div>
                             <div ng-repeat="org in followOrganisations">
-                                <div class="close-tag" ng-click="invokecancelFollow(org)">
-                                    <i class="fa fa-times close-icon"></i>
-                                </div>
-                                <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" >
-                                    <div  class="organization-block row margin-top-5 margin-left-10">
-                                        <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
-                                        <div class="information-block row-md-8 xs-hide sm-hide">
-                                            {{org.name}}<br/>
-                                            <i class="fa fa-map-marker text-green"></i> {{org.locations[0]}}
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                                <div class="organization-block row margin-top-5 margin-left-10">
+                                    <a class="col-md-4" ui-sref="ngoHomePage({id: org._id})">
+                                        <img src="http://placehold.it/200x200" class="img-responsive">
+                                    </a>
+                                    <a class="information-block row-md-8 xs-hide sm-hide" ui-sref="ngoHomePage({id: org._id})">
+                                        <strong>{{org.name}}</strong><br/>
+                                        <i class="fa fa-map-marker text-green"></i> {{org.locations[0]}}
+                                    </a>
+                                    <div class="close-hub transition" ng-click="invokeUnFollowOrg(org)">
+                                        <i class="fa fa-times text-white"></i>
+                                    </div><!-- close-hub -->
+                                </div><!--organization-block -->
+                            </div><!-- org in followOrganisations -->
+                        </div><!--user-avtivities -->
+                    </div><!-- columns -->
+            </div><!-- row -->
+            <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
+                <div class="user-activities">
+                    <div class="banner">
+                        <strong> Managed/Represented Organisations: </strong>
+                        <a ui-sref="register-ngo" class="pull-right text-white padding-right-10">
+                            <i class="fa fa-plus text-white"></i>
+                        </a>
                     </div>
-
-                </div>
-                <div class=" col-md-6 col-lg-6 col-xs-12 col-sm-12 margin-top-5">
-                    <div class="user-activities">
-                        <div class="banner">
-                            <strong> Managed/Represented Organisations: </strong>
-                            <a ui-sref="register-ngo" class="pull-right text-white padding-right-10">
-                                <i class="fa fa-plus text-white"></i>
+                    <div class="activities-container scroll container">
+                        <div ng-if="managedOrganisations.length === 0" class="text-italic margin-top-20">
+                            <p>You don't have any organisations</p>
+                            <a ui-sref="register-ngo" class="text-green">
+                                Create one
+                                <i class="fa fa-plus-circle"></i>
                             </a>
-                        </div>
-                        <div class="activities-container scroll container">
-                            <div ng-if="managedOrganisations.length === 0" class="text-italic margin-top-20">
-                                <p>You don't have any organisation</p>
-                                <a ui-sref="register-ngo" class="text-green">
-                                    Create one
-                                    <i class="fa fa-plus-circle"></i>
-                                </a>
+                        </div><!-- activities-container -->
+                        <div ng-repeat="org in allOrganisations">
+                            <div class="close-tag" ng-if="checkOwner(org)"  >
+                                <i class="fa fa-user-secret text-green"></i>
                             </div>
-                            <div ng-repeat="org in allOrganisations">
-                                <div class="close-tag" ng-click="invokeDelete(org)" ng-if="checkOwner(org)">
-                                    <i class="fa fa-user-secret text-green"></i>
-                                </div>
-                                <div class="close-tag" ng-click="leaveOrg(org)" ng-if="!checkOwner(org)">
-                                    <i class="fa fa-users text-blue"></i>
-                                </div>
-                                <a  ui-sref="ngoDashboard.eventManage({orgId: org._id})"  class="organization-block row margin-top-5 margin-left-10">
-                                    <img src="http://placehold.it/200x200" class="col-md-4 img-responsive">
-                                    <div class="information-block row-md-8 xs-hide sm-hide">
-                                        {{org.name}}<br/>
-                                        <i class="fa fa-map-marker text-green "></i>  {{org.locations[0]}}
-                                    </div>
-
-                                </a>
+                            <div class="close-tag" ng-if="!checkOwner(org)" >
+                                <i class="fa fa-users text-blue"></i>
                             </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+                            <div class="organization-block row margin-top-5 margin-left-10">
+                                <a class="col-md-4">
+                                    <img src="http://placehold.it/200x200" class="img-responsive">
+                                </a>
+                                <a ui-sref="ngoDashboard.eventManage({orgId: org._id})" class="information-block row-md-8 xs-hide sm-hide">
+                                    <strong>{{org.name}}</strong><br/>
+                                    <i class="fa fa-map-marker text-green "></i>  {{org.locations[0]}}
+                                </a>
+                                <div class="close-hub transition" ng-click="invokeDelete(org)" ng-if="checkOwner(org)">
+                                    <i class="fa fa-times text-white"></i>
+                                </div>
+                                <div class="close-hub transition" ng-click="invokeLeave(org)" ng-if="!checkOwner(org)">
+                                    <i class="fa fa-times text-white"></i>
+                                </div>
+                            </div><!-- organization-block -->
+                        </div><!-- org in allOrganisations -->
+                    </div><!-- activities-container -->
+                </div><!-- user-activities -->
+            </div><!-- columns -->
+        </div><!-- row -->
+        </div><!-- container columns-->
         <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 delete-dialog-container margin-top-20" ng-show="delete.state">
             <div class="delete-dialog center-block">
                 <div class="small-banner"><strong>Delete Dialog</strong></div>
                 <br/>
-                <p class="center-block text-center">Do you really want to delete the organisation ?</p>
+                <p class="center-block text-center">Do you really want to delete this organisation?</p>
                 <div class="row text-center">
                     <button class="btn-small btn-inline btn-red " ng-click="removeOrg()">Yes</button>
                     <button class="btn-small btn-inline btn-follow center-block" ng-click="deleteReset()">Cancel</button>
                 </div>
-
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 delete-dialog-container margin-top-20" ng-show="unFollow.state">
+            </div><!-- delete-dialog -->
+        </div><!-- delete-dialog-container -->
+        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 delete-dialog-container margin-top-20" ng-show="leave.state">
             <div class="delete-dialog center-block">
                 <div class="small-banner"><strong>Delete Dialog</strong></div>
                 <br/>
-                <p class="center-block text-center">Do you really want to leave the organisation ?</p>
+                <p class="center-block text-center">Do you really want to leave the organisation?</p>
+                <div class="row text-center">
+                    <button class="btn-small btn-inline btn-red " ng-click="leaveOrg()">Yes</button>
+                    <button class="btn-small btn-inline btn-follow center-block" ng-click="leaveReset()">Cancel</button>
+                </div>
+            </div><!-- delete-dialog -->
+        </div><!-- delete-dialog-container -->
+        <div class="col-xs-12 col-sm-12 col-lg-9 col-md-8 delete-dialog-container margin-top-20" ng-show="follow.state">
+            <div class="delete-dialog center-block">
+                <div class="small-banner"><strong>Delete Dialog</strong></div>
+                <br/>
+                <p class="center-block text-center">Do you really want to unfollow this organisation?</p>
                 <div class="row text-center">
                     <button class="btn-small btn-inline btn-red " ng-click="unFollowOrg()">Yes</button>
                     <button class="btn-small btn-inline btn-follow center-block" ng-click="unFollowReset()">Cancel</button>
                 </div>
-
-            </div>
-        </div>
-    </div>
-
-</div>
+            </div><!-- delete-dialog -->
+        </div><!-- delete-dialog-container -->
+    </div><!-- row -->
+</div><!-- container -->

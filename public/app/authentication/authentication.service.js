@@ -34,24 +34,19 @@ angular.module('voluntr')
       var access = true;
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
+        console.log('not array');
       }
-      if (authService.isAuthenticated()) { //for logged in user
-        //excluded the page for guest
-        if (authorizedRoles.indexOf(USER_ROLES.admin) > -1) {
-          access = $rootScope.user.admin;
-        }
-        if (authorizedRoles.indexOf(USER_ROLES.volunteer) > -1) {
-          access = true;
-        } else { // handle the ngo-page
-          //check if the volunteer owned the orgs
+
+      if (authService.isAuthenticated()) {
+        if (authorizedRoles.indexOf(USER_ROLES.volunteer) > -1 && stateParam !== undefined) {
           var managedOrgs = $rootScope.user.managedOrganisations.concat($rootScope.user.representOrganisations);
           var index = managedOrgs.indexOf(stateParam);
-          if (index > -1) { // user owned the orgs.
-            access = true;
-          }
-          access = false; //who doesn't
+          access = (index > -1); //who doesn't
+        } else if (authorizedRoles.indexOf(USER_ROLES.volunteer) === -1) {
+          access = false;
         }
       } else {
+        console.log('guest only');
         if (authorizedRoles.indexOf(USER_ROLES.guest) > -1) {
           access = true;
         } else {
@@ -66,7 +61,7 @@ angular.module('voluntr')
     return {
       responseError: function(response) {
         $rootScope.$broadcast({
-          //401: AUTH_EVENTS.notAuthenticated,
+          401: AUTH_EVENTS.notAuthenticated,
           403: AUTH_EVENTS.notAuthorized,
           419: AUTH_EVENTS.sessionTimeout,
           440: AUTH_EVENTS.sessionTimeout,
@@ -86,7 +81,8 @@ angular.module('voluntr')
   }).run(function($location, AUTH_EVENTS, AuthService, $rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function(event, next, nextParam, from, fromParams) {
       var authorizedRoles = next.data.authorizedRoles;
-      var id = nextParam.id || '';
+      var id = nextParam.orgId;
+      //   console.log(AuthService.isAuthorized(authorizedRoles, id));
       if (!AuthService.isAuthorized(authorizedRoles, id)) {
         event.preventDefault();
 
@@ -98,6 +94,7 @@ angular.module('voluntr')
           $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
         }
       }
+
     });
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
@@ -113,7 +110,9 @@ angular.module('voluntr')
       $state.go('permissionDenied');
     });
     $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
-      $state.go('loginRequired');
+      if (!$state.is('login')) {
+        $state.go('loginRequired');
+      }
     });
     $rootScope.$on(AUTH_EVENTS.notFound, function() {
       $state.go('404');

@@ -6,7 +6,7 @@ angular.module('voluntr').filter('Past', function() {
   return function(input, boolean) {
     var output = [];
     for (var i = 0; i < input.length; i++) {
-      if (input[i].date <= new Date()) {
+      if (new Date(input[i].endDate) <= new Date() || input[i].date <= new Date()) {
         if (boolean === true) {
           output.push(input[i]);
         }

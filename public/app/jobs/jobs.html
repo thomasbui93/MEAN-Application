@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <h1 class="page-header text-center">Available jobs
+        <br>
+        <small>Just one click away to find a way to help!</small>
+    </h1>
+    <div class="container">
+    <h2 class="text-center">Current jobs</h2>
+    <div class="organization-block col-md-5 row" ng-repeat="job in jobs | orderBy : startDate | Past: false">
+        <a ui-sref="events({id: job._id})">
+            <div class="col-sm-3 padding10">
+                <img src="{{job.picture}}" class="img-responsive">
+            </div><!-- col 3 -->
+            <div class="information-block col-md-8 padding10">
+                <strong>{{job.name}}</strong><br>
+                {{job.description}}<br/>
+                <i class="fa fa-map-marker text-green"></i>{{job.locations}}<br/>
+                <strong class="">Time: </strong>{{job.startDate | date: 'HH:mm d, MMM yyyy'}}
+            </div><!-- information-block -->
+        </a>
+    </div><!-- organization-block -->
+    </div><!-- container -->
+</div><!-- container -->

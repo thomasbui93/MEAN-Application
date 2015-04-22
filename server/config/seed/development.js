@@ -143,8 +143,8 @@ var evt2 = new Event({
 var newEvent1 = new Event({
   name: 'Tom event',
   description: "Tom",
-  startDate: new Date(2015, 4, 1, 17, 0),
-  endDate: Date.now(),
+  startDate: new Date(2015, 3, 1, 17, 0, 0),
+  endDate: new Date(2015, 3, 2, 17, 0, 0),
   locations: "Oulu",
   _id: '59195c4e2d316035807f0100'
 });
@@ -152,8 +152,8 @@ var newEvent1 = new Event({
 var newEvent2 = new Event({
   name: 'Khosa event WWW',
   description: "Tom",
-  startDate: new Date(2015, 4, 1, 17, 0),
-  endDate: Date.now(),
+  startDate: new Date(2015, 3, 1, 17, 0, 0),
+  endDate: new Date(2015, 3, 2, 17, 0, 0),
   locations: "Oulu",
   _id: '59295c4e2d316035807f0100'
 });
@@ -161,8 +161,8 @@ var newEvent2 = new Event({
 var newEvent3 = new Event({
   name: 'Tom event WWW',
   description: "Tom",
-  startDate: new Date(2015, 4, 1, 17, 0),
-  endDate: Date.now(),
+  startDate: new Date(2015, 3, 1, 17, 0),
+  endDate: new Date(2015, 3, 2, 17, 0),
   locations: "Oulu",
   _id: '59395c4e2d316035807f0100'
 });
@@ -190,6 +190,7 @@ var exampleRecruitment1 = new Recruitment({
 
 User.remove(function() {
   user.managedOrganisations.push(org);
+  user.representOrganisations.push(org1);
   user.representOrganisations.push(org2);
   user.events.push(newEvent);
   user.save();
@@ -278,6 +279,8 @@ Organisation.remove(function() {
   org1.representatives.push(user1);
   org1.representatives.push(user);
 
+  org3.followers.push(user1._id);
+  org4.followers.push(user1._id);
 
   org1.save();
   org2.save();

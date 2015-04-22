@@ -74,6 +74,7 @@ exports.update = function(req, res, next) {
         if (field in user) {
           user[field] = req.body[field];
         }
+
       }
 
       user.save(function(err) {

@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <h1 class="page-header text-center">Our Organisations
+    <br>
+    <small>Just one click away to find volunteering opportunities!</small>
+    </h1>
+    <div class="organization-block col-md-5 row" ng-repeat=" org in organisations">
+        <a ui-sref="ngoHomePage({id: org._id})">
+            <img src="{{org.picture}}" class="col-md-4 img-responsive">
+            <div class="information-block col-md-8">
+                <strong>{{org.name}}</strong>
+                <div class="text-muted"> <i class="fa fa-map-marker text-green"></i>{{org.locations[0]}}</div>
+                <p class="small">{{org.description}}</p>
+                <strong class="text-muted">Founded:</strong> {{org.createdDate | date: 'MMM dd yyyy'}}
+            </div>
+        </a>
+    </div><!-- organization-block -->
+</div><!-- container -->

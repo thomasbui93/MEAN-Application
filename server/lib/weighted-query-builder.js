@@ -24,16 +24,18 @@ WeightedQueryBuilder.prototype.buildParameters = function(query) {
   if (!query.q) return {};
 
   var queryParams = query.q.split(" ");
+
   this._query = queryParams;
 
   queryParams = queryParams.filter(function(param) {
-    return param !== "";
+    return param !== "" && param !== " ";
   })
     .map(function(param) {
       return new RegExp(param, 'ig');
     });
 
-  return prepareQuery(queryParams);
+
+  return isEmptyArray(queryParams) ? {} : prepareQuery(queryParams);
 };
 
 // Gives the results an ordering based on relevace. The relevance of an item is determined 
@@ -157,6 +159,10 @@ var levenshteinDistance = function(a, b) {
 
 var isArray = function(a) {
   return a.constructor === Array;
+};
+
+var isEmptyArray = function(a) {
+  return a.length === 0;
 };
 
 var adder = function(a, b) {

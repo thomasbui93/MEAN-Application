@@ -2,6 +2,7 @@
 
 angular.module('voluntr').controller('ngoHomePageController',
   function($scope, $state, $stateParams, Restangular, organisation, NGO_ERRORS, Validation, $timeout, $rootScope) {
+    $scope.currentUser = $rootScope.user;
     $scope.currentNGO = organisation;
     $scope.events = organisation.events;
     $scope.recruitments = organisation.recruitments;
@@ -14,6 +15,22 @@ angular.module('voluntr').controller('ngoHomePageController',
     $scope.dialogShow = false;
     $scope.removeEvent = null;
     $scope.deleteSuccess = false;
+
+    var findObject = function(array, object) {
+      var index = -1;
+      if (object === undefined) {
+        return -1;
+      }
+      for (var i = 0; i < array.length; i++) {
+        if (array[i]._id === object._id) {
+          index = i;
+          break;
+        }
+      }
+      return index;
+
+    };
+
     $scope.editInformation = function() {
       $scope.edit = {
         show: true,
@@ -100,6 +117,60 @@ angular.module('voluntr').controller('ngoHomePageController',
         var index = $rootScope.user.managedOrganisations.indexOf(organisation._id);
         return (index !== -1);
       }
+    };
+    $scope.checkFollowed = function() {
+      var index = -1;
+      if ($rootScope.user !== undefined) {
+        index = organisation.followers.indexOf($rootScope.user._id);
+        console.log(index);
+        return (index !== -1);
+      } else {
+        return false;
+      }
+    };
+    $scope.isFollowed = $scope.checkFollowed();
+
+    $scope.unFollow = function() {
+
+      if ($scope.isFollowed) {
+        var index = $rootScope.user.followOrganisations.indexOf(organisation._id);
+        console.log($rootScope.user, organisation);
+        if (index !== -1) {
+          $rootScope.user.followOrganisations.splice(index, 1);
+          $rootScope.user.save().then(function(user) {
+            $rootScope.user = user;
+
+            var indexUser = organisation.followers.indexOf($rootScope.user._id);
+            console.log(indexUser);
+            if (indexUser !== -1) {
+              organisation.followers.splice(indexUser, 1);
+              organisation.save().then(function(org) {
+                organisation = org;
+
+                $scope.isFollowed = $scope.checkFollowed();
+
+              });
+            }
+          });
+        }
+
+      }
+    };
+    $scope.follow = function() {
+
+      if (!$scope.isFollowed) {
+        $rootScope.user.followOrganisations.push(organisation._id);
+        $rootScope.user.save().then(function(user) {
+          $rootScope.user = user;
+          organisation.followers.push($rootScope.user._id);
+          organisation.save().then(function(org) {
+            organisation = org;
+            $scope.isFollowed = $scope.checkFollowed();
+
+          });
+        });
+      }
+
     };
   }
 );

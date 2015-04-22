@@ -3,6 +3,8 @@
 angular.module('voluntr')
   .controller('searchAdvancedController', ['$scope', '$http', 'Restangular', '$stateParams', 'initialResult',
     function($scope, $http, Restangular, $stateParams, initialResult) {
+      $scope.results = initialResult;
+
       $scope.search = {
         keyword: $stateParams.key,
         location: '',
@@ -58,8 +60,6 @@ angular.module('voluntr')
           $scope.showEvents();
         }
       };
-
-      $scope.results = initialResult;
 
       $scope.input = {
         cause: ''
@@ -146,13 +146,10 @@ angular.module('voluntr')
           });
       };
       $scope.showEvents = function() {
-        console.log("showevents");
 
         Restangular.all('api/events').getList({
           name: $scope.search.keyword,
           locations: $scope.search.location,
-          //startDate: new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
-          //endDate : new Date($scope.search.startDate.year,$scope.search.startDate.month, $scope.search.startDate.date),
           interests: $scope.search.Interests
         })
           .then(function(results) {
@@ -162,13 +159,14 @@ angular.module('voluntr')
       };
 
       $scope.showResult = function($event) {
-        if ($event === undefined || $event.keyCode === 13) {
+        // 13 is enter key
+        if (!$event || $event.keyCode === 13) {
           $scope.state.setting = false;
-          if ($scope.state.results.orgs === true) {
+          if ($scope.state.results.orgs) {
             $scope.showOrgs();
-          } else if ($scope.state.results.jobs === true) {
+          } else if ($scope.state.results.jobs) {
             $scope.showJobs();
-          } else if ($scope.state.results.events === true) {
+          } else if ($scope.state.results.events) {
             $scope.showEvents();
 
           }

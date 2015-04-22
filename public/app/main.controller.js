@@ -30,7 +30,7 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
       $scope.user = undefined;
     });
     $scope.showSetting = function() {
-      $scope.setting = true;
+      $scope.setting = !$scope.setting;
     };
 
     $scope.hideMenu = function() {
@@ -39,7 +39,7 @@ angular.module('voluntr').controller('mainController', ['$scope', '$rootScope', 
 
     $scope.searchMenu = function($event) {
       if ($event.keyCode == 13) {
-        $state.go('advancedSearch', {
+        $state.go('search', {
           key: $scope.input.searchMenu,
           location: ''
         });

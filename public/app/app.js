@@ -26,18 +26,6 @@ angular.module('voluntr', [
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
     }
-  }).state('example', {
-    url: '/example',
-    templateUrl: 'app/test-folder/example.html',
-    controller: 'exampleController',
-    resolve: {
-      items: function(Restangular) {
-        return Restangular.all('api/example').getList();
-      }
-    },
-    data: {
-      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
-    }
   }).state('login', {
     url: '/login',
     templateUrl: 'app/authentication/login.html',
@@ -46,11 +34,20 @@ angular.module('voluntr', [
       authorizedRoles: [USER_ROLES.guest]
     }
   }).state('search', {
-    url: '/search',
+    url: '/search/{key}',
     templateUrl: 'app/search/search.html',
     controller: 'searchController',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      initialResult: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          return Restangular.all('api/search').getList({
+            q: $stateParams.key
+          });
+        }
+      ]
     }
   }).state('register-volunteer', {
     url: '/register/volunteer',
@@ -202,38 +199,6 @@ angular.module('voluntr', [
         templateUrl: 'app/ngo-dashboard/representativeManage.html'
       }
     }
-  }).state('adminDashboard', {
-    abstract: true,
-    url: '/admin',
-    controller: 'adminController',
-    templateUrl: 'app/admin/admin.main.html',
-    data: {
-      authorizedRoles: [USER_ROLES.admin]
-    }
-  }).state('adminDashboard.blacklist', {
-    url: '',
-    views: {
-      'main': {
-        controller: 'adminBlacklistController',
-        templateUrl: 'app/admin/admin.blacklist.html'
-      }
-    }
-  }).state('adminDashboard.report', {
-    url: '/report',
-    views: {
-      'main': {
-        controller: 'adminReportController',
-        templateUrl: 'app/admin/admin.report.html'
-      }
-    }
-  }).state('adminDashboard.content', {
-    url: '/content',
-    views: {
-      'main': {
-        controller: 'adminContentController',
-        templateUrl: 'app/admin/admin.content.html'
-      }
-    }
   }).state('ngoHomePage', {
     url: '/ngo/home/:id',
     controller: 'ngoHomePageController',
@@ -334,6 +299,42 @@ angular.module('voluntr', [
     controller: 'faqController',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    }
+  }).state('organisations', {
+    url: '/organisations',
+    templateUrl: 'app/organisations/organisations.html',
+    controller: 'organisationsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      organisations: function(Restangular) {
+        return Restangular.all('api/organisations').getList();
+      }
+    }
+  }).state('allEvents', {
+    url: '/events',
+    templateUrl: 'app/event/events.html',
+    controller: 'eventsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      events: function(Restangular) {
+        return Restangular.all('api/events').getList();
+      }
+    }
+  }).state('jobs', {
+    url: '/jobs',
+    templateUrl: 'app/jobs/jobs.html',
+    controller: 'jobsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      jobs: function(Restangular) {
+        return Restangular.all('api/events').getList();
+      }
     }
   });
 
