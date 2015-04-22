@@ -12,9 +12,8 @@ angular.module('voluntr')
         Interests: ['helping children', 'food', 'drink']
       };
 
-      $scope.currentResultState = '';
-
       $scope.results = initialResult;
+      $scope.searchedWord = $stateParams.key;
 
       $scope.showResult = function($event) {
         if (!$event || $event.keyCode === 13) {
@@ -23,6 +22,7 @@ angular.module('voluntr')
           })
           .then(function(results) {
             $scope.results = results;
+            $scope.searchedWord = $scope.search.keyword;
           });
         }
       };

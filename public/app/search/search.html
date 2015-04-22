@@ -9,38 +9,40 @@
             <button ng-click="goAdvanced()" class="btn btn-form">Advanced</button>    
         </div>
         
+        <h4 class="margin-top-20 text-left" ng-if="!noResults()">Showing results for: <i>{{ searchedWord }}</i></h4>
     </div>
     <hr/>
     <div class="row result-set container center-block">
         <h4 class="margin-top-20 text-center" ng-if="noResults()">No results were found.</h4>
 
-        <div class="ngo-profile row" ng-repeat="result in results">
-            <!-- Organisations -->
-            <div class="organization-block col-md-5 row" ng-if="isOrganization(result)">
-                <a ui-sref="ngoHomePage({id: result._id})">
-                    <img src="{{ result.picture }}" class="col-md-4 img-responsive">
-                    <div class="information-block col-md-8">
-                        <strong>{{result.name}}</strong>
-                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i>{{result.locations[0]}}</div>
-                        <p class="small">{{result.description}}</p>
-                        <strong class="text-muted">Founded:</strong> {{result.createdDate | date: 'MMM dd yyyy'}}
-                    </div>
-                </a>
-            </div>
+        <div class="organization-results row">
+            <div ng-repeat="result in results">
+                <!-- Organisations -->
+                <div class="organization-block col-md-5 row" ng-if="isOrganization(result)">
+                    <a ui-sref="ngoHomePage({id: result._id})">
+                        <img src="{{ result.picture }}" class="col-md-4 img-responsive">
+                        <div class="information-block col-md-8">
+                            <strong>{{result.name}}</strong>
+                            <div class="text-muted"> <i class="fa fa-map-marker text-green"></i>{{result.locations[0]}}</div>
+                            <p class="small">{{result.description}}</p>
+                            <strong class="text-muted">Founded:</strong> {{result.createdDate | date: 'MMM dd yyyy'}}
+                        </div>
+                    </a>
+                </div>
 
-            <!-- Events -->
-            <div class="organization-block col-md-5 row" ng-if="isEvent(result)">
-                <a ui-sref="events({id: result._id})">
-                    <img src="{{ result.picture }}" class="col-md-4 img-responsive">
-                    <div class="information-block col-md-8">
-                        <strong>{{result.name}}</strong>
-                        <div class="text-muted"> <i class="fa fa-map-marker text-green"></i> {{result.locations[0]}}</div>
-                        <p class="small">{{result.description}}</p>
-                        <strong class="text-muted">Start :</strong> {{result.startDate | date: 'MMM dd yyyy'}}
-                    </div>
-                </a>
+                <!-- Events -->
+                <div class="organization-block col-md-5 row" ng-if="isEvent(result)">
+                    <a ui-sref="events({id: result._id})">
+                        <img src="{{ result.picture }}" class="col-md-4 img-responsive">
+                        <div class="information-block col-md-8">
+                            <strong>{{result.name}}</strong>
+                            <div class="text-muted"> <i class="fa fa-map-marker text-green"></i> {{result.locations[0]}}</div>
+                            <p class="small">{{result.description}}</p>
+                            <strong class="text-muted">Start :</strong> {{result.startDate | date: 'MMM dd yyyy'}}
+                        </div>
+                    </a>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
