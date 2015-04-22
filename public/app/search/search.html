@@ -1,7 +1,8 @@
 <div class="container">
     <div class="search-field">
-        <h4>Find more NGO: </h4>
-        <input type="text" ng-model="search.keyword" ng-animate="animate" class="normal-input" placeholder="Enter search here"/>
+        <h4>Search the site: </h4>
+        <input type="text" ng-model="search.keyword" ng-keydown="showResult($event)" 
+            ng-animate="animate" class="normal-input" placeholder="Enter search here"/>
         <br/>
         <div class="center-block">
             <button ng-click="showResult()" type="submit" class="btn btn-form">Search</button>
@@ -13,7 +14,7 @@
     <div class="row result-set container center-block">
         <h4 class="margin-top-20 text-center" ng-if="noResults()">No results were found.</h4>
 
-        <div class="ngo-profile row" ui-sref="ngo({ngoID: result.ngoID})" ng-repeat="result in results">
+        <div class="ngo-profile row" ng-repeat="result in results">
             <!-- Organisations -->
             <div class="organization-block col-md-5 row" ng-if="isOrganization(result)">
                 <a ui-sref="ngoHomePage({id: result._id})">

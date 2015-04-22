@@ -3,8 +3,8 @@
  */
 'use strict';
 angular.module('voluntr')
-  .controller('searchController', ['$scope', '$http', 'Restangular', '$stateParams', '$state', 'initialResult',
-    function($scope, $http, Restangular, $stateParams, $state, initialResult) {
+  .controller('searchController', ['$scope', '$location', 'Restangular', '$stateParams', '$state', 'initialResult',
+    function($scope, $location, Restangular, $stateParams, $state, initialResult) {
       $scope.search = {
         keyword: $stateParams.key,
         textField: '',
@@ -15,18 +15,15 @@ angular.module('voluntr')
       $scope.currentResultState = '';
 
       $scope.results = initialResult;
-      console.log($scope.results);
 
-      //get result goes here
       $scope.showResult = function($event) {
-        if (!$event || $event.keycode === 13) {
+        if (!$event || $event.keyCode === 13) {
           Restangular.all('api/search').getList({
-            q: $scope.search.keyword + " " + $scope.search.searchInterests.join(" ")
+            q: $scope.search.keyword
           })
-            .then(function(results) {
-
-              $scope.results = results;
-            });
+          .then(function(results) {
+            $scope.results = results;
+          });
         }
       };
 

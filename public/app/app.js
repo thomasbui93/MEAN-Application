@@ -43,14 +43,9 @@ angular.module('voluntr', [
     resolve: {
       initialResult: ['$stateParams', 'Restangular',
         function($stateParams, Restangular) {
-          var results;
-
-          Restangular.all('api/search').getList({
+          return Restangular.all('api/search').getList({
             q: $stateParams.key
-          }).then(function(data) {
-            results = data;
           });
-          return results;
         }
       ]
     }
