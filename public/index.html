@@ -28,8 +28,8 @@
         </div>
         <ul id="common-link">
             <li ui-sref-active="active"><a class="text-white" ui-sref="organisations">Organisations</a></li>
-            <li ui-sref-active="active"><a class="text-white">Events</a></li>
-            <li ui-sref-active="active"><a class="text-white">Jobs</a></li>
+            <li ui-sref-active="active"><a class="text-white" ui-sref="allEvents">Events</a></li>
+            <li ui-sref-active="active"><a class="text-white" ui-sref="jobs">Jobs</a></li>
         </ul>
         <div id="user-control" ng-if="user.firstName !== undefined" ng-cloak>
             <div class="user-name" ui-sref="user-dashboard">
@@ -48,16 +48,15 @@
     </div>
 </div>
 <ul id="user-setting" ng-show="setting" ng-cloak="" ng-click="hideThing()">
-    <li><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
-    <li><a class="text-white" ng-click="logout()">Logout</a></li>
-    <li><a ui-sref="adminDashboard.blacklist" class="text-white">Admin</a></li>
+    <li ui-sref-active="active"><a class="text-white" ui-sref="user-dashboard">Dashboard</a></li>
+    <li ui-sref-active="active"><a class="text-white" ng-click="logout()">Logout</a></li>
 </ul>
 <ul id="menu-vertical" ng-show="menu" class="hidden-md hidden-lg" ng-click="hideMenu()">
    <h3 class="text-center">Menu</h3>
     <hr>
-   <li>Organisation</li>
-   <li>Jobs</li>
-   <li>Events</li>
+   <li ui-sref-active="active"><a class="text-white" ui-sref="organisations">Organisation</a></li>
+   <li ui-sref-active="active"><a class="text-white" ui-sref="jobs">Jobs</a></li>
+   <li ui-sref-active="active"><a class="text-white" ui-sref="allEvents">Events</a></li>
     <hr>
     <li ng-if="user.firstName===undefined">
         <a ui-sref="register-volunteer" class="text-white">Register</a>
@@ -84,7 +83,7 @@
             <li><strong>Volunteer</strong></li>
             <li><a href="#">About us</a></li>
             <li><a href="#">Volunteer blog</a></li>
-            <li><a href="#">A link</a></li>
+            <li><a href="#">Careers</a></li>
         </ul>
     </div>
     <div class="col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-5">
@@ -127,10 +126,12 @@
 <script src="/app/ngo-dashboard/ngo.main.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.job.controller.js"></script>
 <script src="/app/ngo-dashboard/ngo.filter.js"></script>
+<script src="/app/jobs/jobs.controller.js"></script>
 <script src="/app/home/home.directive.js"></script>
 <script src="/app/home/home.controller.js"></script>
 <script src="/app/file-uploader/file-uploader.service.js"></script>
 <script src="/app/faq/faq.controller.js"></script>
+<script src="/app/event/events.controller.js"></script>
 <script src="/app/event/event.main.controller.js"></script>
 <script src="/app/constants/user-roles.constants.js"></script>
 <script src="/app/constants/ngo-errors.constants.js"></script>

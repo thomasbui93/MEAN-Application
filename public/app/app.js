@@ -312,6 +312,30 @@ angular.module('voluntr', [
         return Restangular.all('api/organisations').getList();
       }
     }
+  }).state('allEvents', {
+    url: '/events',
+    templateUrl: 'app/event/events.html',
+    controller: 'eventsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      events: function(Restangular) {
+        return Restangular.all('api/events').getList();
+      }
+    }
+  }).state('jobs', {
+    url: '/jobs',
+    templateUrl: 'app/jobs/jobs.html',
+    controller: 'jobsController',
+    data: {
+      authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      jobs: function(Restangular) {
+        return Restangular.all('api/events').getList();
+      }
+    }
   });
 
   // This allows the address bar urls to seem natural
