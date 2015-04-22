@@ -1,5 +1,8 @@
-.text-white{
+.text-white, .text-white:visited{
   color: #ffffff;
+}
+.text-white:active, .text-white:hover{
+  color: #2ecc71;
 }
 .text-red{
   color: red;
@@ -68,9 +71,6 @@
   height: 100%;
   background: rgba(0,0,0,0.4);
 }
-.section:hover .background{
-
-}
 .text-title{
   background: rgba(0,0,0,0.4);
 }
@@ -119,4 +119,11 @@ input:focus ~ .highlight {
 ***************/
 .edit-information{
   position: relative;
+}
+
+/****************
+* horizontal menu
+***************/
+#menu-horizontal #common-link .active{
+  background-color: #27ae60;
 }

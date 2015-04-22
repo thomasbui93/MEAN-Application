@@ -1,6 +1,7 @@
 'use strict';
 
 var controller = require('./organisation.controller');
+var Auth = require('../../auth/auth.service');
 
 var router = require('express').Router();
 
@@ -11,6 +12,8 @@ router.get('/:orgId', controller.show);
 router.post('/', controller.create);
 router.put('/:orgId', controller.update);
 router.delete('/:orgId', controller.remove);
+
+router.post('/:orgId/picture', Auth.isAuthenticated, controller.uploadPicture);
 
 router.get('/:orgId/managers', controller.getManagers);
 router.get('/:orgId/representatives', controller.getRepresentatives);
