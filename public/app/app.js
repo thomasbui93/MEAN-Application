@@ -34,11 +34,20 @@ angular.module('voluntr', [
       authorizedRoles: [USER_ROLES.guest]
     }
   }).state('search', {
-    url: '/search',
+    url: '/search/{key}',
     templateUrl: 'app/search/search.html',
     controller: 'searchController',
     data: {
       authorizedRoles: [USER_ROLES.guest, USER_ROLES.volunteer]
+    },
+    resolve: {
+      initialResult: ['$stateParams', 'Restangular',
+        function($stateParams, Restangular) {
+          return Restangular.all('api/search').getList({
+            q: $stateParams.key
+          });
+        }
+      ]
     }
   }).state('register-volunteer', {
     url: '/register/volunteer',
