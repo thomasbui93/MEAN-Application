@@ -110,7 +110,18 @@ exports.uploadPicture = function(req, res, next) {
   });
 };
 
+exports.uploadBanner = function(req, res, next) {
+  var imageSaver = new ImageSaver('/img/organisation_banners/', req.params.orgId);
 
+  imageSaver.saveImageFromRequest(req, function(err, response) {
+    if (err) {
+      console.log(err);
+      return next(new UnkownError('Image upload failed.'));
+    }
+
+    res.json(response);
+  });
+};
 
 exports.getManagers = function(req, res, next) {
   var id = req.params.orgId;

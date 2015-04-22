@@ -14,6 +14,7 @@ router.put('/:orgId', controller.update);
 router.delete('/:orgId', controller.remove);
 
 router.post('/:orgId/picture', Auth.isAuthenticated, controller.uploadPicture);
+router.post('/:orgId/banner', Auth.isAuthenticated, controller.uploadBanner);
 
 router.get('/:orgId/managers', controller.getManagers);
 router.get('/:orgId/representatives', controller.getRepresentatives);

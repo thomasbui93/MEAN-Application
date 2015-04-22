@@ -1,11 +1,16 @@
 <div class="container">
+    <div id="header" >
+        <img ng-src="{{ currentNGO.banner }}" class="full-width img-responsive shadow">
+        <input class="input-transparent" ng-show="edit.show" type="file" name="file" onchange="angular.element(this).scope().uploadBanner(this.files)" accept="image/*" />
+    </div>
+
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
             <div>
-                <a ui-sref="ngoHomePage({id: currentNGO._id})">
+                <a ui-sref="ngoHomePage({ id: currentNGO._id })">
                     <img ng-src="{{ currentNGO.picture }}" class="img-responsive center-block">
                 </a>
-                <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" accept="image/*" />
+                <input class="input-transparent" ng-show="edit.show" type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" accept="image/*" />
             </div>
             <div class="ngo-profile" >
                 <div class="show-information padding10" ng-show="!edit.show">

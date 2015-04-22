@@ -62,6 +62,10 @@ var OrganisationSchema = new mongoose.Schema({
   picture: {
     type: String,
     default: '//placehold.it/200x200'
+  },
+  banner: {
+    type: String,
+    default: '//placehold.it/800x200'
   }
 
 });
