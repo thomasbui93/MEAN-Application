@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <h1 class="page-header text-center">Our Events
-    <br>
-    <small>Just one click away to find ways to help!</small>
+        <br>
+        <small>Just one click away to find a way to help!</small>
     </h1>
     <div class="container">
-    <h2 class="text-center">Upcoming events</h2>
+    <h2 class="text-center margin-top-20">Upcoming events</h2>
     <div class="organization-block col-md-5 row" ng-repeat="event in events | orderBy : startDate | Past: false">
         <a ui-sref="events({id: event._id})">
             <div class="col-sm-3 padding10">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="container">
-    <h2 class="text-center">Past events</h2>
+    <h2 class="text-center  margin-top-20">Past events</h2>
     <div class="organization-block col-md-5 row" ng-repeat="event in events | orderBy : startDate | Past: true">
         <a ui-sref="events({id: event._id})">
             <div class="col-sm-3 padding10">
